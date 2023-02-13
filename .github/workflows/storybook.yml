@@ -11,16 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
-      - name: Install and Build 🔧
-        run: | 
+      - name: Install and Deploy 🚀
+        run: |
           yarn install
-          yarn build-storybook
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.6.2
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: develop
-          CLEAN: true 
+          yarn deploy-storybook
