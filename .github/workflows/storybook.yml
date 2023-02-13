@@ -3,8 +3,6 @@ name: Build and Deploy storybook to GitHub Pages
 on:
   push:
     paths: ['stories/**', 'src/components/**']
-    branches:
-      - 'develop'
 
 jobs:
   build-and-deploy:
