@@ -9,5 +9,3 @@ module.exports = {
     'type-case': [2, 'always', 'lower-case'],
   },
 };
-
-export {};
