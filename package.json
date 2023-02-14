@@ -28,6 +28,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode=none",
     "storybook": "start-storybook -p 6006 -s public",
+    "deploy-storybook": "storybook-to-ghpages -d -o=storybook-static --ci",
     "build-storybook": "build-storybook -s public",
     "prepare": "husky install"
   },
