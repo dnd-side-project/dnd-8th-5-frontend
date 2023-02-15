@@ -1,6 +1,8 @@
 import { ThemeProvider } from '@emotion/react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+
+import { BrowserRouter } from 'react-router-dom';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 
@@ -10,7 +12,9 @@ const root = ReactDOM.createRoot(rootElement);
 
 root.render(
   <ThemeProvider theme={theme}>
-    <GlobalStyle />
-    <App />
+    <BrowserRouter>
+      <GlobalStyle />
+      <App />
+    </BrowserRouter>
   </ThemeProvider>
 );
