@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-const color = {
+const colors = {
   orange1: '#ED7C55',
 
   green1: '#E6F8EE',
@@ -75,7 +75,7 @@ const typography = {
 };
 
 const theme = {
-  color,
+  colors,
   typography,
 };
 
