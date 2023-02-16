@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 import theme from '../../../styles/theme';
 
-const BottomButton = () => {
-  return <Wrapper>우선순위 보기</Wrapper>;
+import { bottomButton } from '../../../types/commons/bottomButton';
+
+const BottomButton = ({ text }: bottomButton) => {
+  return <Wrapper>{text}</Wrapper>;
 };
 
 const Wrapper = styled.div`

@@ -1,3 +1,5 @@
+import { Story } from '@storybook/react';
+import { roomTitle } from '../../../types/roomInfo';
 import Header from './Header';
 
 export default {
@@ -5,6 +7,9 @@ export default {
   component: Header,
 };
 
-const Template = () => <Header />;
+const Template: Story<roomTitle> = (args) => <Header {...args} />;
 
 export const Default = Template.bind({});
+Default.args = {
+  title: 'DND 8기 5조 회의',
+};

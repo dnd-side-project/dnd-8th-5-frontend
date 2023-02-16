@@ -1,10 +1,15 @@
 import ParticipantsBlock from './ParticipantsBlock';
+import { Story } from '@storybook/react';
+import { participant } from '../../types/roomInfo';
 
 export default {
   title: '조율 현황/Participants Block',
   component: ParticipantsBlock,
 };
 
-const Template = () => <ParticipantsBlock />;
+const Template: Story<participant> = (args) => <ParticipantsBlock {...args} />;
 
-export const Default = Template.bind({});
+export const Test = Template.bind({});
+Test.args = {
+  participant: '김주현',
+};

@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
 import theme from '../../styles/theme';
+import { currentParticipants } from '../../types/roomInfo';
 
-const ProgressBar = () => {
+const ProgressBar = ({ headCount, participants }: currentParticipants) => {
+  const participantsNumber: number = participants.length;
+
   return (
     <Wrapper>
-      <Bar />
+      <Bar headCount={headCount} participantsNumber={participantsNumber} />
     </Wrapper>
   );
 };
@@ -16,8 +19,9 @@ const Wrapper = styled.div`
   background: ${theme.color.gray2};
 `;
 
-const Bar = styled.div`
-  width: 75%;
+const Bar = styled.div<{ headCount: number; participantsNumber: number }>`
+  width: ${({ headCount, participantsNumber }) =>
+    `${(participantsNumber / headCount) * 100}%`};
   height: 100%;
   background: linear-gradient(270deg, #6a7bff 1.48%, #cad0ff 100%);
   border-radius: 61px;
@@ -29,7 +33,8 @@ const Bar = styled.div`
       width: 0%;
     }
     100% {
-      width: 75%;
+      width: ${({ headCount, participantsNumber }) =>
+        `${(participantsNumber / headCount) * 100}%`};
     }
   }
 `;

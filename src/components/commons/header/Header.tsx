@@ -2,11 +2,12 @@ import styled from '@emotion/styled';
 import theme from '../../../styles/theme';
 
 import share from '../../../assets/icons/share.svg';
+import { roomTitle } from '../../../types/roomInfo';
 
-const Header = () => {
+const Header = ({ title }: roomTitle) => {
   return (
     <Wrapper>
-      <Title>이멤버 리멤버 연말파티 🥳</Title>
+      <Title>{title}</Title>
       <ShareIcon src={share} alt="share" />
     </Wrapper>
   );
@@ -34,7 +35,7 @@ const Title = styled.div`
 const ShareIcon = styled.img`
   width: 24px;
   height: 24px;
-  margin-right: 28px;
+  margin-right: 8px;
 `;
 
 export default Header;
