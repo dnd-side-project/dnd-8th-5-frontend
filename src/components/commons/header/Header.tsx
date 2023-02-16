@@ -6,7 +6,7 @@ import share from '../../../assets/icons/share.svg';
 const Header = () => {
   return (
     <Wrapper>
-      <Title>이멤버 리멤버 연말파티🥳</Title>
+      <Title>이멤버 리멤버 연말파티 🥳</Title>
       <ShareIcon src={share} alt="share" />
     </Wrapper>
   );
@@ -15,7 +15,7 @@ const Header = () => {
 const Wrapper = styled.div`
   width: 100%;
   height: 48px;
-  border: 1px solid ${theme.color.gray3};
+  border-bottom: 1px solid ${theme.color.gray3};
 
   display: flex;
   align-items: center;
@@ -24,6 +24,7 @@ const Wrapper = styled.div`
 
 const Title = styled.div`
   width: 228px;
+  margin: 0 auto;
   text-align: center;
 
   color: ${theme.color.gray7};
@@ -33,6 +34,7 @@ const Title = styled.div`
 const ShareIcon = styled.img`
   width: 24px;
   height: 24px;
+  margin-right: 28px;
 `;
 
 export default Header;
