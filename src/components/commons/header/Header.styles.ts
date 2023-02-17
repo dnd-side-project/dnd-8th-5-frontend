@@ -18,13 +18,15 @@ export const Wrapper = styled.div`
 
 export const Title = styled.div`
   position: absolute;
-  width: 228px;
+  width: 230px;
+
+  white-space: nowrap;
+  overflow: hidden;
 
   margin: 0 auto;
   text-align: center;
 
   display: -webkit-box;
-  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: hidden;
