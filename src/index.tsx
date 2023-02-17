@@ -1,8 +1,6 @@
 import { ThemeProvider } from '@emotion/react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import GlobalStyle from './styles/GlobalStyle';
-import theme from './styles/theme';
 
 import { BrowserRouter } from 'react-router-dom';
 import GlobalStyle from './styles/GlobalStyle';
