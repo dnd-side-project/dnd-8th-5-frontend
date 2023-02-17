@@ -9,7 +9,7 @@ export default {
 
 const Template: Story<participant> = (args) => <ParticipantsBlock {...args} />;
 
-export const Test = Template.bind({});
-Test.args = {
+export const Default = Template.bind({});
+Default.args = {
   participant: '김주현',
 };

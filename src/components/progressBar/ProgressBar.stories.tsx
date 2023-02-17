@@ -11,8 +11,8 @@ const Template: Story<currentParticipants> = (args) => (
   <ProgressBar {...args} />
 );
 
-export const Test = Template.bind({});
-Test.args = {
+export const Default = Template.bind({});
+Default.args = {
   headCount: 7,
   participants: ['김주현', '김동호', '노현', '이수진', '이채민', '한혜원'],
 };
