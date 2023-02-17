@@ -2,85 +2,85 @@
   "availableDateTimes": [
     {
       "availableDate": "2023-02-20",
-      "availablePeople": [
+      "availableTimeInfos": [
         {
-          "availableTimesAndHeadCount": {
-            "availableTime": "20:00",
-            "availableHeadCount": 5
+          "availableTimeInfo": {
+            "time": "20:00",
+            "headCount": 5
           }
         },
         {
-          "availableTimesAndHeadCount": {
-            "availableTime": "20:30",
-            "availableHeadCount": 5
+          "availableTimeInfo": {
+            "time": "20:30",
+            "headCount": 5
           }
         }
       ]
     },
     {
       "availableDate": "2023-02-21",
-      "availablePeople": [
+      "availableTimeInfos": [
         {
-          "availableTimesAndHeadCount": {
-            "availableTime": "20:00",
-            "availableHeadCount": 4
+          "availableTimeInfo": {
+            "time": "20:00",
+            "headCount": 5
           }
         },
         {
-          "availableTimesAndHeadCount": {
-            "availableTime": "20:30",
-            "availableHeadCount": 3
+          "availableTimeInfo": {
+            "time": "20:30",
+            "headCount": 5
           }
         }
       ]
     },
     {
       "availableDate": "2023-02-22",
-      "availablePeople": [
+      "availableTimeInfos": [
         {
-          "availableTimesAndHeadCount": {
-            "availableTime": "20:00",
-            "availableHeadCount": 6
+          "availableTimeInfo": {
+            "time": "20:00",
+            "headCount": 5
           }
         },
         {
-          "availableTimesAndHeadCount": {
-            "availableTime": "20:30",
-            "availableHeadCount": 1
+          "availableTimeInfo": {
+            "time": "20:30",
+            "headCount": 5
           }
         }
       ]
     },
     {
       "availableDate": "2023-02-23",
-      "availablePeople": [
+      "availableTimeInfos": [
         {
-          "availableTimesAndHeadCount": {
-            "availableTime": "20:00",
-            "availableHeadCount": 5
+          "availableTimeInfo": {
+            "time": "20:00",
+            "headCount": 5
           }
         },
         {
-          "availableTimesAndHeadCount": {
-            "availableTime": "20:30",
-            "availableHeadCount": 5
+          "availableTimeInfo": {
+            "time": "20:30",
+            "headCount": 5
           }
         }
       ]
     },
     {
       "availableDate": "2023-02-24",
-      "availablePeople": [
+      "availableTimeInfos": [
         {
-          "availableTimesAndHeadCount": {
-            "availableTime": "20:00",
-            "availableHeadCount": 2
+          "availableTimeInfo": {
+            "time": "20:00",
+            "headCount": 5
           }
         },
         {
-          "availableTimesAndHeadCount": {
-            "availableTime": "20:30",
-            "availableHeadCount": 1
+          "availableTimeInfo": {
+            "time": "20:30",
+            "headCount": 5
           }
         }
       ]

@@ -2,10 +2,6 @@ export interface participant {
   participant: string;
 }
 
-export interface participants {
-  participants: participant[];
-}
-
 export interface currentParticipants {
   headCount: number;
   participants: string[];
