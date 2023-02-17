@@ -6,6 +6,7 @@ import Timer from '../components/timer/Timer';
 import theme from '../styles/theme';
 
 import room from '../assets/data/room.json';
+import BottomButton from '../components/commons/bottomButton/BottomButton';
 
 const Current = () => {
   return (
@@ -24,9 +25,14 @@ const Current = () => {
           {room.participants.map((participant) => (
             <ParticipantsBlock participant={participant} />
           ))}
+          <ParticipantsBlock participant="?" />
         </Participants>
+      </Body>
+
+      <Body>
         <Title>실시간 조율 현황</Title>
       </Body>
+      <BottomButton text="우선순위 보기" />
     </Wrapper>
   );
 };
@@ -38,6 +44,13 @@ const Wrapper = styled.div`
   margin-top: 30px;
 
   border: 1px solid grey;
+  overflow-y: scroll;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Body = styled.div`

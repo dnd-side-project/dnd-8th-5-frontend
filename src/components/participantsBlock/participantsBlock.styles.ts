@@ -13,4 +13,10 @@ export const Wrapper = styled.div`
   color: ${theme.colors.purple5};
   background: ${theme.colors.gray2};
   ${theme.typography.system_2_medium};
+
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 `;
