@@ -2,10 +2,12 @@ import styled from '@emotion/styled';
 import theme from '../../styles/theme';
 
 export const Wrapper = styled.div`
-  width: 63px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 62px;
   height: 29px;
-  padding: 6px 7.5px;
-  text-align: center;
 
   border-radius: 4px;
   color: ${theme.color.purple5};
