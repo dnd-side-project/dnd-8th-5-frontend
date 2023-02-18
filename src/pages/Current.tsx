@@ -32,6 +32,8 @@ const Current = () => {
         </Participants>
       </Body>
 
+      <Border />
+
       <Body>
         <Title>실시간 조율 현황</Title>
         <TableWrapper>
@@ -65,10 +67,17 @@ const Body = styled.div`
   width: 100%;
 
   padding: 0 20px;
-  margin-top: 32px;
 
   display: flex;
   flex-direction: column;
+`;
+
+const Border = styled.div`
+  width: 100%;
+  height: 8px;
+  margin-top: 32px;
+
+  background: ${theme.colors.gray2};
 `;
 
 const Title = styled.div`
