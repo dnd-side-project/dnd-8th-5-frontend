@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import theme from '../../../styles/theme';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.button`
   width: 90%;
   height: 52px;
   border-radius: 6px;
@@ -17,5 +17,5 @@ export const Wrapper = styled.div`
 
   position: sticky;
   bottom: 38px;
-  z-index: 2;
+  z-index: 3;
 `;

@@ -22,6 +22,11 @@ const defaultStyle = css`
     text-decoration: none;
     cursor: pointer;
   }
+
+  button {
+    border: none;
+    cursor: pointer;
+  }
 `;
 
 const GlobalStyle = () => {

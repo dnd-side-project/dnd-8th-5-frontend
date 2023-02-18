@@ -6,7 +6,7 @@ import share from '../../../assets/icons/share.svg';
 const Header = ({ title }: roomTitle) => {
   return (
     <Wrapper>
-      <Title>{title}</Title>
+      <Title>{title.slice(0, 16)}</Title>
       <ShareIcon src={share} alt="share" />
     </Wrapper>
   );

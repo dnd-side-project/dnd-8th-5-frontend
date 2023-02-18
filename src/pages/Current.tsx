@@ -6,7 +6,10 @@ import Timer from '../components/timer/Timer';
 import theme from '../styles/theme';
 
 import room from '../assets/data/room.json';
+import current from '../assets/data/current.json';
+
 import BottomButton from '../components/commons/bottomButton/BottomButton';
+import Table from '../components/table/Table';
 
 const Current = () => {
   return (
@@ -31,8 +34,13 @@ const Current = () => {
 
       <Body>
         <Title>실시간 조율 현황</Title>
+        <TableWrapper>
+          <Table room={room} current={current} />
+        </TableWrapper>
       </Body>
-      <BottomButton text="우선순위 보기" />
+      <BottomButtonCover>
+        <BottomButton text="우선순위 보기" />
+      </BottomButtonCover>
     </Wrapper>
   );
 };
@@ -55,7 +63,7 @@ const Wrapper = styled.div`
 
 const Body = styled.div`
   width: 100%;
-  height: 100%;
+
   padding: 0 20px;
   margin-top: 32px;
 
@@ -94,6 +102,26 @@ const Participants = styled.div`
   flex-wrap: wrap;
   row-gap: 6px;
   column-gap: 5px;
+`;
+
+const TableWrapper = styled.div`
+  margin-top: 26px;
+  margin-bottom: 56px;
+
+  overflow-x: auto;
+`;
+
+const BottomButtonCover = styled.div`
+  width: 100%;
+  height: 100px;
+  padding-top: 8px;
+
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+
+  background: #ffffff;
+  box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.06);
 `;
 
 export default Current;
