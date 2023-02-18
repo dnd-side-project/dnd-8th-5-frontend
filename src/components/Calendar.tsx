@@ -81,7 +81,7 @@ const CalendarPage = () => {
       locale={ko}
       multiple={true}
       range={isRange}
-      className="purple"
+      className="calendar"
       rangeHover
       digits={[]}
       minDate={new Date()}
