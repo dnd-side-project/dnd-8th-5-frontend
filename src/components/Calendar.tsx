@@ -5,7 +5,6 @@ import {
   getAllDatesInRange,
 } from 'react-multi-date-picker';
 import '../styles/calendar.css';
-import type { Value } from 'react-multi-date-picker';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
@@ -68,10 +67,8 @@ const CalendarPage = () => {
       <ToggleBtn onClick={clickedToggle} toggle={isRange}>
         <ToggleText>기간</ToggleText>
         <ToggleText>하나씩</ToggleText>
-        <Circle toggle={isRange}>{isRange ? '하나씩' : '기간'}</Circle>
+        <Circle toggle={isRange}>{isRange ? '기간' : '하나씩'}</Circle>
       </ToggleBtn>
-      <h3>Toggle Switch {!toggle ? 'OFF' : 'ON'}</h3>
-
       <Calendar
         value={value}
         onChange={(dataObjects) => {
@@ -141,7 +138,7 @@ const Circle = styled.div<{ toggle: boolean }>`
   left: 0%;
   transition: all 0.5s ease-in-out;
   ${(props) =>
-    props.toggle &&
+    !props.toggle &&
     css`
       transform: translate(50px, 0);
       transition: all 0.5s ease-in-out;
