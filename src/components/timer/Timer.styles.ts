@@ -4,6 +4,7 @@ import theme from '../../styles/theme';
 export const Wrapper = styled.div`
   width: 100%;
   height: 70px;
+  margin-top: 32px;
   padding: 4px 31.5px;
 
   background: #fdf2ee;
@@ -15,7 +16,7 @@ export const Wrapper = styled.div`
 `;
 
 export const TextWrapper = styled.div`
-  width: 270px;
+  width: 278px;
   height: 18px;
 
   display: flex;

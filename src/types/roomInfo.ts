@@ -1,3 +1,7 @@
+export interface deadLine {
+  deadLine: string;
+}
+
 export interface participant {
   participant: string;
 }
@@ -11,8 +15,7 @@ export interface roomTitle {
   title: string;
 }
 
-export interface room extends currentParticipants, roomTitle {
-  deadLine?: string;
+export interface room extends roomTitle, deadLine, currentParticipants {
   dates: string[];
   startTime: string;
   endTime: string;

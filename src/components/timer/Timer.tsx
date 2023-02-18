@@ -1,13 +1,9 @@
+import { deadLine } from '../../types/roomInfo';
 import { Countdown } from '../../utils/getCountdown';
 import { Span, TextWrapper, Time, Wrapper } from './Timer.styles';
 
-interface dprops {
-  deadLine: string;
-}
-
-const Timer = ({ deadLine }: dprops) => {
+const Timer = ({ deadLine }: deadLine) => {
   const targetDate = new Date(deadLine);
-
   const [days, hours, minutes, seconds] = Countdown(targetDate);
 
   return (
