@@ -51,7 +51,6 @@ const Current = () => {
 
 const Wrapper = styled.div`
   width: 375px;
-  /* height: 812px; */
   margin: 0 auto;
   padding-top: 48px;
   padding-bottom: 108px;
