@@ -4,12 +4,10 @@ export interface currentInfo {
 
 interface availableDateTimes {
   availableDate: string;
-  availableTimeInfos: availablePeople[];
+  availableTimeInfos: availableTimeInfo[];
 }
 
-interface availablePeople {
-  availableTimeInfo: {
-    time: string | null;
-    headCount: number;
-  };
+interface availableTimeInfo {
+  time: string | null;
+  count: number;
 }
