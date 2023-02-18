@@ -81,3 +81,36 @@
 .calendar .rmdp-button:not(.rmdp-action-button):hover {
   background-color: var(--rmdp-deselect-calendar);
 }
+
+.rmdp-header {
+  height: 50px;
+  width: 150px;
+}
+
+.rmdp-header-value {
+  margin-top: 20px;
+}
+
+.rmdp-shadow {
+  box-shadow: 0 0 0px white;
+}
+
+.rmdp-calendar {
+  height: max-content;
+  width: 308px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* padding: 4px; */
+}
+
+.rmdp-day-picker {
+  width: 308px;
+  flex-direction: column;
+}
+
+.rmdp-week,
+.rmdp-ym {
+  justify-content: center;
+}
