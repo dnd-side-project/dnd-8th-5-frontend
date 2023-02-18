@@ -27,12 +27,6 @@ const Table = ({ room, current }: roomInfo & currentInfo) => {
 
   const timeValues = getTimeArray(times);
 
-  const getValue = (e: React.MouseEvent) => {
-    console.log(e.currentTarget.getAttribute('id'));
-  };
-
-  console.log(current.availableDateTimes);
-
   return (
     <Wrapper>
       <Top>
@@ -57,7 +51,6 @@ const Table = ({ room, current }: roomInfo & currentInfo) => {
                 key={`${date} ${time}`}
                 id={`${date} ${time}`}
                 opacity={'0.1'}
-                onClick={getValue}
               />
             ))}
           </SelectWrapper>
