@@ -4,16 +4,44 @@
       "availableDate": "2023-02-20",
       "availableTimeInfos": [
         {
-          "availableTimeInfo": {
-            "time": "20:00",
-            "headCount": 5
-          }
+          "time": "09:00",
+          "count": 0
         },
         {
-          "availableTimeInfo": {
-            "time": "20:30",
-            "headCount": 5
-          }
+          "time": "09:30",
+          "count": 0
+        },
+        {
+          "time": "10:00",
+          "count": 0
+        },
+        {
+          "time": "10:30",
+          "count": 1
+        },
+        {
+          "time": "11:00",
+          "count": 2
+        },
+        {
+          "time": "12:30",
+          "count": 0
+        },
+        {
+          "time": "13:00",
+          "count": 5
+        },
+        {
+          "time": "13:30",
+          "count": 3
+        },
+        {
+          "time": "14:00",
+          "count": 4
+        },
+        {
+          "time": "14:30",
+          "count": 6
         }
       ]
     },
@@ -21,16 +49,44 @@
       "availableDate": "2023-02-21",
       "availableTimeInfos": [
         {
-          "availableTimeInfo": {
-            "time": "20:00",
-            "headCount": 5
-          }
+          "time": "09:00",
+          "count": 0
         },
         {
-          "availableTimeInfo": {
-            "time": "20:30",
-            "headCount": 5
-          }
+          "time": "09:30",
+          "count": 0
+        },
+        {
+          "time": "10:00",
+          "count": 0
+        },
+        {
+          "time": "10:30",
+          "count": 0
+        },
+        {
+          "time": "11:00",
+          "count": 0
+        },
+        {
+          "time": "12:30",
+          "count": 0
+        },
+        {
+          "time": "13:00",
+          "count": 3
+        },
+        {
+          "time": "13:30",
+          "count": 2
+        },
+        {
+          "time": "14:00",
+          "count": 4
+        },
+        {
+          "time": "14:30",
+          "count": 5
         }
       ]
     },
@@ -38,16 +94,44 @@
       "availableDate": "2023-02-22",
       "availableTimeInfos": [
         {
-          "availableTimeInfo": {
-            "time": "20:00",
-            "headCount": 5
-          }
+          "time": "09:00",
+          "count": 0
         },
         {
-          "availableTimeInfo": {
-            "time": "20:30",
-            "headCount": 5
-          }
+          "time": "09:30",
+          "count": 0
+        },
+        {
+          "time": "10:00",
+          "count": 0
+        },
+        {
+          "time": "10:30",
+          "count": 0
+        },
+        {
+          "time": "11:00",
+          "count": 6
+        },
+        {
+          "time": "12:30",
+          "count": 6
+        },
+        {
+          "time": "13:00",
+          "count": 6
+        },
+        {
+          "time": "13:30",
+          "count": 6
+        },
+        {
+          "time": "14:00",
+          "count": 5
+        },
+        {
+          "time": "14:30",
+          "count": 4
         }
       ]
     },
@@ -55,16 +139,44 @@
       "availableDate": "2023-02-23",
       "availableTimeInfos": [
         {
-          "availableTimeInfo": {
-            "time": "20:00",
-            "headCount": 5
-          }
+          "time": "09:00",
+          "count": 2
         },
         {
-          "availableTimeInfo": {
-            "time": "20:30",
-            "headCount": 5
-          }
+          "time": "09:30",
+          "count": 1
+        },
+        {
+          "time": "10:00",
+          "count": 1
+        },
+        {
+          "time": "10:30",
+          "count": 1
+        },
+        {
+          "time": "11:00",
+          "count": 3
+        },
+        {
+          "time": "12:30",
+          "count": 3
+        },
+        {
+          "time": "13:00",
+          "count": 4
+        },
+        {
+          "time": "13:30",
+          "count": 4
+        },
+        {
+          "time": "14:00",
+          "count": 5
+        },
+        {
+          "time": "14:30",
+          "count": 5
         }
       ]
     },
@@ -72,16 +184,44 @@
       "availableDate": "2023-02-24",
       "availableTimeInfos": [
         {
-          "availableTimeInfo": {
-            "time": "20:00",
-            "headCount": 5
-          }
+          "time": "09:00",
+          "count": 0
         },
         {
-          "availableTimeInfo": {
-            "time": "20:30",
-            "headCount": 5
-          }
+          "time": "09:30",
+          "count": 0
+        },
+        {
+          "time": "10:00",
+          "count": 0
+        },
+        {
+          "time": "10:30",
+          "count": 0
+        },
+        {
+          "time": "11:00",
+          "count": 0
+        },
+        {
+          "time": "12:30",
+          "count": 6
+        },
+        {
+          "time": "13:00",
+          "count": 6
+        },
+        {
+          "time": "13:30",
+          "count": 5
+        },
+        {
+          "time": "14:00",
+          "count": 4
+        },
+        {
+          "time": "14:30",
+          "count": 5
         }
       ]
     }
