@@ -49,7 +49,7 @@ const Wrapper = styled.div`
   width: 375px;
   height: 812px;
   margin: 0 auto;
-  margin-top: 30px;
+  /* margin-top: 30px; */
 
   border: 1px solid grey;
   overflow-y: scroll;

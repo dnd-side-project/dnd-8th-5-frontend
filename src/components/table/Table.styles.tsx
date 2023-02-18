@@ -1,14 +1,10 @@
 import styled from '@emotion/styled';
 import theme from '../../styles/theme';
 
-interface valueProps {
-  id: string;
-  opacity: any;
-}
-
 export const Wrapper = styled.div`
   display: inline-block;
 
+  overflow: hidden;
   color: ${theme.colors.gray6};
   ${theme.typography.system_1_medium};
 
@@ -88,7 +84,7 @@ export const SelectWrapper = styled.div`
   }
 `;
 
-export const Select = styled.div<valueProps>`
+export const Select = styled.div<{ opacity: number }>`
   width: 88px;
   height: 19px;
   box-sizing: content-box;
