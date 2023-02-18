@@ -1,3 +1,4 @@
+import { Story } from '@storybook/react';
 import Timer from './Timer';
 
 export default {
@@ -5,6 +6,9 @@ export default {
   component: Timer,
 };
 
-const Template = () => <Timer />;
+const Template: Story<{ deadLine: string }> = (args) => <Timer {...args} />;
 
 export const Default = Template.bind({});
+Default.args = {
+  deadLine: '2023-02-22 18:00:00',
+};
