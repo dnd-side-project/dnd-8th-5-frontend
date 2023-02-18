@@ -35,7 +35,7 @@ const Current = () => {
       <Body>
         <Title>실시간 조율 현황</Title>
         <TableWrapper>
-          <Table room={room} />
+          <Table room={room} current={current} />
         </TableWrapper>
       </Body>
       <BottomButtonCover>

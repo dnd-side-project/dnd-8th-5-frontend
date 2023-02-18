@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import theme from '../../styles/theme';
 
 interface valueProps {
-  value: string;
+  id: string;
+  opacity: any;
 }
 
 export const Wrapper = styled.div`
@@ -89,7 +90,11 @@ export const SelectWrapper = styled.div`
 
 export const Select = styled.div<valueProps>`
   width: 88px;
-  height: 20px;
+  height: 19px;
+  box-sizing: content-box;
+
+  background: ${theme.colors.purple2};
+  background-color: ${({ opacity }) => `rgba( 106, 123, 255,  ${opacity})`};
 
   &:nth-of-type(odd) {
     border-bottom: 1px dashed ${theme.colors.gray3};
@@ -100,7 +105,7 @@ export const Select = styled.div<valueProps>`
   }
 
   &:first-of-type {
-    margin-top: 1px;
+    padding-top: 1px;
   }
 
   &:last-of-type {

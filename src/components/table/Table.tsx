@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+import { currentInfo } from '../../types/current';
 import { roomInfo } from '../../types/roomInfo';
 import { getRange } from '../../utils/getRange';
 import { getTimeArray } from '../../utils/getTimeArray';
@@ -14,7 +16,9 @@ import {
   Wrapper,
 } from './Table.styles';
 
-const Table = ({ room }: roomInfo) => {
+const Table = ({ room, current }: roomInfo & currentInfo) => {
+  const ref = useRef(null);
+
   const dates = room.dates;
   const times = getRange(
     parseInt(room.startTime.slice(0, 2)),
@@ -24,8 +28,10 @@ const Table = ({ room }: roomInfo) => {
   const timeValues = getTimeArray(times);
 
   const getValue = (e: React.MouseEvent) => {
-    console.log(e.currentTarget.getAttribute('value'));
+    console.log(e.currentTarget.getAttribute('id'));
   };
+
+  console.log(current.availableDateTimes);
 
   return (
     <Wrapper>
@@ -47,8 +53,10 @@ const Table = ({ room }: roomInfo) => {
           <SelectWrapper key={date}>
             {timeValues.map((time) => (
               <Select
+                ref={ref}
                 key={`${date} ${time}`}
-                value={`${date} ${time}`}
+                id={`${date} ${time}`}
+                opacity={'0.1'}
                 onClick={getValue}
               />
             ))}

@@ -1,5 +1,5 @@
-export interface current {
-  availableDateTimes: availableDateTimes[];
+export interface currentInfo {
+  current: { availableDateTimes: availableDateTimes[] };
 }
 
 interface availableDateTimes {
