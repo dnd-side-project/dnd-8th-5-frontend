@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Calendar,
   DateObject,
@@ -11,8 +11,9 @@ import { css } from '@emotion/react';
 
 const CalendarPage = () => {
   const [value, setValue] = useState();
-  const [isRange, setIsRange] = useState(true);
+  const [isRange, setIsRange] = useState(false);
   const [dateArray, setDateArray] = useState(['']);
+  const [toggle, setToggle] = useState(false);
 
   const ko = {
     name: 'ko',
@@ -46,6 +47,10 @@ const CalendarPage = () => {
     ],
   };
 
+  const clickedToggle = useCallback(() => {
+    setIsRange((prev) => !prev);
+  }, [isRange]);
+
   const handleDatesRangeMake = (dates: DateObject[] | Date[]) => {
     if (dates.length < 2) return;
     const dateArray = [];
@@ -59,36 +64,88 @@ const CalendarPage = () => {
   };
 
   return (
-    <Calendar
-      value={value}
-      onChange={(dataObjects) => {
-        if (isRange) {
-          const allDates = getAllDatesInRange(Object(dataObjects), true);
-          const dateArray = handleDatesRangeMake(allDates);
-        } else {
-          if (Object(dataObjects).length !== 0) {
-            for (const key in Object(dataObjects)) {
-              const year = Object(dataObjects)[key].year;
-              const month = Object(dataObjects)[key].month;
-              const day = Object(dataObjects)[key].day;
-              const date = `${String(year)}-${String(month)}-${String(day)}`;
-              const newArr = [...dateArray, date];
-              setDateArray(newArr);
+    <MainContainer>
+      <ToggleBtn onClick={clickedToggle} toggle={isRange}>
+        <ToggleText>기간</ToggleText>
+        <ToggleText>하나씩</ToggleText>
+        <Circle toggle={isRange}>{isRange ? '하나씩' : '기간'}</Circle>
+      </ToggleBtn>
+      <h3>Toggle Switch {!toggle ? 'OFF' : 'ON'}</h3>
+
+      <Calendar
+        value={value}
+        onChange={(dataObjects) => {
+          if (isRange) {
+            const allDates = getAllDatesInRange(Object(dataObjects), true);
+            const dateArray = handleDatesRangeMake(allDates);
+          } else {
+            if (Object(dataObjects).length !== 0) {
+              for (const key in Object(dataObjects)) {
+                const year = Object(dataObjects)[key].year;
+                const month = Object(dataObjects)[key].month;
+                const day = Object(dataObjects)[key].day;
+                const date = `${String(year)}-${String(month)}-${String(day)}`;
+                const newArr = [...dateArray, date];
+                setDateArray(newArr);
+              }
             }
           }
-        }
-      }}
-      locale={ko}
-      multiple={true}
-      range={isRange}
-      className="calendar"
-      rangeHover
-      digits={[]}
-      minDate={new Date()}
-      hideYear={true}
-      buttons={true}
-    />
+        }}
+        locale={ko}
+        multiple={true}
+        range={isRange}
+        className="calendar"
+        rangeHover
+        digits={[]}
+        minDate={new Date()}
+        hideYear={true}
+        buttons={true}
+      />
+    </MainContainer>
   );
 };
+
+const MainContainer = styled.div``;
+
+const ToggleBtn = styled.button<{ toggle: boolean }>`
+  width: 100px;
+  height: 26px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  background-color: #f6f6f6;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+`;
+
+const ToggleText = styled.div`
+  color: #b6b6b6;
+  width: 50px;
+  font-size: 14px;
+`;
+
+const Circle = styled.div<{ toggle: boolean }>`
+  color: #6a7bff;
+  background-color: white;
+  width: 50px;
+  height: 26px;
+  border-radius: 50px;
+  box-shadow: 0px 0px 14.34px 0px #6a7bff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0%;
+  transition: all 0.5s ease-in-out;
+  ${(props) =>
+    props.toggle &&
+    css`
+      transform: translate(50px, 0);
+      transition: all 0.5s ease-in-out;
+    `}
+`;
 
 export default CalendarPage;
