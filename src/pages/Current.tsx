@@ -35,7 +35,7 @@ const Current = () => {
       <Body>
         <Title>실시간 조율 현황</Title>
         <TableWrapper>
-          <Table room={room} current={current} />
+          <Table room={room} />
         </TableWrapper>
       </Body>
       <BottomButtonCover>
@@ -106,9 +106,14 @@ const Participants = styled.div`
 
 const TableWrapper = styled.div`
   margin-top: 26px;
-  margin-bottom: 56px;
+  margin-bottom: 10px;
 
   overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const BottomButtonCover = styled.div`
