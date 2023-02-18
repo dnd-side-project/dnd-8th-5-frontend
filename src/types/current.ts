@@ -1,15 +1,13 @@
-export interface current {
-  availableDateTimes: availableDateTimes[];
+export interface currentInfo {
+  current: { availableDateTimes: availableDateTimes[] };
 }
 
 interface availableDateTimes {
   availableDate: string;
-  availableTimeInfos: availablePeople[];
+  availableTimeInfos: availableTimeInfo[];
 }
 
-interface availablePeople {
-  availableTimeInfo: {
-    time: string | null;
-    headCount: number;
-  };
+interface availableTimeInfo {
+  time: string | null;
+  count: number;
 }
