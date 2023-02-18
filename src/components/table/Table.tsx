@@ -1,29 +1,29 @@
 import styled from '@emotion/styled';
 import theme from '../../styles/theme';
+import { getRange } from '../../utils/getRange';
 
 const Table = ({ room, current }: any) => {
   const dates = room.dates;
-
+  const times = getRange(
+    parseInt(room.startTime.slice(0, 2)),
+    parseInt(room.endTime.slice(0, 2))
+  );
+  console.log(times);
   return (
     <Wrapper>
       <Top>
         <Blank />
         <DateWrapper>
           {dates.map((d: any) => (
-            <Date>{`${d.slice(5, 7)}월 ${d.slice(8, 10)}일`}</Date>
+            <Date key={d}>{`${d.slice(5, 7)}월 ${d.slice(8, 10)}일`}</Date>
           ))}
         </DateWrapper>
       </Top>
       <Bottom>
         <TimeWrapper>
-          <Time>9</Time>
-          <Time>10</Time>
-          <Time>11</Time>
-          <Time>12</Time>
-          <Time>13</Time>
-          <Time>14</Time>
-          <Time>15</Time>
-          <Time>16</Time>
+          {times.map((time) => (
+            <Time key={time}>{time}</Time>
+          ))}
         </TimeWrapper>
         <SelectWrapper>
           <Select />

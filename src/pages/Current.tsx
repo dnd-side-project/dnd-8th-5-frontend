@@ -26,7 +26,7 @@ const Current = () => {
         />
         <Participants>
           {room.participants.map((participant) => (
-            <ParticipantsBlock participant={participant} />
+            <ParticipantsBlock key={participant} participant={participant} />
           ))}
           <ParticipantsBlock participant="?" />
         </Participants>
