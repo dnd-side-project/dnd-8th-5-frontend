@@ -4,7 +4,7 @@ import theme from '../../styles/theme';
 export const Wrapper = styled.div`
   width: 100%;
   height: 70px;
-  padding: 4px 6px;
+  padding: 4px 31.5px;
   margin-top: 32px;
 
   background: #fdf2ee;
@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 export const Span = styled.span`
