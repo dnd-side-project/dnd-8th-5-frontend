@@ -5,7 +5,7 @@ import Current from './pages/Current';
 function App() {
   return (
     <Routes>
-      <Route path="/available-time/group" element={<Current />} />
+      <Route path="/current" element={<Current />} />
     </Routes>
   );
 }

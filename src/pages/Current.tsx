@@ -40,9 +40,9 @@ const Current = () => {
           <Table room={room} current={current} />
         </TableWrapper>
       </Body>
-      <BottomButtonCover>
+      {/* <BottomButtonCover>
         <BottomButton text="우선순위 보기" />
-      </BottomButtonCover>
+      </BottomButtonCover> */}
     </Wrapper>
   );
 };
@@ -51,9 +51,7 @@ const Wrapper = styled.div`
   width: 375px;
   height: 812px;
   margin: 0 auto;
-  margin-top: 30px;
 
-  border: 1px solid grey;
   overflow-y: scroll;
 
   -ms-overflow-style: none;
