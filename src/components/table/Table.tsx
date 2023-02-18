@@ -207,19 +207,19 @@ const Select = styled.div`
   width: 88px;
   height: 20px;
 
-  &:nth-child(odd) {
+  &:nth-of-type(odd) {
     border-bottom: 1px dashed ${theme.colors.gray3};
   }
 
-  &:nth-child(even) {
+  &:nth-of-type(even) {
     border-bottom: 1px solid ${theme.colors.gray3};
   }
 
-  &:first-child {
+  &:first-of-type {
     margin-top: 1px;
   }
 
-  &:last-child {
+  &:last-of-type {
     border-bottom: none;
   }
 `;
