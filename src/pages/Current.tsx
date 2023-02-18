@@ -19,7 +19,9 @@ const Current = () => {
         <Timer deadLine={room.deadLine} />
         <Title>실시간 참여 현황</Title>
         <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
-        <Proportion>1/7</Proportion>
+        <Proportion>
+          <Span>1</Span> / 7
+        </Proportion>
         <ProgressBar
           headCount={room.headCount}
           participants={room.participants}
@@ -40,17 +42,19 @@ const Current = () => {
           <Table room={room} current={current} />
         </TableWrapper>
       </Body>
-      {/* <BottomButtonCover>
+      <BottomButtonCover>
         <BottomButton text="우선순위 보기" />
-      </BottomButtonCover> */}
+      </BottomButtonCover>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
   width: 375px;
-  height: 812px;
+  /* height: 812px; */
   margin: 0 auto;
+  padding-top: 48px;
+  padding-bottom: 108px;
 
   overflow-y: scroll;
 
@@ -92,12 +96,17 @@ const Subtitle = styled.div`
   ${theme.typography.system_1_regular};
 `;
 
-const Proportion = styled.span`
+const Proportion = styled.div`
   margin-top: 42px;
   margin-bottom: 4px;
   margin-left: auto;
 
   color: ${theme.colors.gray5};
+  ${theme.typography.system_2_medium};
+`;
+
+const Span = styled.span`
+  color: ${theme.colors.purple5};
   ${theme.typography.system_2_medium};
 `;
 
@@ -134,6 +143,11 @@ const BottomButtonCover = styled.div`
 
   background: #ffffff;
   box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.06);
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
 `;
 
 export default Current;

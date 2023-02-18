@@ -3,6 +3,9 @@ import theme from '../../../styles/theme';
 
 export const Wrapper = styled.div`
   width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+
   height: 48px;
   border-bottom: 1px solid ${theme.colors.gray3};
   background: #ffffff;
@@ -11,9 +14,10 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
 
+  position: fixed;
   top: 0;
-  z-index: 2;
-  position: sticky;
+  left: 0;
+  right: 0;
 `;
 
 export const Title = styled.div`
