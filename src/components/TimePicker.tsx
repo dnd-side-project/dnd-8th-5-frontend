@@ -10,6 +10,9 @@ import {
 } from '../styles/TimePicker.styles';
 
 const Current = () => {
+  const [startTime, setStartTime] = useState('09:00');
+  const [endTime, setEndTime] = useState('09:00');
+
   const TIME_ARRAY = [
     '09:00',
     '10:00',
@@ -45,6 +48,13 @@ const Current = () => {
       slidesToShow: 3,
       slidesToScroll: 3,
       swipeToSlide: true,
+      beforeChange: function (currentSlide: number) {
+        if (startEnd === 'start') {
+          setStartTime(TIME_ARRAY[currentSlide + 1]);
+        } else {
+          setEndTime(TIME_ARRAY[currentSlide + 1]);
+        }
+      },
       centerMode: true,
       arrows: false,
       vertical: true,
