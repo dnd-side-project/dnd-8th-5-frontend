@@ -7,19 +7,28 @@ const Login = () => {
   const [password, setPassword] = useState<string>('');
   const [title, setTitle] = useState<string>('이멤버 리멤버 연말파티');
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
+  const [availableNext, setAvailableNext] = useState<boolean>(false);
 
-  const onChangeName = useCallback((text: any) => {
-    setName(text.target.value);
-  }, []);
+  const onChangeName = useCallback(
+    (text: React.ChangeEvent<HTMLInputElement>) => {
+      setName(text.target.value);
+    },
+    []
+  );
 
   // The function that recognizes a Password change and stores it in a state value
-  const onChangePassword = useCallback((text: any) => {
-    setPassword(text.target.value);
-  }, []);
+  const onChangePassword = useCallback(
+    (text: React.ChangeEvent<HTMLInputElement>) => {
+      setPassword(text.target.value);
+    },
+    []
+  );
 
   const onClickSaveUserInfo = () => {
     setSaveUserInfo((prev) => !prev);
   };
+
+  const canGoNext = name && password.length === 4 ? true : false;
 
   const onClickNext = () => {
     if (saveUserInfo) {
@@ -54,7 +63,7 @@ const Login = () => {
       </LoginComponent>
       <img src="../assets/icons/checkbox.png" />
       <div onClick={onClickSaveUserInfo}>정보 저장</div>
-      <button onClick={onClickNext}>다음</button>
+      {canGoNext ? <button onClick={onClickNext}>다음</button> : null}
     </>
   );
 };
