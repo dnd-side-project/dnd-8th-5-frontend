@@ -17,12 +17,22 @@ const Login = () => {
     setPassword(text.target.value);
   }, []);
 
-  const handleClickSaveUserInfo = () => {
+  const onClickSaveUserInfo = () => {
     setSaveUserInfo((prev) => !prev);
   };
 
-  localStorage.setItem('name', name);
-  localStorage.setItem('password', password);
+  const onClickNext = () => {
+    if (saveUserInfo) {
+      localStorage.setItem('name', name);
+      localStorage.setItem('password', password);
+    }
+
+    try {
+      null;
+    } catch {
+      null;
+    }
+  };
 
   return (
     <>
@@ -42,7 +52,8 @@ const Login = () => {
         ></Input>
       </LoginComponent>
       <img src="../assets/icons/checkbox.png" />
-      <div onClick={handleClickSaveUserInfo}>정보 저장</div>
+      <div onClick={onClickSaveUserInfo}>정보 저장</div>
+      <button onClick={onClickNext}>다음</button>
     </>
   );
 };
