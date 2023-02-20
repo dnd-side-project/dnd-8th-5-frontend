@@ -45,10 +45,11 @@ const Login = () => {
           onChange={onChangeName}
         ></Input>
         <Input
-          type="text"
+          type="password"
           placeholder="4자리 비밀번호 입력"
           value={password}
           onChange={onChangePassword}
+          maxLength={4}
         ></Input>
       </LoginComponent>
       <img src="../assets/icons/checkbox.png" />
