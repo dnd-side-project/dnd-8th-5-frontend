@@ -1,6 +1,6 @@
 import theme from '../styles/theme';
 import React, { useCallback, useRef, useState } from 'react';
-import styled from '@emotion/styled';
+import { HeaderText, LoginComponent, Input } from '../styles/Login.style';
 
 const Login = () => {
   const [name, setName] = useState<string>('');
@@ -46,24 +46,5 @@ const Login = () => {
     </>
   );
 };
-
-const LoginComponent = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const HeaderText = styled.div`
-  font-family: 'Pretendard Semibold';
-  font-weight: 600;
-  font-display: swap;
-  font-size: 24px;
-`;
-
-const Input = styled.input`
-  width: 335px;
-  height: 50px;
-  margin-bottom: 10px;
-  font-family: ;
-`;
 
 export default Login;
