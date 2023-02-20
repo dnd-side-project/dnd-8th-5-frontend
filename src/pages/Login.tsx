@@ -5,7 +5,7 @@ import { HeaderText, LoginComponent, Input } from '../styles/Login.style';
 const Login = () => {
   const [name, setName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [title, setTile] = useState<string>('이멤버 리멤버 연말파티');
+  const [title, setTitle] = useState<string>('이멤버 리멤버 연말파티');
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
 
   const onChangeName = useCallback((text: any) => {
