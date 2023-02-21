@@ -61,7 +61,13 @@ const Login = () => {
           maxLength={4}
         ></Input>
       </LoginComponent>
-      <img src="../assets/icons/checkbox.png" />
+      <img
+        src={
+          saveUserInfo
+            ? require('../assets/icons/checkbox.png')
+            : require('../assets/icons/checkedBox.png')
+        }
+      />
       <div onClick={onClickSaveUserInfo}>정보 저장</div>
       {canGoNext ? <button onClick={onClickNext}>다음</button> : null}
     </>
