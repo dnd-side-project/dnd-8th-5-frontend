@@ -3,7 +3,6 @@ import theme from '../../../styles/theme';
 
 export const Wrapper = styled.button`
   width: calc(100% - 40px);
-  max-width: 375px;
   height: 52px;
   border-radius: 6px;
   margin: 0 auto;

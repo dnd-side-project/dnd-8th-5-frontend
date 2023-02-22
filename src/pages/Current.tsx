@@ -74,7 +74,6 @@ const Wrapper = styled.div`
 
 const Body = styled.div`
   width: 100%;
-  max-width: 375px;
   margin: 0 auto;
   padding-right: 20px;
   padding-left: 20px;
@@ -85,7 +84,6 @@ const Body = styled.div`
 
 const Border = styled.div`
   width: 100%;
-  max-width: 375px;
   height: 8px;
 
   margin-top: 32px;
