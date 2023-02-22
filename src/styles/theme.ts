@@ -1,76 +1,101 @@
 import { css } from '@emotion/react';
 
 const colors = {
-  orange1: '#ED7C55',
+  orange01: '#FDF2EE',
+  orange02: '#ED7C55',
+  orange03: '#FB7547',
 
-  green1: '#E6F8EE',
-  green2: '#59CE8F',
+  green01: '#E6F8EE',
+  green02: '#59CE8F',
 
-  purple1: '#EDEFFF',
-  purple2: '#DADEFF',
-  purple3: '#BCC4FF',
-  purple4: '#97A3FF',
-  purple5: '#6A7BFF',
+  purple01: '#F3F4F9',
+  purple02: '#EDEFFF',
+  purple03: '#DADEFF',
+  purple04: '#BCC4FF',
+  purple05: '#97A3FF',
+  purple06: '#6A7BFF',
 
-  gray1: '#FFFFFF',
-  gray2: '#F6F6F6',
-  gray3: '#DBDBDB',
-  gray4: '#B6B6B6',
-  gray5: '#979797',
-  gray6: '#545454',
-  gray7: '#1A1A1A',
+  gray01: '#FFFFFF',
+  gray02: '#F6F6F6',
+  gray03: '#DBDBDB',
+  gray04: '#B6B6B6',
+  gray05: '#979797',
+  gray06: '#545454',
+  gray07: '#1A1A1A',
 };
 
 const typography = {
-  system_0_semibold: css`
+  semibold01: css`
     font-size: 24px;
     font-weight: 600;
+    line-height: 130%;
   `,
-  system_1_semibold: css`
+  semibold02: css`
     font-size: 20px;
     font-weight: 600;
+    line-height: 130%;
   `,
-  system_2_semibold: css`
+  semibold03: css`
     font-size: 18px;
     font-weight: 600;
+    line-height: 130%;
   `,
-  system_3_semibold: css`
+  semibold04: css`
     font-size: 16px;
     font-weight: 600;
+    line-height: 130%;
   `,
-  system_4_semibold: css`
+  semibold05: css`
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 130%;
+  `,
+  semibold06: css`
     font-size: 14px;
     font-weight: 600;
+    line-height: 130%;
   `,
 
-  system_0_medium: css`
+  medium01x: css`
     font-size: 18px;
     font-weight: 500;
+    line-height: 130%;
   `,
-  system_1_medium: css`
+  medium02: css`
     font-size: 16px;
     font-weight: 500;
+    line-height: 130%;
   `,
-  system_2_medium: css`
+  medium03: css`
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 130%;
+  `,
+  medium04: css`
     font-size: 14px;
     font-weight: 500;
+    line-height: 130%;
   `,
-  system_3_medium: css`
+  medium05: css`
     font-size: 12px;
     font-weight: 500;
+    line-height: 130%;
   `,
 
-  system_0_regular: css`
+  regular01: css`
     font-size: 16px;
     font-weight: 400px;
+    line-height: 130%;
   `,
-  system_1_regular: css`
+  regular02: css`
     font-size: 14px;
     font-weight: 400px;
+    line-height: 130%;
   `,
-  system_2_regular: css`
+  regular03: css`
     font-size: 12px;
     font-weight: 400px;
+    line-height: 130%;
   `,
 };
 
