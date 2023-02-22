@@ -2,9 +2,8 @@ import styled from '@emotion/styled';
 import theme from '../../../styles/theme';
 
 export const Wrapper = styled.button`
-  width: 90%;
-  max-width: 335px;
-
+  width: calc(100% - 40px);
+  max-width: 375px;
   height: 52px;
   border-radius: 6px;
   margin: 0 auto;
@@ -20,5 +19,5 @@ export const Wrapper = styled.button`
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 40px;
+  bottom: 28px;
 `;

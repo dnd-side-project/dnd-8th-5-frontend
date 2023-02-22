@@ -11,7 +11,11 @@ import current from '../assets/data/current.json';
 import BottomButton from '../components/commons/bottomButton/BottomButton';
 import Table from '../components/table/Table';
 
+import edit from '../assets/icons/edit.svg';
+
 const Current = () => {
+  const { participants, headCount } = room;
+
   return (
     <Wrapper>
       <Header title={room.title} />
@@ -20,7 +24,7 @@ const Current = () => {
         <Title>실시간 참여 현황</Title>
         <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
         <Proportion>
-          <Span>1</Span> / 7
+          <Span>{participants.length}</Span> / {headCount}
         </Proportion>
         <ProgressBar
           headCount={room.headCount}
@@ -42,17 +46,21 @@ const Current = () => {
           <Table room={room} current={current} />
         </TableWrapper>
       </Body>
-      <BottomButtonCover>
-        <BottomButton text="우선순위 보기" />
-      </BottomButtonCover>
+      <BottomWrapper>
+        <Edit>
+          <EditIcon src={edit} alt="edit" />
+        </Edit>
+        <BottomButtonCover>
+          <BottomButton text="우선순위 보기" />
+        </BottomButtonCover>
+      </BottomWrapper>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  width: 375px;
+  width: 100%;
   margin: 0 auto;
-  padding-top: 48px;
   padding-bottom: 108px;
 
   overflow-y: scroll;
@@ -66,8 +74,10 @@ const Wrapper = styled.div`
 
 const Body = styled.div`
   width: 100%;
-
-  padding: 0 20px;
+  max-width: 375px;
+  margin: 0 auto;
+  padding-right: 20px;
+  padding-left: 20px;
 
   display: flex;
   flex-direction: column;
@@ -75,8 +85,12 @@ const Body = styled.div`
 
 const Border = styled.div`
   width: 100%;
+  max-width: 375px;
   height: 8px;
+
   margin-top: 32px;
+  margin-right: auto;
+  margin-left: auto;
 
   background: ${theme.colors.gray2};
 `;
@@ -121,7 +135,7 @@ const Participants = styled.div`
 
 const TableWrapper = styled.div`
   margin-top: 26px;
-  margin-bottom: 10px;
+  overflow-y: hidden;
 
   overflow-x: auto;
   -ms-overflow-style: none;
@@ -131,22 +145,53 @@ const TableWrapper = styled.div`
   }
 `;
 
-const BottomButtonCover = styled.div`
+const BottomWrapper = styled.div`
   width: 100%;
-  height: 100px;
-  padding-top: 8px;
-
-  position: sticky;
-  bottom: 0;
-  z-index: 2;
-
-  background: #ffffff;
-  box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.06);
+  max-width: 375px;
+  height: 156px;
+  margin: 0 auto;
+  padding: 0 20px;
 
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
+`;
+
+const BottomButtonCover = styled.div`
+  width: 100%;
+  max-width: 375px;
+  height: 90px;
+  margin: 0 auto;
+
+  background: ${theme.colors.gray1};
+  border-top: 2px solid ${theme.colors.gray2};
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+`;
+
+const Edit = styled.div`
+  width: 54px;
+  height: 54px;
+  border-radius: 50px;
+
+  background: ${theme.colors.gray1};
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  margin: 0 0 0 auto;
+`;
+
+const EditIcon = styled.img`
+  width: 24px;
+  height: 24px;
 `;
 
 export default Current;
