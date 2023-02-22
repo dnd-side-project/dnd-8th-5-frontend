@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import '../styles/slick.css';
-import Slider from 'react-slick';
-import styled from '@emotion/styled';
 import {
   MainContainer,
   StyledSlider,
