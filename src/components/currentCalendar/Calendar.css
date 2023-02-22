@@ -27,7 +27,7 @@
   border: none;
 }
 
-.react-calendar .highlight {
+.react-calendar .availableDate {
   color: white;
   background-color: rgba(106, 123, 255, 0.5);
 }

@@ -1,5 +1,4 @@
 import moment from 'moment';
-import { useState } from 'react';
 import { Calendar } from 'react-calendar';
 import './Calendar.css';
 
@@ -7,13 +6,33 @@ import calendarNextMonth from '../../assets/icons/calendarNextMonth.svg';
 import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
 import styled from '@emotion/styled';
 
+import currentTime from '../../assets/data/currentTime.json';
+import room from '../../assets/data/room.json';
+
 const CurrentCalendar = () => {
-  const [value, onChange] = useState(new Date());
+  const headCount = room.headCount;
+
+  const availableDates = currentTime.availableDateTimes.map((date) => ({
+    date: date.availableDate,
+    opacity: date.availableTimeInfos.count / headCount,
+  }));
+
+  console.log(availableDates);
+
+  const colorDates: any = ({ date }: any) => {
+    if (
+      availableDates.find(
+        (availableDate) =>
+          availableDate.date === moment(date).format('YYYY-MM-DD')
+      )
+    ) {
+      return `availableDate ${moment(date).format('YYYY-MM-DD')}`;
+    }
+  };
 
   return (
     <Calendar
-      value={value}
-      onChange={onChange}
+      tileClassName={colorDates}
       next2Label={null}
       prev2Label={null}
       nextLabel={<NextMonthIcon src={calendarNextMonth} />}
