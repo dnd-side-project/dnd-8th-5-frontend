@@ -13,10 +13,6 @@ import currentTime from '../../assets/data/currentTime.json';
 import room from '../../assets/data/room.json';
 import theme from '../../styles/theme';
 
-interface DateProps {
-  date: Date;
-}
-
 const CurrentCalendar = () => {
   const headCount = room.headCount;
 
@@ -25,7 +21,7 @@ const CurrentCalendar = () => {
     opacity: date.availableTimeInfos.count / headCount,
   }));
 
-  const addTileClassName = ({ date }: DateProps) => {
+  const addTileClassName = ({ date }: { date: Date }) => {
     if (
       availableDatesInfo.find(
         (availableDate) =>
