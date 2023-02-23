@@ -7,7 +7,27 @@ const AddTable = () => {
   //   const { dates, startTime, endTime } = room;
 
   const times = [9, 10, 11, 12, 13, 14];
+  const timeDetail = [
+    '09:00',
+    '09:30',
+    '10:00',
+    '10:30',
+    '11:00',
+    '11:30',
+    '12:00',
+    '12:30',
+    '13:00',
+    '13:30',
+    '14:00',
+    '14:30',
+  ];
+
   const three = ['2023-02-21', '2023-02-22', '2023-02-23'];
+
+  const handleClick = (e: any) => {
+    console.log(e.currentTarget.getAttribute('value'));
+    console.log('class: ', e.currentTarget);
+  };
 
   return (
     <Wrapper>
@@ -29,50 +49,19 @@ const AddTable = () => {
             <Time key={time}>{time}</Time>
           ))}
         </TimeWrapper>
-        <SelectWrapper>
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-        </SelectWrapper>
-
-        <SelectWrapper>
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-        </SelectWrapper>
-
-        <SelectWrapper>
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-          <Select />
-        </SelectWrapper>
+        {three.map((date) => (
+          <SelectWrapper key={date}>
+            {timeDetail.map((time) => (
+              <Select
+                key={`${date} ${time}:00`}
+                value={`${date} ${time}`}
+                isSelected={false}
+                onClick={handleClick}
+                className={'hi'}
+              />
+            ))}
+          </SelectWrapper>
+        ))}
       </Bottom>
     </Wrapper>
   );
@@ -153,7 +142,7 @@ const SelectWrapper = styled.div`
   }
 `;
 
-const Select = styled.div`
+const Select = styled.div<{ isSelected: boolean; value: string }>`
   height: 17px;
   box-sizing: content-box;
 
