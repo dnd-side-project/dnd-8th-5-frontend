@@ -4,6 +4,7 @@ import theme from '../styles/theme';
 
 import addPrev from '../assets/icons/addPrev.png';
 import addNext from '../assets/icons/addNext.png';
+import AddTable from '../components/addTable/AddTable';
 
 const AddTime = () => {
   const [select, setSelect] = useState('possible');
@@ -28,6 +29,7 @@ const AddTime = () => {
 
         <Main>
           <MoveButton src={addPrev} alt="Prev Button" />
+          <AddTable />
           <MoveButton src={addNext} alt="Next Button" />
         </Main>
       </Body>
@@ -75,6 +77,8 @@ const Main = styled.div`
 
   display: flex;
   justify-content: space-between;
+
+  position: relative;
 `;
 
 const MoveButton = styled.img`
@@ -82,6 +86,7 @@ const MoveButton = styled.img`
   height: 36px;
   border-radius: 50%;
   box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 `;
 
 export default AddTime;
