@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { Calendar } from 'react-calendar';
+import theme from '../../styles/theme';
 
 export const StyledCalendar = styled(Calendar)`
   width: 336px;
-  background: white;
-  border: 1px solid #dbdbdb;
+  background: ${theme.colors.gray01};
+  border: 1px solid ${theme.colors.gray03};
   border-radius: 10px;
 
   display: flex;
@@ -44,9 +45,8 @@ export const StyledCalendar = styled(Calendar)`
     height: 64px;
 
     display: flex;
-    font-weight: 600;
-    font-size: 18px;
-    color: #545454;
+    color: ${theme.colors.gray06};
+    ${theme.typography.semibold03};
   }
 
   /* 헤더 내 요소들 */
@@ -55,16 +55,16 @@ export const StyledCalendar = styled(Calendar)`
     border: none;
   }
   .react-calendar__navigation button:disabled {
-    color: #545454;
+    color: ${theme.colors.gray06};
   }
 
   /* 요일 표시 */
   .react-calendar__month-view__weekdays {
     height: 35px;
 
-    color: #545454;
-    font-size: 14px;
     text-align: center;
+    color: ${theme.colors.gray06};
+    ${theme.typography.medium04};
 
     display: flex;
     align-items: center;
@@ -79,14 +79,6 @@ export const StyledCalendar = styled(Calendar)`
   .react-calendar__month-view__weekdays__weekday {
     width: 100%;
   }
-  .react-calendar__month-view__weekNumbers .react-calendar__tile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75em;
-    font-weight: bold;
-    border: 1px solid hotpink;
-  }
 
   /* 일 블럭 Wrapper */
   .react-calendar__month-view__days {
@@ -97,24 +89,19 @@ export const StyledCalendar = styled(Calendar)`
   .react-calendar__month-view__days__day {
     width: 44px;
     height: 44px;
-    border-radius: 50%;
     border: none;
+    border-radius: 50%;
   }
 
   /* 주말 */
   .react-calendar__month-view__days__day--weekend {
-    color: #b6b6b6;
+    color: ${theme.colors.gray04};
   }
 
   /* 이전 달, 다음 달 날짜 */
   .react-calendar__month-view__days__day--neighboringMonth {
     color: blue;
     cursor: none;
-  }
-  .react-calendar__year-view .react-calendar__tile,
-  .react-calendar__decade-view .react-calendar__tile,
-  .react-calendar__century-view .react-calendar__tile {
-    padding: 2em 0.5em;
   }
 
   .react-calendar__tile {
@@ -123,31 +110,14 @@ export const StyledCalendar = styled(Calendar)`
 
     width: 44px;
     height: 44px;
-    color: #b6b6b6;
-    font-size: 16px;
+    color: ${theme.colors.gray04};
+    ${theme.typography.regular01};
   }
 
-  .react-calendar__tile:disabled {
-    background-color: #f0f0f0;
-  }
-
-  /* 클릭해도 */
+  /* 오늘 날짜 */
   .react-calendar__tile--now {
     color: #59ce8f;
     background: #e6f8ee;
-  }
-
-  .react-calendar__tile--active {
-    color: white;
-    background: #6a7bff;
-  }
-  .react-calendar__tile--active:enabled:hover,
-  .react-calendar__tile--active:enabled:focus {
-    color: white;
-    background: #6a7bff;
-  }
-  .react-calendar--selectRange .react-calendar__tile--hover {
-    background-color: #e6e6e6;
   }
 `;
 
