@@ -15,7 +15,8 @@ export interface roomTitle {
   title: string;
 }
 
-export interface room extends roomTitle, deadLine, currentParticipants {
+export interface room extends roomTitle, currentParticipants {
+  deadLine: string | null;
   dates: string[];
   startTime: string;
   endTime: string;

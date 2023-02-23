@@ -14,27 +14,22 @@ import Table from '../components/table/Table';
 import edit from '../assets/icons/edit.svg';
 
 const Current = () => {
-  const { participants, headCount } = room;
+  const { title, participants, headCount, deadLine } = room;
 
   return (
     <Wrapper>
-      <Header title={room.title} />
+      <Header title={title} />
       <Body>
-        <Timer deadLine={room.deadLine} />
+        {deadLine && <Timer deadLine={deadLine} />}
         <Title>실시간 참여 현황</Title>
         <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
-        <Proportion>
-          <Span>{participants.length}</Span> / {headCount}
-        </Proportion>
-        <ProgressBar
-          headCount={room.headCount}
-          participants={room.participants}
-        />
+
+        <ProgressBar headCount={headCount} participants={participants} />
         <Participants>
-          {room.participants.map((participant) => (
+          {participants.map((participant) => (
             <ParticipantsBlock key={participant} participant={participant} />
           ))}
-          <ParticipantsBlock participant="?" />
+          <ParticipantsBlock participant={'?'} />
         </Participants>
       </Body>
 
@@ -44,6 +39,7 @@ const Current = () => {
         <Title>실시간 조율 현황</Title>
         <TableWrapper>
           <Table room={room} current={current} />
+          {/* <AddButton>일정 등록하러 가기</AddButton> */}
         </TableWrapper>
       </Body>
       <BottomWrapper>
@@ -108,20 +104,6 @@ const Subtitle = styled.div`
   ${theme.typography.medium04};
 `;
 
-const Proportion = styled.div`
-  margin-top: 42px;
-  margin-bottom: 4px;
-  margin-left: auto;
-
-  color: ${theme.colors.gray05};
-  ${theme.typography.medium05};
-`;
-
-const Span = styled.span`
-  color: ${theme.colors.purple06};
-  ${theme.typography.medium05};
-`;
-
 const Participants = styled.div`
   width: 100%;
   margin-top: 16px;
@@ -135,6 +117,7 @@ const Participants = styled.div`
 const TableWrapper = styled.div`
   margin-top: 26px;
   overflow-y: hidden;
+  position: relative;
 
   overflow-x: auto;
   -ms-overflow-style: none;
@@ -191,6 +174,27 @@ const Edit = styled.div`
 const EditIcon = styled.img`
   width: 24px;
   height: 24px;
+`;
+
+const AddButton = styled.button`
+  width: 138px;
+  height: 38px;
+  border-radius: 4px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+
+  color: ${theme.colors.gray06};
+  ${theme.typography.medium02};
+  background: ${theme.colors.gray01};
+  border: 1px solid ${theme.colors.gray06};
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default Current;
