@@ -1,10 +1,13 @@
 import moment from 'moment';
-import { Calendar } from 'react-calendar';
-import './Calendar.css';
+import { useEffect } from 'react';
 
+import {
+  NextMonthIcon,
+  PrevMonthIcon,
+  StyledCalendar,
+} from './CurrentCalendar.styles';
 import calendarNextMonth from '../../assets/icons/calendarNextMonth.svg';
 import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
-import styled from '@emotion/styled';
 
 import currentTime from '../../assets/data/currentTime.json';
 import room from '../../assets/data/room.json';
@@ -17,22 +20,41 @@ const CurrentCalendar = () => {
     opacity: date.availableTimeInfos.count / headCount,
   }));
 
-  console.log(availableDates);
-
-  const colorDates: any = ({ date }: any) => {
+  const tileClassName = ({ date }: { date: Date }) => {
     if (
       availableDates.find(
         (availableDate) =>
           availableDate.date === moment(date).format('YYYY-MM-DD')
       )
     ) {
-      return `availableDate ${moment(date).format('YYYY-MM-DD')}`;
+      return `availableDate${moment(date).format('YYYY-MM-DD')}`;
+    } else {
+      return null;
     }
   };
 
+  const cha = () => {
+    availableDates.forEach((date) => {
+      const element = document.querySelector(
+        `.availableDate${date.date}`
+      ) as HTMLElement;
+
+      if (date.opacity != 0) {
+        element.style.backgroundColor = `rgba(106, 123, 255, ${date.opacity})`;
+        element.style.color = '#ffffff';
+      } else {
+        element.style.color = '#6A7BFF';
+      }
+    });
+  };
+
+  useEffect(() => {
+    cha();
+  }, []);
+
   return (
-    <Calendar
-      tileClassName={colorDates}
+    <StyledCalendar
+      tileClassName={tileClassName}
       next2Label={null}
       prev2Label={null}
       nextLabel={<NextMonthIcon src={calendarNextMonth} />}
@@ -46,15 +68,5 @@ const CurrentCalendar = () => {
     />
   );
 };
-
-const PrevMonthIcon = styled.img`
-  width: 20px;
-  height: 20px;
-`;
-
-const NextMonthIcon = styled.img`
-  width: 24px;
-  height: 24px;
-`;
 
 export default CurrentCalendar;

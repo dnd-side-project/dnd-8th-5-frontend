@@ -4,14 +4,14 @@
       "availableDate": "2023-02-20",
       "availableTimeInfos": {
         "time": null,
-        "count": 4
+        "count": 5
       }
     },
     {
       "availableDate": "2023-02-21",
       "availableTimeInfos": {
         "time": null,
-        "count": 3
+        "count": 0
       }
     },
     {
@@ -32,14 +32,14 @@
       "availableDate": "2023-02-24",
       "availableTimeInfos": {
         "time": null,
-        "count": 3
+        "count": 5
       }
     },
     {
       "availableDate": "2023-02-25",
       "availableTimeInfos": {
         "time": null,
-        "count": 4
+        "count": 6
       }
     }
   ]
