@@ -11,18 +11,23 @@ import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
 
 import currentTime from '../../assets/data/currentTime.json';
 import room from '../../assets/data/room.json';
+import theme from '../../styles/theme';
+
+interface DateProps {
+  date: Date;
+}
 
 const CurrentCalendar = () => {
   const headCount = room.headCount;
 
-  const availableDates = currentTime.availableDateTimes.map((date) => ({
+  const availableDatesInfo = currentTime.availableDateTimes.map((date) => ({
     date: date.availableDate,
     opacity: date.availableTimeInfos.count / headCount,
   }));
 
-  const tileClassName = ({ date }: { date: Date }) => {
+  const addTileClassName = ({ date }: DateProps) => {
     if (
-      availableDates.find(
+      availableDatesInfo.find(
         (availableDate) =>
           availableDate.date === moment(date).format('YYYY-MM-DD')
       )
@@ -33,28 +38,31 @@ const CurrentCalendar = () => {
     }
   };
 
-  const cha = () => {
-    availableDates.forEach((date) => {
+  const updateColors = () => {
+    availableDatesInfo.forEach(({ date, opacity }) => {
       const element = document.querySelector(
-        `.availableDate${date.date}`
+        `.availableDate${date}`
       ) as HTMLElement;
 
-      if (date.opacity != 0) {
-        element.style.backgroundColor = `rgba(106, 123, 255, ${date.opacity})`;
-        element.style.color = '#ffffff';
-      } else {
-        element.style.color = '#6A7BFF';
+      if (element != null) {
+        if (opacity != 0) {
+          element.style.backgroundColor = `rgba(106, 123, 255, ${opacity})`;
+          element.style.color = `${theme.colors.gray01}`;
+        } else {
+          element.style.color = `${theme.colors.purple06}`;
+        }
       }
     });
   };
 
   useEffect(() => {
-    cha();
+    updateColors();
   }, []);
 
   return (
     <StyledCalendar
-      tileClassName={tileClassName}
+      onActiveStartDateChange={updateColors}
+      tileClassName={addTileClassName}
       next2Label={null}
       prev2Label={null}
       nextLabel={<NextMonthIcon src={calendarNextMonth} />}
