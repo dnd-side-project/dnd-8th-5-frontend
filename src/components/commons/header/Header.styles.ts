@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   margin: 0 auto;
 
   height: 48px;
-  border-bottom: 1px solid ${theme.colors.gray3};
+  border-bottom: 1px solid ${theme.colors.gray03};
   background: #ffffff;
 
   display: flex;
@@ -24,8 +24,8 @@ export const Title = styled.div`
   margin: 0 auto;
   text-align: center;
 
-  color: ${theme.colors.gray7};
-  ${theme.typography.system_2_semibold};
+  color: ${theme.colors.gray07};
+  ${theme.typography.semibold03};
 `;
 
 export const ShareIcon = styled.img`

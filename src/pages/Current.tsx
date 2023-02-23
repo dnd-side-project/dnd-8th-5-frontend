@@ -60,6 +60,7 @@ const Current = () => {
 
 const Wrapper = styled.div`
   width: 100%;
+  max-width: 375px;
   margin: 0 auto;
   padding-bottom: 108px;
 
@@ -90,21 +91,21 @@ const Border = styled.div`
   margin-right: auto;
   margin-left: auto;
 
-  background: ${theme.colors.gray2};
+  background: ${theme.colors.gray02};
 `;
 
 const Title = styled.div`
   margin-top: 32px;
 
-  color: ${theme.colors.gray7};
-  ${theme.typography.system_1_semibold};
+  color: ${theme.colors.gray07};
+  ${theme.typography.semibold02};
 `;
 
 const Subtitle = styled.div`
   margin-top: 6px;
 
-  color: ${theme.colors.gray5};
-  ${theme.typography.system_1_regular};
+  color: ${theme.colors.gray05};
+  ${theme.typography.medium04};
 `;
 
 const Proportion = styled.div`
@@ -112,13 +113,13 @@ const Proportion = styled.div`
   margin-bottom: 4px;
   margin-left: auto;
 
-  color: ${theme.colors.gray5};
-  ${theme.typography.system_2_medium};
+  color: ${theme.colors.gray05};
+  ${theme.typography.medium05};
 `;
 
 const Span = styled.span`
-  color: ${theme.colors.purple5};
-  ${theme.typography.system_2_medium};
+  color: ${theme.colors.purple06};
+  ${theme.typography.medium05};
 `;
 
 const Participants = styled.div`
@@ -162,8 +163,8 @@ const BottomButtonCover = styled.div`
   height: 90px;
   margin: 0 auto;
 
-  background: ${theme.colors.gray1};
-  border-top: 2px solid ${theme.colors.gray2};
+  background: ${theme.colors.gray01};
+  border-top: 2px solid ${theme.colors.gray02};
 
   position: fixed;
   left: 0;
@@ -176,7 +177,7 @@ const Edit = styled.div`
   height: 54px;
   border-radius: 50px;
 
-  background: ${theme.colors.gray1};
+  background: ${theme.colors.gray01};
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 
   display: flex;

@@ -11,11 +11,13 @@ export const Wrapper = styled.div<participant>`
   height: 29px;
 
   border-radius: 4px;
-  background: ${theme.colors.gray2};
-  ${theme.typography.system_2_medium};
+  background: ${theme.colors.gray02};
+  ${theme.typography.semibold06};
 
   color: ${({ participant }) =>
-    participant === '?' ? `${theme.colors.gray4}` : `${theme.colors.purple5}`};
+    participant === '?'
+      ? `${theme.colors.gray04}`
+      : `${theme.colors.purple06}`};
 
   -ms-user-select: none;
   -moz-user-select: -moz-none;

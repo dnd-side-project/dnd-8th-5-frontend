@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 17px;
   border-radius: 61px;
-  background: ${theme.colors.gray2};
+  background: ${theme.colors.gray02};
 `;
 
 export const Bar = styled.div<{

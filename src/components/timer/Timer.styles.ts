@@ -5,9 +5,9 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 70px;
   margin-top: 32px;
-  padding: 4px 31.5px;
+  padding: 4px 0;
 
-  background: #fdf2ee;
+  background: ${theme.colors.orange01};
   border-radius: 6px;
 
   display: flex;
@@ -16,8 +16,7 @@ export const Wrapper = styled.div`
 `;
 
 export const TextWrapper = styled.div`
-  width: 278px;
-  height: 18px;
+  width: 291px;
 
   display: flex;
   align-items: center;
@@ -25,12 +24,11 @@ export const TextWrapper = styled.div`
 `;
 
 export const Span = styled.span`
-  color: #fb7547;
-  ${theme.typography.system_1_regular}
+  color: ${theme.colors.orange03};
+  ${theme.typography.regular01};
 `;
 
 export const Time = styled.span`
-  margin: 0 10px;
-  color: #fb7547;
-  ${theme.typography.system_2_semibold}
+  color: ${theme.colors.orange03};
+  ${theme.typography.semibold03};
 `;

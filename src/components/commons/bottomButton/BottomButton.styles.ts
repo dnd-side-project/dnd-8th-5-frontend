@@ -3,13 +3,15 @@ import theme from '../../../styles/theme';
 
 export const Wrapper = styled.button`
   width: calc(100% - 40px);
+  max-width: 375px;
   height: 52px;
-  border-radius: 6px;
   margin: 0 auto;
 
-  color: ${theme.colors.gray1};
-  background: ${theme.colors.purple5};
-  ${theme.typography.system_2_semibold};
+  border-radius: 6px;
+
+  color: ${theme.colors.gray01};
+  background: ${theme.colors.purple06};
+  ${theme.typography.semibold03};
 
   display: flex;
   align-items: center;
