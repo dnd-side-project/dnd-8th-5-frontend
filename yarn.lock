@@ -12758,6 +12758,11 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
+react-date-object@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/react-date-object/-/react-date-object-2.1.5.tgz#9f139cf0fbd9b8033cc18699be2ea14a772dbd73"
+  integrity sha512-iAtF2nz+jZjy3w36qKx2MsxXqbiL7UgGljz9jPjLWxWCl4rDTZUMS/i7hKKiVbL1lJlmubz1Xu6W3i6CW06kTg==
+
 react-dev-utils@^12.0.1:
   version "12.0.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-12.0.1.tgz#ba92edb4a1f379bd46ccd6bcd4e7bc398df33e73"
@@ -12817,6 +12822,11 @@ react-dom@^18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
+react-element-popper@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/react-element-popper/-/react-element-popper-2.1.6.tgz#4afb912287d57de5d442fb85e76f4d7b94fde879"
+  integrity sha512-8va7mUmrKIkUnaM2t5Dyctd8cjgVgVcrv5vVD0FRay0sN6EPBCKa0bDi1/KmVDAjfgSIn7zQnjtc4VojcGrkgQ==
+
 react-element-to-jsx-string@^14.3.4:
   version "14.3.4"
   resolved "https://registry.yarnpkg.com/react-element-to-jsx-string/-/react-element-to-jsx-string-14.3.4.tgz#709125bc72f06800b68f9f4db485f2c7d31218a8"
@@ -12859,6 +12869,14 @@ react-merge-refs@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-merge-refs/-/react-merge-refs-1.1.0.tgz#73d88b892c6c68cbb7a66e0800faa374f4c38b06"
   integrity sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==
+
+react-multi-date-picker@^3.3.4:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/react-multi-date-picker/-/react-multi-date-picker-3.3.4.tgz#89248efa08c60230622f88f48822b0e6bb7f7da3"
+  integrity sha512-bl1aTt3bmAYfsPpIUKsWVl3XWCfY3nxu7BFvLCR7j9iHckmiJNbkMBVGu5AvrcSa3mI39ybdHQuB3YzeM5O6Cg==
+  dependencies:
+    react-date-object "^2.1.5"
+    react-element-popper "^2.1.6"
 
 react-refresh@^0.11.0:
   version "0.11.0"
