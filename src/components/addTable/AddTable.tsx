@@ -4,11 +4,11 @@ import theme from '../../styles/theme';
 import room from '../../assets/data/room.json';
 import { getDateRange } from '../../utils/getDateRange';
 import { getChunks } from '../../utils/getChunks';
+import { getValidDates } from '../../utils/getValidDates';
 
 const AddTable = ({ selectedMethod }: { selectedMethod: string }) => {
   const { dates, startTime, endTime } = room;
-  const test = getDateRange('2023-02-26', '2023-03-04');
-  console.log(getChunks(getDateRange('2023-02-26', '2023-03-04')));
+  console.log(getValidDates(getDateRange(dates[0], dates[dates.length - 1])));
 
   const times = [9, 10, 11, 12, 13, 14];
   const timeDetail = [
