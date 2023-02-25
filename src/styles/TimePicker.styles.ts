@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import Slider from 'react-slick';
+import theme from './theme';
 
 export const MainContainer = styled.div`
   display: flex;
   width: 201px;
   overflow: hidden;
-  height: 100%;
   touch-action: none;
 `;
 
@@ -43,7 +43,7 @@ export const StyledSlider = styled(Slider)`
     color: grey;
   }
   .slick-current {
-    color: ${(props) => props.theme.colors.purple5};
+    color: ${theme.colors.purple5};
   }
   .slick-center {
   }
