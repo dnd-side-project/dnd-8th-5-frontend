@@ -2,9 +2,14 @@ import styled from '@emotion/styled';
 import theme from '../../styles/theme';
 
 import room from '../../assets/data/room.json';
+import { getDateRange } from '../../utils/getDateRange';
+import { useState } from 'react';
 
-const AddTable = () => {
-  //   const { dates, startTime, endTime } = room;
+const AddTable = ({ selectedMethod }: { selectedMethod: string }) => {
+  const { dates, startTime, endTime } = room;
+  const [dateRange, setDateRange] = useState('2023-02-26');
+  console.log('range: ', getDateRange('2023-02-26', '2023-03-04'));
+  // const test = getDateRange('2023-02-26', '2023-03-04');
 
   const times = [9, 10, 11, 12, 13, 14];
   const timeDetail = [
@@ -56,8 +61,8 @@ const AddTable = () => {
                 key={`${date} ${time}:00`}
                 value={`${date} ${time}`}
                 isSelected={false}
+                selectedMethod={selectedMethod}
                 onClick={handleClick}
-                className={'hi'}
               />
             ))}
           </SelectWrapper>
@@ -142,9 +147,17 @@ const SelectWrapper = styled.div`
   }
 `;
 
-const Select = styled.div<{ isSelected: boolean; value: string }>`
+const Select = styled.div<{
+  isSelected: boolean;
+  value: string;
+  selectedMethod: string;
+}>`
   height: 17px;
   box-sizing: content-box;
+
+  background: ${({ selectedMethod, isSelected }) =>
+    isSelected &&
+    (selectedMethod ? `${theme.colors.purple06}` : `${theme.colors.orange02}`)};
 
   &:nth-of-type(odd) {
     border-bottom: 1px dashed ${theme.colors.gray03};

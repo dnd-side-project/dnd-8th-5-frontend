@@ -7,10 +7,10 @@ import addNext from '../assets/icons/addNext.png';
 import AddTable from '../components/addTable/AddTable';
 
 const AddTime = () => {
-  const [select, setSelect] = useState('possible');
+  const [selectedMethod, setSelectedMethod] = useState('possible');
 
   const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelect(e.target.value);
+    setSelectedMethod(e.target.value);
   };
 
   return (
@@ -20,7 +20,7 @@ const AddTime = () => {
           <Title>수빈 님의 일정을</Title>
         </TitleWrapper>
         <TitleWrapper>
-          <select onChange={handleSelect} value={select}>
+          <select onChange={handleSelect} value={selectedMethod}>
             <option value="possible">되는</option>
             <option value="impossible">안 되는</option>
           </select>
@@ -29,7 +29,7 @@ const AddTime = () => {
 
         <Main>
           <MoveButton src={addPrev} alt="Prev Button" />
-          <AddTable />
+          <AddTable selectedMethod={selectedMethod} />
           <MoveButton src={addNext} alt="Next Button" />
         </Main>
       </Body>

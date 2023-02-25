@@ -1,3 +1,4 @@
+import { Story } from '@storybook/react';
 import AddTable from './AddTable';
 
 export default {
@@ -5,6 +6,11 @@ export default {
   component: AddTable,
 };
 
-const Template = () => <AddTable />;
+const Template: Story<{ selectedMethod: string }> = (args) => (
+  <AddTable {...args} />
+);
 
 export const Default = Template.bind({});
+Default.args = {
+  selectedMethod: 'possible',
+};
