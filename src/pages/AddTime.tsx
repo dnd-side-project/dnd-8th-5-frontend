@@ -6,11 +6,36 @@ import addPrev from '../assets/icons/addPrev.png';
 import addNext from '../assets/icons/addNext.png';
 import AddTable from '../components/addTable/AddTable';
 
+import room from '../assets/data/room.json';
+import { getChunks } from '../utils/getChunks';
+import { getValidDates } from '../utils/getValidDates';
+import { getDateRange } from '../utils/getDateRange';
+
 const AddTime = () => {
+  const { dates, startTime, endTime } = room;
+
   const [selectedMethod, setSelectedMethod] = useState('possible');
 
   const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedMethod(e.target.value);
+  };
+
+  const validDateChunks = getChunks(
+    getValidDates(getDateRange(dates[0], dates[dates.length - 1]))
+  );
+
+  const [tablePage, setTablePage] = useState(0);
+
+  const handlePrevButtonClick = () => {
+    if (tablePage !== 0) {
+      setTablePage(tablePage - 1);
+    }
+  };
+
+  const handleNextButtonClick = () => {
+    if (tablePage !== validDateChunks.length - 1) {
+      setTablePage(tablePage + 1);
+    }
   };
 
   return (
@@ -28,9 +53,21 @@ const AddTime = () => {
         </TitleWrapper>
 
         <Main>
-          <MoveButton src={addPrev} alt="Prev Button" />
-          <AddTable selectedMethod={selectedMethod} />
-          <MoveButton src={addNext} alt="Next Button" />
+          <MoveButton
+            src={addPrev}
+            alt="Prev Button"
+            onClick={handlePrevButtonClick}
+          />
+          <AddTable
+            selectedMethod={selectedMethod}
+            tablePage={tablePage}
+            validDateChunks={validDateChunks}
+          />
+          <MoveButton
+            src={addNext}
+            alt="Next Button"
+            onClick={handleNextButtonClick}
+          />
         </Main>
       </Body>
     </Wrapper>

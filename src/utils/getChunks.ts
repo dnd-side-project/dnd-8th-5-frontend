@@ -1,8 +1,8 @@
-export const getChunks = (dates: string[]) => {
-  let dateChunks: string[][] = [];
+export const getChunks = (validDates: any) => {
+  let dateChunks: any = [];
 
-  for (let i = 0; i < dates.length; i += 3) {
-    dateChunks = [...dateChunks, dates.slice(i, i + 3)];
+  for (let i = 0; i < validDates.length; i += 3) {
+    dateChunks = [...dateChunks, validDates.slice(i, i + 3)];
   }
 
   return dateChunks;

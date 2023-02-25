@@ -2,14 +2,18 @@ import styled from '@emotion/styled';
 import theme from '../../styles/theme';
 
 import room from '../../assets/data/room.json';
-import { getDateRange } from '../../utils/getDateRange';
-import { getChunks } from '../../utils/getChunks';
-import { getValidDates } from '../../utils/getValidDates';
 
-const AddTable = ({ selectedMethod }: { selectedMethod: string }) => {
+const AddTable = ({
+  selectedMethod,
+  tablePage,
+  validDateChunks,
+}: {
+  selectedMethod: string;
+  tablePage: number;
+  validDateChunks: any;
+}) => {
   const { dates, startTime, endTime } = room;
-  console.log(getValidDates(getDateRange(dates[0], dates[dates.length - 1])));
-
+  console.log(validDateChunks[tablePage]);
   const times = [9, 10, 11, 12, 13, 14];
   const timeDetail = [
     '09:00',
@@ -38,7 +42,7 @@ const AddTable = ({ selectedMethod }: { selectedMethod: string }) => {
       <Top>
         <Blank />
         <DateWrapper>
-          {three.map((date) => (
+          {validDateChunks[tablePage].map(({ date }: any) => (
             <Date key={date}>{`${date.slice(5, 7)}월${date.slice(
               8,
               10
@@ -53,7 +57,7 @@ const AddTable = ({ selectedMethod }: { selectedMethod: string }) => {
             <Time key={time}>{time}</Time>
           ))}
         </TimeWrapper>
-        {three.map((date) => (
+        {validDateChunks[tablePage].map(({ date, isValidDate }: any) => (
           <SelectWrapper key={date}>
             {timeDetail.map((time) => (
               <Select
@@ -62,6 +66,7 @@ const AddTable = ({ selectedMethod }: { selectedMethod: string }) => {
                 isSelected={false}
                 selectedMethod={selectedMethod}
                 onClick={handleClick}
+                isValidDate={isValidDate}
               />
             ))}
           </SelectWrapper>
@@ -150,9 +155,12 @@ const Select = styled.div<{
   isSelected: boolean;
   value: string;
   selectedMethod: string;
+  isValidDate: boolean;
 }>`
   height: 17px;
   box-sizing: content-box;
+
+  background: ${({ isValidDate }) => !isValidDate && `${theme.colors.gray02}`};
 
   background: ${({ selectedMethod, isSelected }) =>
     isSelected &&

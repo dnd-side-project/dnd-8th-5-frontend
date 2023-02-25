@@ -6,9 +6,11 @@ export default {
   component: AddTable,
 };
 
-const Template: Story<{ selectedMethod: string }> = (args) => (
-  <AddTable {...args} />
-);
+const Template: Story<{
+  selectedMethod: string;
+  tablePage: number;
+  validDateChunks: any;
+}> = (args) => <AddTable {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

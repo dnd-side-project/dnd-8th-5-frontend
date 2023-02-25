@@ -12,5 +12,5 @@ export const getValidDates = (dates: string[]) => {
     ),
   ];
 
-  return validDates;
+  return validDates[0];
 };
