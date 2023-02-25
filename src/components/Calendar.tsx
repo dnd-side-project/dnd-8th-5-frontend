@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import { DateObject, getAllDatesInRange } from 'react-multi-date-picker';
-import '../styles/calendar.css';
 import {
   CalendarComponent,
   MainContainer,
@@ -8,6 +7,8 @@ import {
   ToggleText,
   Circle,
 } from '../styles/calendar.styles';
+import Toggle from './Toggle';
+import '../styles/calendar.css';
 
 const CalendarPage = () => {
   const [isRange, setIsRange] = useState(false);
@@ -68,11 +69,7 @@ const CalendarPage = () => {
 
   return (
     <MainContainer>
-      <ToggleBtn onClick={clickedToggle} toggle={isRange}>
-        <ToggleText>기간</ToggleText>
-        <ToggleText>하나씩</ToggleText>
-        <Circle toggle={isRange}>{isRange ? '기간' : '하나씩'}</Circle>
-      </ToggleBtn>
+      <Toggle toggle={isRange} text={['기간', '하나씩']} setData={setIsRange} />
       <CalendarComponent
         onChange={(dataObjects) => {
           if (isRange) {
