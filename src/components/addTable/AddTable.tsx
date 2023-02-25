@@ -3,13 +3,12 @@ import theme from '../../styles/theme';
 
 import room from '../../assets/data/room.json';
 import { getDateRange } from '../../utils/getDateRange';
-import { useState } from 'react';
+import { getChunks } from '../../utils/getChunks';
 
 const AddTable = ({ selectedMethod }: { selectedMethod: string }) => {
   const { dates, startTime, endTime } = room;
-  const [dateRange, setDateRange] = useState('2023-02-26');
-  console.log('range: ', getDateRange('2023-02-26', '2023-03-04'));
-  // const test = getDateRange('2023-02-26', '2023-03-04');
+  const test = getDateRange('2023-02-26', '2023-03-04');
+  console.log(getChunks(getDateRange('2023-02-26', '2023-03-04')));
 
   const times = [9, 10, 11, 12, 13, 14];
   const timeDetail = [
