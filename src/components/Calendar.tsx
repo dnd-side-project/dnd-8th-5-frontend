@@ -46,10 +46,6 @@ const CalendarPage = () => {
     ],
   };
 
-  const clickedToggle = useCallback(() => {
-    setIsRange((prev) => !prev);
-  }, [isRange]);
-
   const makeDatesRange = (dates: DateObject[] | Date[]) => {
     if (dates.length < 2) {
       return;
