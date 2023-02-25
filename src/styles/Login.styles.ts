@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import theme from '../styles/theme';
 
 export const LoginComponent = styled.div`
   display: flex;
@@ -6,10 +7,7 @@ export const LoginComponent = styled.div`
 `;
 
 export const HeaderText = styled.div`
-  font-family: 'Pretendard Semibold';
-  font-weight: 600;
-  font-display: swap;
-  font-size: 24px;
+  ${theme.typography.system_0_semibold}
 `;
 
 export const Input = styled.input`
@@ -19,6 +17,6 @@ export const Input = styled.input`
 
   :focus {
     outline: none;
-    border: 1px solid #6a7bff;
+    border: 1px solid ${theme.colors.purple5};
   }
 `;
