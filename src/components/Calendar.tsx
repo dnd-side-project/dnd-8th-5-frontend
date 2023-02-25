@@ -1,12 +1,6 @@
 import { useState, useCallback } from 'react';
 import { DateObject, getAllDatesInRange } from 'react-multi-date-picker';
-import {
-  CalendarComponent,
-  MainContainer,
-  ToggleBtn,
-  ToggleText,
-  Circle,
-} from '../styles/calendar.styles';
+import { CalendarComponent, MainContainer } from '../styles/calendar.styles';
 import Toggle from './Toggle';
 import '../styles/calendar.css';
 
