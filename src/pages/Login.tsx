@@ -1,13 +1,12 @@
 import theme from '../styles/theme';
 import React, { useCallback, useRef, useState } from 'react';
-import { HeaderText, LoginComponent, Input } from '../styles/Login.style';
+import { HeaderText, LoginComponent, Input } from '../styles/Login.styles';
 
 const Login = () => {
   const [name, setName] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [uuid, setUuid] = useState<string>('');
   const [title, setTitle] = useState<string>('이멤버 리멤버 연말파티');
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
-  const [availableNext, setAvailableNext] = useState<boolean>(false);
 
   const onChangeName = useCallback(
     (text: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,10 +15,10 @@ const Login = () => {
     []
   );
 
-  // The function that recognizes a Password change and stores it in a state value
-  const onChangePassword = useCallback(
+  // The function that recognizes a uuid change and stores it in a state value
+  const onChangeUuid = useCallback(
     (text: React.ChangeEvent<HTMLInputElement>) => {
-      setPassword(text.target.value);
+      setUuid(text.target.value);
     },
     []
   );
@@ -28,12 +27,12 @@ const Login = () => {
     setSaveUserInfo((prev) => !prev);
   };
 
-  const canGoNext = name && password.length === 4 ? true : false;
+  const canGoNext = name && uuid.length === 4 ? true : false;
 
   const onClickNext = () => {
     if (saveUserInfo) {
       localStorage.setItem('name', name);
-      localStorage.setItem('password', password);
+      localStorage.setItem('uuid', uuid);
     }
 
     try {
@@ -56,8 +55,8 @@ const Login = () => {
         <Input
           type="password"
           placeholder="4자리 비밀번호 입력"
-          value={password}
-          onChange={onChangePassword}
+          value={uuid}
+          onChange={onChangeUuid}
           maxLength={4}
         ></Input>
       </LoginComponent>
