@@ -1,37 +1,27 @@
 import theme from '../styles/theme';
-import React, { useCallback, useRef, useState } from 'react';
-import { HeaderText, LoginComponent, Input } from '../styles/Login.styles';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { HeaderText, LoginComponent, Input } from '../styles/login.styles';
+import useInputs from '../hooks/useFormInput';
 
 const Login = () => {
-  const [name, setName] = useState<string>('');
   const [uuid, setUuid] = useState<string>('');
   const [title, setTitle] = useState<string>('이멤버 리멤버 연말파티');
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
 
-  const onChangeName = useCallback(
-    (text: React.ChangeEvent<HTMLInputElement>) => {
-      setName(text.target.value);
-    },
-    []
-  );
-
-  // The function that recognizes a uuid change and stores it in a state value
-  const onChangeUuid = useCallback(
-    (text: React.ChangeEvent<HTMLInputElement>) => {
-      setUuid(text.target.value);
-    },
-    []
-  );
+  const { form, onChange, reset } = useInputs({
+    name: '',
+    password: '',
+  });
 
   const onClickSaveUserInfo = () => {
     setSaveUserInfo((prev) => !prev);
   };
 
-  const canGoNext = name && uuid.length === 4 ? true : false;
+  const canGoNext = form.name && form.password.length === 4 ? true : false;
 
   const onClickNext = () => {
     if (saveUserInfo) {
-      localStorage.setItem('name', name);
+      localStorage.setItem('name', form.name);
       localStorage.setItem('uuid', uuid);
     }
 
@@ -48,15 +38,17 @@ const Login = () => {
       <LoginComponent>
         <Input
           type="text"
+          id="name"
           placeholder="이름 입력"
-          value={name}
-          onChange={onChangeName}
+          value={form.name}
+          onChange={onChange}
         ></Input>
         <Input
           type="password"
+          id="password"
           placeholder="4자리 비밀번호 입력"
-          value={uuid}
-          onChange={onChangeUuid}
+          value={form.password}
+          onChange={onChange}
           maxLength={4}
         ></Input>
       </LoginComponent>
