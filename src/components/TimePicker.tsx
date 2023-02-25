@@ -73,7 +73,7 @@ const Current = () => {
       <StyledSlider {...settings('start')}>
         {TIME_ARRAY.map((time: string) => {
           return (
-            <div>
+            <div key={time}>
               <TimeText>{time}</TimeText>
             </div>
           );
@@ -83,7 +83,7 @@ const Current = () => {
       <StyledSlider {...settings('end')}>
         {TIME_ARRAY.map((time: string) => {
           return (
-            <div>
+            <div key={time}>
               <TimeText>{time}</TimeText>
             </div>
           );
