@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import theme from '../styles/theme';
+import theme from './theme';
 
 export const LoginComponent = styled.div`
   display: flex;

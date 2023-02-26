@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import '../styles/slick.css';
+import '../styles/timePicker.css';
 import {
   MainContainer,
   StyledSlider,
   TextContainer,
   TimeText,
-} from '../styles/TimePicker.styles';
+} from './TimePicker.styles';
 
 const Current = () => {
   const [startTime, setStartTime] = useState('09:00');
