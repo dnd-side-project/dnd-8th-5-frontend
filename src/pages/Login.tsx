@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { HeaderText, LoginComponent, Input } from '../styles/login.styles';
+import { HeaderText, LoginComponent, Input } from '../styles/Login.styles';
 import useInputs from '../hooks/useFormInput';
 import checkbox from '../assets/icons/checkbox.png';
 import checkedBox from '../assets/icons/checkedBox.png';
