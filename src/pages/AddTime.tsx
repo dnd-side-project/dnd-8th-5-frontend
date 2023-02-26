@@ -53,21 +53,29 @@ const AddTime = () => {
         </TitleWrapper>
 
         <Main>
-          <MoveButton
-            src={addPrev}
-            alt="Prev Button"
-            onClick={handlePrevButtonClick}
-          />
-          <AddTable
-            selectedMethod={selectedMethod}
-            tablePage={tablePage}
-            validDateChunks={validDateChunks}
-          />
-          <MoveButton
-            src={addNext}
-            alt="Next Button"
-            onClick={handleNextButtonClick}
-          />
+          <ButtonWrapper>
+            <MoveButton
+              src={addPrev}
+              alt="Prev Button"
+              onClick={handlePrevButtonClick}
+            />
+            <MoveButton
+              src={addNext}
+              alt="Next Button"
+              onClick={handleNextButtonClick}
+            />
+          </ButtonWrapper>
+
+          <TableWrapper>
+            <AddTable
+              selectedMethod={selectedMethod}
+              tablePage={tablePage}
+              validDateChunks={validDateChunks}
+            />
+          </TableWrapper>
+          <ScrollbarWrapper>
+            <Scrollbar draggable={true} />
+          </ScrollbarWrapper>
         </Main>
       </Body>
     </Wrapper>
@@ -77,17 +85,12 @@ const AddTime = () => {
 const Wrapper = styled.div`
   width: 100%;
   max-width: 375px;
+  height: 600px;
   margin: 0 auto;
   padding-bottom: 108px;
 
   border: 1px solid gray;
-  overflow-y: scroll;
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  overflow: hidden;
 `;
 
 const Body = styled.div`
@@ -108,6 +111,7 @@ const Title = styled.span`
 
 const Main = styled.div`
   width: 100%;
+  height: 454px;
   margin-top: 48px;
   padding-bottom: 116px;
   border: 1px solid hotpink;
@@ -118,12 +122,50 @@ const Main = styled.div`
   position: relative;
 `;
 
+const ButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+`;
+
 const MoveButton = styled.img`
   width: 36px;
   height: 36px;
   border-radius: 50%;
   box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+`;
+
+const TableWrapper = styled.div`
+  height: 454px;
+  margin: 0 auto;
+  overflow-y: auto;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const ScrollbarWrapper = styled.div`
+  width: 18px;
+  height: 160px;
+  border-radius: 41px;
+  background: ${theme.colors.gray02};
+  position: absolute;
+  right: 9px;
+  top: 52px;
+`;
+
+const Scrollbar = styled.div`
+  width: 100%;
+  height: 55px;
+  border-radius: 41px;
+  background: ${theme.colors.purple05};
 `;
 
 export default AddTime;

@@ -3,18 +3,16 @@ import theme from '../../styles/theme';
 
 import room from '../../assets/data/room.json';
 
-const AddTable = ({
-  selectedMethod,
-  tablePage,
-  validDateChunks,
-}: {
+interface Props {
   selectedMethod: string;
   tablePage: number;
   validDateChunks: any;
-}) => {
+}
+
+const AddTable = ({ selectedMethod, tablePage, validDateChunks }: Props) => {
   const { dates, startTime, endTime } = room;
   console.log(validDateChunks[tablePage]);
-  const times = [9, 10, 11, 12, 13, 14];
+  const times = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
   const timeDetail = [
     '09:00',
     '09:30',
@@ -28,9 +26,25 @@ const AddTable = ({
     '13:30',
     '14:00',
     '14:30',
+    '15:00',
+    '15:30',
+    '16:00',
+    '16:30',
+    '17:00',
+    '17:30',
+    '18:00',
+    '18:30',
+    '19:00',
+    '19:30',
+    '20:00',
+    '20:30',
+    '21:00',
+    '21:30',
+    '22:00',
+    '22:30',
+    '23:00',
+    '23:30',
   ];
-
-  const three = ['2023-02-21', '2023-02-22', '2023-02-23'];
 
   const handleClick = (e: any) => {
     console.log(e.currentTarget.getAttribute('value'));
@@ -77,17 +91,18 @@ const AddTable = ({
 };
 
 const Wrapper = styled.div`
-  display: inline-block;
-  overflow: hidden;
-  color: ${theme.colors.gray06};
-  ${theme.typography.medium02};
+  width: 231px;
   border-radius: 5.5px;
   border: 1px solid ${theme.colors.gray03};
+
+  color: ${theme.colors.gray06};
+  ${theme.typography.medium02};
 `;
 
 const Top = styled.div`
   display: flex;
-  height: 36px;
+  width: 100%;
+  height: 37px;
   border-bottom: 1px solid ${theme.colors.gray03};
 `;
 
@@ -97,20 +112,20 @@ const Bottom = styled.div`
 `;
 
 const Blank = styled.div`
-  width: 16px;
+  width: 17px;
   height: 36px;
+
   border-right: 1px solid ${theme.colors.gray03};
-  border-bottom: 1px solid ${theme.colors.gray03};
 `;
 
 const DateWrapper = styled.div`
   display: flex;
-  height: 36px;
 `;
 
 const Date = styled.div`
-  width: 68px;
+  width: 70px;
   height: 36px;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -119,12 +134,13 @@ const Date = styled.div`
   ${theme.typography.medium04};
 
   & + & {
+    width: 71px;
     border-left: 1px solid ${theme.colors.gray03};
   }
 `;
 
 const TimeWrapper = styled.div`
-  width: 16px;
+  width: 17px;
   border-right: 1px solid ${theme.colors.gray03};
 `;
 
@@ -139,14 +155,16 @@ const Time = styled.div`
   ${theme.typography.regular03};
 
   & + & {
+    height: 37px;
     border-top: 1px solid ${theme.colors.gray03};
   }
 `;
 
 const SelectWrapper = styled.div`
-  width: 68px;
+  width: 70px;
 
   & + & {
+    width: 71px;
     border-left: 1px solid ${theme.colors.gray03};
   }
 `;
@@ -169,12 +187,12 @@ const Select = styled.div<{
   &:nth-of-type(odd) {
     border-bottom: 1px dashed ${theme.colors.gray03};
   }
+
   &:nth-of-type(even) {
+    height: 18px;
     border-bottom: 1px solid ${theme.colors.gray03};
   }
-  &:first-of-type {
-    padding-top: 1px;
-  }
+
   &:last-of-type {
     border-bottom: none;
   }
