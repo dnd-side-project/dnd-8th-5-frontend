@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Slider from 'react-slick';
-import theme from './theme';
+import theme from '../../styles/theme';
 
 export const MainContainer = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ export const StyledSlider = styled(Slider)`
     color: grey;
   }
   .slick-current {
-    color: ${theme.colors.purple5};
+    color: ${theme.colors.purple05};
   }
   .slick-center {
   }

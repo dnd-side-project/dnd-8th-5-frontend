@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import theme from '../styles/theme';
+import theme from './theme';
 
 export const LoginComponent = styled.div`
   display: flex;
@@ -7,7 +7,7 @@ export const LoginComponent = styled.div`
 `;
 
 export const HeaderText = styled.div`
-  ${theme.typography.system_0_semibold}
+  ${theme.typography.semibold01}
 `;
 
 export const Input = styled.input`
@@ -17,6 +17,6 @@ export const Input = styled.input`
 
   :focus {
     outline: none;
-    border: 1px solid ${theme.colors.purple5};
+    border: 1px solid ${theme.colors.purple05};
   }
 `;

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-import { ToggleBtn, ToggleText, Circle } from '../styles/toggle.styles';
+import { ToggleBtn, ToggleText, Circle } from './Toggle.styles';
 
 interface ToggleProps {
   text: Array<string>;
