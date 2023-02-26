@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import theme from '../../styles/theme';
 
 export const ToggleBtn = styled.button<{ toggle: boolean }>`
   width: 100px;
@@ -15,7 +16,7 @@ export const ToggleBtn = styled.button<{ toggle: boolean }>`
 
   cursor: pointer;
 
-  background-color: #f6f6f6;
+  background-color: ${theme.colors.gray02};
 
   transition: all 0.5s ease-in-out;
 `;
@@ -24,7 +25,7 @@ export const ToggleText = styled.div`
   width: 45px;
   color: #b6b6b6;
 
-  font-size: 14px;
+  ${theme.typography.semibold06}
 `;
 
 export const Circle = styled.div<{ toggle: boolean }>`
@@ -37,20 +38,20 @@ export const Circle = styled.div<{ toggle: boolean }>`
   justify-content: center;
   align-items: center;
 
-  color: #6a7bff;
+  color: ${theme.colors.purple06};
 
-  font-size: 14px;
+  ${theme.typography.semibold06}
 
   background-color: white;
   border-radius: 50px;
-  box-shadow: 0px 0px 14.34px 0px #6a7bff;
+  box-shadow: 0px 0px 14.34px 0px rgba(106, 123, 255, 0.26);
 
-  left: 0%;
+  left: -5px;
   transition: all 0.5s ease-in-out;
   ${(props) =>
     !props.toggle &&
     css`
-      transform: translate(45px, 0);
+      transform: translate(52px, 0);
       transition: all 0.5s ease-in-out;
     `}
 `;
