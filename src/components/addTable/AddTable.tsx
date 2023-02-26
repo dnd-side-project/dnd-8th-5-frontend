@@ -57,7 +57,7 @@ const AddTable = ({ selectedMethod, tablePage, validDateChunks }: Props) => {
       <Top>
         <Blank />
         <DateWrapper>
-          {validDateChunks[tablePage].map(({ date }: any) => (
+          {validDateChunks[tablePage].map(({ date }: { date: string }) => (
             <Date key={date}>{`${date.slice(5, 7)}월${date.slice(
               8,
               10
@@ -72,19 +72,21 @@ const AddTable = ({ selectedMethod, tablePage, validDateChunks }: Props) => {
             <Time key={time}>{time}</Time>
           ))}
         </TimeWrapper>
-        {validDateChunks[tablePage].map(({ date, isValidDate }: any) => (
-          <SelectWrapper key={date}>
-            {timeDetail.map((time) => (
-              <Select
-                key={`${date} ${time}:00`}
-                value={`${date} ${time}`}
-                isSelected={false}
-                selectedMethod={selectedMethod}
-                isValidDate={isValidDate}
-              />
-            ))}
-          </SelectWrapper>
-        ))}
+        {validDateChunks[tablePage].map(
+          ({ date, isValidDate }: { date: string; isValidDate: boolean }) => (
+            <SelectWrapper key={date}>
+              {timeDetail.map((time) => (
+                <Select
+                  key={`${date} ${time}:00`}
+                  value={`${date} ${time}`}
+                  isSelected={false}
+                  selectedMethod={selectedMethod}
+                  isValidDate={isValidDate}
+                />
+              ))}
+            </SelectWrapper>
+          )
+        )}
       </Bottom>
     </Wrapper>
   );

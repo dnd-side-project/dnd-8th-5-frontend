@@ -22,7 +22,7 @@ import {
 } from './AddTime.styles';
 
 const AddTime = () => {
-  const { dates, startTime, endTime } = room;
+  const { dates } = room;
 
   const [selectedMethod, setSelectedMethod] = useState('possible');
 
