@@ -59,10 +59,10 @@ export const StyledSlider = styled(Slider)`
   }
 
   .slick-slide {
-    color: grey;
+    color: ${theme.colors.gray03};
   }
   .slick-active {
-    color: grey;
+    color: ${theme.colors.gray03};
   }
   .slick-current {
     color: ${theme.colors.purple05};
