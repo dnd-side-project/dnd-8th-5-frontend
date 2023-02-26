@@ -10,9 +10,11 @@ import room from '../assets/data/room.json';
 import { getChunks } from '../utils/getChunks';
 import { getValidDates } from '../utils/getValidDates';
 import { getDateRange } from '../utils/getDateRange';
+import Toggle from '../components/Toggle';
 
 const AddTime = () => {
   const { dates, startTime, endTime } = room;
+  const [isToggled, setIsToggled] = useState(false);
 
   const [selectedMethod, setSelectedMethod] = useState('possible');
 
@@ -45,10 +47,15 @@ const AddTime = () => {
           <Title>수빈 님의 일정을</Title>
         </TitleWrapper>
         <TitleWrapper>
-          <select onChange={handleSelect} value={selectedMethod}>
+          {/* <select onChange={handleSelect} value={selectedMethod}>
             <option value="possible">되는</option>
             <option value="impossible">안 되는</option>
-          </select>
+          </select> */}
+          <Toggle
+            text={['되는', '안되는']}
+            toggle={isToggled}
+            setData={setIsToggled}
+          />
           <Title>시간으로 선택해 주세요</Title>
         </TitleWrapper>
 
@@ -114,7 +121,6 @@ const Main = styled.div`
   height: 454px;
   margin-top: 48px;
   padding-bottom: 116px;
-  border: 1px solid hotpink;
 
   display: flex;
   justify-content: space-between;

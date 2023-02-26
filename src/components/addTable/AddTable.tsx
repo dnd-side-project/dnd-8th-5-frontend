@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 import theme from '../../styles/theme';
 
-import room from '../../assets/data/room.json';
-
 interface Props {
   selectedMethod: string;
   tablePage: number;
@@ -10,8 +8,6 @@ interface Props {
 }
 
 const AddTable = ({ selectedMethod, tablePage, validDateChunks }: Props) => {
-  const { dates, startTime, endTime } = room;
-  console.log(validDateChunks[tablePage]);
   const times = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
   const timeDetail = [
     '09:00',
