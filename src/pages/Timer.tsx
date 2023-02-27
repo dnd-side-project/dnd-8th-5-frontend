@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Checkbox from '../components/checkbox/CheckBox';
 import RoomHeader from '../components/header/RoomHeader';
 import Timer from '../components/timer/TImer';
+import { MainContainer } from '../components/timer/Timer.styles';
 import theme from '../styles/theme';
 
 const TimerPage = () => {
@@ -16,7 +17,13 @@ const TimerPage = () => {
           title={`언제까지 참여자들의\n일정을 받아볼까요?`}
         />
       </HeaderContainer>
-      <Timer />
+      <TimerContainr>
+        <TImerWrapper>
+          <Timer />
+        </TImerWrapper>
+        <DependingBox />
+      </TimerContainr>
+
       <BottomContainer>
         <BottomHeaderWrapper>
           <BottomHeaderText>타이머 시간을 추천해드려요</BottomHeaderText>
@@ -53,6 +60,25 @@ const HeaderContainer = styled.div`
   width: 333px;
   height: 116px;
   margin-bottom: 54px;
+`;
+
+const TimerContainr = styled.div`
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+`;
+
+const TImerWrapper = styled.div`
+  position: absolute;
+  z-index: 5;
+`;
+const DependingBox = styled.div`
+  width: 100%;
+  height: 200px;
+  background-color: rgba(256, 256, 256, 0.2);
+  z-index: 3;
 `;
 
 const BottomContainer = styled.div`
