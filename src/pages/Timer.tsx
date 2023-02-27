@@ -21,10 +21,11 @@ const TimerPage = () => {
         <TImerWrapper>
           <Timer />
         </TImerWrapper>
-        <DependingBox />
+        {isChecked ? <DependingBox value={3} /> : <DependingBox value={1} />}
       </TimerContainr>
 
       <BottomContainer>
+        {isChecked ? <DependingBox value={3} /> : <DependingBox value={1} />}
         <BottomHeaderWrapper>
           <BottomHeaderText>타이머 시간을 추천해드려요</BottomHeaderText>
         </BottomHeaderWrapper>
@@ -52,14 +53,14 @@ const Main = styled.div`
   align-items: center;
   border: 1px solid black;
   width: 375px;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 `;
 
 const HeaderContainer = styled.div`
   width: 333px;
   height: 116px;
-  margin-bottom: 54px;
+  margin-bottom: 34px;
 `;
 
 const TimerContainr = styled.div`
@@ -68,21 +69,25 @@ const TimerContainr = styled.div`
   position: relative;
   width: 100%;
   z-index: 1;
+  margin-bottom: 0px;
 `;
 
 const TImerWrapper = styled.div`
   position: absolute;
-  z-index: 5;
+  background-color: white;
+  z-index: 2;
 `;
-const DependingBox = styled.div`
+
+const DependingBox = styled.div<{ value: number }>`
   width: 100%;
-  height: 200px;
-  background-color: rgba(256, 256, 256, 0.2);
-  z-index: 3;
+  height: 180px;
+  background-color: rgba(256, 256, 256, 0.6);
+  z-index: ${(props) => props.value};
 `;
 
 const BottomContainer = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   width: 100%;
@@ -92,6 +97,7 @@ const BottomContainer = styled.div`
 `;
 
 const BottomHeaderWrapper = styled.div`
+  position: absolute;
   width: 170px;
   height: 19px;
   display: flex;
@@ -101,17 +107,20 @@ const BottomHeaderWrapper = styled.div`
 `;
 
 const BottomHeaderText = styled.div`
+  z-index: 1;
   ${theme.typography.medium03}
 `;
 
 const RecommendWrapper = styled.div`
+  position: absolute;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 335px;
   height: 94px;
+  top: 62px;
   flex-wrap: wrap;
-  margin-top: 23px;
+  z-index: 1;
 `;
 
 const RecommendBox = styled.div`
@@ -128,6 +137,7 @@ const RecommendBox = styled.div`
 `;
 
 const CheckboxWrapper = styled.div`
-  margin-top: 24px;
+  position: absolute;
+  top: 180px;
 `;
 export default TimerPage;
