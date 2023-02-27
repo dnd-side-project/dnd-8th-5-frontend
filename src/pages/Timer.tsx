@@ -1,9 +1,12 @@
 import styled from '@emotion/styled';
+import { useState } from 'react';
+import Checkbox from '../components/checkbox/CheckBox';
 import RoomHeader from '../components/header/RoomHeader';
 import Timer from '../components/timer/TImer';
 import theme from '../styles/theme';
 
 const TimerPage = () => {
+  const [isChecked, setIsChecked] = useState(false);
   const RecommendArray = ['10분', '30분', '1시간', '3시간', '6시간', '하루'];
   return (
     <Main>
@@ -21,6 +24,13 @@ const TimerPage = () => {
             return <RecommendBox key={item}>{item}</RecommendBox>;
           })}
         </RecommendWrapper>
+        <CheckboxWrapper>
+          <Checkbox
+            text={'타이머 등록 없이 여유롭게 일정을 받을래요'}
+            value={isChecked}
+            setValue={setIsChecked}
+          />
+        </CheckboxWrapper>
       </BottomContainer>
     </Main>
   );
@@ -44,11 +54,12 @@ const BottomContainer = styled.div`
 `;
 
 const BottomHeaderWrapper = styled.div`
-  width: 100%;
-  height: 55px;
+  width: 170px;
+  height: 19px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
 `;
 
 const BottomHeaderText = styled.div`
@@ -62,6 +73,7 @@ const RecommendWrapper = styled.div`
   width: 335px;
   height: 94px;
   flex-wrap: wrap;
+  margin-top: 23px;
 `;
 
 const RecommendBox = styled.div`
@@ -74,6 +86,10 @@ const RecommendBox = styled.div`
   border-radius: 6px;
   color: ${theme.colors.purple06};
   ${theme.typography.medium02};
+  margin-bottom: 12px;
 `;
 
+const CheckboxWrapper = styled.div`
+  margin-top: 24px;
+`;
 export default TimerPage;
