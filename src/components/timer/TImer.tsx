@@ -83,30 +83,30 @@ const Current = () => {
     <MainContainer>
       <GreyBox />
       <StyledSlider {...settings('date')}>
-        {DAY_ARRAY.map((time: string) => {
+        {DAY_ARRAY.map((value: string) => {
           return (
-            <div key={time}>
-              <TimeText>{time}</TimeText>
+            <div key={value}>
+              <TimeText>{value}</TimeText>
             </div>
           );
         })}
       </StyledSlider>
       <TextContainer>일</TextContainer>
       <StyledSlider {...settings('hour')}>
-        {HOUR_ARRAY.map((time: string) => {
+        {HOUR_ARRAY.map((value: string) => {
           return (
-            <div key={time}>
-              <TimeText>{time}</TimeText>
+            <div key={value}>
+              <TimeText>{value}</TimeText>
             </div>
           );
         })}
       </StyledSlider>
       <TextContainer>시간</TextContainer>
       <StyledSlider {...settings('minute')}>
-        {MINUTE_ARRAY.map((time: string) => {
+        {MINUTE_ARRAY.map((value: string) => {
           return (
-            <div key={time}>
-              <TimeText>{time}</TimeText>
+            <div key={value}>
+              <TimeText>{value}</TimeText>
             </div>
           );
         })}
