@@ -48,7 +48,7 @@ const Current = () => {
       infinite: true,
       speed: 200,
       slidesToShow: 5,
-      slidesToScroll: 5,
+      slidesToScroll: 1,
       swipeToSlide: true,
       beforeChange: function (currentSlide: number) {
         if (startEnd === 'date') {
@@ -64,11 +64,16 @@ const Current = () => {
       vertical: true,
       swipe: true,
       verticalSwiping: true,
-      useTransform: false,
-      centerPadding: '8px',
+      centerPadding: '7px',
       touchThreshold: 100,
-      cssEase: 'linear',
       focusOnSelect: true,
+      useTransform: false,
+      transformEnabled: false,
+      cssEase: 'ease-out',
+      slide: '.slider-pic',
+      edgeFriction: 0,
+      focusOnChange: true,
+      touchMove: true,
     };
 
     return setting;
@@ -77,7 +82,7 @@ const Current = () => {
   return (
     <MainContainer>
       <GreyBox />
-      <StyledSlider {...settings('start')}>
+      <StyledSlider {...settings('date')}>
         {DAY_ARRAY.map((time: string) => {
           return (
             <div key={time}>
@@ -87,7 +92,7 @@ const Current = () => {
         })}
       </StyledSlider>
       <TextContainer>일</TextContainer>
-      <StyledSlider {...settings('start')}>
+      <StyledSlider {...settings('hour')}>
         {HOUR_ARRAY.map((time: string) => {
           return (
             <div key={time}>
@@ -97,7 +102,7 @@ const Current = () => {
         })}
       </StyledSlider>
       <TextContainer>시간</TextContainer>
-      <StyledSlider {...settings('end')}>
+      <StyledSlider {...settings('minute')}>
         {MINUTE_ARRAY.map((time: string) => {
           return (
             <div key={time}>

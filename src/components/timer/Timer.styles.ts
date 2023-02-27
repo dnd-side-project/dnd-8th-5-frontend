@@ -8,7 +8,6 @@ export const MainContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 336px;
-  height: 195px;
   overflow: hidden;
   touch-action: none;
   z-index: 1;
@@ -19,7 +18,7 @@ export const GreyBox = styled.div`
   z-index: 2;
   background-color: ${theme.colors.gray02};
   width: 335px;
-  height: 47px;
+  height: 48px;
 `;
 
 export const TimeText = styled.div`
@@ -41,9 +40,11 @@ export const TextContainer = styled.div`
 export const StyledSlider = styled(Slider)`
   .slick-slide {
     color: white;
-    padding: 0px 0 15px 0;
+    justify-items: center;
+    align-items: center;
     text-align: right;
     ${theme.typography.medium01x}
+    height: 40px;
   }
 
   .slick-list {
@@ -55,7 +56,6 @@ export const StyledSlider = styled(Slider)`
 
   .slick-vertical .slick-slide {
     display: block;
-    height: auto;
   }
 
   .slick-slide {
