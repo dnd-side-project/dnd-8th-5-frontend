@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Checkbox from '../components/checkbox/CheckBox';
 import RoomHeader from '../components/header/RoomHeader';
 import Timer from '../components/timer/TImer';
@@ -9,6 +9,26 @@ import theme from '../styles/theme';
 const TimerPage = () => {
   const [isChecked, setIsChecked] = useState(false);
   const RecommendArray = ['10분', '30분', '1시간', '3시간', '6시간', '하루'];
+  const [isClicked, setIsClicked] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  const onClickRecommendBox = useCallback(
+    (idx: number) => {
+      setIsClicked((prev) =>
+        prev.map((element, index) => {
+          return index === idx ? !element : false;
+        })
+      );
+    },
+    [isClicked]
+  );
+
   return (
     <Main>
       <HeaderContainer>
@@ -23,15 +43,22 @@ const TimerPage = () => {
         </TImerWrapper>
         {isChecked ? <DependingBox value={3} /> : <DependingBox value={1} />}
       </TimerContainr>
-
       <BottomContainer>
-        {isChecked ? <DependingBox value={3} /> : <DependingBox value={1} />}
         <BottomHeaderWrapper>
           <BottomHeaderText>타이머 시간을 추천해드려요</BottomHeaderText>
         </BottomHeaderWrapper>
         <RecommendWrapper>
-          {RecommendArray.map((item: string) => {
-            return <RecommendBox key={item}>{item}</RecommendBox>;
+          {RecommendArray.map((item: string, index: number) => {
+            return (
+              <RecommendBox
+                onClick={() => onClickRecommendBox(index)}
+                key={item}
+                value={isClicked[index]}
+                isChecked={isChecked}
+              >
+                {item}
+              </RecommendBox>
+            );
           })}
         </RecommendWrapper>
         <CheckboxWrapper>
@@ -80,7 +107,7 @@ const TImerWrapper = styled.div`
 
 const DependingBox = styled.div<{ value: number }>`
   width: 100%;
-  height: 180px;
+  height: 190px;
   background-color: rgba(256, 256, 256, 0.6);
   z-index: ${(props) => props.value};
 `;
@@ -94,6 +121,7 @@ const BottomContainer = styled.div`
   height: 332px;
   background-color: #f5f6ff;
   margin-top: 71px;
+  z-index: 2;
 `;
 
 const BottomHeaderWrapper = styled.div`
@@ -104,10 +132,11 @@ const BottomHeaderWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+  z-index: 2;
 `;
 
 const BottomHeaderText = styled.div`
-  z-index: 1;
+  z-index: 2;
   ${theme.typography.medium03}
 `;
 
@@ -120,20 +149,23 @@ const RecommendWrapper = styled.div`
   height: 94px;
   top: 62px;
   flex-wrap: wrap;
-  z-index: 1;
+  z-index: 2;
 `;
 
-const RecommendBox = styled.div`
+const RecommendBox = styled.div<{ value: boolean; isChecked: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 104px;
   height: 41px;
-  background-color: ${theme.colors.gray01};
+  background-color: ${(props) =>
+    props.value ? theme.colors.purple05 : 'white'};
   border-radius: 6px;
-  color: ${theme.colors.purple06};
+  color: ${(props) => (props.value ? 'white' : theme.colors.purple06)};
+  color: ${(props) => (props.isChecked ? theme.colors.gray03 : 'none')};
   ${theme.typography.medium02};
   margin-bottom: 12px;
+  pointer-events: ${(props) => (props.isChecked ? 'none' : null)};
 `;
 
 const CheckboxWrapper = styled.div`
