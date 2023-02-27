@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 import { useState, useCallback } from 'react';
 import Checkbox from '../components/checkbox/CheckBox';
-import RoomHeader from '../components/header/RoomHeader';
+import RoomHeader from '../components/roomHeader/RoomHeader';
 import Timer from '../components/timer/TImer';
-import { MainContainer } from '../components/timer/Timer.styles';
 import theme from '../styles/theme';
 
 const TimerPage = () => {
