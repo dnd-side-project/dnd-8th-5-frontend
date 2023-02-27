@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
 import {
@@ -25,10 +25,10 @@ const CurrentCalendar = () => {
     if (
       availableDatesInfo.find(
         (availableDate) =>
-          availableDate.date === moment(date).format('YYYY-MM-DD')
+          availableDate.date === dayjs(date).format('YYYY-MM-DD')
       )
     ) {
-      return `availableDate${moment(date).format('YYYY-MM-DD')}`;
+      return `availableDate${dayjs(date).format('YYYY-MM-DD')}`;
     } else {
       return null;
     }
@@ -67,8 +67,8 @@ const CurrentCalendar = () => {
       minDetail="month"
       maxDetail="month"
       calendarType="US"
-      formatDay={(_, date) => moment(date).format('D')}
-      formatMonthYear={(_, date) => moment(date).format('M월')}
+      formatDay={(_, date) => dayjs(date).format('D')}
+      formatMonthYear={(_, date) => dayjs(date).format('M월')}
     />
   );
 };

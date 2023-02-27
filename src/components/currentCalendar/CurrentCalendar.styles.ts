@@ -124,9 +124,11 @@ export const StyledCalendar = styled(Calendar)`
 export const PrevMonthIcon = styled.img`
   width: 20px;
   height: 20px;
+  cursor: pointer;
 `;
 
 export const NextMonthIcon = styled.img`
   width: 24px;
   height: 24px;
+  cursor: pointer;
 `;
