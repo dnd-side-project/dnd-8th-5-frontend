@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import theme from '../../styles/theme';
 import {
   Blank,
   Bottom,
@@ -52,6 +54,44 @@ const AddTable = ({ selectedMethod, tablePage, validDateChunks }: Props) => {
     '23:30',
   ];
 
+  const [isDragging, setIsDragging] = useState(false);
+  const [availableTime, setAvailableTime] = useState<any>([]);
+
+  const handleMouseDown = () => {
+    setIsDragging(true);
+  };
+
+  const [element, setElement] = useState<any>(null);
+
+  const handleMouseMove = (e: any) => {
+    if (isDragging) {
+      setElement(e.target);
+    }
+  };
+
+  useEffect(() => {
+    if (element) {
+      element.style.backgroundColor = `${theme.colors.purple06}`;
+      setAvailableTime([...availableTime, element.id]);
+    }
+  }, [element]);
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleTouchMove = (e: any) => {
+    if (
+      document
+        .elementFromPoint(e.touches[0].pageX, e.touches[0].pageY)
+        ?.className.slice(0, 6) === 'select'
+    ) {
+      setElement(
+        document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY)
+      );
+    }
+  };
+
   return (
     <Wrapper>
       <Top>
@@ -77,11 +117,17 @@ const AddTable = ({ selectedMethod, tablePage, validDateChunks }: Props) => {
             <SelectWrapper key={date}>
               {timeDetail.map((time) => (
                 <Select
+                  className="select"
                   key={`${date} ${time}:00`}
                   value={`${date} ${time}`}
+                  id={`${date} ${time}`}
                   isSelected={false}
                   selectedMethod={selectedMethod}
                   isValidDate={isValidDate}
+                  onMouseDown={handleMouseDown}
+                  onMouseMove={handleMouseMove}
+                  onMouseUp={handleMouseUp}
+                  onTouchMove={handleTouchMove}
                 />
               ))}
             </SelectWrapper>

@@ -91,11 +91,14 @@ export const Select = styled.div<Props>`
   height: 17px;
   box-sizing: content-box;
 
-  background: ${({ isValidDate }) => !isValidDate && `${theme.colors.gray02}`};
+  /* background: ${({ isValidDate }) =>
+    !isValidDate && `${theme.colors.gray02}`}; */
 
-  background: ${({ selectedMethod, isSelected }) =>
+  /* background: ${({ selectedMethod, isSelected }) =>
     isSelected &&
-    (selectedMethod ? `${theme.colors.purple06}` : `${theme.colors.orange02}`)};
+    (selectedMethod
+      ? `${theme.colors.purple06}`
+      : `${theme.colors.orange02}`)}; */
 
   &:nth-of-type(odd) {
     border-bottom: 1px dashed ${theme.colors.gray03};
