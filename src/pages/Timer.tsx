@@ -10,10 +10,12 @@ const TimerPage = () => {
   const RecommendArray = ['10분', '30분', '1시간', '3시간', '6시간', '하루'];
   return (
     <Main>
-      <RoomHeader
-        index={'2/2'}
-        title={`언제까지 참여자들의\n일정을 받아볼까요?`}
-      />
+      <HeaderContainer>
+        <RoomHeader
+          index={'2/2'}
+          title={`언제까지 참여자들의\n일정을 받아볼까요?`}
+        />
+      </HeaderContainer>
       <Timer />
       <BottomContainer>
         <BottomHeaderWrapper>
@@ -39,9 +41,18 @@ const TimerPage = () => {
 const Main = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border: 1px solid black;
   width: 375px;
-  height: 812px;
+  height: 100vh;
+  overflow: hidden;
+`;
+
+const HeaderContainer = styled.div`
+  width: 333px;
+  height: 116px;
+  margin-bottom: 54px;
 `;
 
 const BottomContainer = styled.div`
@@ -51,6 +62,7 @@ const BottomContainer = styled.div`
   width: 100%;
   height: 332px;
   background-color: #f5f6ff;
+  margin-top: 71px;
 `;
 
 const BottomHeaderWrapper = styled.div`

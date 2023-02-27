@@ -19,6 +19,7 @@ const MainContainer = styled.div`
   width: 333px;
   height: 116px;
   padding: 20px;
+  padding-left: 0px;
 `;
 
 const IndexText = styled.div`

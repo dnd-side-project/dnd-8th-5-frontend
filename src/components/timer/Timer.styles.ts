@@ -43,7 +43,7 @@ export const StyledSlider = styled(Slider)`
     color: white;
     padding: 0px 0 15px 0;
     text-align: right;
-    ${theme.typography.semibold03}
+    ${theme.typography.medium01x}
   }
 
   .slick-list {
