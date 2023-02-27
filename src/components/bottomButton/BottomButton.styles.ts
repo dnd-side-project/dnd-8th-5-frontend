@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import theme from '../../../styles/theme';
+import theme from '../../styles/theme';
 
-export const Wrapper = styled.button`
+export const Wrapper = styled.button<{ isActivated: boolean }>`
   width: calc(100% - 40px);
   max-width: 375px;
   height: 52px;
@@ -9,9 +9,11 @@ export const Wrapper = styled.button`
 
   border-radius: 6px;
 
-  color: ${theme.colors.gray01};
-  background: ${theme.colors.purple06};
   ${theme.typography.semibold03};
+  color: ${({ isActivated }) =>
+    isActivated ? theme.colors.gray01 : theme.colors.gray06};
+  background: ${({ isActivated }) =>
+    isActivated ? theme.colors.purple06 : theme.colors.gray03};
 
   display: flex;
   align-items: center;

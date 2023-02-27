@@ -1,6 +1,6 @@
 import { Story } from '@storybook/react';
 import BottomButton from './BottomButton';
-import { bottomButton } from '../../../types/commons/bottomButton';
+import { bottomButton } from '../../types/bottomButton';
 
 export default {
   title: '공통/하단 플로팅 버튼',

@@ -1,7 +1,7 @@
 import { ShareIcon, Title, Wrapper } from './Header.styles';
-import { roomTitle } from '../../../types/roomInfo';
+import { roomTitle } from '../../types/roomInfo';
 
-import share from '../../../assets/icons/share.svg';
+import share from '../../assets/icons/share.svg';
 
 const Header = ({ title }: roomTitle) => {
   return (

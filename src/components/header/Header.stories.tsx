@@ -1,5 +1,5 @@
 import { Story } from '@storybook/react';
-import { roomTitle } from '../../../types/roomInfo';
+import { roomTitle } from '../../types/roomInfo';
 import Header from './Header';
 
 export default {
