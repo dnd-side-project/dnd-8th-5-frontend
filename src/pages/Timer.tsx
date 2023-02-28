@@ -100,7 +100,7 @@ const TimerContainr = styled.div`
 
 const TImerWrapper = styled.div`
   position: absolute;
-  background-color: white;
+  background-color: ${theme.colors.gray01};
   z-index: 2;
 `;
 
@@ -158,9 +158,10 @@ const RecommendBox = styled.div<{ value: boolean; isChecked: boolean }>`
   width: 104px;
   height: 41px;
   background-color: ${(props) =>
-    props.value ? theme.colors.purple05 : 'white'};
+    props.value ? theme.colors.purple05 : theme.colors.gray01};
   border-radius: 6px;
-  color: ${(props) => (props.value ? 'white' : theme.colors.purple06)};
+  color: ${(props) =>
+    props.value ? theme.colors.gray01 : theme.colors.purple06};
   color: ${(props) => (props.isChecked ? theme.colors.gray03 : 'none')};
   ${theme.typography.medium02};
   margin-bottom: 12px;
