@@ -1,119 +1,20 @@
-import { useState } from 'react';
-import './timer.css';
-import {
-  MainContainer,
-  StyledSlider,
-  TextContainer,
-  TimeText,
-  GreyBox,
-} from './Timer.styles';
+import { deadLine } from '../../types/roomInfo';
+import { Countdown } from '../../utils/getCountdown';
+import { Span, TextWrapper, Time, Wrapper } from './Timer.styles';
 
-const Current = () => {
-  const [day, setDay] = useState('09:00');
-  const [hour, setHour] = useState('09:00');
-  const [minute, setMinute] = useState('09:00');
-
-  const DAY_ARRAY = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-  const HOUR_ARRAY = [
-    '0',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-    '16',
-    '17',
-    '18',
-    '19',
-    '20',
-    '21',
-    '22',
-    '23',
-  ];
-  const MINUTE_ARRAY = ['0', '10', '20', '30', '40', '50'];
-
-  const settings = (startEnd: string) => {
-    const setting = {
-      dots: false,
-      infinite: true,
-      speed: 200,
-      slidesToShow: 5,
-      slidesToScroll: 1,
-      swipeToSlide: true,
-      beforeChange: function (currentSlide: number) {
-        if (startEnd === 'date') {
-          setDay(DAY_ARRAY[currentSlide + 1]);
-        } else if (startEnd === 'hour') {
-          setHour(HOUR_ARRAY[currentSlide + 1]);
-        } else if (startEnd === 'minute') {
-          setMinute(MINUTE_ARRAY[currentSlide + 1]);
-        }
-      },
-      centerMode: true,
-      arrows: false,
-      vertical: true,
-      swipe: true,
-      verticalSwiping: true,
-      centerPadding: '7px',
-      touchThreshold: 100,
-      focusOnSelect: true,
-      useTransform: false,
-      transformEnabled: false,
-      cssEase: 'ease-out',
-      slide: '.slider-pic',
-      edgeFriction: 0,
-      focusOnChange: true,
-      touchMove: true,
-    };
-
-    return setting;
-  };
+const Timer = ({ deadLine }: deadLine) => {
+  const targetDate = new Date(deadLine);
+  const [days, hours, minutes, seconds] = Countdown(targetDate);
 
   return (
-    <MainContainer>
-      <GreyBox />
-      <StyledSlider {...settings('date')}>
-        {DAY_ARRAY.map((value: string) => {
-          return (
-            <div key={value}>
-              <TimeText>{value}</TimeText>
-            </div>
-          );
-        })}
-      </StyledSlider>
-      <TextContainer>일</TextContainer>
-      <StyledSlider {...settings('hour')}>
-        {HOUR_ARRAY.map((value: string) => {
-          return (
-            <div key={value}>
-              <TimeText>{value}</TimeText>
-            </div>
-          );
-        })}
-      </StyledSlider>
-      <TextContainer>시간</TextContainer>
-      <StyledSlider {...settings('minute')}>
-        {MINUTE_ARRAY.map((value: string) => {
-          return (
-            <div key={value}>
-              <TimeText>{value}</TimeText>
-            </div>
-          );
-        })}
-      </StyledSlider>
-      <TextContainer>분</TextContainer>
-    </MainContainer>
+    <Wrapper>
+      <TextWrapper>
+        <Span>일정 등록 기간이</Span>
+        <Time>{`${days}일 ${hours}:${minutes}:${seconds}`}</Time>
+        <Span>남았어요</Span>
+      </TextWrapper>
+    </Wrapper>
   );
 };
 
-export default Current;
+export default Timer;

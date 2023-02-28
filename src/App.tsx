@@ -1,11 +1,15 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Current from './pages/Current';
+
+import AddTime from './pages/addTime/AddTime';
+import Current from './pages/current/Current';
+import Timer from './pages/Timer';
 
 function App() {
   return (
     <Routes>
-      <Route path="/available-time/group" element={<Current />} />
+      <Route path="/addTime" element={<AddTime />} />
+      <Route path="/current" element={<Current />} />
+      <Route path="/timer" element={<Timer />} />
     </Routes>
   );
 }

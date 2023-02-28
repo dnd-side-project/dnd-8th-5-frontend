@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useState, useCallback } from 'react';
 import Checkbox from '../components/checkbox/CheckBox';
 import RoomHeader from '../components/roomHeader/RoomHeader';
-import Timer from '../components/timer/TImer';
+import Timer from '../components/setTimer/SetTimer';
 import theme from '../styles/theme';
 
 const TimerPage = () => {
