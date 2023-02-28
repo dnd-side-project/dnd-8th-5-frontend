@@ -11,10 +11,10 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v2
 
-      - name: Install and Deploy 🚀
-        run: |
-          yarn install
-          yarn deploy-storybook
-        with:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          BRANCH: develop
+      # - name: Install and Deploy 🚀
+      #   run: |
+      #     yarn install
+      #     yarn deploy-storybook
+      #   with:
+      #     GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      #     BRANCH: develop
