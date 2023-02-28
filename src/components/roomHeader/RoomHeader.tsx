@@ -4,11 +4,11 @@ interface RoomHeader {
   title: string;
 }
 
-const RoomHeader = (props: RoomHeader) => {
+const RoomHeader = ({ index, title }: RoomHeader) => {
   return (
     <MainContainer>
-      <IndexText>{props.index}</IndexText>
-      <TitleText>{props.title}</TitleText>
+      <IndexText>{index}</IndexText>
+      <TitleText>{title}</TitleText>
     </MainContainer>
   );
 };
