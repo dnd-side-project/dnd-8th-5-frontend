@@ -76,6 +76,8 @@ const AddTable = ({ selectedMethod, tablePage, validDateChunks }: Props) => {
 
   useEffect(() => {
     if (element) {
+      console.log('1: ', element.classList);
+
       if (element.classList.contains('selected')) {
         element.style.backgroundColor = `${theme.colors.gray01}`;
         element.classList.remove('selected');
@@ -83,6 +85,8 @@ const AddTable = ({ selectedMethod, tablePage, validDateChunks }: Props) => {
         element.classList.add('selected');
         element.style.backgroundColor = `${theme.colors.purple06}`;
       }
+
+      console.log('2: ', element.classList);
     }
   }, [element]);
 
