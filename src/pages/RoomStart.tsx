@@ -2,6 +2,9 @@ import styled from '@emotion/styled';
 import { SetStateAction, useCallback, useState } from 'react';
 import roomStartBack from '../assets/images/roomStartBack.png';
 import RoomHeader from '../components/roomHeader/RoomHeader';
+import theme from '../styles/theme';
+import plus from '../assets/icons/plus.png';
+import minus from '../assets/icons/minus.png';
 
 const Room = () => {
   const [roomName, setRoomName] = useState('');
@@ -37,18 +40,33 @@ const Room = () => {
   return (
     <MainContainer>
       <FormContainer>
-        <RoomHeader index="" title="약속 정보를 입력해주세요" />
-        <SubTitle>약속 이름을 알려주세요</SubTitle>
-        <Input
-          type="text"
-          name="username"
-          value={roomName}
-          onChange={handleRoomNameChange}
-        />
-        <SubTitle>약속 참여 인원을 알려주세요</SubTitle>
-        <CountButton onClick={handleMinusButtonClick}>-</CountButton>
-        <PeopleNumber>{peopleNumber}명</PeopleNumber>
-        <CountButton onClick={handlePlusButtonClick}>+</CountButton>
+        <HeaderContainer>
+          <RoomHeader index="" title="약속 정보를 입력해주세요" />
+        </HeaderContainer>
+        <TitleInputContnainer>
+          <InputWrapper>
+            <InputTitle>약속 이름을 알려주세요</InputTitle>
+            <Input
+              type="text"
+              name="username"
+              value={roomName}
+              onChange={handleRoomNameChange}
+            />
+          </InputWrapper>
+        </TitleInputContnainer>
+        <NumberSelectContnainer>
+          <InputTitle>약속 참여 인원을 알려주세요</InputTitle>
+          <SelectWrapper>
+            <CountButton onClick={handleMinusButtonClick}>
+              <img src={minus} />
+            </CountButton>
+            <PeopleNumber>{peopleNumber}명</PeopleNumber>
+            <CountButton onClick={handlePlusButtonClick}>
+              <img src={plus} />
+            </CountButton>
+          </SelectWrapper>
+        </NumberSelectContnainer>
+
         <ChceckContainer onClick={handleCheckButtonClick}>
           <CheckCircle
             src={
@@ -76,27 +94,98 @@ const MainContainer = styled.div`
 
 const FormContainer = styled.div`
   width: 375px;
+  max-width: 375px;
+  height: 465px;
   position: absolute;
+
+  bottom: 0px;
   background-color: white;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding-left: 21px;
+  padding-top: 10px;
 `;
 
-const Input = styled.input``;
-
-const Title = styled.text`
-  font-family: Pretendard;
+const HeaderContainer = styled.div`
+  position: absolute;
+  top: 25px;
 `;
 
-const SubTitle = styled.text`
-  font-family: Pretendard;
+const TitleInputContnainer = styled.div`
+  position: absolute;
+  top: 87px;
+  width: 335px;
+  height: 79px;
 `;
 
-const PeopleNumber = styled.div``;
+const NumberSelectContnainer = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 190px;
+  width: 335px;
+  height: 79px;
+`;
 
-const CountButton = styled.button``;
+const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SelectWrapper = styled.div`
+  width: 335px;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid ${theme.colors.gray04};
+  border-bottom: 1px solid ${theme.colors.gray04};
+  border-radius: 5px;
+`;
+
+const InputTitle = styled.div`
+  ${theme.typography.medium02};
+  color: ${theme.colors.gray05};
+  padding-bottom: 8px;
+`;
+
+const Input = styled.input`
+  width: 335px;
+  height: 50px;
+  border: 1px solid ${theme.colors.gray04};
+  border-radius: 5px;
+  place-holder: 'dd';
+`;
+
+const PeopleNumber = styled.div`
+  ${theme.typography.medium01x};
+  color: ${theme.colors.gray06};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 80%;
+`;
+
+const CountButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${theme.typography.semibold01};
+  height: 100%;
+  width: 20%;
+  border-left: 1px solid ${theme.colors.gray04};
+  border-right: 1px solid ${theme.colors.gray04};
+  border-radius: 5px;
+`;
 
 const NextButton = styled.button``;
 
-const ChceckContainer = styled.div``;
+const ChceckContainer = styled.div`
+  position: absolute;
+  top: 279px;
+`;
 
 const CheckListText = styled.text`
   font-family: Pretendard;
