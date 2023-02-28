@@ -10,19 +10,21 @@ export const Wrapper = styled.div`
 
   width: 100%;
   max-width: 375px;
-  overflow: hidden;
   height: 100%;
+  overflow: hidden;
 `;
 
 export const Body = styled.div`
   width: 100%;
   padding: 0 20px;
+  overflow: hidden;
 `;
 
 export const TitleWrapper = styled.div`
   height: 30px;
   display: flex;
   align-items: center;
+  overflow: hidden;
 `;
 
 export const Title = styled.span`
@@ -40,6 +42,7 @@ export const Main = styled.div`
   justify-content: space-between;
 
   position: relative;
+  overflow: hidden;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -49,20 +52,23 @@ export const ButtonWrapper = styled.div`
   position: absolute;
   z-index: 2;
   top: 0;
+  overflow: hidden;
 `;
 
 export const MoveButton = styled.img`
   width: 36px;
   height: 36px;
   border-radius: 50%;
+  overflow: hidden;
+
   box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 `;
 
 export const TableWrapper = styled.div`
   margin: 0 auto;
-  height: 455px;
   overflow-y: auto;
+  overflow: hidden;
 
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -79,6 +85,7 @@ export const ScrollbarWrapper = styled.div`
   position: absolute;
   right: 9px;
   top: 52px;
+  overflow: hidden;
 `;
 
 export const Scrollbar = styled.div`
@@ -86,4 +93,5 @@ export const Scrollbar = styled.div`
   height: 55px;
   border-radius: 41px;
   background: ${theme.colors.purple05};
+  overflow: hidden;
 `;

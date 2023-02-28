@@ -66,13 +66,23 @@ const AddTable = ({ selectedMethod, tablePage, validDateChunks }: Props) => {
   const handleMouseMove = (e: any) => {
     if (isDragging) {
       setElement(e.target);
+      if (element.classList.contains('selected')) {
+        element.classList.remove('selected');
+      } else {
+        element.classList.add('selected');
+      }
     }
   };
 
   useEffect(() => {
     if (element) {
-      element.style.backgroundColor = `${theme.colors.purple06}`;
-      setAvailableTime([...availableTime, element.id]);
+      if (element.classList.contains('selected')) {
+        element.style.backgroundColor = `${theme.colors.gray01}`;
+        element.classList.remove('selected');
+      } else {
+        element.classList.add('selected');
+        element.style.backgroundColor = `${theme.colors.purple06}`;
+      }
     }
   }, [element]);
 
@@ -81,14 +91,13 @@ const AddTable = ({ selectedMethod, tablePage, validDateChunks }: Props) => {
   };
 
   const handleTouchMove = (e: any) => {
-    if (
-      document
-        .elementFromPoint(e.touches[0].pageX, e.touches[0].pageY)
-        ?.className.slice(0, 6) === 'select'
-    ) {
-      setElement(
-        document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY)
-      );
+    const elem = document.elementFromPoint(
+      e.changedTouches[0].clientX,
+      e.changedTouches[0].clientY
+    );
+
+    if (elem?.className.slice(0, 6) === 'select') {
+      setElement(elem);
     }
   };
 
@@ -121,7 +130,6 @@ const AddTable = ({ selectedMethod, tablePage, validDateChunks }: Props) => {
                   key={`${date} ${time}:00`}
                   value={`${date} ${time}`}
                   id={`${date} ${time}`}
-                  isSelected={false}
                   selectedMethod={selectedMethod}
                   isValidDate={isValidDate}
                   onMouseDown={handleMouseDown}
