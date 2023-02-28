@@ -1,0 +1,629 @@
+{
+  "availableDateTimes": [
+    {
+      "availableDate": "2023-02-20",
+      "availableTimeInfos": [
+        {
+          "time": "09:00",
+          "count": 0
+        },
+        {
+          "time": "09:30",
+          "count": 0
+        },
+        {
+          "time": "10:00",
+          "count": 0
+        },
+        {
+          "time": "10:30",
+          "count": 1
+        },
+        {
+          "time": "11:00",
+          "count": 2
+        },
+        {
+          "time": "11:30",
+          "count": 1
+        },
+        {
+          "time": "12:00",
+          "count": 2
+        },
+        {
+          "time": "12:30",
+          "count": 0
+        },
+        {
+          "time": "13:00",
+          "count": 5
+        },
+        {
+          "time": "13:30",
+          "count": 3
+        },
+        {
+          "time": "14:00",
+          "count": 4
+        },
+        {
+          "time": "14:30",
+          "count": 6
+        },
+        {
+          "time": "15:00",
+          "count": 5
+        },
+        {
+          "time": "15:30",
+          "count": 5
+        },
+        {
+          "time": "16:00",
+          "count": 4
+        },
+        {
+          "time": "16:30",
+          "count": 1
+        },
+        {
+          "time": "17:00",
+          "count": 1
+        },
+        {
+          "time": "17:30",
+          "count": 0
+        },
+        {
+          "time": "18:00",
+          "count": 0
+        },
+        {
+          "time": "18:30",
+          "count": 0
+        },
+        {
+          "time": "19:00",
+          "count": 1
+        },
+        {
+          "time": "19:30",
+          "count": 2
+        },
+        {
+          "time": "20:00",
+          "count": 2
+        },
+        {
+          "time": "20:30",
+          "count": 2
+        },
+        {
+          "time": "21:00",
+          "count": 2
+        },
+        {
+          "time": "21:30",
+          "count": 4
+        },
+        {
+          "time": "22:00",
+          "count": 4
+        },
+        {
+          "time": "22:30",
+          "count": 4
+        },
+        {
+          "time": "23:00",
+          "count": 4
+        },
+        {
+          "time": "23:30",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "availableDate": "2023-02-21",
+      "availableTimeInfos": [
+        {
+          "time": "09:00",
+          "count": 0
+        },
+        {
+          "time": "09:30",
+          "count": 1
+        },
+        {
+          "time": "10:00",
+          "count": 1
+        },
+        {
+          "time": "10:30",
+          "count": 1
+        },
+        {
+          "time": "11:00",
+          "count": 0
+        },
+        {
+          "time": "11:30",
+          "count": 1
+        },
+        {
+          "time": "12:00",
+          "count": 2
+        },
+        {
+          "time": "12:30",
+          "count": 0
+        },
+        {
+          "time": "13:00",
+          "count": 3
+        },
+        {
+          "time": "13:30",
+          "count": 2
+        },
+        {
+          "time": "14:00",
+          "count": 4
+        },
+        {
+          "time": "14:30",
+          "count": 5
+        },
+        {
+          "time": "15:00",
+          "count": 6
+        },
+        {
+          "time": "15:30",
+          "count": 6
+        },
+        {
+          "time": "16:00",
+          "count": 5
+        },
+        {
+          "time": "16:30",
+          "count": 4
+        },
+        {
+          "time": "17:00",
+          "count": 1
+        },
+        {
+          "time": "17:30",
+          "count": 1
+        },
+        {
+          "time": "18:00",
+          "count": 1
+        },
+        {
+          "time": "18:30",
+          "count": 1
+        },
+        {
+          "time": "19:00",
+          "count": 1
+        },
+        {
+          "time": "19:30",
+          "count": 3
+        },
+        {
+          "time": "20:00",
+          "count": 4
+        },
+        {
+          "time": "20:30",
+          "count": 5
+        },
+        {
+          "time": "21:00",
+          "count": 5
+        },
+        {
+          "time": "21:30",
+          "count": 5
+        },
+        {
+          "time": "22:00",
+          "count": 6
+        },
+        {
+          "time": "22:30",
+          "count": 6
+        },
+        {
+          "time": "23:00",
+          "count": 6
+        },
+        {
+          "time": "23:30",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "availableDate": "2023-02-22",
+      "availableTimeInfos": [
+        {
+          "time": "09:00",
+          "count": 0
+        },
+        {
+          "time": "09:30",
+          "count": 0
+        },
+        {
+          "time": "10:00",
+          "count": 0
+        },
+        {
+          "time": "10:30",
+          "count": 0
+        },
+        {
+          "time": "11:00",
+          "count": 1
+        },
+        {
+          "time": "11:30",
+          "count": 1
+        },
+        {
+          "time": "12:00",
+          "count": 2
+        },
+        {
+          "time": "12:30",
+          "count": 1
+        },
+        {
+          "time": "13:00",
+          "count": 0
+        },
+        {
+          "time": "13:30",
+          "count": 0
+        },
+        {
+          "time": "14:00",
+          "count": 0
+        },
+        {
+          "time": "14:30",
+          "count": 2
+        },
+        {
+          "time": "15:00",
+          "count": 3
+        },
+        {
+          "time": "15:30",
+          "count": 4
+        },
+        {
+          "time": "16:00",
+          "count": 5
+        },
+        {
+          "time": "16:30",
+          "count": 4
+        },
+        {
+          "time": "17:00",
+          "count": 2
+        },
+        {
+          "time": "17:30",
+          "count": 2
+        },
+        {
+          "time": "18:00",
+          "count": 2
+        },
+        {
+          "time": "18:30",
+          "count": 2
+        },
+        {
+          "time": "19:00",
+          "count": 2
+        },
+        {
+          "time": "19:30",
+          "count": 3
+        },
+        {
+          "time": "20:00",
+          "count": 4
+        },
+        {
+          "time": "20:30",
+          "count": 5
+        },
+        {
+          "time": "21:00",
+          "count": 5
+        },
+        {
+          "time": "21:30",
+          "count": 4
+        },
+        {
+          "time": "22:00",
+          "count": 4
+        },
+        {
+          "time": "22:30",
+          "count": 3
+        },
+        {
+          "time": "23:00",
+          "count": 3
+        },
+        {
+          "time": "23:30",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "availableDate": "2023-02-23",
+      "availableTimeInfos": [
+        {
+          "time": "09:00",
+          "count": 2
+        },
+        {
+          "time": "09:30",
+          "count": 2
+        },
+        {
+          "time": "10:00",
+          "count": 1
+        },
+        {
+          "time": "10:30",
+          "count": 1
+        },
+        {
+          "time": "11:00",
+          "count": 1
+        },
+        {
+          "time": "11:30",
+          "count": 1
+        },
+        {
+          "time": "12:00",
+          "count": 1
+        },
+        {
+          "time": "12:30",
+          "count": 1
+        },
+        {
+          "time": "13:00",
+          "count": 1
+        },
+        {
+          "time": "13:30",
+          "count": 1
+        },
+        {
+          "time": "14:00",
+          "count": 2
+        },
+        {
+          "time": "14:30",
+          "count": 3
+        },
+        {
+          "time": "15:00",
+          "count": 3
+        },
+        {
+          "time": "15:30",
+          "count": 3
+        },
+        {
+          "time": "16:00",
+          "count": 3
+        },
+        {
+          "time": "16:30",
+          "count": 2
+        },
+        {
+          "time": "17:00",
+          "count": 2
+        },
+        {
+          "time": "17:30",
+          "count": 3
+        },
+        {
+          "time": "18:00",
+          "count": 3
+        },
+        {
+          "time": "18:30",
+          "count": 3
+        },
+        {
+          "time": "19:00",
+          "count": 3
+        },
+        {
+          "time": "19:30",
+          "count": 3
+        },
+        {
+          "time": "20:00",
+          "count": 5
+        },
+        {
+          "time": "20:30",
+          "count": 5
+        },
+        {
+          "time": "21:00",
+          "count": 6
+        },
+        {
+          "time": "21:30",
+          "count": 6
+        },
+        {
+          "time": "22:00",
+          "count": 6
+        },
+        {
+          "time": "22:30",
+          "count": 6
+        },
+        {
+          "time": "23:00",
+          "count": 6
+        },
+        {
+          "time": "23:30",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "availableDate": "2023-02-24",
+      "availableTimeInfos": [
+        {
+          "time": "09:00",
+          "count": 1
+        },
+        {
+          "time": "09:30",
+          "count": 1
+        },
+        {
+          "time": "10:00",
+          "count": 1
+        },
+        {
+          "time": "10:30",
+          "count": 0
+        },
+        {
+          "time": "11:00",
+          "count": 0
+        },
+        {
+          "time": "11:30",
+          "count": 1
+        },
+        {
+          "time": "12:00",
+          "count": 2
+        },
+        {
+          "time": "12:30",
+          "count": 6
+        },
+        {
+          "time": "13:00",
+          "count": 6
+        },
+        {
+          "time": "13:30",
+          "count": 5
+        },
+        {
+          "time": "14:00",
+          "count": 4
+        },
+        {
+          "time": "14:30",
+          "count": 5
+        },
+        {
+          "time": "15:00",
+          "count": 6
+        },
+        {
+          "time": "15:30",
+          "count": 6
+        },
+        {
+          "time": "16:00",
+          "count": 5
+        },
+        {
+          "time": "16:30",
+          "count": 4
+        },
+        {
+          "time": "17:00",
+          "count": 5
+        },
+        {
+          "time": "17:30",
+          "count": 5
+        },
+        {
+          "time": "18:00",
+          "count": 5
+        },
+        {
+          "time": "18:30",
+          "count": 5
+        },
+        {
+          "time": "19:00",
+          "count": 4
+        },
+        {
+          "time": "19:30",
+          "count": 3
+        },
+        {
+          "time": "20:00",
+          "count": 4
+        },
+        {
+          "time": "20:30",
+          "count": 5
+        },
+        {
+          "time": "21:00",
+          "count": 5
+        },
+        {
+          "time": "21:30",
+          "count": 5
+        },
+        {
+          "time": "22:00",
+          "count": 6
+        },
+        {
+          "time": "22:30",
+          "count": 6
+        },
+        {
+          "time": "23:00",
+          "count": 6
+        },
+        {
+          "time": "23:30",
+          "count": 6
+        }
+      ]
+    }
+  ]
+}

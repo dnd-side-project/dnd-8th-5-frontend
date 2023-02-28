@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Current from './pages/Current';
+import Current from './pages/current/Current';
 
 function App() {
   return (
     <Routes>
-      <Route path="/available-time/group" element={<Current />} />
+      <Route path="/current" element={<Current />} />
     </Routes>
   );
 }
