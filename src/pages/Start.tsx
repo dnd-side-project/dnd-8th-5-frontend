@@ -1,11 +1,14 @@
-import Calendar from '../components/calendar/Calendar';
+import styled from '@emotion/styled';
+import startBack from '../assets/backgrounds/startBack.png';
 
-const Start = () => {
-  return (
-    <div>
-      <Calendar />
-    </div>
-  );
+const StartPage = () => {
+  return <MainContainer></MainContainer>;
 };
 
-export default Start;
+const MainContainer = styled.div`
+  width: 375px;
+  height: 812px;
+  background-image: url(${startBack});
+`;
+
+export default StartPage;
