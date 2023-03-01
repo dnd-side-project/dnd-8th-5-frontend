@@ -35,10 +35,6 @@ const Room = () => {
     });
   }, [peopleNumber]);
 
-  const handleCheckButtonClick = useCallback(() => {
-    setIsDecided((prev) => !prev);
-  }, [isDecided]);
-
   return (
     <MainContainer>
       <FormContainer>
@@ -71,7 +67,7 @@ const Room = () => {
           </SelectWrapper>
         </NumberSelectContnainer>
 
-        <ChceckContainer onClick={handleCheckButtonClick}>
+        <ChceckContainer>
           <CheckBox
             text={'아직 안 정해졌어요'}
             setValue={setIsDecided}
@@ -140,7 +136,7 @@ const DependingBox = styled.div<{ isDecided: boolean }>`
   position: absolute;
   width: 100%;
   height: 60px;
-  background-color: red;
+  background-color: rgba(256, 256, 256, 0.6);
   top: 22px;
   z-index: ${(props) => (props.isDecided ? 3 : 1)};
   /* z-index: 3; */
