@@ -5,6 +5,8 @@ import RoomHeader from '../components/roomHeader/RoomHeader';
 import theme from '../styles/theme';
 import plus from '../assets/icons/plus.png';
 import minus from '../assets/icons/minus.png';
+import CheckBox from '../components/checkbox/CheckBox';
+import BottomButton from '../components/bottomButton/BottomButton';
 
 const Room = () => {
   const [roomName, setRoomName] = useState('');
@@ -34,7 +36,7 @@ const Room = () => {
   }, [peopleNumber]);
 
   const handleCheckButtonClick = useCallback(() => {
-    setIsDecided((prevDecided) => !prevDecided);
+    setIsDecided((prev) => !prev);
   }, [isDecided]);
 
   return (
@@ -51,11 +53,13 @@ const Room = () => {
               name="username"
               value={roomName}
               onChange={handleRoomNameChange}
+              placeholder="최대 15자 입력 가능"
             />
           </InputWrapper>
         </TitleInputContnainer>
         <NumberSelectContnainer>
           <InputTitle>약속 참여 인원을 알려주세요</InputTitle>
+          <DependingBox isDecided={isDecided} />
           <SelectWrapper>
             <CountButton onClick={handleMinusButtonClick}>
               <img src={minus} />
@@ -68,14 +72,13 @@ const Room = () => {
         </NumberSelectContnainer>
 
         <ChceckContainer onClick={handleCheckButtonClick}>
-          <CheckCircle
-            src={
-              isDecided ? 'icons/checkCircle.png' : 'icons/checkCircleColor.png'
-            }
-          />
-          <CheckListText>아직 안 정해졌어요</CheckListText>
+          <CheckBox
+            text={'아직 안 정해졌어요'}
+            setValue={setIsDecided}
+            value={isDecided}
+          ></CheckBox>
         </ChceckContainer>
-        <NextButton>다음</NextButton>
+        <BottomButton text={'다음'} isActivated={true} />
       </FormContainer>
     </MainContainer>
   );
@@ -125,11 +128,22 @@ const NumberSelectContnainer = styled.div`
   top: 190px;
   width: 335px;
   height: 79px;
+  z-index: 2;
 `;
 
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const DependingBox = styled.div<{ isDecided: boolean }>`
+  position: absolute;
+  width: 100%;
+  height: 60px;
+  background-color: red;
+  top: 22px;
+  z-index: ${(props) => (props.isDecided ? 3 : 1)};
+  /* z-index: 3; */
 `;
 
 const SelectWrapper = styled.div`
@@ -142,6 +156,9 @@ const SelectWrapper = styled.div`
   border-top: 1px solid ${theme.colors.gray04};
   border-bottom: 1px solid ${theme.colors.gray04};
   border-radius: 5px;
+  z-index: 2;
+  position: absolute;
+  top: 26px;
 `;
 
 const InputTitle = styled.div`
@@ -155,7 +172,14 @@ const Input = styled.input`
   height: 50px;
   border: 1px solid ${theme.colors.gray04};
   border-radius: 5px;
-  place-holder: 'dd';
+  padding: 15px;
+  outline: none;
+  &::placeholder {
+    color: ${theme.colors.gray03};
+  }
+  &:focus {
+    border: 1px solid ${theme.colors.purple04};
+  }
 `;
 
 const PeopleNumber = styled.div`
@@ -165,7 +189,7 @@ const PeopleNumber = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 80%;
+  width: 75%;
 `;
 
 const CountButton = styled.button`
@@ -174,10 +198,11 @@ const CountButton = styled.button`
   align-items: center;
   ${theme.typography.semibold01};
   height: 100%;
-  width: 20%;
+  width: 25%;
   border-left: 1px solid ${theme.colors.gray04};
   border-right: 1px solid ${theme.colors.gray04};
   border-radius: 5px;
+  background-color: white;
 `;
 
 const NextButton = styled.button``;
