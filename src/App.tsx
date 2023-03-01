@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import AddTime from './pages/addTime/AddTime';
 import Current from './pages/current/Current';
-import RoomStart from './pages/RoomStart';
+import RoomStart from './pages/roomStart/RoomStart';
 import Start from './pages/Start';
 import Timer from './pages/Timer';
 
