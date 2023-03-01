@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Calendar from '../../components/calendar/Calendar';
 import RoomHeader from '../../components/roomHeader/RoomHeader';
 import theme from '../../styles/theme';
+import line from '../../assets/images/line.png';
 
 const RoomCalendar = () => {
   return (
@@ -10,6 +11,7 @@ const RoomCalendar = () => {
         <RoomHeader index={'1/2'} title={'날짜와 시간대를 정해볼까요?'} />
       </HeaderContainer>
       <Calendar />
+      <Line src={line} />
     </MainContainer>
   );
 };
@@ -29,6 +31,14 @@ export const HeaderContainer = styled.div`
   position: absolute;
   top: 78px;
   left: 20px;
+`;
+
+export const Line = styled.img`
+  position: absolute;
+  top: 507px;
+  left: 0px;
+  right: 0px;
+  margin: 0 auto;
 `;
 
 export default RoomCalendar;
