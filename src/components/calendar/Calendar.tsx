@@ -6,7 +6,12 @@ import Checkbox from '../checkbox/CheckBox';
 import Toggle from '../toggle/Toggle';
 import styled from '@emotion/styled';
 
-const Calendar = () => {
+interface Calendar {
+  dates: string[];
+  setDates: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+const Calendar = ({ dates, setDates }: Calendar) => {
   const [isRange, setIsRange] = useState<boolean>(false);
   const [dateArray, setDateArray] = useState<string[]>([]);
 
@@ -55,7 +60,7 @@ const Calendar = () => {
         }-${newDate.getDate()}`
       );
     }
-    setDateArray(newDateArray);
+    setDates(newDateArray);
     console.log('newDateArray', newDateArray);
   };
 
@@ -80,8 +85,9 @@ const Calendar = () => {
                 const month = Object(dataObjects)[key].month;
                 const day = Object(dataObjects)[key].day;
                 const date = `${String(year)}-${String(month)}-${String(day)}`;
-                const newArr = [...dateArray, date];
-                setDateArray(newArr);
+                const newArr = [...dates, date];
+                const newDateArr = Array.from(new Set(newArr));
+                setDates(newDateArr);
               }
             }
           }

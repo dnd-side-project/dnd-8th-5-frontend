@@ -12,7 +12,7 @@ function App() {
     <Routes>
       <Route path="/addTime" element={<AddTime />} />
       <Route path="/current" element={<Current />} />
-      <Route path="/timer" element={<Timer />} />
+      <Route path="/roomTimer" element={<Timer />} />
       <Route path="/start" element={<Start />} />
       <Route path="/roomStart" element={<RoomStart />} />
       <Route path="/roomCalendar" element={<RoomCalendar />} />

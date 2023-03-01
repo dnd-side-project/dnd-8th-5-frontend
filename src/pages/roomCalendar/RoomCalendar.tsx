@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import Calendar from '../../components/calendar/Calendar';
 import RoomHeader from '../../components/roomHeader/RoomHeader';
@@ -18,25 +18,46 @@ import {
   TimePickerContainer,
   TimePickerWrapper,
 } from './RoomCalendar.styles';
+import { useRecoilState } from 'recoil';
+import { recoilRoomState } from '../../recoil/recoilRoomState';
+import { Link } from 'react-router-dom';
 
 const RoomCalendar = () => {
   const [isCheckedBox, setIsCheckedBox] = useState(false);
   const [startTime, setStartTime] = useState('09:00');
   const [endTime, setEndTime] = useState('09:00');
+  const [dates, setDates] = useState<string[]>([]);
+
+  const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomState);
 
   const newStartTime = new Date(`1900-01-01 ${startTime}`);
   const newEndTime = new Date(`1900-01-01 ${endTime}`);
 
-  const canGoNext = newStartTime < newEndTime;
+  const canGoNext =
+    (newStartTime < newEndTime || isCheckedBox) && dates.length > 0;
 
-  console.log(startTime, endTime, canGoNext);
+  const onSetRecoilState = useCallback(() => {
+    if (isCheckedBox) {
+      setStartTime('09:00');
+      setEndTime('09:00');
+    }
+
+    setRecoilRoom((prev) => {
+      return {
+        ...prev,
+        ['dates']: dates,
+        ['startTime']: isCheckedBox ? null : startTime,
+        ['endTime']: isCheckedBox ? null : endTime,
+      };
+    });
+  }, [recoilRoom, startTime, endTime, dates, isCheckedBox]);
 
   return (
     <MainContainer>
       <HeaderContainer>
         <RoomHeader index={'1/2'} title={'날짜와 시간대를 정해볼까요?'} />
       </HeaderContainer>
-      <Calendar />
+      <Calendar dates={dates} setDates={setDates} />
       <Line src={line} />
       <TimePickerContainer>
         <TimePickerWrapper>
@@ -62,9 +83,17 @@ const RoomCalendar = () => {
         {canGoNext}
         {endTime}
       </div>
-      <BottomButtonContainer>
-        <BottomButton text="다음" isActivated={canGoNext} />
-      </BottomButtonContainer>
+      {canGoNext ? (
+        <Link to="/roomTimer">
+          <BottomButtonContainer onClick={onSetRecoilState}>
+            <BottomButton text="다음" isActivated={canGoNext} />
+          </BottomButtonContainer>
+        </Link>
+      ) : (
+        <BottomButtonContainer>
+          <BottomButton text="다음" isActivated={canGoNext} />
+        </BottomButtonContainer>
+      )}
     </MainContainer>
   );
 };
