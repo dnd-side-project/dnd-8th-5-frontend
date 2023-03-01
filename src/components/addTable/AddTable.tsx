@@ -37,13 +37,20 @@ const AddTable = ({
   const [element, setElement] = useState<HTMLDivElement | null>(null);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;
+
     setIsDragging(true);
-    setElement(e.target as HTMLDivElement);
+
+    if (isDragging && target.className.slice(0, 5) === 'valid') {
+      setElement(target);
+    }
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isDragging) {
-      setElement(e.target as HTMLDivElement);
+    const target = e.target as HTMLDivElement;
+
+    if (isDragging && target.className.slice(0, 5) === 'valid') {
+      setElement(target);
 
       if (element) {
         if (element.classList.contains('selected')) {
@@ -55,12 +62,19 @@ const AddTable = ({
     }
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;
+
+    if (isDragging && target.className.slice(0, 5) === 'valid') {
+      setElement(e.target as HTMLDivElement);
+    }
+
     setIsDragging(false);
   };
 
   useEffect(() => {
     if (element) {
+      console.log(element);
       if (element.classList.contains('selected')) {
         element.style.backgroundColor = `${theme.colors.gray01}`;
         element.classList.remove('selected');
