@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Calendar } from 'react-multi-date-picker';
+import theme from '../../styles/theme';
 
 export const MainContainer = styled.div``;
 
@@ -35,11 +36,11 @@ export const CalendarComponent = styled(Calendar)`
     box-shadow: #cef0dd -0.4px 0px 0px 3px;
   }
 
-  .calendar .rmdp-arrow {
+  .rmdp-arrow {
     border: solid black;
     border-width: 0 2px 2px 0;
-    margin-top: 7px;
-    margin-left: 1px;
+    width: 13px !important;
+    height: 13px !important;
   }
 
   .calendar .rmdp-day.rmdp-today.rmdp-range span {
@@ -65,7 +66,8 @@ export const CalendarComponent = styled(Calendar)`
   }
 
   .calendar .rmdp-arrow-container:hover {
-    background-color: var(--rmdp-primary-calendar);
+    color: none;
+    background-color: none;
   }
 
   .calendar .rmdp-day:not(.rmdp-day-hidden) span:hover {
@@ -91,13 +93,77 @@ export const CalendarComponent = styled(Calendar)`
     box-shadow: var(--rmdp-primary-calendar) -0.4px 0px 0px 3px;
   }
 
-  .rmdp-header {
-    height: 50px;
-    width: 150px;
+  .rmdp-header-values {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .rmdp-header-value {
-    margin-top: 20px;
+  .rmdp-arrow-container {
+    display: null;
+    top: 42%;
+  }
+
+  .rmdp-calendar {
+    position: absolute;
+    top: 168px;
+  }
+
+  .rmdp-header {
+    position: absolute;
+    left: 32px;
+    top: 0px;
+    width: 150px;
+    height: 40px;
+    ${theme.typography.semibold03}
+  }
+
+  .rmdp-week-day {
+    width: 47px !important;
+    height: 47px !important;
+    ${theme.typography.semibold06}
+  }
+
+  .rmdp-day {
+    width: 47px;
+    height: 47px;
+  }
+
+  .rmdp-day span {
+    ${theme.typography.regular01}
+  }
+
+  .rmdp-day-picker {
+    position: absolute;
+    width: 375px !important;
+    left: -150px;
+    top: 42px;
+    right: 0px;
+  }
+
+  .rmdp-year-picker {
+    position: absolute;
+    display: flex;
+    width: 375px !important;
+    left: -150px;
+    top: 42px;
+    right: 0px;
+    /* bottom: 0px !important; */
+  }
+
+  .rmdp-month-picker,
+  .rmdp-year-picker {
+    background-color: #fff;
+    border-radius: 5px;
+    bottom: unset;
+    left: unset;
+    position: absolute;
+    /* right: 2px; */
+    top: 50px;
+    width: 310px;
+    height: 310px;
+    left: -120px;
+    padding: 10px;
   }
 
   .rmdp-shadow {
@@ -122,6 +188,7 @@ export const CalendarComponent = styled(Calendar)`
   .rmdp-week,
   .rmdp-ym {
     justify-content: center;
+    ${theme.typography.regular01}
   }
 
   .rmdp-range.start span {
