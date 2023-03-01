@@ -10,18 +10,18 @@ interface Checkbox {
   setValue: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Checkbox = (props: Checkbox) => {
-  const [isCheckedBox, setIsCheckedBox] = useState(props.value);
+const Checkbox = ({ text, value, setValue }: Checkbox) => {
+  const [isCheckedBox, setIsCheckedBox] = useState(value);
 
   const onClickCheckBox = useCallback(() => {
-    props.setValue((prev) => !prev);
+    setValue((prev) => !prev);
     setIsCheckedBox((prev) => !prev);
   }, [isCheckedBox]);
 
   return (
     <MainContainer onClick={onClickCheckBox} value={isCheckedBox}>
       <Icon src={isCheckedBox ? checkedBox : uncheckdBox} />
-      <TextWrapper>{props.text}</TextWrapper>
+      <TextWrapper>{text}</TextWrapper>
     </MainContainer>
   );
 };
