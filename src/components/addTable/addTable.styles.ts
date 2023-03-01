@@ -13,7 +13,6 @@ export const Wrapper = styled.div`
 
 export const Top = styled.div`
   display: flex;
-
   width: 100%;
   height: 37px;
   border-bottom: 1px solid ${theme.colors.gray03};
@@ -54,7 +53,6 @@ export const Date = styled.div`
 
 export const TimeWrapper = styled.div`
   width: 17px;
-
   border-right: 1px solid ${theme.colors.gray03};
 `;
 

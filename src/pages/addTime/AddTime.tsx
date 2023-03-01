@@ -11,7 +11,6 @@ import room from '../../assets/data/room.json';
 import { getChunks } from '../../utils/getChunks';
 import { getValidDates } from '../../utils/getValidDates';
 import { getDateRange } from '../../utils/getDateRange';
-
 import {
   Body,
   ButtonWrapper,
