@@ -59,7 +59,7 @@ const Current = () => {
       swipe: true,
       verticalSwiping: true,
       useTransform: false,
-      centerPadding: '0px',
+      centerPadding: '7px',
       touchThreshold: 100,
       cssEase: 'linear',
       focusOnSelect: true,

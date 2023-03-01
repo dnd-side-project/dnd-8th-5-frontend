@@ -3,10 +3,22 @@ import Slider from 'react-slick';
 import theme from '../../styles/theme';
 
 export const MainContainer = styled.div`
+  position: relative;
   display: flex;
-  width: 201px;
+  justify-content: center;
+  align-items: center;
+  width: 336px;
   overflow: hidden;
   touch-action: none;
+  z-index: 1;
+`;
+
+export const GreyBox = styled.div`
+  position: absolute;
+  z-index: 2;
+  background-color: ${theme.colors.gray02};
+  width: 335px;
+  height: 48px;
 `;
 
 export const TimeText = styled.div`
@@ -14,33 +26,43 @@ export const TimeText = styled.div`
 `;
 
 export const TextContainer = styled.div`
-  width: 100px;
-  padding-top: 10px;
+  width: 40px;
+  height: 135px;
   display: flex;
+  flex-direction: row;
+  ${theme.typography.medium01x}
   align-items: center;
+  justify-content: left;
+  padding: 2px;
+  z-index: 3;
 `;
 
 export const StyledSlider = styled(Slider)`
   .slick-slide {
-    background: $c1;
     color: white;
-    padding: 10px 0 3px 0;
-    font-size: 16px;
-    font-family: 'Arial', 'Helvetica';
-    text-align: center;
+    justify-items: center;
+    align-items: center;
+    text-align: right;
+    ${theme.typography.medium01x}
+    height: 40px;
   }
+
   .slick-list {
-    width: 60px;
-    height: 300px;
+    z-index: 3;
+    width: 80px;
     margin-bottom: 0px;
     padding-bottom: 0px;
   }
 
+  .slick-vertical .slick-slide {
+    display: block;
+  }
+
   .slick-slide {
-    color: grey;
+    color: ${theme.colors.gray03};
   }
   .slick-active {
-    color: grey;
+    color: ${theme.colors.gray03};
   }
   .slick-current {
     color: ${theme.colors.purple05};
@@ -121,6 +143,14 @@ export const StyledSlider = styled(Slider)`
 
   .slick-dotted.slick-slider {
     margin-bottom: 30px;
+  }
+
+  .css-teqmh5 {
+    ${theme.typography.semibold04}
+  }
+
+  .css-cnj4y {
+    height: 100px !important;
   }
 
   .slick-dots {
