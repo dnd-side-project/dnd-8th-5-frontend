@@ -138,4 +138,4 @@ export const CheckCircle = styled.img`
   width: 15px;
 `;
 
-export const BottomButtonWrapper = styled.div``;
+export const BottomButtonContainer = styled.div``;

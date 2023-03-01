@@ -20,7 +20,7 @@ import {
   CountButton,
   PeopleNumber,
   ChceckContainer,
-  BottomButtonWrapper,
+  BottomButtonContainer,
 } from './RoomStart.styles';
 
 import { useRecoilState } from 'recoil';
@@ -114,9 +114,9 @@ const Room = () => {
           ></CheckBox>
         </ChceckContainer>
         <Link to="/roomCalendar">
-          <BottomButtonWrapper onClick={onSetRecoilState}>
+          <BottomButtonContainer onClick={onSetRecoilState}>
             <BottomButton text={'다음'} isActivated={true} />
-          </BottomButtonWrapper>
+          </BottomButtonContainer>
         </Link>
       </FormContainer>
     </MainContainer>
