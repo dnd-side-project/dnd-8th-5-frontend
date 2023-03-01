@@ -1,4 +1,7 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { availableTimesAtom } from '../../recoil/atoms/availableTimesAtom';
+import { selectedMethodAtom } from '../../recoil/atoms/selectedMethodAtom';
 
 import addPrev from '../../assets/icons/addPrev.png';
 import addNext from '../../assets/icons/addNext.png';
@@ -8,6 +11,7 @@ import room from '../../assets/data/room.json';
 import { getChunks } from '../../utils/getChunks';
 import { getValidDates } from '../../utils/getValidDates';
 import { getDateRange } from '../../utils/getDateRange';
+
 import {
   Body,
   ButtonWrapper,
@@ -22,31 +26,48 @@ import {
 } from './AddTime.styles';
 
 const AddTime = () => {
-  const { dates } = room;
+  const [tablePage, setTablePage] = useState(0);
+  const [isPageMoved, setIsPageMoved] = useState(false);
 
-  const [selectedMethod, setSelectedMethod] = useState('possible');
+  const [selectedMethod, setSelectedMethod] =
+    useRecoilState(selectedMethodAtom);
+  const [availableTimes, setAvailableTimes] =
+    useRecoilState(availableTimesAtom);
 
-  const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleSelectMethod = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedMethod(e.target.value);
   };
 
+  const { dates } = room;
   const validDateChunks = getChunks(
     getValidDates(getDateRange(dates[0], dates[dates.length - 1]))
   );
-
-  const [tablePage, setTablePage] = useState(0);
 
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {
       setTablePage(tablePage - 1);
     }
+
+    setIsPageMoved(true);
   };
 
   const handleNextButtonClick = () => {
     if (tablePage !== validDateChunks.length - 1) {
       setTablePage(tablePage + 1);
     }
+
+    setIsPageMoved(true);
   };
+
+  useEffect(() => {
+    availableTimes.map(
+      (time: string) =>
+        document.getElementById(`${time}`) &&
+        document.getElementById(`${time}`)?.classList.add('selected')
+    );
+
+    setIsPageMoved(false);
+  }, [isPageMoved]);
 
   return (
     <Wrapper>
@@ -55,7 +76,7 @@ const AddTime = () => {
           <Title>수빈 님의 일정을</Title>
         </TitleWrapper>
         <TitleWrapper>
-          <select onChange={handleSelect} value={selectedMethod}>
+          <select onChange={handleSelectMethod} value={selectedMethod}>
             <option value="possible">되는</option>
             <option value="impossible">안 되는</option>
           </select>
@@ -79,13 +100,15 @@ const AddTime = () => {
 
           <TableWrapper>
             <AddTable
-              selectedMethod={selectedMethod}
               tablePage={tablePage}
+              selectedMethod={selectedMethod}
               validDateChunks={validDateChunks}
+              availableTimes={availableTimes}
+              setAvailableTimes={setAvailableTimes}
             />
           </TableWrapper>
           <ScrollbarWrapper>
-            <Scrollbar draggable={true} />
+            <Scrollbar />
           </ScrollbarWrapper>
         </Main>
       </Body>

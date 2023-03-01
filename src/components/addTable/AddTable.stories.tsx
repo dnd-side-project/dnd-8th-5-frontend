@@ -10,6 +10,8 @@ const Template: Story<{
   selectedMethod: string;
   tablePage: number;
   validDateChunks: any;
+  availableTimes: any;
+  setAvailableTimes: any;
 }> = (args) => <AddTable {...args} />;
 
 export const Default = Template.bind({});

@@ -3,13 +3,12 @@ import theme from '../../styles/theme';
 
 interface Props {
   value: string;
-  selectedMethod: string;
   isValidDate: boolean;
+  selectedMethod: string;
 }
 
 export const Wrapper = styled.div`
   width: 231px;
-  overflow: hidden;
 
   border-radius: 5.5px;
   border: 1px solid ${theme.colors.gray03};
@@ -19,7 +18,6 @@ export const Wrapper = styled.div`
 
 export const Top = styled.div`
   display: flex;
-  overflow: hidden;
 
   width: 100%;
   height: 37px;
@@ -29,26 +27,22 @@ export const Top = styled.div`
 export const Bottom = styled.div`
   display: flex;
   width: 100%;
-  overflow: hidden;
 `;
 
 export const Blank = styled.div`
   width: 17px;
   height: 36px;
-  overflow: hidden;
 
   border-right: 1px solid ${theme.colors.gray03};
 `;
 
 export const DateWrapper = styled.div`
   display: flex;
-  overflow: hidden;
 `;
 
 export const Date = styled.div`
   width: 70px;
   height: 36px;
-  overflow: hidden;
 
   display: flex;
   align-items: center;
@@ -65,7 +59,6 @@ export const Date = styled.div`
 
 export const TimeWrapper = styled.div`
   width: 17px;
-  overflow: hidden;
 
   border-right: 1px solid ${theme.colors.gray03};
 `;
@@ -76,7 +69,6 @@ export const Time = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 
   color: ${theme.colors.gray04};
   ${theme.typography.regular03};
@@ -89,7 +81,6 @@ export const Time = styled.div`
 
 export const SelectWrapper = styled.div`
   width: 70px;
-  overflow: hidden;
 
   & + & {
     width: 71px;
@@ -100,10 +91,13 @@ export const SelectWrapper = styled.div`
 export const Select = styled.div<Props>`
   height: 17px;
   box-sizing: content-box;
-  overflow: hidden;
 
-  /* background: ${({ isValidDate }) =>
-    !isValidDate && `${theme.colors.gray02}`}; */
+  background-color: ${({ isValidDate }) =>
+    isValidDate ? `${theme.colors.gray01}` : `${theme.colors.gray02}`};
+
+  &.selected {
+    background-color: ${theme.colors.purple06};
+  }
 
   &:nth-of-type(odd) {
     border-bottom: 1px dashed ${theme.colors.gray03};

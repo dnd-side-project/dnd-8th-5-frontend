@@ -32,6 +32,7 @@ export const Title = styled.span`
 export const Main = styled.div`
   width: 100%;
   padding-top: 5px;
+
   margin-top: 43px;
   padding-bottom: 116px;
 

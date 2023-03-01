@@ -17,9 +17,17 @@ interface Props {
   selectedMethod: string;
   tablePage: number;
   validDateChunks: Array<{ date: string; isValidDate: boolean }[]>;
+  availableTimes: string[];
+  setAvailableTimes: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const AddTable = ({ selectedMethod, tablePage, validDateChunks }: Props) => {
+const AddTable = ({
+  selectedMethod,
+  tablePage,
+  validDateChunks,
+  availableTimes,
+  setAvailableTimes,
+}: Props) => {
   const times = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
   const timeDetail = [
     '09:00',
@@ -54,54 +62,61 @@ const AddTable = ({ selectedMethod, tablePage, validDateChunks }: Props) => {
     '23:30',
   ];
 
-  const [isDragging, setIsDragging] = useState(false);
-  const [availableTime, setAvailableTime] = useState<any>([]);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [element, setElement] = useState<HTMLDivElement | null>(null);
 
-  const handleMouseDown = () => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsDragging(true);
+    setElement(e.target as HTMLDivElement);
   };
 
-  const [element, setElement] = useState<any>(null);
-
-  const handleMouseMove = (e: any) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isDragging) {
-      setElement(e.target);
-      if (element.classList.contains('selected')) {
-        element.classList.remove('selected');
-      } else {
-        element.classList.add('selected');
+      setElement(e.target as HTMLDivElement);
+
+      if (element) {
+        if (element.classList.contains('selected')) {
+          element.classList.remove('selected');
+        } else {
+          element.classList.add('selected');
+        }
       }
     }
   };
-
-  useEffect(() => {
-    if (element) {
-      console.log('1: ', element.classList);
-
-      if (element.classList.contains('selected')) {
-        element.style.backgroundColor = `${theme.colors.gray01}`;
-        element.classList.remove('selected');
-      } else {
-        element.classList.add('selected');
-        element.style.backgroundColor = `${theme.colors.purple06}`;
-      }
-
-      console.log('2: ', element.classList);
-    }
-  }, [element]);
 
   const handleMouseUp = () => {
     setIsDragging(false);
   };
 
-  const handleTouchMove = (e: any) => {
-    const elem = document.elementFromPoint(
+  useEffect(() => {
+    if (element) {
+      if (element.classList.contains('selected')) {
+        element.style.backgroundColor = `${theme.colors.gray01}`;
+        element.classList.remove('selected');
+
+        setAvailableTimes(
+          availableTimes.filter(
+            (time: string) => time !== element.getAttribute('id')
+          )
+        );
+      } else {
+        element.classList.add('selected');
+        element.style.backgroundColor = `${theme.colors.purple06}`;
+
+        const id = element.getAttribute('id') as string;
+        setAvailableTimes([...availableTimes, id]);
+      }
+    }
+  }, [element]);
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    const touchElement = document.elementFromPoint(
       e.changedTouches[0].clientX,
       e.changedTouches[0].clientY
-    );
+    ) as HTMLDivElement;
 
-    if (elem?.className.slice(0, 6) === 'select') {
-      setElement(elem);
+    if (touchElement?.className.slice(0, 5) === 'valid') {
+      setElement(touchElement);
     }
   };
 
@@ -130,7 +145,7 @@ const AddTable = ({ selectedMethod, tablePage, validDateChunks }: Props) => {
             <SelectWrapper key={date}>
               {timeDetail.map((time) => (
                 <Select
-                  className="select"
+                  className={isValidDate ? 'valid' : 'invalid'}
                   key={`${date} ${time}:00`}
                   value={`${date} ${time}`}
                   id={`${date} ${time}`}
@@ -140,6 +155,7 @@ const AddTable = ({ selectedMethod, tablePage, validDateChunks }: Props) => {
                   onMouseMove={handleMouseMove}
                   onMouseUp={handleMouseUp}
                   onTouchMove={handleTouchMove}
+                  onTouchStart={handleTouchMove}
                 />
               ))}
             </SelectWrapper>
