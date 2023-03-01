@@ -22,11 +22,11 @@ export const GreyBox = styled.div`
 `;
 
 export const TimeText = styled.div`
-  font-size: 16px;
+  ${theme.typography.semibold03}
 `;
 
 export const TextContainer = styled.div`
-  width: 40px;
+  width: 50px;
   height: 195px;
   display: flex;
   flex-direction: row;
@@ -38,6 +38,10 @@ export const TextContainer = styled.div`
 `;
 
 export const StyledSlider = styled(Slider)`
+  .css-teqmh5 {
+    ${theme.typography.semibold03}
+  }
+
   .slick-slide {
     color: white;
     justify-items: center;

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useState, useCallback } from 'react';
+import BottomButton from '../components/bottomButton/BottomButton';
 import Checkbox from '../components/checkbox/CheckBox';
 import RoomHeader from '../components/roomHeader/RoomHeader';
 import Timer from '../components/setTimer/SetTimer';
@@ -68,22 +69,25 @@ const TimerPage = () => {
           />
         </CheckboxWrapper>
       </BottomContainer>
+      <BottomButtonContainer>
+        <BottomButton text="완료하기" isActivated={true} />
+      </BottomButtonContainer>
     </Main>
   );
 };
 
 const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid black;
-  width: 375px;
+  position: relative;
+  left: 0;
+  right: 0;
   height: 100%;
-  overflow: hidden;
+  margin: 0 auto;
 `;
 
 const HeaderContainer = styled.div`
+  position: absolute;
+  top: 33px;
+  left: 20px;
   width: 333px;
   height: 116px;
   margin-bottom: 34px;
@@ -92,7 +96,8 @@ const HeaderContainer = styled.div`
 const TimerContainr = styled.div`
   display: flex;
   justify-content: center;
-  position: relative;
+  position: absolute;
+  top: 176px;
   width: 100%;
   z-index: 1;
   margin-bottom: 0px;
@@ -113,13 +118,13 @@ const DependingBox = styled.div<{ value: number }>`
 
 const BottomContainer = styled.div`
   display: flex;
-  position: relative;
+  position: absolute;
+  top: 435px;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: 332px;
   background-color: #f5f6ff;
-  margin-top: 71px;
   z-index: 2;
 `;
 
@@ -172,4 +177,10 @@ const CheckboxWrapper = styled.div`
   position: absolute;
   top: 180px;
 `;
+
+const BottomButtonContainer = styled.div`
+  position: absolute;
+  z-index: 100;
+`;
+
 export default TimerPage;

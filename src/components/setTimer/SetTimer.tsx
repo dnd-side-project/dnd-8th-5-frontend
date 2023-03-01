@@ -13,7 +13,7 @@ const Current = () => {
   const [hour, setHour] = useState('09:00');
   const [minute, setMinute] = useState('09:00');
 
-  const DAY_ARRAY = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  const DAY_ARRAY = ['0', '1', '2', '3', '4', '5'];
   const HOUR_ARRAY = [
     '0',
     '1',
