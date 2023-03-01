@@ -154,7 +154,7 @@ const SelectWrapper = styled.div`
   border-radius: 5px;
   z-index: 2;
   position: absolute;
-  top: 26px;
+  top: 28px;
 `;
 
 const InputTitle = styled.div`
