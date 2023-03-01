@@ -54,13 +54,13 @@ export const InputWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const DependingBox = styled.div<{ isDecided: boolean }>`
+export const DependingBox = styled.div<{ isNotDecided: boolean }>`
   position: absolute;
   width: 100%;
   height: 60px;
   background-color: rgba(256, 256, 256, 0.6);
   top: 22px;
-  z-index: ${(props) => (props.isDecided ? 3 : 1)};
+  z-index: ${(props) => (props.isNotDecided ? 3 : 1)};
   /* z-index: 3; */
 `;
 
@@ -137,3 +137,5 @@ export const CheckListText = styled.text`
 export const CheckCircle = styled.img`
   width: 15px;
 `;
+
+export const BottomButtonWrapper = styled.div``;

@@ -20,12 +20,19 @@ import {
   CountButton,
   PeopleNumber,
   ChceckContainer,
+  BottomButtonWrapper,
 } from './RoomStart.styles';
+
+import { useRecoilState } from 'recoil';
+import { recoilRoomState } from '../../recoil/recoilRoomState';
+import { Link } from 'react-router-dom';
 
 const Room = () => {
   const [roomName, setRoomName] = useState('');
   const [peopleNumber, setPeopleNumber] = useState(0);
-  const [isDecided, setIsDecided] = useState(false);
+  const [isNotDecided, setIsNotDecided] = useState(false);
+
+  const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomState);
 
   const handleRoomNameChange = useCallback(
     (e: { target: { value: SetStateAction<string> } }) => {
@@ -48,6 +55,20 @@ const Room = () => {
       return prevNumber - 1;
     });
   }, [peopleNumber]);
+
+  const onSetRecoilState = useCallback(() => {
+    if (isNotDecided) {
+      setPeopleNumber(() => 0);
+    }
+
+    setRecoilRoom((prev) => {
+      return {
+        ...prev,
+        ['title']: roomName,
+        ['headCount']: isNotDecided ? 0 : peopleNumber,
+      };
+    });
+  }, [recoilRoom, roomName, peopleNumber, isNotDecided]);
 
   return (
     <MainContainer>
@@ -72,7 +93,7 @@ const Room = () => {
         <NumberSelectContnainer>
           <InputTitle>약속 참여 인원을 알려주세요</InputTitle>
 
-          <DependingBox isDecided={isDecided} />
+          <DependingBox isNotDecided={isNotDecided} />
 
           <SelectWrapper>
             <CountButton onClick={handleMinusButtonClick}>
@@ -88,12 +109,15 @@ const Room = () => {
         <ChceckContainer>
           <CheckBox
             text={'아직 안 정해졌어요'}
-            setValue={setIsDecided}
-            value={isDecided}
+            setValue={setIsNotDecided}
+            value={isNotDecided}
           ></CheckBox>
         </ChceckContainer>
-
-        <BottomButton text={'다음'} isActivated={true} />
+        <Link to="/roomCalendar">
+          <BottomButtonWrapper onClick={onSetRecoilState}>
+            <BottomButton text={'다음'} isActivated={true} />
+          </BottomButtonWrapper>
+        </Link>
       </FormContainer>
     </MainContainer>
   );
