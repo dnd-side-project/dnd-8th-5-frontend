@@ -1,11 +1,6 @@
 import styled from '@emotion/styled';
 import theme from '../../styles/theme';
-
-interface Props {
-  value: string;
-  isValidDate: boolean;
-  selectedMethod: string;
-}
+import { SelectType } from './AddTable.types';
 
 export const Wrapper = styled.div`
   width: 231px;
@@ -88,7 +83,7 @@ export const SelectWrapper = styled.div`
   }
 `;
 
-export const Select = styled.div<Props>`
+export const Select = styled.div<SelectType>`
   height: 17px;
   box-sizing: content-box;
 

@@ -11,15 +11,8 @@ import {
   TimeWrapper,
   Top,
   Wrapper,
-} from './addTable.styles';
-
-interface Props {
-  selectedMethod: string;
-  tablePage: number;
-  validDateChunks: Array<{ date: string; isValidDate: boolean }[]>;
-  availableTimes: string[];
-  setAvailableTimes: React.Dispatch<React.SetStateAction<string[]>>;
-}
+} from './AddTable.styles';
+import { AddTableType } from './AddTable.types';
 
 const AddTable = ({
   selectedMethod,
@@ -27,7 +20,7 @@ const AddTable = ({
   validDateChunks,
   availableTimes,
   setAvailableTimes,
-}: Props) => {
+}: AddTableType) => {
   const times = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
   const timeDetail = [
     '09:00',
@@ -147,7 +140,6 @@ const AddTable = ({
                 <Select
                   className={isValidDate ? 'valid' : 'invalid'}
                   key={`${date} ${time}:00`}
-                  value={`${date} ${time}`}
                   id={`${date} ${time}`}
                   selectedMethod={selectedMethod}
                   isValidDate={isValidDate}
