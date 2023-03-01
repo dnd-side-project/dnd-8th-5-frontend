@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from '@emotion/styled';
 import Calendar from '../../components/calendar/Calendar';
 import RoomHeader from '../../components/roomHeader/RoomHeader';
@@ -5,7 +6,7 @@ import theme from '../../styles/theme';
 import line from '../../assets/images/line.png';
 import TimePicker from '../../components/timePicker/TimePicker';
 import Checkbox from '../../components/checkbox/CheckBox';
-import { useState } from 'react';
+import BottomButton from '../../components/bottomButton/BottomButton';
 
 const RoomCalendar = () => {
   const [isCheckedBox, setIsCheckedBox] = useState(false);
@@ -31,6 +32,9 @@ const RoomCalendar = () => {
           setValue={setIsCheckedBox}
         />
       </CheckBoxContainer>
+      <BottomButtonContainer>
+        <BottomButton text="다음" isActivated={true} />
+      </BottomButtonContainer>
     </MainContainer>
   );
 };
@@ -42,7 +46,7 @@ export const MainContainer = styled.div`
   left: 0;
   right: 0;
   height: 812px;
-  background-color: ${theme.colors.gray06};
+  background-color: ${theme.colors.gray01};
   margin: 0 auto;
 `;
 
@@ -96,6 +100,11 @@ export const CheckBoxContainer = styled.div`
   top: 659px;
   left: 20px;
   margin: 0 auto;
+`;
+
+export const BottomButtonContainer = styled.div`
+  position: absolute;
+  z-index: 100;
 `;
 
 export default RoomCalendar;
