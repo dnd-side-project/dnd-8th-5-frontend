@@ -4,6 +4,7 @@ import { CalendarComponent, MainContainer } from './Calendar.styles';
 import './calendar.css';
 import Checkbox from '../checkbox/CheckBox';
 import Toggle from '../toggle/Toggle';
+import styled from '@emotion/styled';
 
 const Calendar = () => {
   const [isRange, setIsRange] = useState<boolean>(false);
@@ -60,7 +61,13 @@ const Calendar = () => {
 
   return (
     <MainContainer>
-      <Toggle text={['기간', '하나씩']} toggle={isRange} setData={setIsRange} />
+      <ToggleWrapper>
+        <Toggle
+          text={['기간', '하나씩']}
+          toggle={isRange}
+          setData={setIsRange}
+        />
+      </ToggleWrapper>
       <CalendarComponent
         onChange={(dataObjects) => {
           if (isRange) {
@@ -91,5 +98,11 @@ const Calendar = () => {
     </MainContainer>
   );
 };
+
+export const ToggleWrapper = styled.div`
+  position: absolute;
+  top: 168px;
+  right: 34px;
+`;
 
 export default Calendar;

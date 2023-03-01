@@ -106,7 +106,7 @@ export const CalendarComponent = styled(Calendar)`
 
   .rmdp-calendar {
     position: absolute;
-    top: 168px;
+    top: 158px;
   }
 
   .rmdp-header {
