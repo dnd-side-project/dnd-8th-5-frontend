@@ -4,6 +4,12 @@ import theme from '../../styles/theme';
 
 export const MainContainer = styled.div``;
 
+export const ToggleWrapper = styled.div`
+  position: absolute;
+  top: 123px;
+  right: 34px;
+`;
+
 export const CalendarComponent = styled(Calendar)`
   :root {
     --rmdp-primary-calendar: #6a7bff;
@@ -106,7 +112,7 @@ export const CalendarComponent = styled(Calendar)`
 
   .rmdp-calendar {
     position: absolute;
-    top: 158px;
+    top: 112px;
   }
 
   .rmdp-header {

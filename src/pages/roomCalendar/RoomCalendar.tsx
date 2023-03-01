@@ -57,7 +57,9 @@ const RoomCalendar = () => {
       <HeaderContainer>
         <RoomHeader index={'1/2'} title={'날짜와 시간대를 정해볼까요?'} />
       </HeaderContainer>
+
       <Calendar dates={dates} setDates={setDates} />
+
       <Line src={line} />
       <TimePickerContainer>
         <TimePickerWrapper>

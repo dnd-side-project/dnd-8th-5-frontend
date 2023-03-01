@@ -7,20 +7,22 @@ export const MainContainer = styled.div`
   position: relative;
   left: 0;
   right: 0;
-  height: 812px;
+  height: 100%;
   background-color: ${theme.colors.gray01};
   margin: 0 auto;
 `;
 
 export const HeaderContainer = styled.div`
   position: absolute;
-  top: 78px;
+  top: 33px;
   left: 20px;
+  width: 333px;
+  height: 116px;
 `;
 
 export const Line = styled.img`
   position: absolute;
-  top: 507px;
+  top: 462px;
   left: 0px;
   right: 0px;
   margin: 0 auto;
@@ -28,7 +30,7 @@ export const Line = styled.img`
 
 export const TimePickerContainer = styled.div`
   position: absolute;
-  top: 520px;
+  top: 475px;
   left: 0px;
   z-index: 1;
 `;
@@ -59,7 +61,7 @@ export const DependingBox = styled.div`
 
 export const CheckBoxContainer = styled.div`
   position: absolute;
-  top: 659px;
+  top: 615px;
   left: 20px;
   margin: 0 auto;
 `;

@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { DateObject, getAllDatesInRange } from 'react-multi-date-picker';
-import { CalendarComponent, MainContainer } from './Calendar.styles';
+import {
+  CalendarComponent,
+  MainContainer,
+  ToggleWrapper,
+} from './Calendar.styles';
 import './calendar.css';
 import Checkbox from '../checkbox/CheckBox';
 import Toggle from '../toggle/Toggle';
@@ -104,11 +108,5 @@ const Calendar = ({ dates, setDates }: Calendar) => {
     </MainContainer>
   );
 };
-
-export const ToggleWrapper = styled.div`
-  position: absolute;
-  top: 168px;
-  right: 34px;
-`;
 
 export default Calendar;
