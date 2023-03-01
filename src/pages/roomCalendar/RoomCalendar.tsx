@@ -4,8 +4,12 @@ import RoomHeader from '../../components/roomHeader/RoomHeader';
 import theme from '../../styles/theme';
 import line from '../../assets/images/line.png';
 import TimePicker from '../../components/timePicker/TimePicker';
+import Checkbox from '../../components/checkbox/CheckBox';
+import { useState } from 'react';
 
 const RoomCalendar = () => {
+  const [isCheckedBox, setIsCheckedBox] = useState(false);
+
   return (
     <MainContainer>
       <HeaderContainer>
@@ -18,7 +22,15 @@ const RoomCalendar = () => {
           <TimePicker />
         </TimePickerWrapper>
         <GreyBox />
+        {isCheckedBox ? <DependingBox /> : null}
       </TimePickerContainer>
+      <CheckBoxContainer>
+        <Checkbox
+          text="시간 조율 없이 약속 날짜만 알고 싶어요"
+          value={isCheckedBox}
+          setValue={setIsCheckedBox}
+        />
+      </CheckBoxContainer>
     </MainContainer>
   );
 };
@@ -68,6 +80,22 @@ export const GreyBox = styled.div`
   height: 48px;
   top: 42px;
   left: 20px;
+`;
+
+export const DependingBox = styled.div`
+  position: absolute;
+  z-index: 4;
+  background-color: rgba(256, 256, 256, 0.6);
+  width: 335px;
+  left: 20px;
+  height: 130px;
+`;
+
+export const CheckBoxContainer = styled.div`
+  position: absolute;
+  top: 659px;
+  left: 20px;
+  margin: 0 auto;
 `;
 
 export default RoomCalendar;
