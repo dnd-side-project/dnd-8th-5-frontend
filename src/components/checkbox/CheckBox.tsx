@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useCallback, useState } from 'react';
-import checkBox from '../../assets/icons/checkBox.png';
+import uncheckdBox from '../../assets/icons/uncheckdBox.png';
 import checkedBox from '../../assets/icons/checkedBox.png';
 import theme from '../../styles/theme';
 
@@ -20,7 +20,7 @@ const Checkbox = (props: Checkbox) => {
 
   return (
     <MainContainer onClick={onClickCheckBox} value={isCheckedBox}>
-      <Icon src={isCheckedBox ? checkedBox : checkBox} />
+      <Icon src={isCheckedBox ? checkedBox : uncheckdBox} />
       <TextWrapper>{props.text}</TextWrapper>
     </MainContainer>
   );
