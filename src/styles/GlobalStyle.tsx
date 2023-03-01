@@ -4,7 +4,6 @@ import './font.css';
 
 const defaultStyle = css`
   * {
-    margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Pretendard', Arial, Helvetica, sans-serif;
@@ -25,6 +24,11 @@ const defaultStyle = css`
     outline: none;
     color: inherit;
     text-decoration: none;
+    cursor: pointer;
+  }
+
+  button {
+    border: none;
     cursor: pointer;
   }
 `;

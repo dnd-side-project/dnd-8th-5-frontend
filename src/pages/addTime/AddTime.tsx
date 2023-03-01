@@ -24,8 +24,12 @@ import {
   TitleWrapper,
   Wrapper,
 } from './AddTime.styles';
+import Header from '../../components/header/Header';
+import BottomButton from '../../components/bottomButton/BottomButton';
 
 const AddTime = () => {
+  const { dates, title } = room;
+
   const [tablePage, setTablePage] = useState(0);
   const [isPageMoved, setIsPageMoved] = useState(false);
 
@@ -38,7 +42,6 @@ const AddTime = () => {
     setSelectedMethod(e.target.value);
   };
 
-  const { dates } = room;
   const validDateChunks = getChunks(
     getValidDates(getDateRange(dates[0], dates[dates.length - 1]))
   );
@@ -71,6 +74,7 @@ const AddTime = () => {
 
   return (
     <Wrapper>
+      <Header title={title} />
       <Body>
         <TitleWrapper>
           <Title>수빈 님의 일정을</Title>
@@ -111,6 +115,7 @@ const AddTime = () => {
             <Scrollbar />
           </ScrollbarWrapper>
         </Main>
+        <BottomButton text="등록하기" isActivated={true} />
       </Body>
     </Wrapper>
   );

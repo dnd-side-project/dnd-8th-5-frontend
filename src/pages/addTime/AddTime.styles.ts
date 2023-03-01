@@ -16,6 +16,7 @@ export const Wrapper = styled.div`
 export const Body = styled.div`
   width: 100%;
   padding: 0 20px;
+  margin-top: 30px;
 `;
 
 export const TitleWrapper = styled.div`
