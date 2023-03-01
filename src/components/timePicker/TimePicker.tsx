@@ -7,10 +7,14 @@ import {
   TimeText,
 } from './TimePicker.styles';
 
-const Current = () => {
-  const [startTime, setStartTime] = useState('09:00');
-  const [endTime, setEndTime] = useState('09:00');
+interface Current {
+  startTime: string;
+  endTime: string;
+  setStartTime: React.Dispatch<React.SetStateAction<string>>;
+  setEndTime: React.Dispatch<React.SetStateAction<string>>;
+}
 
+const Current = ({ startTime, endTime, setStartTime, setEndTime }: Current) => {
   const TIME_ARRAY = [
     '09:00',
     '10:00',
@@ -44,13 +48,14 @@ const Current = () => {
       infinite: true,
       speed: 200,
       slidesToShow: 3,
-      slidesToScroll: 3,
+      slidesToScroll: 1,
       swipeToSlide: true,
-      beforeChange: function (currentSlide: number) {
+      afterChange: function (currentSlide: number) {
         if (startEnd === 'start') {
-          setStartTime(TIME_ARRAY[currentSlide + 1]);
+          setStartTime(TIME_ARRAY[currentSlide]);
         } else {
-          setEndTime(TIME_ARRAY[currentSlide + 1]);
+          console.log(currentSlide);
+          setEndTime(TIME_ARRAY[currentSlide]);
         }
       },
       centerMode: true,

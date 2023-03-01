@@ -10,6 +10,15 @@ import BottomButton from '../../components/bottomButton/BottomButton';
 
 const RoomCalendar = () => {
   const [isCheckedBox, setIsCheckedBox] = useState(false);
+  const [startTime, setStartTime] = useState('09:00');
+  const [endTime, setEndTime] = useState('09:00');
+
+  const newStartTime = new Date(`1900-01-01 ${startTime}`);
+  const newEndTime = new Date(`1900-01-01 ${endTime}`);
+
+  const canGoNext = newStartTime < newEndTime;
+
+  console.log(startTime, endTime, canGoNext);
 
   return (
     <MainContainer>
@@ -20,7 +29,12 @@ const RoomCalendar = () => {
       <Line src={line} />
       <TimePickerContainer>
         <TimePickerWrapper>
-          <TimePicker />
+          <TimePicker
+            startTime={startTime}
+            endTime={endTime}
+            setStartTime={setStartTime}
+            setEndTime={setEndTime}
+          />
         </TimePickerWrapper>
         <GreyBox />
         {isCheckedBox ? <DependingBox /> : null}
@@ -32,8 +46,13 @@ const RoomCalendar = () => {
           setValue={setIsCheckedBox}
         />
       </CheckBoxContainer>
+      <div>
+        {startTime}
+        {canGoNext}
+        {endTime}
+      </div>
       <BottomButtonContainer>
-        <BottomButton text="다음" isActivated={true} />
+        <BottomButton text="다음" isActivated={canGoNext} />
       </BottomButtonContainer>
     </MainContainer>
   );
