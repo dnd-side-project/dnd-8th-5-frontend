@@ -85,7 +85,12 @@ const AddTable = ({
         );
       } else {
         element.classList.add('selected');
-        element.style.backgroundColor = `${theme.colors.purple06}`;
+
+        if (selectedMethod === 'possible') {
+          element.style.backgroundColor = `${theme.colors.purple06}`;
+        } else if (selectedMethod === 'impossible') {
+          element.style.backgroundColor = `${theme.colors.orange02}`;
+        } else return;
 
         const id = element.getAttribute('id') as string;
         setAvailableTimes([...availableTimes, id]);
@@ -103,6 +108,8 @@ const AddTable = ({
       setElement(touchElement);
     }
   };
+
+  console.log(availableTimes);
 
   return (
     <Wrapper>

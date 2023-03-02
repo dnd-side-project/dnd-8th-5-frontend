@@ -89,7 +89,10 @@ export const Select = styled.div<SelectType>`
     isValidDate ? `${theme.colors.gray01}` : `${theme.colors.gray02}`};
 
   &.selected {
-    background-color: ${theme.colors.purple06};
+    background-color: ${({ selectedMethod }) =>
+      selectedMethod === 'possible'
+        ? `${theme.colors.purple06}`
+        : `${theme.colors.orange02}`};
   }
 
   &:nth-of-type(odd) {

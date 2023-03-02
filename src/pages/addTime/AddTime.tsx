@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { availableTimesState } from '../../atoms/availableTimesAtom';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
@@ -15,8 +15,8 @@ import {
   ButtonWrapper,
   Main,
   MoveButton,
-  Scrollbar,
-  ScrollbarWrapper,
+  ScrollbarThumb,
+  ScrollbarTrack,
   TableWrapper,
   Title,
   TitleWrapper,
@@ -75,6 +75,10 @@ const AddTime = () => {
     setIsPageMoved(false);
   }, [isPageMoved]);
 
+  useEffect(() => {
+    setAvailableTimes([]);
+  }, [selectedMethod]);
+
   return (
     <Wrapper>
       <Header title={title} />
@@ -92,7 +96,7 @@ const AddTime = () => {
         </TitleWrapper>
 
         <Main>
-          {/* <ButtonWrapper>
+          <ButtonWrapper>
             <MoveButton
               src={addPrev}
               alt="Prev Button"
@@ -113,13 +117,13 @@ const AddTime = () => {
               setAvailableTimes={setAvailableTimes}
             />
           </TableWrapper>
-          <ScrollbarWrapper>
-            <Scrollbar />
-          </ScrollbarWrapper> */}
-          <AddCalendar
+          <ScrollbarTrack>
+            <ScrollbarThumb />
+          </ScrollbarTrack>
+          {/* <AddCalendar
             availableDates={availableDates}
             setAvailableDates={setAvailableDates}
-          />
+          /> */}
         </Main>
         <BottomButton text="등록하기" isActivated={true} />
       </Body>
