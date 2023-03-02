@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Current from '../timePicker/TimePicker';
 import './setTimer.css';
 import {
   MainContainer,
@@ -8,11 +9,13 @@ import {
   GreyBox,
 } from './SetTimer.styles';
 
-const Current = () => {
-  const [day, setDay] = useState('09:00');
-  const [hour, setHour] = useState('09:00');
-  const [minute, setMinute] = useState('09:00');
+interface SetTimer {
+  setDay: React.Dispatch<React.SetStateAction<string>>;
+  setHour: React.Dispatch<React.SetStateAction<string>>;
+  setMinute: React.Dispatch<React.SetStateAction<string>>;
+}
 
+const SetTimer = ({ setDay, setHour, setMinute }: SetTimer) => {
   const DAY_ARRAY = ['0', '1', '2', '3', '4', '5'];
   const HOUR_ARRAY = [
     '0',
@@ -50,13 +53,13 @@ const Current = () => {
       slidesToShow: 5,
       slidesToScroll: 1,
       swipeToSlide: true,
-      beforeChange: function (currentSlide: number) {
+      afterChange: function (currentSlide: number) {
         if (startEnd === 'date') {
-          setDay(DAY_ARRAY[currentSlide + 1]);
+          setDay(DAY_ARRAY[currentSlide]);
         } else if (startEnd === 'hour') {
-          setHour(HOUR_ARRAY[currentSlide + 1]);
+          setHour(HOUR_ARRAY[currentSlide]);
         } else if (startEnd === 'minute') {
-          setMinute(MINUTE_ARRAY[currentSlide + 1]);
+          setMinute(MINUTE_ARRAY[currentSlide]);
         }
       },
       centerMode: true,
@@ -116,4 +119,4 @@ const Current = () => {
   );
 };
 
-export default Current;
+export default SetTimer;

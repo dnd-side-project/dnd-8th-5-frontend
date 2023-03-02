@@ -23,7 +23,10 @@ import {
 const TimerPage = () => {
   const [isChecked, setIsChecked] = useState(false);
   const RecommendArray = ['10분', '30분', '1시간', '3시간', '6시간', '하루'];
-  const [isClicked, setIsClicked] = useState([
+  const [day, setDay] = useState('0');
+  const [hour, setHour] = useState('0');
+  const [minute, setMinute] = useState('0');
+  const [isClickedRecommend, setIsClickedRecommend] = useState([
     false,
     false,
     false,
@@ -34,18 +37,76 @@ const TimerPage = () => {
 
   const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomState);
 
-  console.log('recoil room ti', recoilRoom);
-
   const onClickRecommendBox = useCallback(
     (idx: number) => {
-      setIsClicked((prev) =>
+      setIsClickedRecommend((prev) =>
         prev.map((element, index) => {
           return index === idx ? !element : false;
         })
       );
     },
-    [isClicked]
+    [isClickedRecommend]
   );
+
+  const onSetRecoilState = useCallback(() => {
+    const allZero = day === '0' && hour === '0' && minute === '0';
+
+    let recommendDay = day;
+    let recommendHour = hour;
+    let recommendMinute = minute;
+
+    if (isClickedRecommend[0]) {
+      recommendDay = '0';
+      recommendHour = '0';
+      recommendMinute = '10';
+    } else if (isClickedRecommend[1]) {
+      recommendDay = '0';
+      recommendHour = '0';
+      recommendMinute = '30';
+    } else if (isClickedRecommend[2]) {
+      recommendDay = '0';
+      recommendHour = '1';
+      recommendMinute = '0';
+    } else if (isClickedRecommend[3]) {
+      recommendDay = '0';
+      recommendHour = '3';
+      recommendMinute = '0';
+    } else if (isClickedRecommend[4]) {
+      recommendDay = '0';
+      recommendHour = '6';
+      recommendMinute = '0';
+    } else if (isClickedRecommend[5]) {
+      recommendDay = '1';
+      recommendHour = '0';
+      recommendMinute = '0';
+    }
+
+    setRecoilRoom((prev) => {
+      return {
+        ...prev,
+        ['timer']: {
+          day:
+            isChecked || allZero
+              ? null
+              : isClickedRecommend.indexOf(true) >= 0
+              ? recommendDay
+              : day,
+          hour:
+            isChecked || allZero
+              ? null
+              : isClickedRecommend.indexOf(true) >= 0
+              ? recommendHour
+              : hour,
+          minute:
+            isChecked || allZero
+              ? null
+              : isClickedRecommend.indexOf(true) >= 0
+              ? recommendMinute
+              : minute,
+        },
+      };
+    });
+  }, [day, hour, minute, isChecked, recoilRoom, isClickedRecommend]);
 
   return (
     <MainContainer>
@@ -57,9 +118,13 @@ const TimerPage = () => {
       </HeaderContainer>
       <TimerContainr>
         <TImerWrapper>
-          <Timer />
+          <Timer setDay={setDay} setHour={setHour} setMinute={setMinute} />
         </TImerWrapper>
-        {isChecked ? <DependingBox value={3} /> : <DependingBox value={1} />}
+        {isChecked || isClickedRecommend.indexOf(true) >= 0 ? (
+          <DependingBox value={3} />
+        ) : (
+          <DependingBox value={1} />
+        )}
       </TimerContainr>
       <BottomContainer>
         <BottomHeaderWrapper>
@@ -71,7 +136,7 @@ const TimerPage = () => {
               <RecommendBox
                 onClick={() => onClickRecommendBox(index)}
                 key={item}
-                value={isClicked[index]}
+                value={isClickedRecommend[index]}
                 isChecked={isChecked}
               >
                 {item}
@@ -87,7 +152,7 @@ const TimerPage = () => {
           />
         </CheckboxWrapper>
       </BottomContainer>
-      <BottomButtonContainer>
+      <BottomButtonContainer onClick={onSetRecoilState}>
         <BottomButton text="완료하기" isActivated={true} />
       </BottomButtonContainer>
     </MainContainer>
