@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Calendar from '../../components/calendar/Calendar';
 import RoomHeader from '../../components/roomHeader/RoomHeader';
@@ -21,6 +21,7 @@ import {
 import { useRecoilState } from 'recoil';
 import { recoilRoomState } from '../../recoil/recoilRoomState';
 import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 const RoomCalendar = () => {
   const [isCheckedBox, setIsCheckedBox] = useState(false);
@@ -30,8 +31,8 @@ const RoomCalendar = () => {
 
   const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomState);
 
-  const newStartTime = new Date(`1900-01-01 ${startTime}`);
-  const newEndTime = new Date(`1900-01-01 ${endTime}`);
+  const newStartTime = dayjs(`1900-01-01 ${startTime}`);
+  const newEndTime = dayjs(`1900-01-01 ${endTime}`);
 
   const canGoNext =
     (newStartTime < newEndTime || isCheckedBox) && dates.length > 0;
@@ -80,11 +81,6 @@ const RoomCalendar = () => {
           setValue={setIsCheckedBox}
         />
       </CheckBoxContainer>
-      <div>
-        {startTime}
-        {canGoNext}
-        {endTime}
-      </div>
       {canGoNext ? (
         <Link to="/roomTimer">
           <BottomButtonContainer onClick={onSetRecoilState}>
