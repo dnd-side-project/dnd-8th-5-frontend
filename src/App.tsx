@@ -5,7 +5,7 @@ import Current from './pages/current/Current';
 import RoomCalendar from './pages/roomCalendar/RoomCalendar';
 import RoomStart from './pages/roomStart/RoomStart';
 import Start from './pages/Start';
-import Timer from './pages/Timer';
+import Timer from './pages/timer/Timer';
 
 function App() {
   return (
