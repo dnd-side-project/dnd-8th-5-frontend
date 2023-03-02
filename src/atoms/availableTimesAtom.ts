@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const availableTimesAtom = atom<string[]>({
+export const availableTimesState = atom<string[]>({
   key: 'availableTimes',
   default: [],
 });

@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const selectedMethodAtom = atom<string>({
+export const selectedMethodState = atom<string>({
   key: 'selectedMethod',
   default: 'possible',
 });

@@ -1,11 +1,10 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { availableTimesAtom } from '../../recoil/atoms/availableTimesAtom';
-import { selectedMethodAtom } from '../../recoil/atoms/selectedMethodAtom';
+import { availableTimesState } from '../../atoms/availableTimesAtom';
+import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 
 import addPrev from '../../assets/icons/addPrev.png';
 import addNext from '../../assets/icons/addNext.png';
-import AddTable from '../../components/addTable/AddTable';
 
 import room from '../../assets/data/room.json';
 import { getChunks } from '../../utils/getChunks';
@@ -25,6 +24,7 @@ import {
 } from './AddTime.styles';
 import Header from '../../components/header/Header';
 import BottomButton from '../../components/bottomButton/BottomButton';
+import AddTable from '../../components/addTable/AddTable';
 
 const AddTime = () => {
   const { dates, title } = room;
@@ -33,9 +33,9 @@ const AddTime = () => {
   const [isPageMoved, setIsPageMoved] = useState(false);
 
   const [selectedMethod, setSelectedMethod] =
-    useRecoilState(selectedMethodAtom);
+    useRecoilState(selectedMethodState);
   const [availableTimes, setAvailableTimes] =
-    useRecoilState(availableTimesAtom);
+    useRecoilState(availableTimesState);
 
   const handleSelectMethod = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedMethod(e.target.value);
@@ -100,7 +100,6 @@ const AddTime = () => {
               onClick={handleNextButtonClick}
             />
           </ButtonWrapper>
-
           <TableWrapper>
             <AddTable
               tablePage={tablePage}

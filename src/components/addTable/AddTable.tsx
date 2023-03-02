@@ -74,7 +74,6 @@ const AddTable = ({
 
   useEffect(() => {
     if (element) {
-      console.log(element);
       if (element.classList.contains('selected')) {
         element.style.backgroundColor = `${theme.colors.gray01}`;
         element.classList.remove('selected');
