@@ -25,6 +25,8 @@ import {
 import Header from '../../components/header/Header';
 import BottomButton from '../../components/bottomButton/BottomButton';
 import AddTable from '../../components/addTable/AddTable';
+import AddCalendar from '../../components/addCalendar/AddCalendar';
+import { availableDatesState } from '../../atoms/availableDatesAtom';
 
 const AddTime = () => {
   const { dates, title } = room;
@@ -36,6 +38,8 @@ const AddTime = () => {
     useRecoilState(selectedMethodState);
   const [availableTimes, setAvailableTimes] =
     useRecoilState(availableTimesState);
+  const [availableDates, setAvailableDates] =
+    useRecoilState(availableDatesState);
 
   const handleSelectMethod = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedMethod(e.target.value);
@@ -88,7 +92,7 @@ const AddTime = () => {
         </TitleWrapper>
 
         <Main>
-          <ButtonWrapper>
+          {/* <ButtonWrapper>
             <MoveButton
               src={addPrev}
               alt="Prev Button"
@@ -111,7 +115,11 @@ const AddTime = () => {
           </TableWrapper>
           <ScrollbarWrapper>
             <Scrollbar />
-          </ScrollbarWrapper>
+          </ScrollbarWrapper> */}
+          <AddCalendar
+            availableDates={availableDates}
+            setAvailableDates={setAvailableDates}
+          />
         </Main>
         <BottomButton text="등록하기" isActivated={true} />
       </Body>
