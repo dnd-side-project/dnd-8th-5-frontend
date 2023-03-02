@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { HeaderText, LoginComponent, Input } from '../styles/Login.styles';
-import useInputs from '../hooks/useFormInput';
-import checkbox from '../assets/icons/checkbox.png';
-import checkedBox from '../assets/icons/checkedBox.png';
+import { HeaderText, LoginComponent, Input } from '../../styles/Login.styles';
+import useInputs from '../../hooks/useFormInput';
+import uncheckedbox from '../../assets/icons/uncheckdBox.png';
+import checkedBox from '../../assets/icons/checkedBox.png';
 
 const Login = () => {
   const [uuid, setUuid] = useState<string>('');
@@ -54,7 +54,7 @@ const Login = () => {
           maxLength={4}
         ></Input>
       </LoginComponent>
-      <img src={saveUserInfo ? checkbox : checkedBox} />
+      <img src={saveUserInfo ? uncheckedbox : checkedBox} />
       <div onClick={onClickSaveUserInfo}>정보 저장</div>
       {canGoNext ? <button onClick={onClickNext}>다음</button> : null}
     </>
