@@ -21,9 +21,10 @@ import {
   RecommendWrapper,
   TimerContainr,
   TImerWrapper,
-} from './Timer.styles';
+} from './RoomTimer.styles';
 import postRoomInfo from '../../hooks/useAPI';
 import { useMutation } from 'react-query';
+import { recoilUuidState } from '../../recoil/recoilUuidState';
 
 const TimerPage = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -42,6 +43,10 @@ const TimerPage = () => {
 
   const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomState);
   const recoilRoomInfoStates = useRecoilValue(recoilRoomInfoState);
+  const [recoilUuid] = useRecoilState(recoilUuidState);
+
+  const { mutate, isLoading, isError, error, isSuccess } =
+    useMutation(postRoomInfo);
 
   interface recoilRoom {
     headCount: number;
@@ -64,7 +69,11 @@ const TimerPage = () => {
       isClickedRecommend.indexOf(true) >= 0 ||
       isChecked
     ) {
-      mutate(recoilRoom);
+      mutate(recoilRoom, {
+        onSuccess: (data) => {
+          console.log(recoilUuid);
+        },
+      });
     }
   }, [recoilRoom]);
 
@@ -78,9 +87,6 @@ const TimerPage = () => {
     },
     [isClickedRecommend]
   );
-
-  const { mutate, isLoading, isError, error, isSuccess } =
-    useMutation(postRoomInfo);
 
   const onSetRecoilState = useCallback(() => {
     const allZero = day === 0 && hour === 0 && minute === 0;
