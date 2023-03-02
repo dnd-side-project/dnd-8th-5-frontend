@@ -1,11 +1,14 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import startBack from '../assets/images/startBack.png';
 import theme from '../styles/theme';
 
 const StartPage = () => {
   return (
     <MainContainer>
-      <BottomButton>시작하기</BottomButton>
+      <Link to="/roomStart">
+        <BottomButton>시작하기</BottomButton>
+      </Link>
     </MainContainer>
   );
 };
