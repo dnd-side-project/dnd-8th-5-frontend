@@ -19,11 +19,14 @@ export const Body = styled.div`
 `;
 
 export const TitleWrapper = styled.div`
-  height: 30px;
   padding: 0 20px;
 
   display: flex;
   align-items: center;
+
+  & + & {
+    margin-top: 14px;
+  }
 `;
 
 export const Title = styled.span`

@@ -1,12 +1,13 @@
 import React from 'react';
+import { RecoilRoot } from 'recoil';
 import GlobalStyle from '../src/styles/GlobalStyle';
 
 export const decorators = [
   (Story) => (
-    <>
+    <RecoilRoot>
       <GlobalStyle />
       <Story />
-    </>
+    </RecoilRoot>
   ),
 ];
 

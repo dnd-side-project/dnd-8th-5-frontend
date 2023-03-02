@@ -27,6 +27,7 @@ import BottomButton from '../../components/bottomButton/BottomButton';
 import AddTable from '../../components/addTable/AddTable';
 import AddCalendar from '../../components/addCalendar/AddCalendar';
 import { availableDatesState } from '../../atoms/availableDatesAtom';
+import AddToggle from '../../components/addToggle/AddToggle';
 
 const AddTime = () => {
   const { dates, title } = room;
@@ -87,11 +88,7 @@ const AddTime = () => {
           <Title>수빈 님의 일정을</Title>
         </TitleWrapper>
         <TitleWrapper>
-          <select onChange={handleSelectMethod} value={selectedMethod}>
-            <option value="possible">되는</option>
-            <option value="impossible">안 되는</option>
-          </select>
-
+          <AddToggle />
           <Title>시간으로 선택해 주세요</Title>
         </TitleWrapper>
 
