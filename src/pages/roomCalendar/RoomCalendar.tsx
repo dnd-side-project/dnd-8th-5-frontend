@@ -1,8 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
-import styled from '@emotion/styled';
+import { useCallback, useState } from 'react';
 import Calendar from '../../components/calendar/Calendar';
 import RoomHeader from '../../components/roomHeader/RoomHeader';
-import theme from '../../styles/theme';
 import line from '../../assets/images/line.png';
 import TimePicker from '../../components/timePicker/TimePicker';
 import Checkbox from '../../components/checkbox/CheckBox';

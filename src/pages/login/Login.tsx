@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { HeaderText, LoginComponent } from './Login.styles';
 import useInputs from '../../hooks/useFormInput';
 import uncheckedbox from '../../assets/icons/uncheckdBox.png';
@@ -8,32 +8,50 @@ import loginBack from '../../assets/images/loginBack.png';
 import theme from '../../styles/theme';
 import { Link } from 'react-router-dom';
 import BottomButton from '../../components/bottomButton/BottomButton';
+import postRoomInfo from '../../hooks/useAPI';
+import { useMutation } from 'react-query';
+import axios from 'axios';
 
 const Login = () => {
   const [uuid, setUuid] = useState<string>('');
   const [title, setTitle] = useState<string>('이멤버 리멤버 연말파티');
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
+  const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
 
-  const { form, onChange, reset } = useInputs({
+  const { mutate, isLoading, isError, error, isSuccess } =
+    useMutation(postRoomInfo);
+
+  const { form, onChange } = useInputs({
     name: '',
     password: '',
   });
 
-  const onClickSaveUserInfo = () => {
+  const onClickSaveUserInfo = useCallback(() => {
     setSaveUserInfo((prev) => !prev);
-  };
+  }, [saveUserInfo]);
 
   const canGoNext = form.name && form.password.length === 4 ? true : false;
 
-  const onClickNext = () => {
-    if (saveUserInfo) {
-      localStorage.setItem('name', form.name);
-      localStorage.setItem('uuid', uuid);
-    }
+  useEffect(() => {
+    setIsPasswordError(false);
+  }, [form.name, form.password]);
+
+  const onClickNext = async () => {
+    // mutate(postLoginInfo, form);
 
     try {
-      null;
+      const a = await axios.post(
+        `/api/room/2660d1fc-233b-414c-9f63-6f3076f4d381/participant`,
+        form
+      );
+      console.log(a);
+
+      if (saveUserInfo) {
+        localStorage.setItem('name', form.name);
+        localStorage.setItem('uuid', uuid);
+      }
     } catch {
+      setIsPasswordError(true);
       null;
     }
   };
@@ -46,39 +64,49 @@ const Login = () => {
         </HeaderContainer>
         <InputContnainer>
           <LoginComponent>
-            <Input
+            <NameInput
               type="text"
               name="name"
               placeholder="이름 입력"
               maxLength={4}
               value={form.name}
               onChange={onChange}
-            ></Input>
-            <Input
+              isPasswordError={isPasswordError}
+            ></NameInput>
+            <PasswordInput
               type="password"
               name="password"
+              autoComplete="current-password"
               placeholder="4자리 비밀번호 입력"
               value={form.password}
               onChange={onChange}
               maxLength={4}
-            ></Input>
+              isPasswordError={isPasswordError}
+            ></PasswordInput>
           </LoginComponent>
         </InputContnainer>
-        <CheckBoxContainer
+        <CheckBoxContainer>
+          {isPasswordError ? (
+            <PasswordError>비밀번호가 일치하지 않아요</PasswordError>
+          ) : (
+            <div />
+          )}
+          <RightWrapper onClick={onClickSaveUserInfo}>
+            <ImgWrapper>
+              <img src={saveUserInfo ? uncheckedbox : checkedBox} />
+            </ImgWrapper>
+            <TextWrapper>정보 저장</TextWrapper>
+          </RightWrapper>
+        </CheckBoxContainer>
+        {/* <Link to="/roomCalendar"> */}
+        <BottomButtonContainer
           onClick={() => {
-            canGoNext ? onClickSaveUserInfo : null;
+            canGoNext ? onClickNext() : null;
           }}
         >
-          <ImgWrapper>
-            <img src={saveUserInfo ? uncheckedbox : checkedBox} />
-          </ImgWrapper>
-          <TextWrapper>정보 저장</TextWrapper>
-        </CheckBoxContainer>
-        <Link to="/roomCalendar">
-          <BottomButtonContainer onClick={onClickNext}>
-            <BottomButton text={'다음'} isActivated={canGoNext} />
-          </BottomButtonContainer>
-        </Link>
+          <BottomButton text={'다음'} isActivated={canGoNext} />
+        </BottomButtonContainer>
+        {/* </Link> */}
       </FormContainer>
     </MainContainer>
   );
@@ -121,7 +149,7 @@ export const InputContnainer = styled.div`
   height: 79px;
 `;
 
-export const Input = styled.input`
+export const NameInput = styled.input<{ isPasswordError: boolean }>`
   width: 335px;
   height: 50px;
   border: 1px solid ${theme.colors.gray04};
@@ -137,18 +165,49 @@ export const Input = styled.input`
   }
 `;
 
+export const PasswordInput = styled.input<{ isPasswordError: boolean }>`
+  width: 335px;
+  height: 50px;
+  border: 1px solid
+    ${(props) => (props.isPasswordError ? '#ED7C55' : theme.colors.gray04)};
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 10px;
+  outline: none;
+  &::placeholder {
+    color: ${theme.colors.gray03};
+  }
+  &:focus {
+    border: 1px solid ${theme.colors.purple04};
+  }
+`;
+
 export const CheckBoxContainer = styled.div`
   position: absolute;
   display: flex;
+  justify-content: space-between;
   ${theme.typography.medium04}
   top: 197px;
-  right: 20px;
+  width: 335px;
+`;
+
+export const RightWrapper = styled.div`
+  display: flex;
+  /* position: absolute;
+  right: 0px; */
 `;
 
 export const ImgWrapper = styled.div``;
 
 export const TextWrapper = styled.div`
   padding-left: 6px;
+`;
+
+export const PasswordError = styled.div`
+  /* position: absolute; */
+  ${theme.typography.medium04}
+  /* left: 0px; */
+  color: #ed7c55;
 `;
 
 export const BottomButtonContainer = styled.div``;
