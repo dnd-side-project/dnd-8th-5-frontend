@@ -58,11 +58,17 @@ const Calendar = ({ dates, setDates }: Calendar) => {
     const newDateArray = [];
     for (const date of dates) {
       const newDate = new Date(String(date));
-      newDateArray.push(
-        `${newDate.getFullYear()}-${
-          newDate.getMonth() + 1
-        }-${newDate.getDate()}`
-      );
+      const year = newDate.getFullYear();
+      const month = newDate.getMonth() + 1;
+      const day = newDate.getDate();
+      const format =
+        year +
+        '-' +
+        ('00' + month.toString()).slice(-2) +
+        '-' +
+        ('00' + day.toString()).slice(-2);
+
+      newDateArray.push(format);
     }
     setDates(newDateArray);
     console.log('newDateArray', newDateArray);
@@ -88,8 +94,13 @@ const Calendar = ({ dates, setDates }: Calendar) => {
                 const year = Object(dataObjects)[key].year;
                 const month = Object(dataObjects)[key].month;
                 const day = Object(dataObjects)[key].day;
-                const date = `${String(year)}-${String(month)}-${String(day)}`;
-                const newArr = [...dates, date];
+                const format =
+                  year +
+                  '-' +
+                  ('00' + month.toString()).slice(-2) +
+                  '-' +
+                  ('00' + day.toString()).slice(-2);
+                const newArr = [...dates, format];
                 const newDateArr = Array.from(new Set(newArr));
                 setDates(newDateArr);
               }
