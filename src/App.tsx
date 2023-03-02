@@ -5,7 +5,8 @@ import Current from './pages/current/Current';
 import RoomCalendar from './pages/roomCalendar/RoomCalendar';
 import RoomStart from './pages/roomStart/RoomStart';
 import Start from './pages/Start';
-import Timer from './pages/timer/Timer';
+import Timer from './pages/roomTimer/RoomTimer';
+import Login from './pages/login/Login';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/start" element={<Start />} />
       <Route path="/roomStart" element={<RoomStart />} />
       <Route path="/roomCalendar" element={<RoomCalendar />} />
+      <Route path="/login" element={<Login />} />
     </Routes>
   );
 }
