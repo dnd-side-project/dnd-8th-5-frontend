@@ -1,10 +1,13 @@
-import { useState, useCallback } from 'react';
-import { useRecoilState } from 'recoil';
+import { useState, useCallback, useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import BottomButton from '../../components/bottomButton/BottomButton';
 import Checkbox from '../../components/checkbox/CheckBox';
 import RoomHeader from '../../components/roomHeader/RoomHeader';
 import Timer from '../../components/setTimer/SetTimer';
-import { recoilRoomState } from '../../recoil/recoilRoomState';
+import {
+  recoilRoomState,
+  recoilRoomInfoState,
+} from '../../recoil/recoilRoomState';
 import {
   BottomButtonContainer,
   BottomContainer,
@@ -19,13 +22,15 @@ import {
   TimerContainr,
   TImerWrapper,
 } from './Timer.styles';
+import postRoomInfo from '../../hooks/useAPI';
+import { useMutation } from 'react-query';
 
 const TimerPage = () => {
   const [isChecked, setIsChecked] = useState(false);
   const RecommendArray = ['10분', '30분', '1시간', '3시간', '6시간', '하루'];
-  const [day, setDay] = useState('0');
-  const [hour, setHour] = useState('0');
-  const [minute, setMinute] = useState('0');
+  const [day, setDay] = useState(0);
+  const [hour, setHour] = useState(0);
+  const [minute, setMinute] = useState(0);
   const [isClickedRecommend, setIsClickedRecommend] = useState([
     false,
     false,
@@ -36,6 +41,32 @@ const TimerPage = () => {
   ]);
 
   const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomState);
+  const recoilRoomInfoStates = useRecoilValue(recoilRoomInfoState);
+
+  interface recoilRoom {
+    headCount: number;
+    dates: [];
+    startTime: string;
+    endTime: string;
+    timer: {
+      day: number;
+      hour: number;
+      minute: number;
+    };
+    title: string;
+  }
+
+  useEffect(() => {
+    if (
+      day ||
+      minute ||
+      hour ||
+      isClickedRecommend.indexOf(true) >= 0 ||
+      isChecked
+    ) {
+      mutate(recoilRoom);
+    }
+  }, [recoilRoom]);
 
   const onClickRecommendBox = useCallback(
     (idx: number) => {
@@ -48,37 +79,40 @@ const TimerPage = () => {
     [isClickedRecommend]
   );
 
+  const { mutate, isLoading, isError, error, isSuccess } =
+    useMutation(postRoomInfo);
+
   const onSetRecoilState = useCallback(() => {
-    const allZero = day === '0' && hour === '0' && minute === '0';
+    const allZero = day === 0 && hour === 0 && minute === 0;
 
     let recommendDay = day;
     let recommendHour = hour;
     let recommendMinute = minute;
 
     if (isClickedRecommend[0]) {
-      recommendDay = '0';
-      recommendHour = '0';
-      recommendMinute = '10';
+      recommendDay = 0;
+      recommendHour = 0;
+      recommendMinute = 10;
     } else if (isClickedRecommend[1]) {
-      recommendDay = '0';
-      recommendHour = '0';
-      recommendMinute = '30';
+      recommendDay = 0;
+      recommendHour = 0;
+      recommendMinute = 30;
     } else if (isClickedRecommend[2]) {
-      recommendDay = '0';
-      recommendHour = '1';
-      recommendMinute = '0';
+      recommendDay = 0;
+      recommendHour = 1;
+      recommendMinute = 0;
     } else if (isClickedRecommend[3]) {
-      recommendDay = '0';
-      recommendHour = '3';
-      recommendMinute = '0';
+      recommendDay = 0;
+      recommendHour = 3;
+      recommendMinute = 0;
     } else if (isClickedRecommend[4]) {
-      recommendDay = '0';
-      recommendHour = '6';
-      recommendMinute = '0';
+      recommendDay = 0;
+      recommendHour = 6;
+      recommendMinute = 0;
     } else if (isClickedRecommend[5]) {
-      recommendDay = '1';
-      recommendHour = '0';
-      recommendMinute = '0';
+      recommendDay = 1;
+      recommendHour = 0;
+      recommendMinute = 0;
     }
 
     setRecoilRoom((prev) => {
@@ -106,7 +140,16 @@ const TimerPage = () => {
         },
       };
     });
-  }, [day, hour, minute, isChecked, recoilRoom, isClickedRecommend]);
+  }, [
+    day,
+    hour,
+    minute,
+    isChecked,
+    recoilRoom,
+    isClickedRecommend,
+    recoilRoom,
+    recoilRoomInfoStates,
+  ]);
 
   return (
     <MainContainer>
