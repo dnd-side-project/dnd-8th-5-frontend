@@ -10,40 +10,18 @@ import {
 } from './SetTimer.styles';
 
 interface SetTimer {
-  setDay: React.Dispatch<React.SetStateAction<string>>;
-  setHour: React.Dispatch<React.SetStateAction<string>>;
-  setMinute: React.Dispatch<React.SetStateAction<string>>;
+  setDay: React.Dispatch<React.SetStateAction<number>>;
+  setHour: React.Dispatch<React.SetStateAction<number>>;
+  setMinute: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const SetTimer = ({ setDay, setHour, setMinute }: SetTimer) => {
-  const DAY_ARRAY = ['0', '1', '2', '3', '4', '5'];
+  const DAY_ARRAY = [0, 1, 2, 3, 4, 5];
   const HOUR_ARRAY = [
-    '0',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-    '16',
-    '17',
-    '18',
-    '19',
-    '20',
-    '21',
-    '22',
-    '23',
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+    21, 22, 23,
   ];
-  const MINUTE_ARRAY = ['0', '10', '20', '30', '40', '50'];
+  const MINUTE_ARRAY = [0, 10, 20, 30, 40, 50];
 
   const settings = (startEnd: string) => {
     const setting = {
@@ -86,7 +64,7 @@ const SetTimer = ({ setDay, setHour, setMinute }: SetTimer) => {
     <MainContainer>
       <GreyBox />
       <StyledSlider {...settings('date')}>
-        {DAY_ARRAY.map((value: string) => {
+        {DAY_ARRAY.map((value: number) => {
           return (
             <div key={value}>
               <TimeText>{value}</TimeText>
@@ -96,7 +74,7 @@ const SetTimer = ({ setDay, setHour, setMinute }: SetTimer) => {
       </StyledSlider>
       <TextContainer>일</TextContainer>
       <StyledSlider {...settings('hour')}>
-        {HOUR_ARRAY.map((value: string) => {
+        {HOUR_ARRAY.map((value: number) => {
           return (
             <div key={value}>
               <TimeText>{value}</TimeText>
@@ -106,7 +84,7 @@ const SetTimer = ({ setDay, setHour, setMinute }: SetTimer) => {
       </StyledSlider>
       <TextContainer>시간</TextContainer>
       <StyledSlider {...settings('minute')}>
-        {MINUTE_ARRAY.map((value: string) => {
+        {MINUTE_ARRAY.map((value: number) => {
           return (
             <div key={value}>
               <TimeText>{value}</TimeText>
