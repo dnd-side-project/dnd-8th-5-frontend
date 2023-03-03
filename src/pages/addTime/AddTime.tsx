@@ -27,7 +27,7 @@ import BottomButton from '../../components/bottomButton/BottomButton';
 import AddTable from '../../components/addTable/AddTable';
 
 const AddTime = () => {
-  const { dates, title } = room;
+  const { dates } = room;
 
   const [tablePage, setTablePage] = useState(0);
   const [isPageMoved, setIsPageMoved] = useState(false);
@@ -73,7 +73,7 @@ const AddTime = () => {
 
   return (
     <Wrapper>
-      <Header title={title} />
+      <Header pageName="addTime" />
       <Body>
         <TitleWrapper>
           <Title>수빈 님의 일정을</Title>
