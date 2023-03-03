@@ -40,11 +40,11 @@ const Login = () => {
     // mutate(postLoginInfo, form);
 
     try {
-      const a = await axios.post(
-        `/api/room/2660d1fc-233b-414c-9f63-6f3076f4d381/participant`,
+      const response = await axios.post(
+        `/api/room/2660d1fc-233b-414c-9f63-6f3076f4d381/login`,
         form
       );
-      console.log(a);
+      console.log(response.data);
 
       if (saveUserInfo) {
         localStorage.setItem('name', form.name);

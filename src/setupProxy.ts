@@ -4,7 +4,7 @@ module.exports = function (app: {
   use: (arg0: string, arg1: RequestHandler) => void;
 }) {
   app.use(
-    '/api/room',
+    '/api',
     createProxyMiddleware({
       target: 'http://localhost:8080',
       changeOrigin: true,
