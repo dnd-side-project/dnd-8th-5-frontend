@@ -12,13 +12,12 @@ function App() {
   return (
     <Routes>
       <Route path="/addTime" element={<AddTime />} />
-      <Route path="/current/:uuid" element={<Current />} />
       <Route path="/roomTimer" element={<Timer />} />
       <Route path="/start" element={<Start />} />
       <Route path="/roomStart" element={<RoomStart />} />
       <Route path="/roomCalendar" element={<RoomCalendar />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/login/{}" element={<Current />} />
+      <Route path="/current/:roomUuid" element={<Current />} />
     </Routes>
   );
 }

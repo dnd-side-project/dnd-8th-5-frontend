@@ -50,7 +50,7 @@ const Table = ({ room, current }: roomInfo & currentInfo) => {
             {availableTimeInfos.map(({ time, count }) => (
               <Select
                 key={`${availableDate} ${time}`}
-                opacity={count / headCount}
+                opacity={headCount ? count / headCount : 0}
               />
             ))}
           </SelectWrapper>

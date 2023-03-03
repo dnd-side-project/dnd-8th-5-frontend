@@ -3,8 +3,8 @@ import ParticipantsBlock from '../../components/participantsBlock/ParticipantsBl
 import ProgressBar from '../../components/progressBar/ProgressBar';
 import Table from '../../components/table/Table';
 import BottomButton from '../../components/bottomButton/BottomButton';
+import Timer from '../../components/timer/Timer';
 
-import room from '../../assets/data/room.json';
 import current from '../../assets/data/current.json';
 import edit from '../../assets/icons/edit.svg';
 
@@ -21,14 +21,37 @@ import {
   Title,
   Wrapper,
 } from './Current.styles';
-import Timer from '../../components/timer/Timer';
+import { useEffect, useState } from 'react';
+import { API } from '../../utils/API';
+import { useParams } from 'react-router-dom';
+import { RoomTypes } from '../../types/roomInfo';
 
 import BottomSheetShare from '../../components/bottomSheetShare/BottomSheetShare';
 
 import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 
 const Current = () => {
+  const { roomId } = useParams();
+
+  const [room, setRoom] = useState<RoomTypes>({
+    title: '',
+    deadLine: '',
+    headCount: 0,
+    participants: [''],
+    dates: [''],
+    startTime: '',
+    endTime: '',
+  });
+
+  useEffect(() => {
+    const getRoomInfo = async () => {
+      const { data } = await API.get(`/api/room/${roomId}`);
+      setRoom(data);
+    };
+
+    getRoomInfo();
+  }, []);
+
   const { title, participants, headCount, deadLine } = room;
 
   const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
@@ -51,9 +74,12 @@ const Current = () => {
         {deadLine && <Timer deadLine={deadLine} />}
         <Title>실시간 참여 현황</Title>
         <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
-        <ProgressBar headCount={headCount} participants={participants} />
+
+        {!headCount && (
+          <ProgressBar headCount={headCount} participants={participants} />
+        )}
         <Participants>
-          {participants.map((participant) => (
+          {participants.map((participant: string) => (
             <ParticipantsBlock key={participant} participant={participant} />
           ))}
           <ParticipantsBlock participant={'?'} />
