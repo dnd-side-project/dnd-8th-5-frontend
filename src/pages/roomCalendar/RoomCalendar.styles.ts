@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import theme from '../../styles/theme';
 
 export const MainContainer = styled.div`
-  width: 375px;
-  max-width: 375px;
+  width: 100%;
+  max-width: 412px;
   position: relative;
   left: 0;
   right: 0;
