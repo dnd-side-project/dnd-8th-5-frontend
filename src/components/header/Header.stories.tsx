@@ -1,3 +1,4 @@
+import { Story } from '@storybook/react';
 import Header from './Header';
 
 export default {
@@ -5,6 +6,9 @@ export default {
   component: Header,
 };
 
-const Template = () => <Header />;
+const Template: Story<{ pageName: string }> = (args) => <Header {...args} />;
 
 export const Default = Template.bind({});
+Default.args = {
+  pageName: 'register',
+};

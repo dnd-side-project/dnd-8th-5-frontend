@@ -28,7 +28,7 @@ const Current = () => {
 
   return (
     <Wrapper>
-      <Header />
+      <Header pageName="current" />
       <Body>
         {deadLine && <Timer deadLine={deadLine} />}
         <Title>실시간 참여 현황</Title>

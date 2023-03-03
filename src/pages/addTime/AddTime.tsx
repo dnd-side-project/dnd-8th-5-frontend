@@ -73,7 +73,7 @@ const AddTime = () => {
 
   return (
     <Wrapper>
-      <Header />
+      <Header pageName="addTime" />
       <Body>
         <TitleWrapper>
           <Title>수빈 님의 일정을</Title>

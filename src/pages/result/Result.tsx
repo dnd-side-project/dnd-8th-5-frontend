@@ -11,6 +11,7 @@ import Popup from '../../components/popup/Popup';
 const Result = () => {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isPopupOpened, setIsPopupOpened] = useState(false);
+  const [isParticipantOpened, setIsParticipantOpened] = useState(false);
 
   const handleConfirmButtonClick = () => {
     setIsPopupOpened(true);
@@ -18,7 +19,7 @@ const Result = () => {
 
   return (
     <Wrapper>
-      <Header />
+      <Header pageName="result" />
       <Body>
         <TitleWrapper>
           <Title isNumber={false}>현재까지</Title>
@@ -66,6 +67,7 @@ const Result = () => {
           setIsConfirmed={setIsConfirmed}
         />
       )}
+      {/* {isParticipantOpened && <BottomSheet} */}
     </Wrapper>
   );
 };
