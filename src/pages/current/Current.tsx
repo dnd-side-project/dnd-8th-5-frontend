@@ -23,7 +23,7 @@ import {
 
 import { useEffect, useState } from 'react';
 import { API } from '../../utils/API';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import BottomSheetShare from '../../components/bottomSheetShare/BottomSheetShare';
 
@@ -79,6 +79,11 @@ const Current = () => {
   const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
     useState<boolean>(false);
 
+  const navigate = useNavigate();
+  const goToResult = () => {
+    navigate(`/result/${roomUuid}`);
+  };
+
   return (
     <Wrapper>
       <Header pageName="current" title={title} />
@@ -124,7 +129,11 @@ const Current = () => {
           <EditIcon src={edit} alt="edit" />
         </Edit>
         <BottomButtonCover>
-          <BottomButton text="우선순위 보기" isActivated={true} />
+          <BottomButton
+            text="우선순위 보기"
+            isActivated={true}
+            navigate={goToResult}
+          />
         </BottomButtonCover>
       </BottomWrapper>
       {isAvailableBottomSheet ? <BottomSheetShare roomUuid={roomUuid} /> : null}

@@ -25,7 +25,7 @@ import {
 } from './Result.styles';
 import { useRecoilState } from 'recoil';
 import { roomState } from '../../atoms/roomAtoms';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { API } from '../../utils/API';
 
 const Result = () => {

@@ -25,13 +25,14 @@ import {
 import Header from '../../components/header/Header';
 import BottomButton from '../../components/bottomButton/BottomButton';
 import AddTable from '../../components/addTable/AddTable';
-import { useParams } from 'react-router-dom';
 
 import { availableDatesState } from '../../atoms/availableDatesAtom';
 import AddToggle from '../../components/addToggle/AddToggle';
 import { RoomTypes } from '../../types/roomInfo';
 import { API } from '../../utils/API';
 import AddCalendar from '../../components/addCalendar/AddCalendar';
+import { useNavigate, useParams } from 'react-router-dom';
+import { goToResult } from '../../utils/navigate';
 
 const AddTime = () => {
   const { roomUuid } = useParams();
@@ -111,6 +112,11 @@ const AddTime = () => {
     setIsPageMoved(false);
   }, [isPageMoved]);
 
+  const navigate = useNavigate();
+  const goToResult = () => {
+    navigate(`/result/${roomUuid}`);
+  };
+
   return (
     <Wrapper>
       <Header pageName="addTime" title={title} />
@@ -162,7 +168,11 @@ const AddTime = () => {
             />
           )}
         </Main>
-        <BottomButton text="등록하기" isActivated={true} />
+        <BottomButton
+          navigate={goToResult}
+          text="등록하기"
+          isActivated={true}
+        />
       </Body>
     </Wrapper>
   );
