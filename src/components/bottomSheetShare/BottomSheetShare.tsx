@@ -5,13 +5,14 @@ import theme from '../../styles/theme';
 import RoomHeader from '../roomHeader/RoomHeader';
 import './botttomSheetShare.css';
 import clipBoard from '../../assets/icons/clipBoard.png';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-const BottomSheetShare = () => {
+const BottomSheetShare = (location: any) => {
   const [open, setOpen] = useState(true);
   const [url, setUrl] = useState('');
 
   useEffect(() => {
-    setUrl('ddddddd');
+    setUrl(`http://localhost:8080/${location.location.pathname}`);
   }, []);
 
   const onDismiss = () => {
@@ -45,20 +46,19 @@ const BottomSheetShare = () => {
             bottomSheet={true}
           />
         </HeaderContainer>
-        <InputContainer>
-          <Input
-            type="text"
-            name="name"
-            placeholder="이름 입력"
-            maxLength={4}
-            value={url}
-            onChange={onChange}
-            ref={copyLinkRef}
-          />
-          <ClipBoardWrapper>
-            <ClipBoard src={clipBoard}></ClipBoard>
-          </ClipBoardWrapper>
-        </InputContainer>
+        <UrlContainer>
+          <UrlWrapper>
+            <UrlText>{url}</UrlText>
+          </UrlWrapper>
+          <CopyToClipboard
+            text={url}
+            onCopy={() => alert('클립보드에 복사되었습니다.')}
+          >
+            <ClipBoardWrapper>
+              <ClipBoard src={clipBoard}></ClipBoard>
+            </ClipBoardWrapper>
+          </CopyToClipboard>
+        </UrlContainer>
       </MainContainer>
     </BottomSheet>
   );
@@ -76,29 +76,40 @@ const HeaderContainer = styled.div`
   padding-left: 20px;
 `;
 
-const InputContainer = styled.div`
+const UrlContainer = styled.div`
   display: flex;
   align-items: center;
   border: 1px solid ${theme.colors.gray04};
+  border-radius: 5px;
   width: 100%;
   max-width: 335px;
   left: 20px;
+
   width: 336px;
   height: 50px;
   margin: 0 auto;
+  margin-top: 24px;
 `;
 
-const Input = styled.input`
+const UrlWrapper = styled.div`
+  display: block;
   width: 300px;
   height: 48px;
-  border: 1px solid white;
-  border-radius: 5px;
   padding: 15px;
   outline: none;
+  color: ${theme.colors.gray04};
+  ${theme.typography.regular01};
+`;
+
+const UrlText = styled.div`
+  max-width: 300px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const ClipBoardWrapper = styled.div`
-  padding: 13px;
+  cursor: pointer;
 `;
 
 const ClipBoard = styled.img`
