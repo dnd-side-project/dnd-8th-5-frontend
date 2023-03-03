@@ -24,7 +24,7 @@ import {
 } from './AddTime.styles';
 import Header from '../../components/header/Header';
 import BottomButton from '../../components/bottomButton/BottomButton';
-import AddTable from '../../components/addTable/AddTable1';
+import AddTable from '../../components/addTable/AddTable';
 import AddCalendar from '../../components/addCalendar/AddCalendar';
 import { availableDatesState } from '../../atoms/availableDatesAtom';
 import AddToggle from '../../components/addToggle/AddToggle';
