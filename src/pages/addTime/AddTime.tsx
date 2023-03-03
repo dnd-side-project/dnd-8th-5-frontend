@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { availableTimesState } from '../../atoms/availableTimesAtom';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
@@ -24,7 +24,7 @@ import {
 } from './AddTime.styles';
 import Header from '../../components/header/Header';
 import BottomButton from '../../components/bottomButton/BottomButton';
-import AddTable from '../../components/addTable/AddTable';
+import AddTable from '../../components/addTable/AddTable1';
 import AddCalendar from '../../components/addCalendar/AddCalendar';
 import { availableDatesState } from '../../atoms/availableDatesAtom';
 import AddToggle from '../../components/addToggle/AddToggle';
@@ -41,6 +41,10 @@ const AddTime = () => {
     useRecoilState(availableTimesState);
   const [availableDates, setAvailableDates] =
     useRecoilState(availableDatesState);
+
+  const handleSelectMethod = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedMethod(e.target.value);
+  };
 
   const validDateChunks = getChunks(
     getValidDates(getDateRange(dates[0], dates[dates.length - 1]))
@@ -72,29 +76,9 @@ const AddTime = () => {
     setIsPageMoved(false);
   }, [isPageMoved]);
 
-  useEffect(() => {
-    setAvailableTimes([]);
-
-    const elements = document.querySelectorAll('.selected');
-    elements.forEach((element) => {
-      element.classList.remove('selected');
-    });
-  }, [selectedMethod]);
-
-  // console.log(availableTimes);
-
-  const tableWrapperRef = useRef<any>(null);
-  const tableRef = useRef<any>(null);
-  const scrollThumbRef = useRef<any>(null);
-  const scrollTrackRef = useRef<any>(null);
-
-  if (tableRef.current) {
-    console.log(tableRef.current);
-  }
-
   return (
     <Wrapper>
-      <Header title={title} />
+      <Header pageName="addTime" />
       <Body>
         <TitleWrapper>
           <Title>수빈 님의 일정을</Title>
@@ -117,9 +101,8 @@ const AddTime = () => {
               onClick={handleNextButtonClick}
             />
           </ButtonWrapper>
-          <TableWrapper ref={tableWrapperRef}>
+          <TableWrapper>
             <AddTable
-              tableRef={tableRef}
               tablePage={tablePage}
               selectedMethod={selectedMethod}
               validDateChunks={validDateChunks}
@@ -127,8 +110,8 @@ const AddTime = () => {
               setAvailableTimes={setAvailableTimes}
             />
           </TableWrapper>
-          <ScrollbarTrack ref={scrollTrackRef}>
-            <ScrollbarThumb ref={scrollThumbRef} />
+          <ScrollbarTrack>
+            <ScrollbarThumb />
           </ScrollbarTrack>
           {/* <AddCalendar
             availableDates={availableDates}
@@ -136,6 +119,7 @@ const AddTime = () => {
           /> */}
           <BottomButton text="등록하기" isActivated={true} />
         </Main>
+        <BottomButton text="등록하기" isActivated={true} />
       </Body>
     </Wrapper>
   );

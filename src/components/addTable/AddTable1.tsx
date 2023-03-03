@@ -19,7 +19,6 @@ import { AddTableType } from './AddTable.types';
 import room from '../../assets/data/room.json';
 
 const AddTable = ({
-  tableRef,
   selectedMethod,
   tablePage,
   validDateChunks,
@@ -121,7 +120,7 @@ const AddTable = ({
   }, []);
 
   return (
-    <Wrapper ref={tableRef}>
+    <Wrapper>
       <Top>
         <Blank />
         <DateWrapper>
