@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
 
   height: 48px;
   border-bottom: 1px solid ${theme.colors.gray03};
-  background: #ffffff;
+  background: ${theme.colors.gray01};
 
   display: flex;
   align-items: center;
@@ -28,7 +28,7 @@ export const Title = styled.div`
   ${theme.typography.semibold03};
 `;
 
-export const ShareIcon = styled.img`
+export const Icon = styled.img`
   width: 24px;
   height: 24px;
 

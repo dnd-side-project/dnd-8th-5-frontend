@@ -20,34 +20,31 @@ import {
   Title,
   Wrapper,
 } from './Current.styles';
+
 import { useEffect, useState } from 'react';
 import { API } from '../../utils/API';
 import { useParams } from 'react-router-dom';
-import { CurrentTypes } from '../../types/current';
-import { goToResult } from '../../utils/navigate';
+
+import BottomSheetShare from '../../components/bottomSheetShare/BottomSheetShare';
+
+import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { roomState } from '../../atoms/roomAtoms';
+import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 
 const Current = () => {
   const { roomUuid } = useParams();
+  const { state } = useLocation();
 
   const [room, setRoom] = useRecoilState(roomState);
-
-  const [current, setCurrent] = useState<CurrentTypes>({
-    availableDateTimes: [
-      {
-        availableDate: '',
-        availableTimeInfos: [
-          {
-            time: '',
-            count: 0,
-          },
-        ],
-      },
-    ],
-  });
+  const [currentRoomState, setCurrentRoomState] = useState<any>([]);
 
   useEffect(() => {
+    if (state !== null) {
+      const { isRoomCreator } = state;
+      setIsAvailableBottomSheet(isRoomCreator);
+    }
+
     const getRoomInfo = async () => {
       const { data } = await API.get(`/api/room/${roomUuid}`);
       setRoom(data);
@@ -56,28 +53,41 @@ const Current = () => {
     getRoomInfo();
   }, []);
 
-  const { title, participants, headCount, deadLine } = room;
-
   useEffect(() => {
-    const getCurrent = async () => {
+    const getCurrentRoomInfo = async () => {
       const { data } = await API.get(
         `/api/room/${roomUuid}/available-time/group`
       );
-      setCurrent(data);
+      setCurrentRoomState(data);
     };
 
-    getCurrent();
+    getCurrentRoomInfo();
   }, []);
+
+  const { availableDateTimes } = currentRoomState;
+
+  const {
+    title,
+    dates,
+    participants,
+    headCount,
+    deadLine,
+    startTime,
+    endTime,
+  } = room;
+
+  const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
+    useState<boolean>(false);
 
   return (
     <Wrapper>
-      <Header title={title} />
+      <Header pageName="current" title={title} />
       <Body>
         {deadLine && <Timer deadLine={deadLine} />}
         <Title>실시간 참여 현황</Title>
         <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
 
-        {headCount && (
+        {!headCount && (
           <ProgressBar headCount={headCount} participants={participants} />
         )}
         <Participants>
@@ -92,22 +102,32 @@ const Current = () => {
 
       <Body>
         <Title>실시간 조율 현황</Title>
-        <TableWrapper>
-          <Table room={room} current={current} />
-        </TableWrapper>
+
+        {startTime !== null && endTime !== null ? (
+          <TableWrapper>
+            <Table
+              dates={dates}
+              startTime={startTime}
+              endTime={endTime}
+              participants={participants}
+            />
+          </TableWrapper>
+        ) : (
+          <CurrentCalendar
+            availableDateTimes={availableDateTimes}
+            participants={participants}
+          />
+        )}
       </Body>
       <BottomWrapper>
         <Edit>
           <EditIcon src={edit} alt="edit" />
         </Edit>
         <BottomButtonCover>
-          <BottomButton
-            navigate={goToResult}
-            text="우선순위 보기"
-            isActivated={true}
-          />
+          <BottomButton text="우선순위 보기" isActivated={true} />
         </BottomButtonCover>
       </BottomWrapper>
+      {isAvailableBottomSheet ? <BottomSheetShare roomUuid={roomUuid} /> : null}
     </Wrapper>
   );
 };

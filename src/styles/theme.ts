@@ -22,6 +22,8 @@ const colors = {
   gray05: '#979797',
   gray06: '#545454',
   gray07: '#1A1A1A',
+
+  tableBorder: '#E3E7FF',
 };
 
 const typography = {
@@ -52,6 +54,11 @@ const typography = {
   `,
   semibold06: css`
     font-size: 14px;
+    font-weight: 600;
+    line-height: 130%;
+  `,
+  semibold07: css`
+    font-size: 12px;
     font-weight: 600;
     line-height: 130%;
   `,

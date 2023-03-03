@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Current from '../timePicker/TimePicker';
 import './setTimer.css';
 import {
   MainContainer,
@@ -8,39 +9,19 @@ import {
   GreyBox,
 } from './SetTimer.styles';
 
-const Current = () => {
-  const [day, setDay] = useState('09:00');
-  const [hour, setHour] = useState('09:00');
-  const [minute, setMinute] = useState('09:00');
+interface SetTimer {
+  setDay: React.Dispatch<React.SetStateAction<number>>;
+  setHour: React.Dispatch<React.SetStateAction<number>>;
+  setMinute: React.Dispatch<React.SetStateAction<number>>;
+}
 
-  const DAY_ARRAY = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const SetTimer = ({ setDay, setHour, setMinute }: SetTimer) => {
+  const DAY_ARRAY = [0, 1, 2, 3, 4, 5];
   const HOUR_ARRAY = [
-    '0',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-    '16',
-    '17',
-    '18',
-    '19',
-    '20',
-    '21',
-    '22',
-    '23',
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+    21, 22, 23,
   ];
-  const MINUTE_ARRAY = ['0', '10', '20', '30', '40', '50'];
+  const MINUTE_ARRAY = [0, 10, 20, 30, 40, 50];
 
   const settings = (startEnd: string) => {
     const setting = {
@@ -50,13 +31,13 @@ const Current = () => {
       slidesToShow: 5,
       slidesToScroll: 1,
       swipeToSlide: true,
-      beforeChange: function (currentSlide: number) {
+      afterChange: function (currentSlide: number) {
         if (startEnd === 'date') {
-          setDay(DAY_ARRAY[currentSlide + 1]);
+          setDay(DAY_ARRAY[currentSlide]);
         } else if (startEnd === 'hour') {
-          setHour(HOUR_ARRAY[currentSlide + 1]);
+          setHour(HOUR_ARRAY[currentSlide]);
         } else if (startEnd === 'minute') {
-          setMinute(MINUTE_ARRAY[currentSlide + 1]);
+          setMinute(MINUTE_ARRAY[currentSlide]);
         }
       },
       centerMode: true,
@@ -83,7 +64,7 @@ const Current = () => {
     <MainContainer>
       <GreyBox />
       <StyledSlider {...settings('date')}>
-        {DAY_ARRAY.map((value: string) => {
+        {DAY_ARRAY.map((value: number) => {
           return (
             <div key={value}>
               <TimeText>{value}</TimeText>
@@ -93,7 +74,7 @@ const Current = () => {
       </StyledSlider>
       <TextContainer>일</TextContainer>
       <StyledSlider {...settings('hour')}>
-        {HOUR_ARRAY.map((value: string) => {
+        {HOUR_ARRAY.map((value: number) => {
           return (
             <div key={value}>
               <TimeText>{value}</TimeText>
@@ -103,7 +84,7 @@ const Current = () => {
       </StyledSlider>
       <TextContainer>시간</TextContainer>
       <StyledSlider {...settings('minute')}>
-        {MINUTE_ARRAY.map((value: string) => {
+        {MINUTE_ARRAY.map((value: number) => {
           return (
             <div key={value}>
               <TimeText>{value}</TimeText>
@@ -116,4 +97,4 @@ const Current = () => {
   );
 };
 
-export default Current;
+export default SetTimer;

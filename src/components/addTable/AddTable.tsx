@@ -16,17 +16,15 @@ import {
 } from './AddTable.styles';
 import { AddTableType } from './AddTable.types';
 
-import room from '../../assets/data/room.json';
-
 const AddTable = ({
   selectedMethod,
   tablePage,
   validDateChunks,
   availableTimes,
+  startTime,
+  endTime,
   setAvailableTimes,
 }: AddTableType) => {
-  const { startTime, endTime } = room;
-
   const times = getRange(
     parseInt(startTime.slice(0, 2)),
     parseInt(endTime.slice(0, 2))
@@ -85,7 +83,12 @@ const AddTable = ({
         );
       } else {
         element.classList.add('selected');
-        element.style.backgroundColor = `${theme.colors.purple06}`;
+
+        if (selectedMethod === 'possible') {
+          element.style.backgroundColor = `${theme.colors.purple06}`;
+        } else if (selectedMethod === 'impossible') {
+          element.style.backgroundColor = `${theme.colors.orange02}`;
+        } else return;
 
         const id = element.getAttribute('id') as string;
         setAvailableTimes([...availableTimes, id]);
@@ -103,6 +106,14 @@ const AddTable = ({
       setElement(touchElement);
     }
   };
+
+  useEffect(() => {
+    if (availableTimes) {
+      availableTimes.forEach((availableTime: string) => {
+        console.log(document.querySelector(`#${availableTime}`));
+      });
+    }
+  }, []);
 
   return (
     <Wrapper>

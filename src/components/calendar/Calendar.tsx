@@ -1,10 +1,22 @@
 import { useState } from 'react';
 import { DateObject, getAllDatesInRange } from 'react-multi-date-picker';
-import { CalendarComponent, MainContainer } from './Calendar.styles';
+import {
+  CalendarComponent,
+  MainContainer,
+  ToggleWrapper,
+} from './Calendar.styles';
 import './calendar.css';
+import Checkbox from '../checkbox/CheckBox';
+import Toggle from '../toggle/Toggle';
+import styled from '@emotion/styled';
 
-const CalendarPage = () => {
-  const [isRange, setIsRange] = useState(false);
+interface Calendar {
+  dates: string[];
+  setDates: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+const Calendar = ({ dates, setDates }: Calendar) => {
+  const [isRange, setIsRange] = useState<boolean>(false);
   const [dateArray, setDateArray] = useState<string[]>([]);
 
   const ko = {
@@ -46,18 +58,31 @@ const CalendarPage = () => {
     const newDateArray = [];
     for (const date of dates) {
       const newDate = new Date(String(date));
-      newDateArray.push(
-        `${newDate.getFullYear()}-${
-          newDate.getMonth() + 1
-        }-${newDate.getDate()}`
-      );
+      const year = newDate.getFullYear();
+      const month = newDate.getMonth() + 1;
+      const day = newDate.getDate();
+      const format =
+        year +
+        '-' +
+        ('00' + month.toString()).slice(-2) +
+        '-' +
+        ('00' + day.toString()).slice(-2);
+
+      newDateArray.push(format);
     }
-    setDateArray(newDateArray);
+    setDates(newDateArray);
     console.log('newDateArray', newDateArray);
   };
 
   return (
     <MainContainer>
+      <ToggleWrapper>
+        <Toggle
+          text={['기간', '하나씩']}
+          toggle={isRange}
+          setData={setIsRange}
+        />
+      </ToggleWrapper>
       <CalendarComponent
         onChange={(dataObjects) => {
           if (isRange) {
@@ -69,9 +94,15 @@ const CalendarPage = () => {
                 const year = Object(dataObjects)[key].year;
                 const month = Object(dataObjects)[key].month;
                 const day = Object(dataObjects)[key].day;
-                const date = `${String(year)}-${String(month)}-${String(day)}`;
-                const newArr = [...dateArray, date];
-                setDateArray(newArr);
+                const format =
+                  year +
+                  '-' +
+                  ('00' + month.toString()).slice(-2) +
+                  '-' +
+                  ('00' + day.toString()).slice(-2);
+                const newArr = [...dates, format];
+                const newDateArr = Array.from(new Set(newArr));
+                setDates(newDateArr);
               }
             }
           }
@@ -89,4 +120,4 @@ const CalendarPage = () => {
   );
 };
 
-export default CalendarPage;
+export default Calendar;
