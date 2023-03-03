@@ -8,7 +8,7 @@ function App() {
   return (
     <Routes>
       <Route path="/addTime" element={<AddTime />} />
-      <Route path="/current" element={<Current />} />
+      <Route path="/current/:roomId" element={<Current />} />
       <Route path="/timer" element={<Timer />} />
     </Routes>
   );
