@@ -11,7 +11,7 @@ import Login from './pages/login/Login';
 function App() {
   return (
     <Routes>
-      <Route path="/start" element={<Start />} />
+      <Route path="/" element={<Start />} />
       <Route path="/roomStart" element={<RoomStart />} />
       <Route path="/roomCalendar" element={<RoomCalendar />} />
       <Route path="/roomTimer" element={<Timer />} />
