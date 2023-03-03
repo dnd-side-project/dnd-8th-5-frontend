@@ -2,11 +2,11 @@ import styled from '@emotion/styled';
 import Header from '../../components/header/Header';
 import SelectBox from '../../components/selectBox/SelectBox';
 import theme from '../../styles/theme';
-import { css } from '@emotion/react';
 
 import nobody from '../../assets/images/nobody.png';
 import Accordion from '../../components/accordion/Accordion';
 import { useState } from 'react';
+import ResultButton from '../../components/resultButton/ResultButton';
 const Result = () => {
   const [isConfirmed, setIsConfirmed] = useState(false);
 
@@ -47,6 +47,7 @@ const Result = () => {
           </ConfirmButton>
         </TimeWrapper>
       </Body>
+      <ResultButton />
     </Wrapper>
   );
 };
@@ -68,6 +69,9 @@ export const Body = styled.div`
   width: 100%;
   padding: 0 20px;
   margin-top: 30px;
+  overflow: scroll;
+
+  padding-bottom: 117px;
 `;
 
 export const TitleWrapper = styled.div`
