@@ -10,8 +10,8 @@ function App() {
     <Routes>
       <Route path="/timer" element={<Timer />} />
       <Route path="/addTime" element={<AddTime />} />
-      <Route path="/current" element={<Current />} />
-      <Route path="/result" element={<Result />} />
+      <Route path="/current/:roomUuid" element={<Current />} />
+      <Route path="/timer" element={<Timer />} />
     </Routes>
   );
 }

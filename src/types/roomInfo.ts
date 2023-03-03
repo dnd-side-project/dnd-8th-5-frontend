@@ -7,7 +7,7 @@ export interface participant {
 }
 
 export interface currentParticipants {
-  headCount: number;
+  headCount: number | null;
   participants: string[];
 }
 
@@ -24,4 +24,14 @@ export interface room extends roomTitle, currentParticipants {
 
 export interface roomInfo {
   room: room;
+}
+
+export interface RoomTypes {
+  title: string;
+  participants: string[];
+  headCount: number | null;
+  deadLine: string;
+  dates: string[];
+  startTime: string;
+  endTime: string;
 }
