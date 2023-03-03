@@ -7,8 +7,8 @@ import Timer from './pages/Timer';
 function App() {
   return (
     <Routes>
-      <Route path="/addTime" element={<AddTime />} />
-      <Route path="/current/:roomId" element={<Current />} />
+      <Route path="/add/:roomUuid" element={<AddTime />} />
+      <Route path="/current/:roomUuid" element={<Current />} />
       <Route path="/timer" element={<Timer />} />
     </Routes>
   );

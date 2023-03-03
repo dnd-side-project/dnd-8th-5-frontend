@@ -6,10 +6,11 @@ import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 import addPrev from '../../assets/icons/addPrev.png';
 import addNext from '../../assets/icons/addNext.png';
 
-import room from '../../assets/data/room.json';
 import { getChunks } from '../../utils/getChunks';
 import { getValidDates } from '../../utils/getValidDates';
 import { getDateRange } from '../../utils/getDateRange';
+
+import room from '../../assets/data/room.json';
 import {
   Body,
   ButtonWrapper,
@@ -25,9 +26,14 @@ import {
 import Header from '../../components/header/Header';
 import BottomButton from '../../components/bottomButton/BottomButton';
 import AddTable from '../../components/addTable/AddTable';
+import { useParams } from 'react-router-dom';
+import { RoomTypes } from '../../types/roomInfo';
+import { API } from '../../utils/API';
 
 const AddTime = () => {
-  const { dates, title } = room;
+  const { roomUuid } = useParams();
+
+  const { title, dates } = room;
 
   const [tablePage, setTablePage] = useState(0);
   const [isPageMoved, setIsPageMoved] = useState(false);

@@ -5,7 +5,6 @@ import Table from '../../components/table/Table';
 import BottomButton from '../../components/bottomButton/BottomButton';
 import Timer from '../../components/timer/Timer';
 
-import current from '../../assets/data/current.json';
 import edit from '../../assets/icons/edit.svg';
 
 import {
@@ -24,24 +23,33 @@ import {
 import { useEffect, useState } from 'react';
 import { API } from '../../utils/API';
 import { useParams } from 'react-router-dom';
-import { RoomTypes } from '../../types/roomInfo';
+import { CurrentTypes } from '../../types/current';
+import { goToResult } from '../../utils/navigate';
+import { useRecoilState } from 'recoil';
+import { roomState } from '../../atoms/roomAtoms';
 
 const Current = () => {
-  const { roomId } = useParams();
+  const { roomUuid } = useParams();
 
-  const [room, setRoom] = useState<RoomTypes>({
-    title: '',
-    deadLine: '',
-    headCount: 0,
-    participants: [''],
-    dates: [''],
-    startTime: '',
-    endTime: '',
+  const [room, setRoom] = useRecoilState(roomState);
+
+  const [current, setCurrent] = useState<CurrentTypes>({
+    availableDateTimes: [
+      {
+        availableDate: '',
+        availableTimeInfos: [
+          {
+            time: '',
+            count: 0,
+          },
+        ],
+      },
+    ],
   });
 
   useEffect(() => {
     const getRoomInfo = async () => {
-      const { data } = await API.get(`/api/room/${roomId}`);
+      const { data } = await API.get(`/api/room/${roomUuid}`);
       setRoom(data);
     };
 
@@ -49,6 +57,17 @@ const Current = () => {
   }, []);
 
   const { title, participants, headCount, deadLine } = room;
+
+  useEffect(() => {
+    const getCurrent = async () => {
+      const { data } = await API.get(
+        `/api/room/${roomUuid}/available-time/group`
+      );
+      setCurrent(data);
+    };
+
+    getCurrent();
+  }, []);
 
   return (
     <Wrapper>
@@ -58,7 +77,7 @@ const Current = () => {
         <Title>실시간 참여 현황</Title>
         <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
 
-        {!headCount && (
+        {headCount && (
           <ProgressBar headCount={headCount} participants={participants} />
         )}
         <Participants>
@@ -82,7 +101,11 @@ const Current = () => {
           <EditIcon src={edit} alt="edit" />
         </Edit>
         <BottomButtonCover>
-          <BottomButton text="우선순위 보기" isActivated={true} />
+          <BottomButton
+            navigate={goToResult}
+            text="우선순위 보기"
+            isActivated={true}
+          />
         </BottomButtonCover>
       </BottomWrapper>
     </Wrapper>
