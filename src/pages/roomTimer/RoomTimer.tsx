@@ -27,6 +27,7 @@ import { useMutation } from 'react-query';
 import { recoilUuidState } from '../../recoil/recoilUuidState';
 import axios from 'axios';
 import { ErrorResponse } from '@remix-run/router';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const TimerPage = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -46,6 +47,8 @@ const TimerPage = () => {
   const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomState);
   const recoilRoomInfoStates = useRecoilValue(recoilRoomInfoState);
   const [recoilUuid] = useRecoilState(recoilUuidState);
+
+  const navigate = useNavigate();
 
   const { mutate, isLoading, isError, error, isSuccess } =
     useMutation(postRoomInfo);
@@ -67,6 +70,7 @@ const TimerPage = () => {
     try {
       const response = await axios.post(`/api/room`, recoilRoom);
       console.log(response.data);
+      navigate(`/Current/${response.data.roomUuid}`);
     } catch {
       (e: ErrorResponse) => console.log(e);
     }
@@ -100,9 +104,9 @@ const TimerPage = () => {
     [isClickedRecommend]
   );
 
-  const onSetRecoilState = useCallback(() => {
-    const allZero = day === 0 && hour === 0 && minute === 0;
+  const allZero = day === 0 && hour === 0 && minute === 0;
 
+  const onSetRecoilState = useCallback(() => {
     let recommendDay = day;
     let recommendHour = hour;
     let recommendMinute = minute;
@@ -214,7 +218,12 @@ const TimerPage = () => {
         </CheckboxWrapper>
       </BottomContainer>
       <BottomButtonContainer onClick={onSetRecoilState}>
-        <BottomButton text="완료하기" isActivated={true} />
+        <BottomButton
+          text="완료하기"
+          isActivated={
+            !allZero || isClickedRecommend.indexOf(true) >= 0 || isChecked
+          }
+        />
       </BottomButtonContainer>
     </MainContainer>
   );
