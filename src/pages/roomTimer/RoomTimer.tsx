@@ -25,6 +25,8 @@ import {
 import postRoomInfo from '../../hooks/useAPI';
 import { useMutation } from 'react-query';
 import { recoilUuidState } from '../../recoil/recoilUuidState';
+import axios from 'axios';
+import { ErrorResponse } from '@remix-run/router';
 
 const TimerPage = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -61,6 +63,15 @@ const TimerPage = () => {
     title: string;
   }
 
+  const RoomInfo = async () => {
+    try {
+      const response = await axios.post(`/api/room`, recoilRoom);
+      console.log(response.data);
+    } catch {
+      (e: ErrorResponse) => console.log(e);
+    }
+  };
+
   useEffect(() => {
     if (
       day ||
@@ -69,11 +80,12 @@ const TimerPage = () => {
       isClickedRecommend.indexOf(true) >= 0 ||
       isChecked
     ) {
-      mutate(recoilRoom, {
-        onSuccess: (data) => {
-          console.log(recoilUuid);
-        },
-      });
+      RoomInfo();
+      // mutate(recoilRoom, {
+      //   onSuccess: (data) => {
+      //     console.log(recoilUuid);
+      //   },
+      // });
     }
   }, [recoilRoom]);
 
