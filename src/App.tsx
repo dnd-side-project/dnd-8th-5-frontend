@@ -8,9 +8,12 @@ import Start from './pages/start/Start';
 import Timer from './pages/roomTimer/RoomTimer';
 import Login from './pages/login/Login';
 
+
+
 function App() {
   return (
     <Routes>
+      <Route path="/timer" element={<Timer />} />
       <Route path="/addTime" element={<AddTime />} />
       <Route path="/roomTimer" element={<Timer />} />
       <Route path="/start" element={<Start />} />
