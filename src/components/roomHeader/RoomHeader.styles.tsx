@@ -3,9 +3,6 @@ import theme from '../../styles/theme';
 
 export const MainContainer = styled.div`
   width: 333px;
-  height: 116px;
-  padding: 20px;
-  padding-left: 0px;
 `;
 
 export const IndexText = styled.div`
@@ -13,7 +10,10 @@ export const IndexText = styled.div`
   ${theme.typography.semibold04}
 `;
 
-export const TitleText = styled.div`
-  ${theme.typography.semibold01}
+export const TitleText = styled.div<{ isBottomSheet: boolean }>`
+  ${(props) =>
+    props.isBottomSheet
+      ? theme.typography.semibold02
+      : theme.typography.semibold01};
   white-space: pre-wrap;
 `;

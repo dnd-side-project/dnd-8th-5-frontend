@@ -8,21 +8,19 @@ interface ToggleProps {
   setData: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Toggle = (props: ToggleProps) => {
-  const [isToggle, setIsToggle] = useState(props.toggle);
+const Toggle = ({ text, toggle, setData }: ToggleProps) => {
+  const [isToggle, setIsToggle] = useState(toggle);
 
   const clickedToggle = useCallback(() => {
-    props.setData((prev) => !prev);
+    setData((prev) => !prev);
     setIsToggle((prev) => !prev);
   }, [isToggle]);
 
   return (
     <ToggleBtn onClick={clickedToggle} toggle={isToggle}>
-      <ToggleText>{props.text[0]}</ToggleText>
-      <ToggleText>{props.text[1]}</ToggleText>
-      <Circle toggle={isToggle}>
-        {isToggle ? props.text[0] : props.text[1]}
-      </Circle>
+      <ToggleText>{text[0]}</ToggleText>
+      <ToggleText>{text[1]}</ToggleText>
+      <Circle toggle={isToggle}>{isToggle ? text[0] : text[1]}</Circle>
     </ToggleBtn>
   );
 };
