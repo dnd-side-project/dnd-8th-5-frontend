@@ -15,14 +15,18 @@ export const Wrapper = styled.div`
 
 export const Body = styled.div`
   width: 100%;
-  padding: 0 20px;
   margin-top: 30px;
 `;
 
 export const TitleWrapper = styled.div`
-  height: 30px;
+  padding: 0 20px;
+
   display: flex;
   align-items: center;
+
+  & + & {
+    margin-top: 14px;
+  }
 `;
 
 export const Title = styled.span`
@@ -45,6 +49,8 @@ export const Main = styled.div`
 
 export const ButtonWrapper = styled.div`
   width: 100%;
+  padding: 0 15px;
+
   display: flex;
   justify-content: space-between;
   position: absolute;
@@ -63,8 +69,10 @@ export const MoveButton = styled.img`
 `;
 
 export const TableWrapper = styled.div`
+  padding-bottom: 32px;
   margin: 0 auto;
   overflow-y: auto;
+  overscroll-behavior: contain;
 
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -73,19 +81,22 @@ export const TableWrapper = styled.div`
   }
 `;
 
-export const ScrollbarWrapper = styled.div`
+export const ScrollbarTrack = styled.div`
   width: 18px;
   height: 160px;
   border-radius: 41px;
   background: ${theme.colors.gray02};
   position: absolute;
-  right: 9px;
+  right: 29px;
   top: 52px;
 `;
 
-export const Scrollbar = styled.div`
+export const ScrollbarThumb = styled.div`
   width: 100%;
   height: 55px;
   border-radius: 41px;
   background: ${theme.colors.purple05};
+
+  position: absolute;
+  width: 18px;
 `;

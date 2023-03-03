@@ -15,8 +15,8 @@ import {
   ButtonWrapper,
   Main,
   MoveButton,
-  Scrollbar,
-  ScrollbarWrapper,
+  ScrollbarThumb,
+  ScrollbarTrack,
   TableWrapper,
   Title,
   TitleWrapper,
@@ -25,9 +25,12 @@ import {
 import Header from '../../components/header/Header';
 import BottomButton from '../../components/bottomButton/BottomButton';
 import AddTable from '../../components/addTable/AddTable';
+import AddCalendar from '../../components/addCalendar/AddCalendar';
+import { availableDatesState } from '../../atoms/availableDatesAtom';
+import AddToggle from '../../components/addToggle/AddToggle';
 
 const AddTime = () => {
-  const { dates } = room;
+  const { dates, title } = room;
 
   const [tablePage, setTablePage] = useState(0);
   const [isPageMoved, setIsPageMoved] = useState(false);
@@ -36,6 +39,8 @@ const AddTime = () => {
     useRecoilState(selectedMethodState);
   const [availableTimes, setAvailableTimes] =
     useRecoilState(availableTimesState);
+  const [availableDates, setAvailableDates] =
+    useRecoilState(availableDatesState);
 
   const handleSelectMethod = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedMethod(e.target.value);
@@ -79,11 +84,7 @@ const AddTime = () => {
           <Title>수빈 님의 일정을</Title>
         </TitleWrapper>
         <TitleWrapper>
-          <select onChange={handleSelectMethod} value={selectedMethod}>
-            <option value="possible">되는</option>
-            <option value="impossible">안 되는</option>
-          </select>
-
+          <AddToggle />
           <Title>시간으로 선택해 주세요</Title>
         </TitleWrapper>
 
@@ -109,9 +110,14 @@ const AddTime = () => {
               setAvailableTimes={setAvailableTimes}
             />
           </TableWrapper>
-          <ScrollbarWrapper>
-            <Scrollbar />
-          </ScrollbarWrapper>
+          <ScrollbarTrack>
+            <ScrollbarThumb />
+          </ScrollbarTrack>
+          {/* <AddCalendar
+            availableDates={availableDates}
+            setAvailableDates={setAvailableDates}
+          /> */}
+          <BottomButton text="등록하기" isActivated={true} />
         </Main>
         <BottomButton text="등록하기" isActivated={true} />
       </Body>
