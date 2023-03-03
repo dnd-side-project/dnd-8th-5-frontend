@@ -10,13 +10,13 @@ export const Wrapper = styled.div`
 
   width: 100%;
   max-width: 375px;
-  overflow: hidden;
   height: 100%;
 `;
 
 export const Body = styled.div`
   width: 100%;
   padding: 0 20px;
+  margin-top: 30px;
 `;
 
 export const TitleWrapper = styled.div`
@@ -32,8 +32,9 @@ export const Title = styled.span`
 
 export const Main = styled.div`
   width: 100%;
+  padding-top: 5px;
 
-  margin-top: 48px;
+  margin-top: 43px;
   padding-bottom: 116px;
 
   display: flex;
@@ -49,19 +50,20 @@ export const ButtonWrapper = styled.div`
   position: absolute;
   z-index: 2;
   top: 0;
+  overflow: visible;
 `;
 
 export const MoveButton = styled.img`
-  width: 36px;
-  height: 36px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
-  box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.1);
+  filter: drop-shadow(0px 3px 9px rgba(0, 0, 0, 0.1));
+
   cursor: pointer;
 `;
 
 export const TableWrapper = styled.div`
   margin: 0 auto;
-  height: 455px;
   overflow-y: auto;
 
   -ms-overflow-style: none;

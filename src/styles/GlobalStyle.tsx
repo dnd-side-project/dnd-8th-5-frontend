@@ -16,6 +16,10 @@ const defaultStyle = css`
     padding: 0;
   }
 
+  body {
+    overflow: hidden;
+  }
+
   a {
     outline: none;
     color: inherit;

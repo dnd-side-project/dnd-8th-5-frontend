@@ -22,12 +22,10 @@ import {
   TimerContainr,
   TImerWrapper,
 } from './RoomTimer.styles';
-import postRoomInfo from '../../hooks/useAPI';
-import { useMutation } from 'react-query';
 import { recoilUuidState } from '../../recoil/recoilUuidState';
 import axios from 'axios';
 import { ErrorResponse } from '@remix-run/router';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const TimerPage = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -49,9 +47,6 @@ const TimerPage = () => {
   const [recoilUuid, setRecoilUuid] = useRecoilState(recoilUuidState);
 
   const navigate = useNavigate();
-
-  const { mutate, isLoading, isError, error, isSuccess } =
-    useMutation(postRoomInfo);
 
   interface recoilRoom {
     headCount: number;

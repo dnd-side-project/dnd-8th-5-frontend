@@ -1,7 +1,6 @@
 import Header from '../../components/header/Header';
 import ParticipantsBlock from '../../components/participantsBlock/ParticipantsBlock';
 import ProgressBar from '../../components/progressBar/ProgressBar';
-import Timer from '../../components/timer/Timer';
 import Table from '../../components/table/Table';
 import BottomButton from '../../components/bottomButton/BottomButton';
 
@@ -22,6 +21,7 @@ import {
   Title,
   Wrapper,
 } from './Current.styles';
+import Timer from '../../components/timer/Timer';
 
 import BottomSheetShare from '../../components/bottomSheetShare/BottomSheetShare';
 

@@ -25,7 +25,7 @@ import {
 
 import { useRecoilState } from 'recoil';
 import { recoilRoomState } from '../../recoil/recoilRoomState';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Room = () => {
   const [roomName, setRoomName] = useState('');
