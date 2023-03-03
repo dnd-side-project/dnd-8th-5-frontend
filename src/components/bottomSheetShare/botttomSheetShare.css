@@ -8,7 +8,7 @@
   background: var(--rsbs-bg, #fff);
   flex-direction: column;
   height: 0px;
-  height: var(--rsbs-overlay-h, 0px);
+  height: 323px;
   transform: translate3d(0, 0px, 0);
   transform: translate3d(0, var(--rsbs-overlay-translate-y, 0px), 0);
   will-change: height;
