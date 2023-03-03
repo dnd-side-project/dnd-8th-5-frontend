@@ -19,8 +19,23 @@ const BottomSheetShare = (location: any) => {
     setOpen(false);
   };
 
-  const onChange = (e: any) => {
-    setUrl(e.target.value);
+  const onShareUrl = () => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: '모두의 시간',
+          text: '지금 바로 모두 가능한 시간을 알아보세요!',
+          url: url,
+        })
+        .then(() => {
+          console.log('링크가 공유 되었습니다.');
+        })
+        .catch(() => {
+          console.log('오류가 발생했습니다.');
+        });
+    } else {
+      console.log('공유기능을 지원 하지않는 브라우저입니다.');
+    }
   };
 
   const copyLinkRef = useRef(null);
@@ -59,6 +74,10 @@ const BottomSheetShare = (location: any) => {
             </ClipBoardWrapper>
           </CopyToClipboard>
         </UrlContainer>
+        <ShareButtonWrapper onClick={onShareUrl}>
+          <ShareButton isActivated={true}>지금 공유할게요</ShareButton>
+        </ShareButtonWrapper>
+        <RateButtonWrapper>나중에 하기</RateButtonWrapper>
       </MainContainer>
     </BottomSheet>
   );
@@ -115,4 +134,41 @@ const ClipBoardWrapper = styled.div`
 const ClipBoard = styled.img`
   width: 24px;
   height: 24px;
+`;
+
+const ShareButtonWrapper = styled.div`
+  top: 0px;
+  padding-bottom: 30px;
+`;
+
+const RateButtonWrapper = styled.div`
+  ${theme.typography.medium02};
+  color: ${theme.colors.gray04};
+  position: absolute;
+  width: 100%;
+  top: 271px;
+  text-align: center;
+`;
+
+const ShareButton = styled.button<{ isActivated: boolean }>`
+  width: calc(100% - 40px);
+  max-width: 375px;
+  height: 52px;
+  margin: 0 auto;
+
+  border-radius: 6px;
+
+  ${theme.typography.semibold03};
+  color: ${({ isActivated }) =>
+    isActivated ? theme.colors.gray01 : theme.colors.gray06};
+  background: ${({ isActivated }) =>
+    isActivated ? theme.colors.purple06 : theme.colors.gray03};
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 203px;
+  left: 0;
+  right: 0;
 `;
