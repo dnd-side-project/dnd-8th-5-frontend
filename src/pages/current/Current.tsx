@@ -21,7 +21,7 @@ import {
   Title,
   Wrapper,
 } from './Current.styles';
-import Timer from '../../components/timer/TImer';
+import Timer from '../../components/timer/Timer';
 
 const Current = () => {
   const { title, participants, headCount, deadLine } = room;
