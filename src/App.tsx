@@ -16,7 +16,7 @@ function App() {
       <Route path="/start" element={<Start />} />
       <Route path="/roomStart" element={<RoomStart />} />
       <Route path="/roomCalendar" element={<RoomCalendar />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/login/:roomUuid" element={<Login />} />
       <Route path="/current/:roomUuid" element={<Current />} />
     </Routes>
   );
