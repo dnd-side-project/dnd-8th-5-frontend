@@ -18,9 +18,6 @@ const Login = () => {
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
 
-  const { mutate, isLoading, isError, error, isSuccess } =
-    useMutation(postRoomInfo);
-
   const { form, onChange } = useInputs({
     name: '',
     password: '',
@@ -37,8 +34,6 @@ const Login = () => {
   }, [form.name, form.password]);
 
   const onClickNext = async () => {
-    // mutate(postLoginInfo, form);
-
     try {
       const response = await axios.post(
         `/api/room/2660d1fc-233b-414c-9f63-6f3076f4d381/login`,
