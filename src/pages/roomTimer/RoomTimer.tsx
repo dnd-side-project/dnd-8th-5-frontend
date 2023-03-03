@@ -69,7 +69,12 @@ const TimerPage = () => {
       });
       setRecoilUuid(response.data.roomUuid);
     } catch {
-      (e: ErrorResponse) => console.error(e);
+      {
+        const yesNo = confirm('오류가 발생했습니다.\n처음부터 다시 시도하세요');
+        if (yesNo) {
+          navigate('/');
+        }
+      }
     }
   };
 
@@ -132,26 +137,28 @@ const TimerPage = () => {
     setRecoilRoom((prev) => {
       return {
         ...prev,
-        ['timer']: {
-          day:
-            isChecked || allZero
-              ? null
-              : isClickedRecommend.indexOf(true) >= 0
-              ? recommendDay
-              : day,
-          hour:
-            isChecked || allZero
-              ? null
-              : isClickedRecommend.indexOf(true) >= 0
-              ? recommendHour
-              : hour,
-          minute:
-            isChecked || allZero
-              ? null
-              : isClickedRecommend.indexOf(true) >= 0
-              ? recommendMinute
-              : minute,
-        },
+        ['timer']: isChecked
+          ? null
+          : {
+              day:
+                isChecked || allZero
+                  ? null
+                  : isClickedRecommend.indexOf(true) >= 0
+                  ? recommendDay
+                  : day,
+              hour:
+                isChecked || allZero
+                  ? null
+                  : isClickedRecommend.indexOf(true) >= 0
+                  ? recommendHour
+                  : hour,
+              minute:
+                isChecked || allZero
+                  ? null
+                  : isClickedRecommend.indexOf(true) >= 0
+                  ? recommendMinute
+                  : minute,
+            },
       };
     });
   }, [
