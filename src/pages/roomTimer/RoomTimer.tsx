@@ -46,7 +46,7 @@ const TimerPage = () => {
 
   const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomState);
   const recoilRoomInfoStates = useRecoilValue(recoilRoomInfoState);
-  const [recoilUuid] = useRecoilState(recoilUuidState);
+  const [recoilUuid, setRecoilUuid] = useRecoilState(recoilUuidState);
 
   const navigate = useNavigate();
 
@@ -66,15 +66,18 @@ const TimerPage = () => {
     title: string;
   }
 
-  const RoomInfo = async () => {
+  const roomInfo = async () => {
     try {
-      const response = await axios.post(`/api/room`, recoilRoom);
-      console.log(response.data);
+      const response = await axios.post(
+        `https://api.modutime.site/api/room`,
+        recoilRoom
+      );
       navigate(`/Current/${response.data.roomUuid}`, {
         state: { isRoomCreator: true },
       });
+      setRecoilUuid(response.data.roomUuid);
     } catch {
-      (e: ErrorResponse) => console.log(e);
+      (e: ErrorResponse) => console.error(e);
     }
   };
 
@@ -86,12 +89,7 @@ const TimerPage = () => {
       isClickedRecommend.indexOf(true) >= 0 ||
       isChecked
     ) {
-      RoomInfo();
-      // mutate(recoilRoom, {
-      //   onSuccess: (data) => {
-      //     console.log(recoilUuid);
-      //   },
-      // });
+      roomInfo();
     }
   }, [recoilRoom]);
 
