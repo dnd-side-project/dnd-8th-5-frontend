@@ -160,6 +160,7 @@ const RateButtonWrapper = styled.div`
   width: 100%;
   top: 271px;
   text-align: center;
+  cursor: pointer;
 `;
 
 const ShareButton = styled.button<{ isActivated: boolean }>`
