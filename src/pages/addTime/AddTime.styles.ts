@@ -69,8 +69,10 @@ export const MoveButton = styled.img`
 `;
 
 export const TableWrapper = styled.div`
+  padding-bottom: 32px;
   margin: 0 auto;
   overflow-y: auto;
+  overscroll-behavior: contain;
 
   -ms-overflow-style: none;
   scrollbar-width: none;

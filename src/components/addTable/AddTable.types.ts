@@ -9,6 +9,7 @@ export interface ChunkType {
 }
 
 export interface AddTableType {
+  tableRef: any;
   selectedMethod: string;
   tablePage: number;
   validDateChunks: Array<ChunkType[]>;

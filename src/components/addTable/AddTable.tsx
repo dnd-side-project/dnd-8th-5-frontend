@@ -19,6 +19,7 @@ import { AddTableType } from './AddTable.types';
 import room from '../../assets/data/room.json';
 
 const AddTable = ({
+  tableRef,
   selectedMethod,
   tablePage,
   validDateChunks,
@@ -111,8 +112,16 @@ const AddTable = ({
 
   console.log(availableTimes);
 
+  useEffect(() => {
+    if (availableTimes) {
+      availableTimes.forEach((availableTime: string) => {
+        console.log(document.querySelector(`#${availableTime}`));
+      });
+    }
+  }, []);
+
   return (
-    <Wrapper>
+    <Wrapper ref={tableRef}>
       <Top>
         <Blank />
         <DateWrapper>

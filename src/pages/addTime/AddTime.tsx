@@ -42,10 +42,6 @@ const AddTime = () => {
   const [availableDates, setAvailableDates] =
     useRecoilState(availableDatesState);
 
-  const handleSelectMethod = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedMethod(e.target.value);
-  };
-
   const validDateChunks = getChunks(
     getValidDates(getDateRange(dates[0], dates[dates.length - 1]))
   );
@@ -78,7 +74,23 @@ const AddTime = () => {
 
   useEffect(() => {
     setAvailableTimes([]);
+
+    const elements = document.querySelectorAll('.selected');
+    elements.forEach((element) => {
+      element.classList.remove('selected');
+    });
   }, [selectedMethod]);
+
+  // console.log(availableTimes);
+
+  const tableWrapperRef = useRef<any>(null);
+  const tableRef = useRef<any>(null);
+  const scrollThumbRef = useRef<any>(null);
+  const scrollTrackRef = useRef<any>(null);
+
+  if (tableRef.current) {
+    console.log(tableRef.current);
+  }
 
   return (
     <Wrapper>
@@ -105,8 +117,9 @@ const AddTime = () => {
               onClick={handleNextButtonClick}
             />
           </ButtonWrapper>
-          <TableWrapper>
+          <TableWrapper ref={tableWrapperRef}>
             <AddTable
+              tableRef={tableRef}
               tablePage={tablePage}
               selectedMethod={selectedMethod}
               validDateChunks={validDateChunks}
@@ -114,15 +127,15 @@ const AddTime = () => {
               setAvailableTimes={setAvailableTimes}
             />
           </TableWrapper>
-          <ScrollbarTrack>
-            <ScrollbarThumb />
+          <ScrollbarTrack ref={scrollTrackRef}>
+            <ScrollbarThumb ref={scrollThumbRef} />
           </ScrollbarTrack>
           {/* <AddCalendar
             availableDates={availableDates}
             setAvailableDates={setAvailableDates}
           /> */}
+          <BottomButton text="등록하기" isActivated={true} />
         </Main>
-        <BottomButton text="등록하기" isActivated={true} />
       </Body>
     </Wrapper>
   );
