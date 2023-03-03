@@ -1,11 +1,23 @@
 import { useCallback, useEffect, useState } from 'react';
-import { HeaderText, LoginComponent } from './Login.styles';
+import {
+  FormContainer,
+  HeaderContainer,
+  HeaderText,
+  InputContnainer,
+  LoginComponent,
+  MainContainer,
+  NameInput,
+  PasswordInput,
+  CheckBoxContainer,
+  PasswordError,
+  RightWrapper,
+  ImgWrapper,
+  TextWrapper,
+  BottomButtonContainer,
+} from './Login.styles';
 import useInputs from '../../hooks/useFormInput';
 import uncheckedbox from '../../assets/icons/uncheckdBox.png';
 import checkedBox from '../../assets/icons/checkedBox.png';
-import styled from '@emotion/styled';
-import loginBack from '../../assets/images/loginBack.png';
-import theme from '../../styles/theme';
 import { Link } from 'react-router-dom';
 import BottomButton from '../../components/bottomButton/BottomButton';
 import axios from 'axios';
