@@ -61,7 +61,6 @@ export const DependingBox = styled.div<{ isNotDecided: boolean }>`
   background-color: rgba(256, 256, 256, 0.6);
   top: 22px;
   z-index: ${(props) => (props.isNotDecided ? 3 : 1)};
-  /* z-index: 3; */
 `;
 
 export const SelectWrapper = styled.div`

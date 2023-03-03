@@ -8,8 +8,6 @@ import loginBack from '../../assets/images/loginBack.png';
 import theme from '../../styles/theme';
 import { Link } from 'react-router-dom';
 import BottomButton from '../../components/bottomButton/BottomButton';
-import postRoomInfo from '../../hooks/useAPI';
-import { useMutation } from 'react-query';
 import axios from 'axios';
 
 const Login = () => {

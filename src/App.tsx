@@ -4,7 +4,7 @@ import AddTime from './pages/addTime/AddTime';
 import Current from './pages/current/Current';
 import RoomCalendar from './pages/roomCalendar/RoomCalendar';
 import RoomStart from './pages/roomStart/RoomStart';
-import Start from './pages/Start';
+import Start from './pages/start/Start';
 import Timer from './pages/roomTimer/RoomTimer';
 import Login from './pages/login/Login';
 
