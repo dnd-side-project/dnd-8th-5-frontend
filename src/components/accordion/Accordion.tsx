@@ -3,6 +3,8 @@ import { useState, useRef } from 'react';
 import expand from '../../assets/icons/expand.svg';
 import collapse from '../../assets/icons/collapse.svg';
 
+import room from '../../assets/data/room.json';
+
 import {
   Content,
   DefaultWrapper,
@@ -16,8 +18,16 @@ import {
   Wrapper,
   Icon,
 } from './Accordion.styles';
+import { AccordionTypes } from './Accordion.types';
 
-const Accordion = () => {
+const Accordion = ({
+  date,
+  dayOfWeek,
+  startTime,
+  endTime,
+  participantNames,
+}: AccordionTypes) => {
+  const { headCount } = room;
   const [isCollapse, setIsCollapse] = useState(false);
 
   const parentRef = useRef<HTMLDivElement>(null);
@@ -41,11 +51,14 @@ const Accordion = () => {
       <DefaultWrapper>
         <Content onClick={handleCollapse}>
           <PeopleWrapper>
-            <People isParticipant={false}>6명 중</People>
-            <People isParticipant={true}> 5명</People>
+            <People isParticipant={false}>{headCount}명 중</People>
+            <People isParticipant={true}> {participantNames.length}명</People>
           </PeopleWrapper>
           <TimeWrapper>
-            <TimeSpan>2월 13일 (월) 18:00 ~ 20:00</TimeSpan>
+            <TimeSpan>{`${date.slice(0, 2)}월 ${date.slice(
+              3,
+              5
+            )} (${dayOfWeek}) ${startTime} ~ ${endTime}`}</TimeSpan>
             <Icon src={isCollapse ? collapse : expand} />
           </TimeWrapper>
         </Content>
@@ -53,21 +66,9 @@ const Accordion = () => {
 
       <ListWrapper ref={parentRef}>
         <ListItem ref={childRef}>
-          <Participant>김주현</Participant>
-          <Participant>김주현</Participant>
-          <Participant>김주현</Participant>
-          <Participant>김주현</Participant>
-          <Participant>김주현</Participant>
-          <Participant>김주현</Participant>
-          <Participant>김주현</Participant>
-          <Participant>김주현</Participant>
-          <Participant>김주현</Participant>
-          <Participant>김주현</Participant>
-          <Participant>김주현</Participant>
-          <Participant>김주현</Participant>
-          <Participant>김주현</Participant>
-          <Participant>김주현</Participant>
-          <Participant>김주현</Participant>
+          {participantNames.map((name: string) => (
+            <Participant key={name}>{name}</Participant>
+          ))}
         </ListItem>
       </ListWrapper>
     </Wrapper>
