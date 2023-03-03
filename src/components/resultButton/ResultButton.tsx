@@ -28,8 +28,6 @@ const Wrapper = styled.div`
   height: 117px;
   padding: 0 20px;
 
-  /* background: pink; */
-
   position: fixed;
   z-index: 3;
   bottom: 0;
@@ -54,7 +52,6 @@ const BottomWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 10px 0 28px 0;
-  /* background: powderblue; */
 `;
 
 const CurrentButtonWrapper = styled.div`

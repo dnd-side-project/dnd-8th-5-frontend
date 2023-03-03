@@ -7,12 +7,15 @@ import nobody from '../../assets/images/nobody.png';
 import Accordion from '../../components/accordion/Accordion';
 import { useState } from 'react';
 import ResultButton from '../../components/resultButton/ResultButton';
+import Popup from '../../components/popup/Popup';
 const Result = () => {
   const [isConfirmed, setIsConfirmed] = useState(false);
+  const [isPopupOpened, setIsPopupOpened] = useState(false);
 
   const handleConfirmButtonClick = () => {
-    setIsConfirmed(!isConfirmed);
+    setIsPopupOpened(true);
   };
+
   return (
     <Wrapper>
       <Header />
@@ -39,15 +42,30 @@ const Result = () => {
         <Accordion />
         <TimeWrapper isConfirmed={isConfirmed}>
           2월 11일 (월) 18:00 ~ 20:00
-          <ConfirmButton
-            isConfirmed={isConfirmed}
-            onClick={handleConfirmButtonClick}
-          >
-            {isConfirmed ? '확정 취소' : '확정'}
-          </ConfirmButton>
+          {isConfirmed ? (
+            <ConfirmButton
+              isConfirmed={isConfirmed}
+              onClick={handleConfirmButtonClick}
+            >
+              확정 취소
+            </ConfirmButton>
+          ) : (
+            <ConfirmButton
+              isConfirmed={isConfirmed}
+              onClick={handleConfirmButtonClick}
+            >
+              확정
+            </ConfirmButton>
+          )}
         </TimeWrapper>
       </Body>
       <ResultButton />
+      {isPopupOpened && (
+        <Popup
+          setIsPopupOpened={setIsPopupOpened}
+          setIsConfirmed={setIsConfirmed}
+        />
+      )}
     </Wrapper>
   );
 };
