@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useCallback, useState } from 'react';
-import checkBox from '../../assets/icons/checkbox.png';
+import uncheckdBox from '../../assets/icons/uncheckdBox.png';
 import checkedBox from '../../assets/icons/checkedBox.png';
 import theme from '../../styles/theme';
 
@@ -10,18 +10,18 @@ interface Checkbox {
   setValue: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Checkbox = (props: Checkbox) => {
-  const [isCheckedBox, setIsCheckedBox] = useState(props.value);
+const Checkbox = ({ text, value, setValue }: Checkbox) => {
+  const [isCheckedBox, setIsCheckedBox] = useState(value);
 
   const onClickCheckBox = useCallback(() => {
-    props.setValue((prev) => !prev);
+    setValue((prev) => !prev);
     setIsCheckedBox((prev) => !prev);
   }, [isCheckedBox]);
 
   return (
     <MainContainer onClick={onClickCheckBox} value={isCheckedBox}>
-      <Icon src={isCheckedBox ? checkedBox : checkBox} />
-      <TextWrapper>{props.text}</TextWrapper>
+      <Icon src={isCheckedBox ? checkedBox : uncheckdBox} />
+      <TextWrapper>{text}</TextWrapper>
     </MainContainer>
   );
 };

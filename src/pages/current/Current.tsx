@@ -26,8 +26,13 @@ import { API } from '../../utils/API';
 import { useParams } from 'react-router-dom';
 import { RoomTypes } from '../../types/roomInfo';
 
+import BottomSheetShare from '../../components/bottomSheetShare/BottomSheetShare';
+
+import { useLocation } from 'react-router-dom';
+
 const Current = () => {
   const { roomUuid } = useParams();
+  const { state } = useLocation();
 
   const [room, setRoom] = useState<RoomTypes>({
     title: '',
@@ -40,8 +45,13 @@ const Current = () => {
   });
 
   useEffect(() => {
+    if (state !== null) {
+      const { isRoomCreator } = state;
+      setIsAvailableBottomSheet(isRoomCreator);
+    }
+
     const getRoomInfo = async () => {
-      const { data } = await API.get(`/api/room/${roomId}`);
+      const { data } = await API.get(`/api/room/${roomUuid}`);
       setRoom(data);
     };
 
@@ -49,6 +59,9 @@ const Current = () => {
   }, []);
 
   const { title, participants, headCount, deadLine } = room;
+
+  const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
+    useState<boolean>(false);
 
   return (
     <Wrapper>
@@ -85,6 +98,7 @@ const Current = () => {
           <BottomButton text="우선순위 보기" isActivated={true} />
         </BottomButtonCover>
       </BottomWrapper>
+      {isAvailableBottomSheet ? <BottomSheetShare roomUuid={roomUuid} /> : null}
     </Wrapper>
   );
 };
