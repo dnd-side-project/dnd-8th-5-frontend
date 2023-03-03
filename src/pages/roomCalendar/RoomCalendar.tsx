@@ -54,7 +54,11 @@ const RoomCalendar = () => {
   return (
     <MainContainer>
       <HeaderContainer>
-        <RoomHeader index={'1/2'} title={'날짜와 시간대를 정해볼까요?'} />
+        <RoomHeader
+          index={'1/2'}
+          title={'날짜와 시간대를 정해볼까요?'}
+          bottomSheet={false}
+        />
       </HeaderContainer>
 
       <Calendar dates={dates} setDates={setDates} />

@@ -179,6 +179,7 @@ const TimerPage = () => {
         <RoomHeader
           index={'2/2'}
           title={`언제까지 참여자들의\n일정을 받아볼까요?`}
+          bottomSheet={false}
         />
       </HeaderContainer>
       <TimerContainr>

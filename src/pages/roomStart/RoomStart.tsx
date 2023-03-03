@@ -74,7 +74,11 @@ const Room = () => {
     <MainContainer>
       <FormContainer>
         <HeaderContainer>
-          <RoomHeader index="" title="약속 정보를 입력해주세요" />
+          <RoomHeader
+            index=""
+            title="약속 정보를 입력해주세요"
+            bottomSheet={false}
+          />
         </HeaderContainer>
 
         <TitleInputContnainer>
