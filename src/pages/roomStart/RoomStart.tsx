@@ -25,7 +25,7 @@ import {
 
 import { useRecoilState } from 'recoil';
 import { recoilRoomState } from '../../recoil/recoilRoomState';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Room = () => {
   const [roomName, setRoomName] = useState('');
@@ -33,6 +33,11 @@ const Room = () => {
   const [isNotDecided, setIsNotDecided] = useState(false);
 
   const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomState);
+
+  const navigate = useNavigate();
+
+  const canGoNext =
+    (!!roomName && peopleNumber > 0) || (isNotDecided && !!roomName);
 
   const handleRoomNameChange = useCallback(
     (e: { target: { value: SetStateAction<string> } }) => {
@@ -56,7 +61,7 @@ const Room = () => {
     });
   }, [peopleNumber]);
 
-  const onSetRecoilState = useCallback(() => {
+  const onSetRecoilState = useCallback(async () => {
     if (isNotDecided) {
       setPeopleNumber(() => 0);
     }
@@ -68,6 +73,8 @@ const Room = () => {
         ['headCount']: isNotDecided ? 0 : peopleNumber,
       };
     });
+
+    navigate('/RoomCalendar');
   }, [recoilRoom, roomName, peopleNumber, isNotDecided]);
 
   return (
@@ -117,11 +124,14 @@ const Room = () => {
             value={isNotDecided}
           ></CheckBox>
         </ChceckContainer>
-        <Link to="/roomCalendar">
-          <BottomButtonContainer onClick={onSetRecoilState}>
-            <BottomButton text={'다음'} isActivated={true} />
-          </BottomButtonContainer>
-        </Link>
+
+        <BottomButtonContainer
+          onClick={() => {
+            canGoNext ? onSetRecoilState() : null;
+          }}
+        >
+          <BottomButton text={'다음'} isActivated={canGoNext} />
+        </BottomButtonContainer>
       </FormContainer>
     </MainContainer>
   );
