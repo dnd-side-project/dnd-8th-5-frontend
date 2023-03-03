@@ -23,8 +23,14 @@ import {
   Wrapper,
 } from './Current.styles';
 
+import BottomSheetShare from '../../components/bottomSheetShare/BottomSheetShare';
+
+import { useLocation } from 'react-router-dom';
+
 const Current = () => {
   const { title, participants, headCount, deadLine } = room;
+
+  const location = useLocation();
 
   return (
     <Wrapper>
@@ -59,6 +65,7 @@ const Current = () => {
           <BottomButton text="우선순위 보기" isActivated={true} />
         </BottomButtonCover>
       </BottomWrapper>
+      <BottomSheetShare location={location} />
     </Wrapper>
   );
 };
