@@ -8,8 +8,6 @@ import Start from './pages/start/Start';
 import Timer from './pages/roomTimer/RoomTimer';
 import Login from './pages/login/Login';
 
-
-
 function App() {
   return (
     <Routes>

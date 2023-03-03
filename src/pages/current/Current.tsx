@@ -21,6 +21,7 @@ import {
   Title,
   Wrapper,
 } from './Current.styles';
+
 import { useEffect, useState } from 'react';
 import { API } from '../../utils/API';
 import { useParams } from 'react-router-dom';
