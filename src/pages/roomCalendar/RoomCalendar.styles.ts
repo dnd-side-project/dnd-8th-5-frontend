@@ -7,7 +7,6 @@ export const MainContainer = styled.div`
   position: relative;
   left: 0;
   right: 0;
-  height: 100%;
   background-color: ${theme.colors.gray01};
   margin: 0 auto;
 `;
@@ -31,6 +30,7 @@ export const Line = styled.img`
 export const TimePickerContainer = styled.div`
   position: absolute;
   top: 475px;
+  height: 135px;
   left: 0px;
   z-index: 1;
 `;
@@ -63,7 +63,9 @@ export const CheckBoxContainer = styled.div`
   position: absolute;
   top: 615px;
   left: 20px;
+  height: 152px;
   margin: 0 auto;
+  padding-bottom: 50px;
 `;
 
 export const BottomButtonContainer = styled.div`
