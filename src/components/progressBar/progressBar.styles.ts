@@ -14,7 +14,7 @@ export const Bar = styled.div<{
   participantsNumber: number;
 }>`
   width: ${({ headCount, participantsNumber }) =>
-    `${(participantsNumber / headCount) * 100}%`};
+    headCount ? `${(participantsNumber / headCount) * 100}%` : 0};
   height: 100%;
   background: linear-gradient(270deg, #6a7bff 1.48%, #cad0ff 100%);
   border-radius: 61px;
@@ -27,7 +27,7 @@ export const Bar = styled.div<{
     }
     100% {
       width: ${({ headCount, participantsNumber }) =>
-        `${(participantsNumber / headCount) * 100}%`};
+        headCount ? `${(participantsNumber / headCount) * 100}%` : 0};
     }
   }
 `;

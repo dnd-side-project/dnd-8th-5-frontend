@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../styles/timePicker.css';
+import './timePicker.css';
 import {
   MainContainer,
   StyledSlider,

@@ -1,7 +1,7 @@
 import { Wrapper } from './BottomButton.styles';
-import { bottomButton } from '../../types/bottomButton';
+import { BottomButtonType } from './BottomButton.types';
 
-const BottomButton = ({ text, isActivated }: bottomButton) => {
+const BottomButton = ({ text, isActivated }: BottomButtonType) => {
   return <Wrapper isActivated={isActivated}>{text}</Wrapper>;
 };
 
