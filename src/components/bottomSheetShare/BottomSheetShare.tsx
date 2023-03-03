@@ -6,13 +6,14 @@ import RoomHeader from '../roomHeader/RoomHeader';
 import './botttomSheetShare.css';
 import clipBoard from '../../assets/icons/clipBoard.png';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import headerRabbit from '../../assets/images/headerRabbit.png';
 
 const BottomSheetShare = (location: any) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState<boolean>(true);
   const [url, setUrl] = useState('');
 
   useEffect(() => {
-    setUrl(`http://localhost:8080/${location.location.pathname}`);
+    setUrl(`https://api.modutime.site/${location.location.pathname}`);
   }, []);
 
   const onDismiss = () => {
@@ -38,21 +39,17 @@ const BottomSheetShare = (location: any) => {
     }
   };
 
-  const copyLinkRef = useRef(null);
-
   return (
     <BottomSheet
       open={open}
       blocking={true}
-      onSpringStart={(e) => {
-        console.log('start', e);
-      }}
       onSpringEnd={(e) => {
         console.log(e);
       }}
       onDismiss={onDismiss}
       snapPoints={({ minHeight }) => minHeight}
     >
+      <HeaderRabbit src={headerRabbit} />
       <MainContainer>
         <HeaderContainer>
           <RoomHeader
@@ -77,7 +74,13 @@ const BottomSheetShare = (location: any) => {
         <ShareButtonWrapper onClick={onShareUrl}>
           <ShareButton isActivated={true}>지금 공유할게요</ShareButton>
         </ShareButtonWrapper>
-        <RateButtonWrapper>나중에 하기</RateButtonWrapper>
+        <RateButtonWrapper
+          onClick={() => {
+            setOpen(false);
+          }}
+        >
+          나중에 할게요
+        </RateButtonWrapper>
       </MainContainer>
     </BottomSheet>
   );
@@ -85,9 +88,18 @@ const BottomSheetShare = (location: any) => {
 
 export default BottomSheetShare;
 
+const HeaderRabbit = styled.img`
+  position: fixed;
+  z-index: 5;
+  top: -127px;
+  left: 0px;
+  right: 0px;
+  margin: 0 auto;
+`;
+
 const MainContainer = styled.div`
   width: 375px;
-  height: 323px;
+  height: 300px;
 `;
 
 const HeaderContainer = styled.div`
