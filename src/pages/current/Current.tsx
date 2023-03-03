@@ -24,7 +24,7 @@ import {
 
 import { useEffect, useState } from 'react';
 import { API } from '../../utils/API';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { RoomTypes } from '../../types/roomInfo';
 
 import BottomSheetShare from '../../components/bottomSheetShare/BottomSheetShare';
@@ -34,6 +34,8 @@ import { useLocation } from 'react-router-dom';
 const Current = () => {
   const { roomUuid } = useParams();
   const { state } = useLocation();
+
+  const navigate = useNavigate();
 
   const [room, setRoom] = useState<RoomTypes>({
     title: '',
@@ -64,6 +66,14 @@ const Current = () => {
   const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
     useState<boolean>(false);
 
+  const handleEditButtonClick = () => {
+    if (localStorage.getItem('name') && localStorage.getItem('uuid')) {
+      navigate(`/addTime/${roomUuid}`);
+    } else {
+      navigate(`/Login/${roomUuid}`);
+    }
+  };
+
   return (
     <Wrapper>
       <Header pageName="current" />
@@ -92,7 +102,7 @@ const Current = () => {
         </TableWrapper>
       </Body>
       <BottomWrapper>
-        <Edit>
+        <Edit onClick={handleEditButtonClick}>
           <EditIcon src={edit} alt="edit" />
         </Edit>
         <BottomButtonCover>
