@@ -136,7 +136,7 @@
   -ms-user-select: auto;
   -moz-user-select: auto;
   user-select: auto;
-  overflow: auto;
+  overflow: visible;
   -ms-scroll-chaining: none;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
