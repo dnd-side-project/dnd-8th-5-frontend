@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useCallback, useState } from 'react';
-import checkBox from '../../assets/icons/checkBox.png';
+import checkBox from '../../assets/icons/checkbox.png';
 import checkedBox from '../../assets/icons/checkedBox.png';
 import theme from '../../styles/theme';
 

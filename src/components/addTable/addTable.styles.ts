@@ -1,18 +1,12 @@
 import styled from '@emotion/styled';
 import theme from '../../styles/theme';
-
-interface Props {
-  isSelected: boolean;
-  value: string;
-  selectedMethod: string;
-  isValidDate: boolean;
-}
+import { SelectType } from './AddTable.types';
 
 export const Wrapper = styled.div`
   width: 231px;
+
   border-radius: 5.5px;
   border: 1px solid ${theme.colors.gray03};
-
   color: ${theme.colors.gray06};
   ${theme.typography.medium02};
 `;
@@ -87,15 +81,16 @@ export const SelectWrapper = styled.div`
   }
 `;
 
-export const Select = styled.div<Props>`
+export const Select = styled.div<SelectType>`
   height: 17px;
   box-sizing: content-box;
 
-  background: ${({ isValidDate }) => !isValidDate && `${theme.colors.gray02}`};
+  background-color: ${({ isValidDate }) =>
+    isValidDate ? `${theme.colors.gray01}` : `${theme.colors.gray02}`};
 
-  background: ${({ selectedMethod, isSelected }) =>
-    isSelected &&
-    (selectedMethod ? `${theme.colors.purple06}` : `${theme.colors.orange02}`)};
+  &.selected {
+    background-color: ${theme.colors.purple06};
+  }
 
   &:nth-of-type(odd) {
     border-bottom: 1px dashed ${theme.colors.gray03};

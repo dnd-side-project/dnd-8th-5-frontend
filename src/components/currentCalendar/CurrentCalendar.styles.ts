@@ -36,7 +36,7 @@ export const StyledCalendar = styled(Calendar)`
   }
 
   .react-calendar button:enabled:hover {
-    cursor: pointer;
+    /* cursor: default; */
   }
 
   /* 헤더 */
@@ -91,6 +91,11 @@ export const StyledCalendar = styled(Calendar)`
     height: 44px;
     border: none;
     border-radius: 50%;
+    cursor: default;
+
+    &.valid {
+      cursor: pointer;
+    }
   }
 
   /* 주말 */
@@ -122,8 +127,8 @@ export const StyledCalendar = styled(Calendar)`
 `;
 
 export const PrevMonthIcon = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
 `;
 

@@ -1,5 +1,5 @@
 import { Story } from '@storybook/react';
-import Timer from './Timer';
+import Timer from './TImer';
 
 export default {
   title: '조율 현황/Timer',
