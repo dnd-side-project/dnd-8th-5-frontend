@@ -55,6 +55,11 @@ const typography = {
     font-weight: 600;
     line-height: 130%;
   `,
+  semibold07: css`
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 130%;
+  `,
 
   medium01x: css`
     font-size: 18px;

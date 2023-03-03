@@ -26,6 +26,7 @@ const defaultStyle = css`
   button {
     border: none;
     cursor: pointer;
+    background: none;
   }
 `;
 

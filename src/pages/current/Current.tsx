@@ -27,7 +27,7 @@ import { useParams } from 'react-router-dom';
 import { RoomTypes } from '../../types/roomInfo';
 
 const Current = () => {
-  const { roomId } = useParams();
+  const { roomUuid } = useParams();
 
   const [room, setRoom] = useState<RoomTypes>({
     title: '',
@@ -52,7 +52,7 @@ const Current = () => {
 
   return (
     <Wrapper>
-      <Header title={title} />
+      <Header pageName="current" />
       <Body>
         {deadLine && <Timer deadLine={deadLine} />}
         <Title>실시간 참여 현황</Title>
