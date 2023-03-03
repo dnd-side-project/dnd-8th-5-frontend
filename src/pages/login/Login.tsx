@@ -16,7 +16,7 @@ import {
   BottomButtonContainer,
 } from './Login.styles';
 import useInputs from '../../hooks/useFormInput';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import BottomButton from '../../components/bottomButton/BottomButton';
 import { API } from '../../utils/API';
 
@@ -27,6 +27,8 @@ const Login = () => {
   const [title, setTitle] = useState<string>('이멤버 리멤버 연말파티');
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
+
+  const { roomUuid } = useParams();
 
   const { form, onChange } = useInputs({
     name: '',
@@ -39,7 +41,7 @@ const Login = () => {
 
   const canGoNext = form.name && form.password.length === 4 ? true : false;
 
-  const { roomUuid } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsPasswordError(false);
@@ -47,12 +49,17 @@ const Login = () => {
 
   const onClickNext = async () => {
     try {
+      if (Number.isNaN(Number(form.password))) {
+        alert('비밀번호는 숫자만 입력해주세요');
+        return;
+      }
       await API.post(`/api/room/${roomUuid}/login`, form);
 
       if (saveUserInfo) {
         localStorage.setItem('name', form.name);
         localStorage.setItem('uuid', String(roomUuid));
       }
+      navigate(`/addTime/${roomUuid}`);
     } catch {
       setIsPasswordError(true);
       null;
@@ -96,7 +103,7 @@ const Login = () => {
           )}
           <RightWrapper onClick={onClickSaveUserInfo}>
             <ImgWrapper>
-              <img src={saveUserInfo ? uncheckedbox : checkedBox} />
+              <img src={saveUserInfo ? checkedBox : uncheckedbox} />
             </ImgWrapper>
             <TextWrapper>정보 저장</TextWrapper>
           </RightWrapper>
@@ -109,7 +116,6 @@ const Login = () => {
         >
           <BottomButton text={'다음'} isActivated={canGoNext} />
         </BottomButtonContainer>
-        {/* </Link> */}
       </FormContainer>
     </MainContainer>
   );
