@@ -13,7 +13,7 @@ const BottomSheetShare = (location: any) => {
   const [url, setUrl] = useState('');
 
   useEffect(() => {
-    setUrl(`https://api.modutime.site/${location.location.pathname}`);
+    setUrl(`https://api.modutime.site${location.location.pathname}`);
   }, []);
 
   const onDismiss = () => {
