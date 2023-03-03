@@ -26,11 +26,23 @@ import {
 import BottomSheetShare from '../../components/bottomSheetShare/BottomSheetShare';
 
 import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const Current = () => {
   const { title, participants, headCount, deadLine } = room;
 
+  const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
+    useState<boolean>(false);
+
   const location = useLocation();
+  const { state } = useLocation();
+
+  useEffect(() => {
+    if (state !== null) {
+      const { isRoomCreator } = state;
+      setIsAvailableBottomSheet(isRoomCreator);
+    }
+  }, []);
 
   return (
     <Wrapper>
@@ -39,7 +51,6 @@ const Current = () => {
         {deadLine && <Timer deadLine={deadLine} />}
         <Title>실시간 참여 현황</Title>
         <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
-
         <ProgressBar headCount={headCount} participants={participants} />
         <Participants>
           {participants.map((participant) => (
@@ -65,7 +76,7 @@ const Current = () => {
           <BottomButton text="우선순위 보기" isActivated={true} />
         </BottomButtonCover>
       </BottomWrapper>
-      <BottomSheetShare location={location} />
+      {isAvailableBottomSheet ? <BottomSheetShare location={location} /> : null}
     </Wrapper>
   );
 };
