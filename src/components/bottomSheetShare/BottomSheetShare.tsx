@@ -8,12 +8,12 @@ import clipBoard from '../../assets/icons/clipBoard.png';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import headerRabbit from '../../assets/images/headerRabbit.png';
 
-const BottomSheetShare = (location: any) => {
+const BottomSheetShare = ({ roomUuid }: { roomUuid: string | undefined }) => {
   const [open, setOpen] = useState<boolean>(true);
   const [url, setUrl] = useState('');
 
   useEffect(() => {
-    setUrl(`https://api.modutime.site${location.location.pathname}`);
+    setUrl(`https://modutime.site/Current/${roomUuid}`);
   }, []);
 
   const onDismiss = () => {
