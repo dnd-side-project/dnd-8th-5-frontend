@@ -11,14 +11,13 @@ import Login from './pages/login/Login';
 function App() {
   return (
     <Routes>
-      <Route path="/timer" element={<Timer />} />
-      <Route path="/addTime" element={<AddTime />} />
-      <Route path="/roomTimer" element={<Timer />} />
       <Route path="/start" element={<Start />} />
       <Route path="/roomStart" element={<RoomStart />} />
       <Route path="/roomCalendar" element={<RoomCalendar />} />
-      <Route path="/login/:roomUuid" element={<Login />} />
+      <Route path="/roomTimer" element={<Timer />} />
       <Route path="/current/:roomUuid" element={<Current />} />
+      <Route path="/addTime/:roomUuid" element={<AddTime />} />
+      <Route path="/login/:roomUuid" element={<Login />} />
     </Routes>
   );
 }
