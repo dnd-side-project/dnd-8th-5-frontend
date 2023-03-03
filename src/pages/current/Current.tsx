@@ -24,11 +24,11 @@ import {
 import Timer from '../../components/timer/Timer';
 
 const Current = () => {
-  const { title, participants, headCount, deadLine } = room;
+  const { participants, headCount, deadLine } = room;
 
   return (
     <Wrapper>
-      <Header title={title} />
+      <Header />
       <Body>
         {deadLine && <Timer deadLine={deadLine} />}
         <Title>실시간 참여 현황</Title>

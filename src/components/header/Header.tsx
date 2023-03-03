@@ -1,12 +1,12 @@
 import { ShareIcon, Title, Wrapper } from './Header.styles';
-import { roomTitle } from '../../types/roomInfo';
 
 import share from '../../assets/icons/share.svg';
+import room from '../../assets/data/room.json';
 
-const Header = ({ title }: roomTitle) => {
+const Header = () => {
   return (
     <Wrapper>
-      <Title>{title.slice(0, 16)}</Title>
+      <Title>{room.title.slice(0, 16)}</Title>
       <ShareIcon src={share} alt="share" />
     </Wrapper>
   );
