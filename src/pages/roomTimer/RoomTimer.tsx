@@ -23,9 +23,9 @@ import {
   TImerWrapper,
 } from './RoomTimer.styles';
 import { recoilUuidState } from '../../recoil/recoilUuidState';
-import axios from 'axios';
 import { ErrorResponse } from '@remix-run/router';
 import { useNavigate } from 'react-router-dom';
+import { API } from '../../utils/API';
 
 const TimerPage = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -63,10 +63,7 @@ const TimerPage = () => {
 
   const roomInfo = async () => {
     try {
-      const response = await axios.post(
-        `https://api.modutime.site/api/room`,
-        recoilRoom
-      );
+      const response = await API.post(`/api/room`, recoilRoom);
       navigate(`/Current/${response.data.roomUuid}`, {
         state: { isRoomCreator: true },
       });
