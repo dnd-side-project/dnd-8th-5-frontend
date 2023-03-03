@@ -70,7 +70,9 @@ const TimerPage = () => {
     try {
       const response = await axios.post(`/api/room`, recoilRoom);
       console.log(response.data);
-      navigate(`/Current/${response.data.roomUuid}`);
+      navigate(`/Current/${response.data.roomUuid}`, {
+        state: { isRoomCreator: true },
+      });
     } catch {
       (e: ErrorResponse) => console.log(e);
     }
