@@ -1,7 +1,6 @@
-import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
-import theme from '../../styles/theme';
+
 import {
   ActiveButton,
   ActiveText,
