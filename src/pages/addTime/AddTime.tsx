@@ -37,7 +37,7 @@ import { goToResult } from '../../utils/navigate';
 const AddTime = () => {
   const { roomUuid } = useParams();
 
-  const [currentRoomState, setCurrentRoomState] = useState<any>([]);
+  const [addState, setAddState] = useState<any>([]);
   const [room, setRoom] = useState<RoomTypes>({
     title: '',
     deadLine: null,
@@ -54,16 +54,16 @@ const AddTime = () => {
       setRoom(data);
     };
 
-    const getCurrentRoomInfo = async () => {
+    const getAddInfo = async () => {
       const { data } = await API.get(
-        `/api/room/${roomUuid}/available-time/group`
+        `/api/room/${roomUuid}/available-time?name=${userName}`
       );
 
-      setCurrentRoomState(data);
+      setAddState(data);
     };
 
     getRoomInfo();
-    getCurrentRoomInfo();
+    getAddRoomInfo();
   }, []);
 
   const { title, dates, participants, startTime, endTime } = room;
@@ -164,7 +164,7 @@ const AddTime = () => {
               participants={participants}
               availableDates={availableDates}
               setAvailableDates={setAvailableDates}
-              currentRoomState={currentRoomState ? currentRoomState : []}
+              addState={addState}
             />
           )}
         </Main>

@@ -18,14 +18,13 @@ const AddCalendar = ({
   availableDates,
   setAvailableDates,
   participants,
-  currentRoomState,
 }: AddCalendarType) => {
   const [date, setDate] = useState(new Date());
 
-  const availableDatesInfo = currentRoomState.map((date: any) => ({
-    date: date.availableDate,
-    opacity: date.availableTimeInfos[0].count / participants.length,
-  }));
+  // const availableDatesInfo = availableDateTimes.map((date: any) => ({
+  //   date: date.availableDate,
+  //   opacity: date.availableTimeInfos.count / participants.length,
+  // }));
 
   const addTileClassName = ({ date }: { date: Date }) => {
     if (
