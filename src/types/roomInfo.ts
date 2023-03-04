@@ -30,8 +30,8 @@ export interface RoomTypes {
   title: string;
   participants: string[];
   headCount: number | null;
-  deadLine: string;
+  deadLine: string | null;
   dates: string[];
-  startTime: string;
-  endTime: string;
+  startTime: string | null;
+  endTime: string | null;
 }

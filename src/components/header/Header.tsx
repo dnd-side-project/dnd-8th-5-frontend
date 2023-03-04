@@ -4,20 +4,19 @@ import share from '../../assets/icons/share.svg';
 import emailDefault from '../../assets/icons/emailDefault.svg';
 import emailRegistered from '../../assets/icons/emailRegistered.svg';
 
-import room from '../../assets/data/room.json';
 import { useRecoilState } from 'recoil';
 import { emailState } from '../../atoms/emailAtoms';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const Header = ({ pageName }: { pageName: string }) => {
+const Header = ({ pageName, title }: { pageName: string; title: string }) => {
   const [isEmailRegistered, setIsEmailRegistered] = useRecoilState(emailState);
   const { roomUuid } = useParams();
 
   return (
     <Wrapper>
-      <Title>{room.title.slice(0, 16)}</Title>
+      <Title>{title.slice(0, 16)}</Title>
 
       {pageName === 'result' ? (
         isEmailRegistered ? (
