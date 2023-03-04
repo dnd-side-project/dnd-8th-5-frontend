@@ -3,7 +3,7 @@ import theme from '../../styles/theme';
 
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: 375px;
+  max-width: 412px;
   margin-top: 10px;
 
   border-radius: 7px;

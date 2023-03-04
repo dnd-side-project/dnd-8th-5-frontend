@@ -141,7 +141,7 @@ export const CalendarComponent = styled(Calendar)`
 
   .rmdp-day-picker {
     position: absolute;
-    width: 375px !important;
+    width: 412px !important;
     left: -150px;
     top: 42px;
     right: 0px;
@@ -150,7 +150,7 @@ export const CalendarComponent = styled(Calendar)`
   .rmdp-year-picker {
     position: absolute;
     display: flex;
-    width: 375px !important;
+    width: 412px !important;
     left: -150px;
     top: 42px;
     right: 0px;

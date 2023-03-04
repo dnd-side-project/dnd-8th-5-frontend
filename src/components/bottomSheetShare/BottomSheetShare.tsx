@@ -99,7 +99,7 @@ const HeaderRabbit = styled.img`
 `;
 
 const MainContainer = styled.div`
-  width: 375px;
+  width: 412px;
   height: 300px;
 `;
 
@@ -166,7 +166,7 @@ const RateButtonWrapper = styled.div`
 
 const ShareButton = styled.button<{ isActivated: boolean }>`
   width: calc(100% - 40px);
-  max-width: 375px;
+  max-width: 412px;
   height: 52px;
   margin: 0 auto;
 

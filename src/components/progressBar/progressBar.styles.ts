@@ -3,7 +3,7 @@ import theme from '../../styles/theme';
 
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: 375px;
+  max-width: 412px;
   height: 17px;
   border-radius: 61px;
   background: ${theme.colors.gray02};
@@ -34,7 +34,7 @@ export const Bar = styled.div<{
 
 export const RabbitWrapper = styled.div`
   width: 100%;
-  max-width: 375px;
+  max-width: 412px;
   margin-top: 34px;
 
   position: relative;

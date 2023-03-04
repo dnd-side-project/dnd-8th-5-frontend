@@ -83,7 +83,10 @@ const Current = () => {
     useState<boolean>(false);
 
   const handleEditButtonClick = () => {
-    if (localStorage.getItem('name') && localStorage.getItem('uuid')) {
+    if (
+      localStorage.getItem('name') &&
+      localStorage.getItem('uuid') === roomUuid
+    ) {
       navigate(`/add/${roomUuid}`);
     } else {
       navigate(`/Login/${roomUuid}`);

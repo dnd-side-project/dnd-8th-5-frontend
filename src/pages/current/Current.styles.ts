@@ -3,7 +3,7 @@ import theme from '../../styles/theme';
 
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: 375px;
+  max-width: 412px;
   margin: 0 auto;
   padding-bottom: 108px;
 
@@ -76,7 +76,7 @@ export const TableWrapper = styled.div`
 
 export const BottomWrapper = styled.div`
   width: 100%;
-  max-width: 375px;
+  max-width: 412px;
   height: 156px;
   margin: 0 auto;
   padding: 0 20px;
@@ -89,7 +89,7 @@ export const BottomWrapper = styled.div`
 
 export const BottomButtonCover = styled.div`
   width: 100%;
-  max-width: 375px;
+  max-width: 412px;
   height: 90px;
   margin: 0 auto;
 
