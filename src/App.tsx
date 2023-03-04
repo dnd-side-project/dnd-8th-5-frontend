@@ -16,7 +16,7 @@ function App() {
       <Route path="/roomCalendar" element={<RoomCalendar />} />
       <Route path="/roomTimer" element={<Timer />} />
       <Route path="/current/:roomUuid" element={<Current />} />
-      <Route path="/addTime/:roomUuid" element={<AddTime />} />
+      <Route path="/add/:roomUuid" element={<AddTime />} />
       <Route path="/login/:roomUuid" element={<Login />} />
     </Routes>
   );

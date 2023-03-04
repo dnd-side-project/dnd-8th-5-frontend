@@ -59,7 +59,7 @@ const Login = () => {
         localStorage.setItem('name', form.name);
         localStorage.setItem('uuid', String(roomUuid));
       }
-      navigate(`/addTime/${roomUuid}`);
+      navigate(`/add/${roomUuid}`);
     } catch {
       setIsPasswordError(true);
       null;

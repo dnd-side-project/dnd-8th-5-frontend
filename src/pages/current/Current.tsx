@@ -68,7 +68,7 @@ const Current = () => {
 
   const handleEditButtonClick = () => {
     if (localStorage.getItem('name') && localStorage.getItem('uuid')) {
-      navigate(`/addTime/${roomUuid}`);
+      navigate(`/add/${roomUuid}`);
     } else {
       navigate(`/Login/${roomUuid}`);
     }
@@ -109,6 +109,7 @@ const Current = () => {
           <BottomButton text="우선순위 보기" isActivated={true} />
         </BottomButtonCover>
       </BottomWrapper>
+
       {isAvailableBottomSheet ? <BottomSheetShare roomUuid={roomUuid} /> : null}
     </Wrapper>
   );
