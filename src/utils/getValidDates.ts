@@ -1,10 +1,14 @@
-import room from '../assets/data/room.json';
+import { useRecoilState } from 'recoil';
+import { roomState } from '../atoms/roomAtoms';
+
 interface ValidDate {
   date: string;
   isValidDate: boolean;
 }
 
 export const getValidDates = (dates: string[]) => {
+  const [room, setRoom] = useRecoilState(roomState);
+
   let validDates: Array<ValidDate[]> = [];
 
   validDates = [

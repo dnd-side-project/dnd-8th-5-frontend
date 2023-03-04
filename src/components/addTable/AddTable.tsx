@@ -16,17 +16,15 @@ import {
 } from './AddTable.styles';
 import { AddTableType } from './AddTable.types';
 
-import room from '../../assets/data/room.json';
-
 const AddTable = ({
   selectedMethod,
   tablePage,
   validDateChunks,
   availableTimes,
+  startTime,
+  endTime,
   setAvailableTimes,
 }: AddTableType) => {
-  const { startTime, endTime } = room;
-
   const times = getRange(
     parseInt(startTime.slice(0, 2)),
     parseInt(endTime.slice(0, 2))
@@ -108,8 +106,6 @@ const AddTable = ({
       setElement(touchElement);
     }
   };
-
-  console.log(availableTimes);
 
   useEffect(() => {
     if (availableTimes) {

@@ -4,16 +4,15 @@ import share from '../../assets/icons/share.svg';
 import emailDefault from '../../assets/icons/emailDefault.svg';
 import emailRegistered from '../../assets/icons/emailRegistered.svg';
 
-import room from '../../assets/data/room.json';
 import { useRecoilState } from 'recoil';
 import { emailState } from '../../atoms/emailAtoms';
 
-const Header = ({ pageName }: { pageName: string }) => {
+const Header = ({ pageName, title }: { pageName: string; title: string }) => {
   const [isEmailRegistered, setIsEmailRegistered] = useRecoilState(emailState);
 
   return (
     <Wrapper>
-      <Title>{room.title.slice(0, 16)}</Title>
+      <Title>{title.slice(0, 16)}</Title>
 
       {pageName === 'result' ? (
         isEmailRegistered ? (

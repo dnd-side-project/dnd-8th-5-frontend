@@ -5,7 +5,6 @@ import Table from '../../components/table/Table';
 import BottomButton from '../../components/bottomButton/BottomButton';
 import Timer from '../../components/timer/Timer';
 
-import current from '../../assets/data/current.json';
 import edit from '../../assets/icons/edit.svg';
 
 import {
@@ -24,26 +23,21 @@ import {
 
 import { useEffect, useState } from 'react';
 import { API } from '../../utils/API';
-import { useParams } from 'react-router-dom';
-import { RoomTypes } from '../../types/roomInfo';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import BottomSheetShare from '../../components/bottomSheetShare/BottomSheetShare';
 
 import { useLocation } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { roomState } from '../../atoms/roomAtoms';
+import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 
 const Current = () => {
   const { roomUuid } = useParams();
   const { state } = useLocation();
 
-  const [room, setRoom] = useState<RoomTypes>({
-    title: '',
-    deadLine: '',
-    headCount: 0,
-    participants: [''],
-    dates: [''],
-    startTime: '',
-    endTime: '',
-  });
+  const [room, setRoom] = useRecoilState(roomState);
+  const [currentRoomState, setCurrentRoomState] = useState<any>([]);
 
   useEffect(() => {
     if (state !== null) {
@@ -59,14 +53,40 @@ const Current = () => {
     getRoomInfo();
   }, []);
 
-  const { title, participants, headCount, deadLine } = room;
+  useEffect(() => {
+    const getCurrentRoomInfo = async () => {
+      const { data } = await API.get(
+        `/api/room/${roomUuid}/available-time/group`
+      );
+      setCurrentRoomState(data);
+    };
+
+    getCurrentRoomInfo();
+  }, []);
+
+  const { availableDateTimes } = currentRoomState;
+
+  const {
+    title,
+    dates,
+    participants,
+    headCount,
+    deadLine,
+    startTime,
+    endTime,
+  } = room;
 
   const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
     useState<boolean>(false);
 
+  const navigate = useNavigate();
+  const goToResult = () => {
+    navigate(`/result/${roomUuid}`);
+  };
+
   return (
     <Wrapper>
-      <Header pageName="current" />
+      <Header pageName="current" title={title} />
       <Body>
         {deadLine && <Timer deadLine={deadLine} />}
         <Title>실시간 참여 현황</Title>
@@ -87,16 +107,33 @@ const Current = () => {
 
       <Body>
         <Title>실시간 조율 현황</Title>
-        <TableWrapper>
-          <Table room={room} current={current} />
-        </TableWrapper>
+
+        {startTime !== null && endTime !== null ? (
+          <TableWrapper>
+            <Table
+              dates={dates}
+              startTime={startTime}
+              endTime={endTime}
+              participants={participants}
+            />
+          </TableWrapper>
+        ) : (
+          <CurrentCalendar
+            availableDateTimes={availableDateTimes}
+            participants={participants}
+          />
+        )}
       </Body>
       <BottomWrapper>
         <Edit>
           <EditIcon src={edit} alt="edit" />
         </Edit>
         <BottomButtonCover>
-          <BottomButton text="우선순위 보기" isActivated={true} />
+          <BottomButton
+            text="우선순위 보기"
+            isActivated={true}
+            navigate={goToResult}
+          />
         </BottomButtonCover>
       </BottomWrapper>
       {isAvailableBottomSheet ? <BottomSheetShare roomUuid={roomUuid} /> : null}

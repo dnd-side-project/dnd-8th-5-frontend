@@ -3,8 +3,6 @@ import { useState, useRef } from 'react';
 import expand from '../../assets/icons/expand.svg';
 import collapse from '../../assets/icons/collapse.svg';
 
-import room from '../../assets/data/room.json';
-
 import {
   Content,
   DefaultWrapper,
@@ -26,8 +24,8 @@ const Accordion = ({
   startTime,
   endTime,
   participantNames,
+  headCount,
 }: AccordionTypes) => {
-  const { headCount } = room;
   const [isCollapse, setIsCollapse] = useState(false);
 
   const parentRef = useRef<HTMLDivElement>(null);
@@ -50,10 +48,12 @@ const Accordion = ({
     <Wrapper>
       <DefaultWrapper>
         <Content onClick={handleCollapse}>
-          <PeopleWrapper>
-            <People isParticipant={false}>{headCount}명 중</People>
-            <People isParticipant={true}> {participantNames.length}명</People>
-          </PeopleWrapper>
+          {headCount !== null && (
+            <PeopleWrapper>
+              <People isParticipant={false}>{headCount}명 중</People>
+              <People isParticipant={true}> {participantNames.length}명</People>
+            </PeopleWrapper>
+          )}
           <TimeWrapper>
             <TimeSpan>{`${date.slice(0, 2)}월 ${date.slice(
               3,

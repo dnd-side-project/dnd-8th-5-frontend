@@ -9,22 +9,24 @@ import {
 import calendarNextMonth from '../../assets/icons/calendarNextMonth.svg';
 import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
 
-import currentTime from '../../assets/data/currentTime.json';
-import room from '../../assets/data/room.json';
 import theme from '../../styles/theme';
 
-const CurrentCalendar = () => {
-  const headCount = room.headCount;
-
-  const availableDatesInfo = currentTime.availableDateTimes.map((date) => ({
+const CurrentCalendar = ({
+  participants,
+  availableDateTimes,
+}: {
+  participants: string[];
+  availableDateTimes: any;
+}) => {
+  const availableDatesInfo = availableDateTimes.map((date: any) => ({
     date: date.availableDate,
-    opacity: date.availableTimeInfos.count / headCount,
+    opacity: date.availableTimeInfos.count / participants.length,
   }));
 
   const addTileClassName = ({ date }: { date: Date }) => {
     if (
       availableDatesInfo.find(
-        (availableDate) =>
+        (availableDate: { date: string; opacity: number }) =>
           availableDate.date === dayjs(date).format('YYYY-MM-DD')
       )
     ) {
@@ -35,20 +37,22 @@ const CurrentCalendar = () => {
   };
 
   const updateColors = () => {
-    availableDatesInfo.forEach(({ date, opacity }) => {
-      const element = document.querySelector(
-        `.availableDate${date}`
-      ) as HTMLElement;
+    availableDatesInfo.forEach(
+      ({ date, opacity }: { date: string; opacity: number }) => {
+        const element = document.querySelector(
+          `.availableDate${date}`
+        ) as HTMLElement;
 
-      if (element != null) {
-        if (opacity != 0) {
-          element.style.backgroundColor = `rgba(106, 123, 255, ${opacity})`;
-          element.style.color = `${theme.colors.gray01}`;
-        } else {
-          element.style.color = `${theme.colors.purple06}`;
+        if (element != null) {
+          if (opacity != 0) {
+            element.style.backgroundColor = `rgba(106, 123, 255, ${opacity})`;
+            element.style.color = `${theme.colors.gray01}`;
+          } else {
+            element.style.color = `${theme.colors.purple06}`;
+          }
         }
       }
-    });
+    );
   };
 
   useEffect(() => {

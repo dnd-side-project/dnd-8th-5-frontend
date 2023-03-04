@@ -9,14 +9,14 @@ export const Wrapper = styled.div`
   ${theme.typography.medium02};
 
   border-radius: 5.5px;
-  border: 1px solid #e3e7ff;
+  border: 1px solid ${theme.colors.tableBorder};
 `;
 
 export const Top = styled.div`
   display: flex;
 
   height: 36px;
-  border-bottom: 1px solid #e3e7ff;
+  border-bottom: 1px solid ${theme.colors.tableBorder};
 `;
 
 export const Bottom = styled.div`
@@ -29,8 +29,8 @@ export const Blank = styled.div`
   width: 22px;
   height: 36px;
 
-  border-right: 1px solid #e3e7ff;
-  border-bottom: 1px solid #e3e7ff;
+  border-right: 1px solid ${theme.colors.tableBorder};
+  border-bottom: 1px solid ${theme.colors.tableBorder};
 `;
 
 export const DateWrapper = styled.div`
@@ -51,13 +51,13 @@ export const Date = styled.div`
   ${theme.typography.medium02};
 
   & + & {
-    border-left: 1px solid #e3e7ff;
+    border-left: 1px solid ${theme.colors.tableBorder};
   }
 `;
 
 export const TimeWrapper = styled.div`
   width: 22px;
-  border-right: 1px solid #e3e7ff;
+  border-right: 1px solid ${theme.colors.tableBorder};
 `;
 
 export const Time = styled.div`
@@ -72,7 +72,7 @@ export const Time = styled.div`
   ${theme.typography.regular02};
 
   & + & {
-    border-top: 1px solid #e3e7ff;
+    border-top: 1px solid ${theme.colors.tableBorder};
   }
 `;
 
@@ -80,7 +80,7 @@ export const SelectWrapper = styled.div`
   width: 88px;
 
   & + & {
-    border-left: 1px solid #e3e7ff;
+    border-left: 1px solid ${theme.colors.tableBorder};
   }
 `;
 
@@ -92,11 +92,11 @@ export const Select = styled.div<{ opacity: number }>`
   background-color: ${({ opacity }) => `rgba( 106, 123, 255,  ${opacity})`};
 
   &:nth-of-type(odd) {
-    border-bottom: 1px dashed #e3e7ff;
+    border-bottom: 1px dashed ${theme.colors.tableBorder};
   }
 
   &:nth-of-type(even) {
-    border-bottom: 1px solid #e3e7ff;
+    border-bottom: 1px solid ${theme.colors.tableBorder};
   }
 
   &:first-of-type {
