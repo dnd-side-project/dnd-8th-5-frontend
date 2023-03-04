@@ -39,15 +39,6 @@ const Current = () => {
 
   const navigate = useNavigate();
 
-  const [room, setRoom] = useState<RoomTypes>({
-    title: '',
-    deadLine: '',
-    headCount: 0,
-    participants: [''],
-    dates: [''],
-    startTime: '',
-    endTime: '',
-  });
   const [room, setRoom] = useRecoilState(roomState);
   const [currentRoomState, setCurrentRoomState] = useState<any>([]);
 
@@ -98,7 +89,7 @@ const Current = () => {
       navigate(`/Login/${roomUuid}`);
     }
   };
-    
+
   const goToResult = () => {
     navigate(`/result/${roomUuid}`);
   };
