@@ -6,9 +6,12 @@ export default {
   component: Header,
 };
 
-const Template: Story<{ pageName: string }> = (args) => <Header {...args} />;
+const Template: Story<{ pageName: string; title: string }> = (args) => (
+  <Header {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
   pageName: 'register',
+  title: '회의...',
 };

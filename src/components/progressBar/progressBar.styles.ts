@@ -35,7 +35,7 @@ export const Bar = styled.div<{
 export const RabbitWrapper = styled.div`
   width: 100%;
   max-width: 375px;
-  margin-top: 17px;
+  margin-top: 34px;
 
   position: relative;
   display: flex;

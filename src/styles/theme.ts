@@ -22,6 +22,8 @@ const colors = {
   gray05: '#979797',
   gray06: '#545454',
   gray07: '#1A1A1A',
+
+  tableBorder: '#E3E7FF',
 };
 
 const typography = {

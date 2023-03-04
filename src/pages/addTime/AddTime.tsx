@@ -6,10 +6,10 @@ import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 import addPrev from '../../assets/icons/addPrev.png';
 import addNext from '../../assets/icons/addNext.png';
 
-import room from '../../assets/data/room.json';
 import { getChunks } from '../../utils/getChunks';
 import { getValidDates } from '../../utils/getValidDates';
 import { getDateRange } from '../../utils/getDateRange';
+
 import {
   Body,
   ButtonWrapper,
@@ -25,12 +25,48 @@ import {
 import Header from '../../components/header/Header';
 import BottomButton from '../../components/bottomButton/BottomButton';
 import AddTable from '../../components/addTable/AddTable';
-import AddCalendar from '../../components/addCalendar/AddCalendar';
+
 import { availableDatesState } from '../../atoms/availableDatesAtom';
 import AddToggle from '../../components/addToggle/AddToggle';
+import { RoomTypes } from '../../types/roomInfo';
+import { API } from '../../utils/API';
+import AddCalendar from '../../components/addCalendar/AddCalendar';
+import { useNavigate, useParams } from 'react-router-dom';
+import { goToResult } from '../../utils/navigate';
 
 const AddTime = () => {
-  const { dates, title } = room;
+  const { roomUuid } = useParams();
+
+  const [currentRoomState, setCurrentRoomState] = useState<any>([]);
+  const [room, setRoom] = useState<RoomTypes>({
+    title: '',
+    deadLine: null,
+    headCount: null,
+    participants: [''],
+    dates: [''],
+    startTime: null,
+    endTime: null,
+  });
+
+  useEffect(() => {
+    const getRoomInfo = async () => {
+      const { data } = await API.get(`/api/room/${roomUuid}`);
+      setRoom(data);
+    };
+
+    const getCurrentRoomInfo = async () => {
+      const { data } = await API.get(
+        `/api/room/${roomUuid}/available-time/group`
+      );
+
+      setCurrentRoomState(data);
+    };
+
+    getRoomInfo();
+    getCurrentRoomInfo();
+  }, []);
+
+  const { title, dates, participants, startTime, endTime } = room;
 
   const [tablePage, setTablePage] = useState(0);
   const [isPageMoved, setIsPageMoved] = useState(false);
@@ -76,9 +112,14 @@ const AddTime = () => {
     setIsPageMoved(false);
   }, [isPageMoved]);
 
+  const navigate = useNavigate();
+  const goToResult = () => {
+    navigate(`/result/${roomUuid}`);
+  };
+
   return (
     <Wrapper>
-      <Header pageName="addTime" />
+      <Header pageName="addTime" title={title} />
       <Body>
         <TitleWrapper>
           <Title>수빈 님의 일정을</Title>
@@ -89,37 +130,49 @@ const AddTime = () => {
         </TitleWrapper>
 
         <Main>
-          <ButtonWrapper>
-            <MoveButton
-              src={addPrev}
-              alt="Prev Button"
-              onClick={handlePrevButtonClick}
+          {startTime !== null && endTime !== null ? (
+            <>
+              <ButtonWrapper>
+                <MoveButton
+                  src={addPrev}
+                  alt="Prev Button"
+                  onClick={handlePrevButtonClick}
+                />
+                <MoveButton
+                  src={addNext}
+                  alt="Next Button"
+                  onClick={handleNextButtonClick}
+                />
+              </ButtonWrapper>
+              <TableWrapper>
+                <AddTable
+                  startTime={startTime}
+                  endTime={endTime}
+                  tablePage={tablePage}
+                  selectedMethod={selectedMethod}
+                  validDateChunks={validDateChunks}
+                  availableTimes={availableTimes}
+                  setAvailableTimes={setAvailableTimes}
+                />
+              </TableWrapper>
+              <ScrollbarTrack>
+                <ScrollbarThumb />
+              </ScrollbarTrack>
+            </>
+          ) : (
+            <AddCalendar
+              participants={participants}
+              availableDates={availableDates}
+              setAvailableDates={setAvailableDates}
+              currentRoomState={currentRoomState ? currentRoomState : []}
             />
-            <MoveButton
-              src={addNext}
-              alt="Next Button"
-              onClick={handleNextButtonClick}
-            />
-          </ButtonWrapper>
-          <TableWrapper>
-            <AddTable
-              tablePage={tablePage}
-              selectedMethod={selectedMethod}
-              validDateChunks={validDateChunks}
-              availableTimes={availableTimes}
-              setAvailableTimes={setAvailableTimes}
-            />
-          </TableWrapper>
-          <ScrollbarTrack>
-            <ScrollbarThumb />
-          </ScrollbarTrack>
-          {/* <AddCalendar
-            availableDates={availableDates}
-            setAvailableDates={setAvailableDates}
-          /> */}
-          <BottomButton text="등록하기" isActivated={true} />
+          )}
         </Main>
-        <BottomButton text="등록하기" isActivated={true} />
+        <BottomButton
+          navigate={goToResult}
+          text="등록하기"
+          isActivated={true}
+        />
       </Body>
     </Wrapper>
   );

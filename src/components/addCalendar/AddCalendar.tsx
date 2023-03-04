@@ -12,27 +12,26 @@ import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
 
 import { AddCalendarType } from './AddCalendar.types';
 
-import currentTime from '../../assets/data/currentTime.json';
-import room from '../../assets/data/room.json';
 import theme from '../../styles/theme';
 
 const AddCalendar = ({
   availableDates,
   setAvailableDates,
+  participants,
+  currentRoomState,
 }: AddCalendarType) => {
-  const { headCount } = room;
   const [date, setDate] = useState(new Date());
 
-  const availableDatesInfo = currentTime.availableDateTimes.map((date) => ({
+  const availableDatesInfo = currentRoomState.map((date: any) => ({
     date: date.availableDate,
-    opacity: date.availableTimeInfos.count / headCount,
+    opacity: date.availableTimeInfos[0].count / participants.length,
   }));
 
   const addTileClassName = ({ date }: { date: Date }) => {
     if (
       availableDatesInfo.find(
-        (availableDate) =>
-          availableDate.date === dayjs(date).format('YYYY-MM-DD')
+        ({ date }: { date: string }) =>
+          date === dayjs(date).format('YYYY-MM-DD')
       )
     ) {
       return `valid availableDate${dayjs(date).format('YYYY-MM-DD')}`;
@@ -42,7 +41,7 @@ const AddCalendar = ({
   };
 
   const updateColors = () => {
-    availableDatesInfo.forEach(({ date }) => {
+    availableDatesInfo.forEach(({ date }: { date: string }) => {
       const element = document.querySelector(
         `.availableDate${date}`
       ) as HTMLElement;

@@ -5,11 +5,10 @@ import theme from '../../styles/theme';
 
 import nobody from '../../assets/images/nobody.png';
 import Accordion from '../../components/accordion/Accordion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ResultButton from '../../components/resultButton/ResultButton';
 import Popup from '../../components/popup/Popup';
 
-import room from '../../assets/data/room.json';
 import result from '../../assets/data/result.json';
 import {
   Body,
@@ -24,9 +23,13 @@ import {
   TitleWrapper,
   Wrapper,
 } from './Result.styles';
+import { useRecoilState } from 'recoil';
+import { roomState } from '../../atoms/roomAtoms';
+import { useNavigate, useParams } from 'react-router-dom';
+import { API } from '../../utils/API';
 
 const Result = () => {
-  const { participants, headCount } = room;
+  const { roomUuid } = useParams();
 
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [isParticipantOpened, setIsParticipantOpened] = useState(false);
@@ -35,9 +38,22 @@ const Result = () => {
     setIsPopupOpened(true);
   };
 
+  const [room, setRoom] = useRecoilState(roomState);
+
+  useEffect(() => {
+    const getRoomInfo = async () => {
+      const { data } = await API.get(`/api/room/${roomUuid}`);
+      setRoom(data);
+    };
+
+    getRoomInfo();
+  }, []);
+
+  const { title, participants, headCount } = room;
+
   return (
     <Wrapper>
-      <Header pageName="result" />
+      <Header pageName="result" title={title} />
       <Body>
         <TitleWrapper>
           <Title isNumber={false}>현재까지</Title>
@@ -99,6 +115,7 @@ const Result = () => {
                   startTime={startTime}
                   endTime={endTime}
                   participantNames={participantNames}
+                  headCount={headCount}
                 />
               )
             )}

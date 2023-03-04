@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
 
   height: 48px;
   border-bottom: 1px solid ${theme.colors.gray03};
-  background: #ffffff;
+  background: ${theme.colors.gray01};
 
   display: flex;
   align-items: center;
