@@ -49,8 +49,8 @@ const BottomSheetShare = ({ roomUuid }: { roomUuid: string | undefined }) => {
       onDismiss={onDismiss}
       snapPoints={({ minHeight }) => minHeight}
     >
-      <HeaderRabbit src={headerRabbit} />
       <MainContainer>
+        <HeaderRabbit src={headerRabbit} />
         <HeaderContainer>
           <RoomHeader
             index=""
@@ -90,6 +90,7 @@ export default BottomSheetShare;
 
 const HeaderRabbit = styled.img`
   position: fixed;
+
   z-index: 5;
   top: -127px;
   left: 0px;
@@ -160,6 +161,7 @@ const RateButtonWrapper = styled.div`
   width: 100%;
   top: 271px;
   text-align: center;
+  cursor: pointer;
 `;
 
 const ShareButton = styled.button<{ isActivated: boolean }>`

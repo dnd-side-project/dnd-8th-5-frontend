@@ -1,17 +1,17 @@
 import styled from '@emotion/styled';
 import theme from '../../styles/theme';
+import startBack from '../../assets/images/startBack.png';
 
 export const MainContainer = styled.div`
   width: 100%;
-  max-width: 375px;
+  max-width: 412px;
+  height: 875px;
   position: relative;
   left: 0;
   right: 0;
   margin: 0 auto;
-`;
-
-export const BackgroundContainer = styled.img`
-  /* height: 100%; */
+  background-size: cover;
+  background-image: url(${startBack});
 `;
 
 export const BottomButton = styled.button`

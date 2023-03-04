@@ -12,14 +12,14 @@ import Result from './pages/result/Result';
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<Start />} />
       <Route path="/add/:roomUuid" element={<AddTime />} />
       <Route path="/timer" element={<Timer />} />
       <Route path="/roomTimer" element={<Timer />} />
-      <Route path="/start" element={<Start />} />
       <Route path="/roomStart" element={<RoomStart />} />
       <Route path="/roomCalendar" element={<RoomCalendar />} />
-      <Route path="/login/:roomUuid" element={<Login />} />
       <Route path="/current/:roomUuid" element={<Current />} />
+      <Route path="/login/:roomUuid" element={<Login />} />
       <Route path="/result/:roomUuid" element={<Result />} />
     </Routes>
   );

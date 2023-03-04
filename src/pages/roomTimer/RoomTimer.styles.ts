@@ -3,8 +3,8 @@ import theme from '../../styles/theme';
 
 export const MainContainer = styled.div`
   position: relative;
-  width: 375px;
-  max-width: 375px;
+  width: 100%;
+  max-width: 412px;
   left: 0;
   right: 0;
   height: 100%;

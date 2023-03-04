@@ -3,19 +3,19 @@ import theme from '../../styles/theme';
 import roomStartBack from '../../assets/images/roomStartBack.png';
 
 export const MainContainer = styled.div`
-  width: 375px;
-  max-width: 375px;
+  width: 100%;
+  max-width: 412px;
   position: relative;
   left: 0;
   right: 0;
   height: 812px;
   background-image: url(${roomStartBack});
+  background-size: cover;
   margin: 0 auto;
 `;
 
 export const FormContainer = styled.div`
-  width: 375px;
-  max-width: 375px;
+  width: 100%;
   height: 465px;
   position: absolute;
 
