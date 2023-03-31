@@ -7,15 +7,16 @@ export const MainContainer = styled.div`
   max-width: 412px;
   left: 0;
   right: 0;
-  height: 100%;
+  height: 812px;
   margin: 0 auto;
+  overflow-x: hidden;
 `;
 
 export const HeaderContainer = styled.div`
   position: absolute;
   top: 33px;
   left: 20px;
-  width: 333px;
+  width: 100%;
   height: 116px;
   margin-bottom: 34px;
 `;
@@ -50,7 +51,7 @@ export const BottomContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 332px;
+  height: 100%;
   background-color: #f5f6ff;
   z-index: 2;
 `;
@@ -103,6 +104,8 @@ export const RecommendBox = styled.div<{ value: boolean; isChecked: boolean }>`
 export const CheckboxWrapper = styled.div`
   position: absolute;
   top: 180px;
+  width: 100%;
+  padding: 20px;
 `;
 
 export const BottomButtonContainer = styled.div`
