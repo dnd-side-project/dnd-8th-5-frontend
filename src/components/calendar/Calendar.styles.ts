@@ -68,7 +68,6 @@ export const CalendarComponent = styled(Calendar)`
     background-color: var(--rmdp-primary-calendar);
     color: white;
     box-shadow: var(--rmdp-primary-calendar) -0.4px 0px 0px 2.5px;
-    /* box-shadow: #cef0dd -0.4px 0px 0px 3px; */
   }
 
   .calendar .rmdp-arrow-container:hover {
@@ -110,11 +109,6 @@ export const CalendarComponent = styled(Calendar)`
     top: 42%;
   }
 
-  .rmdp-calendar {
-    position: absolute;
-    top: 112px;
-  }
-
   .rmdp-header {
     position: absolute;
     left: 32px;
@@ -139,14 +133,6 @@ export const CalendarComponent = styled(Calendar)`
     ${theme.typography.regular01}
   }
 
-  .rmdp-day-picker {
-    position: absolute;
-    width: 412px !important;
-    left: -150px;
-    top: 42px;
-    right: 0px;
-  }
-
   .rmdp-year-picker {
     position: absolute;
     display: flex;
@@ -154,7 +140,6 @@ export const CalendarComponent = styled(Calendar)`
     left: -150px;
     top: 42px;
     right: 0px;
-    /* bottom: 0px !important; */
   }
 
   .rmdp-month-picker,
@@ -164,7 +149,6 @@ export const CalendarComponent = styled(Calendar)`
     bottom: unset;
     left: unset;
     position: absolute;
-    /* right: 2px; */
     top: 50px;
     width: 310px;
     height: 310px;
@@ -178,17 +162,21 @@ export const CalendarComponent = styled(Calendar)`
 
   .rmdp-calendar {
     height: max-content;
-    width: 308px;
-    display: flex;
+    width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* padding: 4px; */
+    padding: 4px;
+    top: 112px;
+    position: relative;
   }
 
   .rmdp-day-picker {
-    width: 308px;
+    width: 100vw;
     flex-direction: column;
+    position: absolute;
+    max-width: 400px;
+    top: 42px;
   }
 
   .rmdp-week,
@@ -211,7 +199,6 @@ export const CalendarComponent = styled(Calendar)`
 
   .rmdp-selected {
     border-radius: 50%;
-    /* background-color: var(--rmdp-primary-calendar); */
   }
 
   .rmdp-range {
