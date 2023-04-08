@@ -45,8 +45,8 @@ export const CalendarComponent = styled(Calendar)`
   .rmdp-arrow {
     border: solid black;
     border-width: 0 2px 2px 0;
-    width: 13px !important;
-    height: 13px !important;
+    width: 10px !important;
+    height: 10px !important;
   }
 
   .calendar .rmdp-day.rmdp-today.rmdp-range span {
@@ -106,7 +106,7 @@ export const CalendarComponent = styled(Calendar)`
 
   .rmdp-arrow-container {
     display: null;
-    top: 42%;
+    top: 50%;
   }
 
   .rmdp-header {
