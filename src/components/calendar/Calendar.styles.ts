@@ -150,10 +150,11 @@ export const CalendarComponent = styled(Calendar)`
     left: unset;
     position: absolute;
     top: 50px;
-    width: 310px;
-    height: 310px;
-    left: -120px;
+    width: 300px;
+    height: 200px;
+    left: 20px;
     padding: 10px;
+    border: 2px solid #f6f6f6;
   }
 
   .rmdp-shadow {
