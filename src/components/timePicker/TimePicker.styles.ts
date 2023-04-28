@@ -7,7 +7,7 @@ export const MainContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 336px;
+  width: 100%;
   overflow: hidden;
   touch-action: none;
   z-index: 1;

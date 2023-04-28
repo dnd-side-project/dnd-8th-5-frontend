@@ -29,13 +29,6 @@
   box-shadow: #cef0dd -0.4px 0px 0px 3px;
 }
 
-.calendar .rmdp-arrow {
-  border: solid black;
-  border-width: 0 2px 2px 0;
-  margin-top: 7px;
-  margin-left: 1px;
-}
-
 .calendar .rmdp-day.rmdp-today.rmdp-range span {
   background-color: var(--rmdp-primary-calendar);
   color: white;
@@ -140,20 +133,3 @@
   box-shadow: none;
   color: black;
 }
-
-/* .rmdp-day.rmdp-today.rmdp-selected {
-  background-color: red;
-}
-
-span sd {
-  background-color: red !important;
-} */
-
-/* .calendar .rmdp-range {
-  background-color: red !important;
-} 
-
-/* .calendar .rmdp-day.rmdp-today.rmdp-range span.sd {
-  width: 34px;
-  height: 34px;
-} */

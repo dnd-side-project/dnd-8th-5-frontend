@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import theme from '../../styles/theme';
 
 export const MainContainer = styled.div`
-  width: 333px;
+  width: 100%;
+  max-width: 375px;
 `;
 
 export const IndexText = styled.div`

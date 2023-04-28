@@ -12,46 +12,57 @@ export const MainContainer = styled.div`
   background-image: url(${roomStartBack});
   background-size: cover;
   margin: 0 auto;
+  overflow-x: hidden;
 `;
 
 export const FormContainer = styled.div`
   width: 100%;
   height: 465px;
   position: absolute;
-
   bottom: 0px;
   background-color: white;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  padding-left: 21px;
   padding-top: 10px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 `;
 
 export const HeaderContainer = styled.div`
   position: absolute;
   top: 25px;
+  margin-left: 20px;
+  margin-right: 20px;
 `;
 
 export const TitleInputContnainer = styled.div`
   position: absolute;
   top: 87px;
-  width: 335px;
+  width: 100%;
   height: 79px;
 `;
 
 export const NumberSelectContnainer = styled.div`
   position: absolute;
+  width: 100%;
+  height: 79px;
   display: flex;
   flex-direction: column;
   top: 190px;
-  width: 335px;
-  height: 79px;
+  /* background-color: red; */
+  padding-left: 20px;
+  padding-right: 20px;
+
   z-index: 2;
 `;
 
 export const InputWrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
+  padding-left: 20px;
+  padding-right: 20px;
 `;
 
 export const DependingBox = styled.div<{ isNotDecided: boolean }>`
@@ -64,18 +75,15 @@ export const DependingBox = styled.div<{ isNotDecided: boolean }>`
 `;
 
 export const SelectWrapper = styled.div`
-  width: 335px;
+  width: 100%;
   height: 50px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
   border-top: 1px solid ${theme.colors.gray04};
   border-bottom: 1px solid ${theme.colors.gray04};
   border-radius: 5px;
   z-index: 2;
-  position: absolute;
   top: 28px;
+  margin-right: 20px;
 `;
 
 export const InputTitle = styled.div`
@@ -85,7 +93,6 @@ export const InputTitle = styled.div`
 `;
 
 export const Input = styled.input`
-  width: 335px;
   height: 50px;
   border: 1px solid ${theme.colors.gray04};
   border-radius: 5px;
@@ -126,7 +133,10 @@ export const NextButton = styled.button``;
 
 export const ChceckContainer = styled.div`
   position: absolute;
+  width: 100%;
   top: 279px;
+  padding-left: 20px;
+  padding-right: 20px;
 `;
 
 export const CheckListText = styled.text`
