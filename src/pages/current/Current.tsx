@@ -30,7 +30,7 @@ import BottomSheetShare from '../../components/bottomSheetShare/BottomSheetShare
 import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { roomState } from '../../atoms/roomAtoms';
-import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
+// import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 
 const Current = () => {
   const { roomUuid } = useParams();
@@ -133,7 +133,18 @@ const Current = () => {
       <Body>
         <Title>실시간 조율 현황</Title>
 
-        {startTime !== null && endTime !== null ? (
+        {startTime !== null && endTime !== null && (
+          <TableWrapper>
+            <Table
+              dates={dates}
+              startTime={startTime}
+              endTime={endTime}
+              participants={participants}
+            />
+          </TableWrapper>
+        )}
+
+        {/* {startTime !== null && endTime !== null ? (
           <TableWrapper>
             <Table
               dates={dates}
@@ -147,7 +158,7 @@ const Current = () => {
             availableDateTimes={availableDateTimes}
             participants={participants}
           />
-        )}
+        )} */}
       </Body>
       <BottomWrapper>
         <Edit onClick={handleEditButtonClick}>

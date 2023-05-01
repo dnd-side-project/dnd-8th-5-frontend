@@ -3769,13 +3769,6 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
 
-"@types/react-calendar@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@types/react-calendar/-/react-calendar-4.1.0.tgz#8b189667f2827adfa299c1ef7037ca81e1036d40"
-  integrity sha512-CZL0+bOJ43+ZxnScd6n6SbA3RvoT/FurMIKevvTnRhLdncTRO7LyvBaFu3Bmwoad8ApVBJsMyAiPO79vGWRbbA==
-  dependencies:
-    react-calendar "*"
-
 "@types/react-copy-to-clipboard@^5.0.4":
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/@types/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.4.tgz#558f2c38a97f53693e537815f6024f1e41e36a7e"
@@ -13025,7 +13018,7 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
-react-calendar@*, react-calendar@^4.0.0:
+react-calendar@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-4.2.1.tgz#3706bfd5ff727f877c8a60c36bc352b4f8fdee55"
   integrity sha512-T5oKXD+KLy/g6bmJJkZ7E9wj0iRMesWMZcrC7q2kI6ybOsu9NlPQx8uXJzG4A4C3Sh5Xi0deznyzWIVsUpF8tA==
