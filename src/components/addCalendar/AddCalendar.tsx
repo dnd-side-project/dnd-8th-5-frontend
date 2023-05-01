@@ -118,8 +118,14 @@ const AddCalendar = ({
       minDetail="month"
       maxDetail="month"
       calendarType="US"
-      formatDay={(_, date) => dayjs(date).format('D')}
-      formatMonthYear={(_, date) => dayjs(date).format('M월')}
+      formatDay={(
+        _: any,
+        date: string | number | Date | dayjs.Dayjs | null | undefined
+      ) => dayjs(date).format('D')}
+      formatMonthYear={(
+        _: any,
+        date: string | number | Date | dayjs.Dayjs | null | undefined
+      ) => dayjs(date).format('M월')}
     />
   );
 };

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { Calendar } from 'react-calendar';
 import theme from '../../styles/theme';
+import Calendar from 'react-calendar';
 
-export const StyledCalendar = styled(Calendar)`
+export const StyledCalendar = styled<any>(Calendar)`
   width: 336px;
   background: ${theme.colors.gray01};
   border: 1px solid ${theme.colors.gray03};
