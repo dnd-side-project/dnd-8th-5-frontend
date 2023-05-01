@@ -5,7 +5,7 @@ export interface AddCalendarType {
   currentRoomState: currentRoomState[];
 }
 
-interface currentRoomState {
+export interface currentRoomState {
   availableDate: string;
   availableTimeInfos: {
     time: string;

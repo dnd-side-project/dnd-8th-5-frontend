@@ -22,10 +22,18 @@ const AddCalendar = ({
 }: AddCalendarType) => {
   const [date, setDate] = useState(new Date());
 
-  const availableDatesInfo = currentRoomState.map((date: any) => ({
-    date: date.availableDate,
-    opacity: date.availableTimeInfos[0].count / participants.length,
-  }));
+  const availableDatesInfo = currentRoomState.map(
+    (date: {
+      availableDate: string;
+      availableTimeInfos: {
+        time: string;
+        count: number;
+      }[];
+    }) => ({
+      date: date.availableDate,
+      opacity: date.availableTimeInfos[0].count / participants.length,
+    })
+  );
 
   const addTileClassName = ({ date }: { date: Date }) => {
     if (

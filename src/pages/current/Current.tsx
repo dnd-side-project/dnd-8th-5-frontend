@@ -24,7 +24,6 @@ import {
 import { useEffect, useState } from 'react';
 import { API } from '../../utils/API';
 import { useNavigate, useParams } from 'react-router-dom';
-import { RoomTypes } from '../../types/roomInfo';
 
 import BottomSheetShare from '../../components/bottomSheetShare/BottomSheetShare';
 
@@ -40,7 +39,19 @@ const Current = () => {
   const navigate = useNavigate();
 
   const [room, setRoom] = useRecoilState(roomState);
-  const [currentRoomState, setCurrentRoomState] = useState<any>([]);
+  const [currentRoomState, setCurrentRoomState] = useState({
+    availableDateTimes: [
+      {
+        availableDate: '',
+        availableTimeInfos: [
+          {
+            time: null,
+            count: 0,
+          },
+        ],
+      },
+    ],
+  });
 
   useEffect(() => {
     if (state !== null) {
@@ -68,6 +79,7 @@ const Current = () => {
   }, []);
 
   const { availableDateTimes } = currentRoomState;
+  console.log(availableDateTimes);
 
   const {
     title,
