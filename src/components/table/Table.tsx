@@ -21,7 +21,7 @@ const Table = ({ dates, participants, startTime, endTime }: any) => {
     parseInt(endTime.slice(0, 2))
   );
 
-  const { roomUuid } = useParams();
+  const { roomUUID } = useParams();
 
   const [current, setCurrent] = useState<any>({
     availableDateTimes: [
@@ -40,7 +40,7 @@ const Table = ({ dates, participants, startTime, endTime }: any) => {
   useEffect(() => {
     const getCurrentInfo = async () => {
       const { data } = await API.get(
-        `/api/room/${roomUuid}/available-time/group`
+        `/api/room/${roomUUID}/available-time/group`
       );
       setCurrent(data);
     };

@@ -14,11 +14,11 @@ import {
 } from './ResultButton.styles';
 
 const ResultButton = () => {
-  const { roomUuid } = useParams();
+  const { roomUUID } = useParams();
   const navigate = useNavigate();
 
   const goToCurrent = () => {
-    navigate(`/current/${roomUuid}`);
+    navigate(`/current/${roomUUID}`);
   };
 
   return (

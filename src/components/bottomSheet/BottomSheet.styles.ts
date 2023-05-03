@@ -60,4 +60,6 @@ export const Title = styled.span`
 export const Content = styled.div`
   width: 100%;
   margin-top: 24px;
+  position: relative;
+  height: 197px;
 `;

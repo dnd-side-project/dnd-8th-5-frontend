@@ -33,7 +33,7 @@ import { roomState } from '../../atoms/roomAtoms';
 // import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 
 const Current = () => {
-  const { roomUuid } = useParams();
+  const { roomUUID } = useParams();
   const { state } = useLocation();
 
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ const Current = () => {
     }
 
     const getRoomInfo = async () => {
-      const { data } = await API.get(`/api/room/${roomUuid}`);
+      const { data } = await API.get(`/api/room/${roomUUID}`);
       setRoom(data);
     };
 
@@ -70,7 +70,7 @@ const Current = () => {
   useEffect(() => {
     const getCurrentRoomInfo = async () => {
       const { data } = await API.get(
-        `/api/room/${roomUuid}/available-time/group`
+        `/api/room/${roomUUID}/available-time/group`
       );
       setCurrentRoomState(data);
     };
@@ -97,16 +97,16 @@ const Current = () => {
   const handleEditButtonClick = () => {
     if (
       localStorage.getItem('name') &&
-      localStorage.getItem('uuid') === roomUuid
+      localStorage.getItem('uuid') === roomUUID
     ) {
-      navigate(`/add/${roomUuid}`);
+      navigate(`/add/${roomUUID}`);
     } else {
-      navigate(`/Login/${roomUuid}`);
+      navigate(`/Login/${roomUUID}`);
     }
   };
 
   const goToResult = () => {
-    navigate(`/result/${roomUuid}`);
+    navigate(`/result/${roomUUID}`);
   };
 
   return (
@@ -173,7 +173,7 @@ const Current = () => {
         </BottomButtonCover>
       </BottomWrapper>
 
-      {isAvailableBottomSheet ? <BottomSheetShare roomUuid={roomUuid} /> : null}
+      {isAvailableBottomSheet ? <BottomSheetShare roomUuid={roomUUID} /> : null}
     </Wrapper>
   );
 };
