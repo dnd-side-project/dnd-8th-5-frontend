@@ -10,30 +10,52 @@ import {
 import calendarNextMonth from '../../assets/icons/calendarNextMonth.svg';
 import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
 
-import { AddCalendarType } from './AddCalendar.types';
+import { AddCalendarType, currentRoomState } from './AddCalendar.types';
 
 import theme from '../../styles/theme';
+import { useParams } from 'react-router-dom';
+import { API } from '../../utils/API';
 
 const AddCalendar = ({
   availableDates,
   setAvailableDates,
   participants,
-  currentRoomState,
 }: AddCalendarType) => {
+  const { roomUuid } = useParams();
+
   const [date, setDate] = useState<Date>(new Date());
 
-  const availableDatesInfo = currentRoomState.map(
-    (date: {
-      availableDate: string;
-      availableTimeInfos: {
-        time: string;
-        count: number;
-      }[];
-    }) => ({
-      date: date.availableDate,
-      opacity: date.availableTimeInfos[0].count / participants.length,
-    })
+  const [currentRoomState, setCurrentRoomState] = useState<currentRoomState[]>(
+    []
   );
+  const [availableDatesInfo, setAvailableDatesInfo] = useState<any>([]);
+
+  useEffect(() => {
+    const getCurrentRoomInfo = async () => {
+      const { data } = await API.get(
+        `/api/room/${roomUuid}/available-time/group`
+      );
+
+      setCurrentRoomState(data);
+    };
+
+    getCurrentRoomInfo();
+
+    setAvailableDates(
+      currentRoomState.map(
+        (date: {
+          availableDate: string;
+          availableTimeInfos: {
+            time: string;
+            count: number;
+          }[];
+        }) => ({
+          date: date.availableDate,
+          opacity: date.availableTimeInfos[0].count / participants.length,
+        })
+      )
+    );
+  }, []);
 
   const addTileClassName = ({ date }: { date: Date }) => {
     if (

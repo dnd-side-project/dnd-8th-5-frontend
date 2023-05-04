@@ -31,11 +31,10 @@ import AddToggle from '../../components/addToggle/AddToggle';
 import { RoomTypes } from '../../types/roomInfo';
 import { API } from '../../utils/API';
 import { useNavigate, useParams } from 'react-router-dom';
-import { goToResult } from '../../utils/navigate';
 import AddCalendar from '../../components/addCalendar/AddCalendar';
 import { getRange } from '../../utils/getRange';
 import { getTimeArray } from '../../utils/getTimeArray';
-import _, { filter } from 'lodash';
+import _ from 'lodash';
 
 const AddTime = () => {
   const { roomUuid } = useParams();
@@ -250,7 +249,6 @@ const AddTime = () => {
               participants={participants}
               availableDates={availableDates}
               setAvailableDates={setAvailableDates}
-              currentRoomState={currentRoomState ? currentRoomState : []}
             />
           )}
         </Main>
