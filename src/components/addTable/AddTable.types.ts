@@ -17,5 +17,4 @@ export interface AddTableType {
   availableTimes: string[];
   setAvailableTimes: React.Dispatch<React.SetStateAction<string[]>>;
   times: number[];
-  timeDetail: string[];
 }

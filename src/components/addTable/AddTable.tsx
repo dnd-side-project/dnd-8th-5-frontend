@@ -25,9 +25,10 @@ const AddTable = ({
   validDateChunks,
   availableTimes, // 백엔드로 보내 주기 위한 '가능한시간' 배열
   times,
-  timeDetail,
   setAvailableTimes,
 }: AddTableType) => {
+  const timeDetail = getTimeArray(times);
+
   useEffect(() => {
     if (selected) {
       selected.map((id) => {

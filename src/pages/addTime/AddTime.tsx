@@ -35,6 +35,7 @@ import { goToResult } from '../../utils/navigate';
 import AddCalendar from '../../components/addCalendar/AddCalendar';
 import { getRange } from '../../utils/getRange';
 import { getTimeArray } from '../../utils/getTimeArray';
+import _, { filter } from 'lodash';
 
 const AddTime = () => {
   const { roomUuid } = useParams();
@@ -136,21 +137,45 @@ const AddTime = () => {
   }, []);
 
   const handleApplyClick = () => {
-    const payload = {
-      name: localStorage.getItem('name'),
-      hasTime: true,
-      availableDateTimes: [...selected],
-    };
+    if (selectedMethod === 'possible') {
+      const payload = {
+        name: localStorage.getItem('name'),
+        hasTime: true,
+        availableDateTimes: [...selected],
+      };
 
-    const putAvailableTime = async () => {
-      const { data } = await API.put(
-        `/api/room/${roomUuid}/available-time`,
-        JSON.stringify(payload)
-      );
-      setCurrentRoomState(data);
-    };
+      const putAvailableTime = async () => {
+        const { data } = await API.put(
+          `/api/room/${roomUuid}/available-time`,
+          JSON.stringify(payload)
+        );
+        setCurrentRoomState(data);
+      };
 
-    putAvailableTime();
+      putAvailableTime();
+    }
+
+    if (selectedMethod === 'impossible') {
+      const filteredTime = _.difference(allTimeRange, selected);
+      console.log('impos: ', filteredTime);
+
+      const payload = {
+        name: localStorage.getItem('name'),
+        hasTime: true,
+        availableDateTimes: filteredTime,
+      };
+
+      const putAvailableTime = async () => {
+        const { data } = await API.put(
+          `/api/room/${roomUuid}/available-time`,
+          JSON.stringify(payload)
+        );
+        setCurrentRoomState(data);
+      };
+
+      putAvailableTime();
+    }
+
     goToResult();
   };
 
@@ -164,7 +189,18 @@ const AddTime = () => {
     }
   }, [startTime, endTime]);
 
+  const validDates = getValidDates(
+    getDateRange(dates[0], dates[dates.length - 1])
+  );
+
   const timeDetail = getTimeArray(times);
+
+  const allTimeRange = validDates
+    .map(({ date, isValidDate }) =>
+      timeDetail.map((time) => isValidDate && `${date} ${time}`)
+    )
+    .reduce((acc, cur) => acc.concat(cur), [])
+    .filter(Boolean);
 
   return (
     <Wrapper>
@@ -198,7 +234,6 @@ const AddTime = () => {
                   selected={selected}
                   setSelected={setSelected}
                   times={times}
-                  timeDetail={timeDetail}
                   tablePage={tablePage}
                   selectedMethod={selectedMethod}
                   validDateChunks={validDateChunks}

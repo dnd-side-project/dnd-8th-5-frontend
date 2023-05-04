@@ -31,6 +31,7 @@ import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { roomState } from '../../atoms/roomAtoms';
 import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
+import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 
 const Current = () => {
   const { roomUuid } = useParams();
@@ -52,6 +53,9 @@ const Current = () => {
       },
     ],
   });
+
+  const [selectedMethod, setSelectedMethod] =
+    useRecoilState(selectedMethodState);
 
   useEffect(() => {
     if (state !== null) {
@@ -98,6 +102,7 @@ const Current = () => {
       localStorage.getItem('name') &&
       localStorage.getItem('uuid') === roomUuid
     ) {
+      setSelectedMethod('possible');
       navigate(`/add/${roomUuid}`);
     } else {
       navigate(`/Login/${roomUuid}`);
@@ -131,18 +136,6 @@ const Current = () => {
 
       <Body>
         <Title>실시간 조율 현황</Title>
-
-        {/* {startTime !== null && endTime !== null && (
-          <TableWrapper>
-            <Table
-              dates={dates}
-              startTime={startTime}
-              endTime={endTime}
-              participants={participants}
-            />
-          </TableWrapper>
-        )} */}
-
         {startTime !== null && endTime !== null ? (
           <TableWrapper>
             <Table
@@ -165,6 +158,7 @@ const Current = () => {
         </Edit>
         <BottomButtonCover>
           <BottomButton
+            onClick={goToResult}
             text="우선순위 보기"
             isActivated={true}
             navigate={goToResult}
