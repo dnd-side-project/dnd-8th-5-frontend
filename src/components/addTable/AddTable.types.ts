@@ -9,6 +9,8 @@ export interface ChunkType {
 }
 
 export interface AddTableType {
+  selected: string[];
+  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
   selectedMethod: string;
   tablePage: number;
   validDateChunks: Array<ChunkType[]>;

@@ -79,7 +79,6 @@ const Current = () => {
   }, []);
 
   const { availableDateTimes } = currentRoomState;
-  console.log(availableDateTimes);
 
   const {
     title,

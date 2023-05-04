@@ -18,10 +18,12 @@ import { AddTableType } from './AddTable.types';
 import Selecto from 'react-selecto';
 
 const AddTable = ({
+  selected,
+  setSelected,
   selectedMethod,
   tablePage,
   validDateChunks,
-  availableTimes,
+  availableTimes, // 백엔드로 보내 주기 위한 '가능한시간' 배열
   startTime,
   endTime,
   setAvailableTimes,
@@ -32,89 +34,34 @@ const AddTable = ({
   );
   const timeDetail = getTimeArray(times);
 
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [element, setElement] = useState<HTMLDivElement | null>(null);
-
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    const target = e.target as HTMLDivElement;
-
-    setIsDragging(true);
-
-    if (isDragging && target.className.slice(0, 5) === 'valid') {
-      setElement(target);
-    }
-  };
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const target = e.target as HTMLDivElement;
-
-    if (isDragging && target.className.slice(0, 5) === 'valid') {
-      setElement(target);
-
-      if (element) {
-        if (element.classList.contains('selected')) {
-          element.classList.remove('selected');
-        } else {
-          element.classList.add('selected');
-        }
-      }
-    }
-  };
-
-  const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
-    const target = e.target as HTMLDivElement;
-
-    if (isDragging && target.className.slice(0, 5) === 'valid') {
-      setElement(e.target as HTMLDivElement);
-    }
-
-    setIsDragging(false);
-  };
-
   useEffect(() => {
-    if (element) {
-      if (element.classList.contains('selected')) {
-        element.style.backgroundColor = `${theme.colors.gray01}`;
-        element.classList.remove('selected');
-
-        setAvailableTimes(
-          availableTimes.filter(
-            (time: string) => time !== element.getAttribute('id')
-          )
-        );
-      } else {
-        element.classList.add('selected');
-
-        if (selectedMethod === 'possible') {
-          element.style.backgroundColor = `${theme.colors.purple06}`;
-        } else if (selectedMethod === 'impossible') {
-          element.style.backgroundColor = `${theme.colors.orange02}`;
-        } else return;
-
-        const id = element.getAttribute('id') as string;
-        setAvailableTimes([...availableTimes, id]);
-      }
-    }
-  }, [element]);
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    const touchElement = document.elementFromPoint(
-      e.changedTouches[0].clientX,
-      e.changedTouches[0].clientY
-    ) as HTMLDivElement;
-
-    if (touchElement?.className.slice(0, 5) === 'valid') {
-      setElement(touchElement);
-    }
-  };
-
-  useEffect(() => {
-    if (availableTimes) {
-      availableTimes.forEach((availableTime: string) => {
-        console.log(document.querySelector(`#${availableTime}`));
+    if (selected) {
+      selected.map((id) => {
+        const element = document.getElementById(id);
+        element?.classList.add('selected');
       });
     }
-  }, []);
+  }, [tablePage, selectedMethod]);
+
+  const handleCellSelect = (e: any) => {
+    e.added.forEach((el: any) => {
+      el.classList.add('selected');
+
+      if (selected.findIndex((date) => date === el.id) === -1) {
+        setSelected([...selected, el.id]);
+      }
+    });
+
+    e.removed.forEach((el: any) => {
+      el.classList.remove('selected');
+
+      const filtered = selected.filter((date) => date !== el.id);
+      setSelected(filtered);
+    });
+  };
+
+  console.log(selected);
+  // console.log(document.querySelectorAll('.selected'));
 
   return (
     <Wrapper>
@@ -139,27 +86,16 @@ const AddTable = ({
 
         {validDateChunks[tablePage].map(
           ({ date, isValidDate }: { date: string; isValidDate: boolean }) => (
-            <SelectWrapper
-              key={date}
-              className="elements selecto-area"
-              id="selecto1"
-            >
+            <SelectWrapper key={date} className="container">
               <Selecto
-                dragContainer={'.elements'}
-                selectableTargets={['#selecto1 .valid']}
-                onSelect={(e) => {
-                  e.added.forEach((el) => {
-                    el.classList.add('selected');
-                  });
-                  e.removed.forEach((el) => {
-                    el.classList.remove('selected');
-                  });
-                }}
+                dragContainer={'.container'}
+                selectableTargets={['.valid']}
+                onSelect={handleCellSelect}
                 hitRate={0}
                 selectByClick={true}
                 selectFromInside={true}
-                continueSelect={false}
-                continueSelectWithoutDeselect={true}
+                continueSelect={true}
+                continueSelectWithoutDeselect={false}
                 toggleContinueSelect={'shift'}
                 toggleContinueSelectWithoutDeselect={[['ctrl'], ['meta']]}
                 ratio={0}
@@ -172,11 +108,6 @@ const AddTable = ({
                   id={`${date} ${time}`}
                   selectedMethod={selectedMethod}
                   isValidDate={isValidDate}
-                  // onMouseDown={handleMouseDown}
-                  // onMouseMove={handleMouseMove}
-                  // onMouseUp={handleMouseUp}
-                  // onTouchMove={handleTouchMove}
-                  // onTouchStart={handleTouchMove}
                 />
               ))}
             </SelectWrapper>

@@ -118,6 +118,27 @@ const AddTime = () => {
     navigate(`/result/${roomUuid}`);
   };
 
+  const [selected, setSelected] = useState<string[]>([]);
+
+  const handleApplyClick = () => {
+    const payload = {
+      name: localStorage.getItem('name'),
+      hasTime: true,
+      availableDateTimes: [...selected],
+    };
+
+    const putAvailableTime = async () => {
+      const { data } = await API.put(
+        `/api/room/${roomUuid}/available-time`,
+        JSON.stringify(payload)
+      );
+      setCurrentRoomState(data);
+    };
+
+    putAvailableTime();
+    goToResult();
+  };
+
   return (
     <Wrapper>
       <Header pageName="addTime" title={title} />
@@ -126,7 +147,7 @@ const AddTime = () => {
           <Title>{`${localStorage.getItem('name')} 님의 일정을`}</Title>
         </TitleWrapper>
         <TitleWrapper>
-          <AddToggle />
+          <AddToggle setSelected={setSelected} />
           <Title>시간으로 선택해 주세요</Title>
         </TitleWrapper>
 
@@ -147,6 +168,8 @@ const AddTime = () => {
               </ButtonWrapper>
               <TableWrapper>
                 <AddTable
+                  selected={selected}
+                  setSelected={setSelected}
                   startTime={startTime}
                   endTime={endTime}
                   tablePage={tablePage}
@@ -170,6 +193,7 @@ const AddTime = () => {
           )}
         </Main>
         <BottomButton
+          onClick={handleApplyClick}
           navigate={goToResult}
           text="등록하기"
           isActivated={true}
