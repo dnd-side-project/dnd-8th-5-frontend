@@ -33,6 +33,7 @@ import { API } from '../../utils/API';
 // import AddCalendar from '../../components/addCalendar/AddCalendar';
 import { useNavigate, useParams } from 'react-router-dom';
 import { goToResult } from '../../utils/navigate';
+import AddCalendar from '../../components/addCalendar/AddCalendar';
 
 const AddTime = () => {
   const { roomUuid } = useParams();
@@ -122,7 +123,7 @@ const AddTime = () => {
       <Header pageName="addTime" title={title} />
       <Body>
         <TitleWrapper>
-          <Title>수빈 님의 일정을</Title>
+          <Title>{`${localStorage.getItem('name')} 님의 일정을`}</Title>
         </TitleWrapper>
         <TitleWrapper>
           <AddToggle />
@@ -130,37 +131,7 @@ const AddTime = () => {
         </TitleWrapper>
 
         <Main>
-          {startTime !== null && endTime !== null && (
-            <>
-              <ButtonWrapper>
-                <MoveButton
-                  src={addPrev}
-                  alt="Prev Button"
-                  onClick={handlePrevButtonClick}
-                />
-                <MoveButton
-                  src={addNext}
-                  alt="Next Button"
-                  onClick={handleNextButtonClick}
-                />
-              </ButtonWrapper>
-              <TableWrapper>
-                <AddTable
-                  startTime={startTime}
-                  endTime={endTime}
-                  tablePage={tablePage}
-                  selectedMethod={selectedMethod}
-                  validDateChunks={validDateChunks}
-                  availableTimes={availableTimes}
-                  setAvailableTimes={setAvailableTimes}
-                />
-              </TableWrapper>
-              <ScrollbarTrack>
-                <ScrollbarThumb />
-              </ScrollbarTrack>
-            </>
-          )}
-          {/* {startTime !== null && endTime !== null ? (
+          {startTime !== null && endTime !== null ? (
             <>
               <ButtonWrapper>
                 <MoveButton
@@ -196,7 +167,7 @@ const AddTime = () => {
               setAvailableDates={setAvailableDates}
               currentRoomState={currentRoomState ? currentRoomState : []}
             />
-          )} */}
+          )}
         </Main>
         <BottomButton
           navigate={goToResult}

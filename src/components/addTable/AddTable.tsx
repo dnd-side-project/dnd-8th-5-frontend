@@ -15,6 +15,7 @@ import {
   Wrapper,
 } from './AddTable.styles';
 import { AddTableType } from './AddTable.types';
+import Selecto from 'react-selecto';
 
 const AddTable = ({
   selectedMethod,
@@ -135,9 +136,35 @@ const AddTable = ({
             <Time key={time}>{time}</Time>
           ))}
         </TimeWrapper>
+
         {validDateChunks[tablePage].map(
           ({ date, isValidDate }: { date: string; isValidDate: boolean }) => (
-            <SelectWrapper key={date}>
+            <SelectWrapper
+              key={date}
+              className="elements selecto-area"
+              id="selecto1"
+            >
+              <Selecto
+                dragContainer={'.elements'}
+                selectableTargets={['#selecto1 .valid']}
+                onSelect={(e) => {
+                  e.added.forEach((el) => {
+                    el.classList.add('selected');
+                  });
+                  e.removed.forEach((el) => {
+                    el.classList.remove('selected');
+                  });
+                }}
+                hitRate={0}
+                selectByClick={true}
+                selectFromInside={true}
+                continueSelect={false}
+                continueSelectWithoutDeselect={true}
+                toggleContinueSelect={'shift'}
+                toggleContinueSelectWithoutDeselect={[['ctrl'], ['meta']]}
+                ratio={0}
+              ></Selecto>
+
               {timeDetail.map((time) => (
                 <Select
                   className={isValidDate ? 'valid' : 'invalid'}
@@ -145,11 +172,11 @@ const AddTable = ({
                   id={`${date} ${time}`}
                   selectedMethod={selectedMethod}
                   isValidDate={isValidDate}
-                  onMouseDown={handleMouseDown}
-                  onMouseMove={handleMouseMove}
-                  onMouseUp={handleMouseUp}
-                  onTouchMove={handleTouchMove}
-                  onTouchStart={handleTouchMove}
+                  // onMouseDown={handleMouseDown}
+                  // onMouseMove={handleMouseMove}
+                  // onMouseUp={handleMouseUp}
+                  // onTouchMove={handleTouchMove}
+                  // onTouchStart={handleTouchMove}
                 />
               ))}
             </SelectWrapper>
