@@ -16,6 +16,6 @@ export interface AddTableType {
   validDateChunks: Array<ChunkType[]>;
   availableTimes: string[];
   setAvailableTimes: React.Dispatch<React.SetStateAction<string[]>>;
-  startTime: string;
-  endTime: string;
+  times: number[];
+  timeDetail: string[];
 }

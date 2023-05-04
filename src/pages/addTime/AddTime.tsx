@@ -30,10 +30,11 @@ import { availableDatesState } from '../../atoms/availableDatesAtom';
 import AddToggle from '../../components/addToggle/AddToggle';
 import { RoomTypes } from '../../types/roomInfo';
 import { API } from '../../utils/API';
-// import AddCalendar from '../../components/addCalendar/AddCalendar';
 import { useNavigate, useParams } from 'react-router-dom';
 import { goToResult } from '../../utils/navigate';
 import AddCalendar from '../../components/addCalendar/AddCalendar';
+import { getRange } from '../../utils/getRange';
+import { getTimeArray } from '../../utils/getTimeArray';
 
 const AddTime = () => {
   const { roomUuid } = useParams();
@@ -120,6 +121,20 @@ const AddTime = () => {
 
   const [selected, setSelected] = useState<string[]>([]);
 
+  useEffect(() => {
+    const getPreviousInfo = async () => {
+      const { data } = await API.get(
+        `/api/room/${roomUuid}/available-time?name=${localStorage.getItem(
+          'name'
+        )}`
+      );
+
+      setSelected(data.availableDateTimes);
+    };
+
+    getPreviousInfo();
+  }, []);
+
   const handleApplyClick = () => {
     const payload = {
       name: localStorage.getItem('name'),
@@ -138,6 +153,18 @@ const AddTime = () => {
     putAvailableTime();
     goToResult();
   };
+
+  const [times, setTimes] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (startTime && endTime) {
+      setTimes(
+        getRange(parseInt(startTime.slice(0, 2)), parseInt(endTime.slice(0, 2)))
+      );
+    }
+  }, [startTime, endTime]);
+
+  const timeDetail = getTimeArray(times);
 
   return (
     <Wrapper>
@@ -170,8 +197,8 @@ const AddTime = () => {
                 <AddTable
                   selected={selected}
                   setSelected={setSelected}
-                  startTime={startTime}
-                  endTime={endTime}
+                  times={times}
+                  timeDetail={timeDetail}
                   tablePage={tablePage}
                   selectedMethod={selectedMethod}
                   validDateChunks={validDateChunks}

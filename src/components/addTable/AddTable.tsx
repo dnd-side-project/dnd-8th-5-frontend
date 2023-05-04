@@ -24,16 +24,10 @@ const AddTable = ({
   tablePage,
   validDateChunks,
   availableTimes, // 백엔드로 보내 주기 위한 '가능한시간' 배열
-  startTime,
-  endTime,
+  times,
+  timeDetail,
   setAvailableTimes,
 }: AddTableType) => {
-  const times = getRange(
-    parseInt(startTime.slice(0, 2)),
-    parseInt(endTime.slice(0, 2))
-  );
-  const timeDetail = getTimeArray(times);
-
   useEffect(() => {
     if (selected) {
       selected.map((id) => {
@@ -41,7 +35,7 @@ const AddTable = ({
         element?.classList.add('selected');
       });
     }
-  }, [tablePage, selectedMethod]);
+  }, [tablePage, selectedMethod, selected]);
 
   const handleCellSelect = (e: any) => {
     e.added.forEach((el: any) => {
@@ -59,9 +53,6 @@ const AddTable = ({
       setSelected(filtered);
     });
   };
-
-  console.log(selected);
-  // console.log(document.querySelectorAll('.selected'));
 
   return (
     <Wrapper>
