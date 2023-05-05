@@ -1,10 +1,9 @@
-import { useNavigate, useParams } from 'react-router-dom';
 import { Wrapper } from './BottomButton.styles';
 // import { BottomButtonType } from './BottomButton.types';
 
-const BottomButton = ({ navigate, text, isActivated }: any) => {
+const BottomButton = ({ onClick, text, isActivated }: any) => {
   return (
-    <Wrapper onClick={navigate} isActivated={isActivated}>
+    <Wrapper onClick={onClick} isActivated={isActivated}>
       {text}
     </Wrapper>
   );

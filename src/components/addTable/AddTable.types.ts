@@ -9,11 +9,10 @@ export interface ChunkType {
 }
 
 export interface AddTableType {
+  selected: string[];
+  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
   selectedMethod: string;
   tablePage: number;
   validDateChunks: Array<ChunkType[]>;
-  availableTimes: string[];
-  setAvailableTimes: React.Dispatch<React.SetStateAction<string[]>>;
-  startTime: string;
-  endTime: string;
+  times: number[];
 }

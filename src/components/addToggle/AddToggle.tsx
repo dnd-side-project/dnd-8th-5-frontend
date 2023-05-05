@@ -9,15 +9,21 @@ import {
   Wrapper,
 } from './AddToggle.styles';
 
-const AddToggle = () => {
+const AddToggle = ({
+  setSelected,
+}: {
+  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
+}) => {
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);
 
   const handleButtonToggle = () => {
     if (selectedMethod === 'possible') {
       setSelectedMethod('impossible');
+      setSelected([]);
     } else if (selectedMethod === 'impossible') {
       setSelectedMethod('possible');
+      setSelected([]);
     } else return;
   };
 
