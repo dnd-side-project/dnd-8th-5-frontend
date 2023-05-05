@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
 import {
   NextMonthIcon,
@@ -13,102 +13,95 @@ import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
 import { AddCalendarType } from './AddCalendar.types';
 
 import theme from '../../styles/theme';
+import { useRecoilState } from 'recoil';
+import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 
-const AddCalendar = ({
-  availableDates,
-  setAvailableDates,
-  participants,
-  currentRoomState,
-}: AddCalendarType) => {
+const AddCalendar = ({ dates, selected, setSelected }: AddCalendarType) => {
   const [date, setDate] = useState<Date>(new Date());
-
-  const availableDatesInfo = currentRoomState.map(
-    (date: {
-      availableDate: string;
-      availableTimeInfos: {
-        time: string;
-        count: number;
-      }[];
-    }) => ({
-      date: date.availableDate,
-      opacity: date.availableTimeInfos[0].count / participants.length,
-    })
-  );
+  const [selectedMethod, setSelectedMethod] =
+    useRecoilState(selectedMethodState);
 
   const addTileClassName = ({ date }: { date: Date }) => {
-    if (
-      availableDatesInfo.find(
-        ({ date }: { date: string }) =>
-          date === dayjs(date).format('YYYY-MM-DD')
-      )
-    ) {
+    if (dates.indexOf(dayjs(date).format('YYYY-MM-DD')) !== -1) {
       return `valid availableDate${dayjs(date).format('YYYY-MM-DD')}`;
     } else {
       return null;
     }
   };
 
-  const updateColors = () => {
-    availableDatesInfo.forEach(({ date }: { date: string }) => {
-      const element = document.querySelector(
-        `.availableDate${date}`
-      ) as HTMLElement;
-
-      if (element != null) {
-        element.style.color = `${theme.colors.purple06}`;
-      }
-    });
-
-    availableDates.forEach((availableDate: string) => {
-      const element = document.querySelector(
-        `.availableDate${availableDate}`
-      ) as HTMLElement;
-
-      if (element != null) {
-        element.style.color = `${theme.colors.gray01}`;
-        element.style.backgroundColor = `${theme.colors.purple06}`;
-      }
-    });
-  };
-
   useEffect(() => {
-    updateColors();
-  }, []);
+    const index = selected.indexOf(`${dayjs(date).format('YYYY-MM-DD')} 00:00`);
 
-  useEffect(() => {
-    const index = availableDates.indexOf(dayjs(date).format('YYYY-MM-DD'));
     const element = document.querySelector(
       `.availableDate${dayjs(date).format('YYYY-MM-DD')}`
     ) as HTMLElement;
 
     if (element) {
-      if (index !== -1) {
+      if (index === -1) {
+        if (selectedMethod === 'possible') {
+          element.style.backgroundColor = `${theme.colors.purple06}`;
+          element.style.color = `${theme.colors.gray01}`;
+        }
+
+        if (selectedMethod === 'impossible') {
+          element.style.backgroundColor = `${theme.colors.orange02}`;
+          element.style.color = `${theme.colors.gray01}`;
+        }
+
+        setSelected([...selected, `${dayjs(date).format('YYYY-MM-DD')} 00:00`]);
+      } else {
         element.style.backgroundColor = `${theme.colors.gray01}`;
         element.style.color = `${theme.colors.purple06}`;
 
-        setAvailableDates(
-          availableDates.filter(
+        element.classList.remove('selectedDay');
+
+        setSelected(
+          selected.filter(
             (availableDate: string) =>
-              availableDate !== dayjs(date).format('YYYY-MM-DD').toString()
+              availableDate !== `${dayjs(date).format('YYYY-MM-DD')} 00:00`
           )
         );
-      } else {
-        element.style.backgroundColor = `${theme.colors.purple06}`;
-        element.style.color = `${theme.colors.gray01}`;
-
-        setAvailableDates([
-          ...availableDates,
-          dayjs(date).format('YYYY-MM-DD'),
-        ]);
       }
     }
   }, [date]);
 
+  useEffect(() => {
+    selected.forEach((selectedDate) => {
+      const element = document.querySelector(
+        `.availableDate${selectedDate.slice(0, 10)}`
+      ) as HTMLElement;
+
+      if (element) {
+        if (selectedMethod === 'possible') {
+          element.style.color = `${theme.colors.gray01}`;
+          element.style.backgroundColor = `${theme.colors.purple06}`;
+        }
+
+        if (selectedMethod === 'impossible') {
+          element.style.color = `${theme.colors.gray01}`;
+          element.style.backgroundColor = `${theme.colors.orange02}`;
+        }
+      }
+    });
+  }, [selected]);
+
+  useEffect(() => {
+    dates.forEach((date) => {
+      const element = document.querySelector(
+        `.availableDate${date}`
+      ) as HTMLElement;
+
+      if (element) {
+        element.style.backgroundColor = `${theme.colors.gray01}`;
+        element.style.color = `${theme.colors.purple06}`;
+      }
+    });
+  }, [selectedMethod]);
+
   return (
     <StyledCalendar
-      onChange={setDate}
       value={date}
-      onActiveStartDateChange={updateColors}
+      onChange={setDate}
       tileClassName={addTileClassName}
       next2Label={null}
       prev2Label={null}

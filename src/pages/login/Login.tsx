@@ -22,11 +22,14 @@ import { API } from '../../utils/API';
 
 import uncheckedbox from '../../assets/icons/uncheckdBox.png';
 import checkedBox from '../../assets/icons/checkedBox.png';
+import { useRecoilState } from 'recoil';
+import { userNameState } from '../../atoms/userNameAtoms';
 
 const Login = () => {
   const [title, setTitle] = useState<string>('이멤버 리멤버 연말파티');
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
+  const [userName, setUserName] = useRecoilState(userNameState);
 
   const { roomUuid } = useParams();
 
@@ -59,6 +62,8 @@ const Login = () => {
         localStorage.setItem('name', form.name);
         localStorage.setItem('uuid', String(roomUuid));
       }
+
+      setUserName(form.name);
       navigate(`/add/${roomUuid}`);
     } catch {
       setIsPasswordError(true);

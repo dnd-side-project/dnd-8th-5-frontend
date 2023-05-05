@@ -20,7 +20,7 @@ const CurrentCalendar = ({
 }) => {
   const availableDatesInfo = availableDateTimes.map((date: any) => ({
     date: date.availableDate,
-    opacity: date.availableTimeInfos.count / participants.length,
+    opacity: date.availableTimeInfos[0].count / participants.length,
   }));
 
   const addTileClassName = ({ date }: { date: Date }) => {
@@ -57,7 +57,7 @@ const CurrentCalendar = ({
 
   useEffect(() => {
     updateColors();
-  }, []);
+  }, [availableDatesInfo]);
 
   return (
     <StyledCalendar

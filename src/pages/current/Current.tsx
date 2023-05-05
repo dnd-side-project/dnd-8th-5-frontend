@@ -31,6 +31,8 @@ import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { roomState } from '../../atoms/roomAtoms';
 import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
+import { selectedMethodState } from '../../atoms/selectedMethodAtom';
+import { userNameState } from '../../atoms/userNameAtoms';
 
 const Current = () => {
   const { roomUuid } = useParams();
@@ -52,6 +54,10 @@ const Current = () => {
       },
     ],
   });
+
+  const [selectedMethod, setSelectedMethod] =
+    useRecoilState(selectedMethodState);
+  const [userName, setUserName] = useRecoilState(userNameState);
 
   useEffect(() => {
     if (state !== null) {
@@ -79,7 +85,6 @@ const Current = () => {
   }, []);
 
   const { availableDateTimes } = currentRoomState;
-  console.log(availableDateTimes);
 
   const {
     title,
@@ -96,12 +101,14 @@ const Current = () => {
 
   const handleEditButtonClick = () => {
     if (
-      localStorage.getItem('name') &&
-      localStorage.getItem('uuid') === roomUuid
+      (localStorage.getItem('name') === '' ||
+        localStorage.getItem('name') === null) &&
+      userName === ''
     ) {
-      navigate(`/add/${roomUuid}`);
-    } else {
       navigate(`/Login/${roomUuid}`);
+    } else {
+      setSelectedMethod('possible');
+      navigate(`/add/${roomUuid}`);
     }
   };
 
@@ -132,18 +139,6 @@ const Current = () => {
 
       <Body>
         <Title>실시간 조율 현황</Title>
-
-        {/* {startTime !== null && endTime !== null && (
-          <TableWrapper>
-            <Table
-              dates={dates}
-              startTime={startTime}
-              endTime={endTime}
-              participants={participants}
-            />
-          </TableWrapper>
-        )} */}
-
         {startTime !== null && endTime !== null ? (
           <TableWrapper>
             <Table
@@ -166,6 +161,7 @@ const Current = () => {
         </Edit>
         <BottomButtonCover>
           <BottomButton
+            onClick={goToResult}
             text="우선순위 보기"
             isActivated={true}
             navigate={goToResult}

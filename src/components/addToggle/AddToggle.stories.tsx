@@ -1,11 +1,11 @@
-import { Story } from '@storybook/react';
-import AddToggle from './AddToggle';
+// import { Story } from '@storybook/react';
+// import AddToggle from './AddToggle';
 
-export default {
-  title: '일정 등록/Toggle',
-  component: AddToggle,
-};
+// export default {
+//   title: '일정 등록/Toggle',
+//   component: AddToggle,
+// };
 
-const Template = () => <AddToggle />;
+// const Template = () => <AddToggle />;
 
-export const Default = Template.bind({});
+// export const Default = Template.bind({});
