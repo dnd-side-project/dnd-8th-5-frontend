@@ -33,33 +33,39 @@ const SelectParticipants = ({
   const [selectedParticipants, setSelectedParticipants] =
     useState(participantsList);
 
-  console.log('participantsList: ', selectedParticipants);
 
   const handleBlockClick = (e: any) => {
     const idx = selectedList.findIndex((name) => name === e.target.id);
 
     if (idx === -1) {
       setSelectedList([...selectedList, e.target.id]);
+
       const newList = selectedParticipants.map(({ name, isSelected }) =>
+
         name === e.target.id
           ? { name: name, isSelected: true }
           : { name: name, isSelected: isSelected }
       );
+
       setSelectedParticipants(newList);
+
     } else {
       const newList = selectedList.filter((name) => name !== e.target.id);
       setSelectedList(newList);
 
       const newArr = selectedParticipants.map(({ name, isSelected }) =>
+
         name === e.target.id
           ? { name: name, isSelected: false }
           : { name: name, isSelected: isSelected }
       );
+
       setSelectedParticipants(newArr);
 
       if (selectedList.length === selectedParticipants.length) {
         setIsSelectedAll(false);
       }
+
     }
   };
 
@@ -68,19 +74,23 @@ const SelectParticipants = ({
       setIsSelectedAll(false);
       setSelectedList([]);
       const newList = selectedParticipants.map(({ name, isSelected }) =>
+
         isSelected == true
           ? { name: name, isSelected: false }
           : { name: name, isSelected: isSelected }
       );
+
       setSelectedParticipants(newList);
     } else {
       setIsSelectedAll(true);
 
       const newList = selectedParticipants.map(({ name, isSelected }) =>
+
         isSelected == false
           ? { name: name, isSelected: true }
           : { name: name, isSelected: isSelected }
       );
+
       setSelectedParticipants(newList);
 
       const newArr = newList.map(({ name }) => name);
@@ -90,6 +100,7 @@ const SelectParticipants = ({
 
   useEffect(() => {
     if (selectedList.length === selectedParticipants.length) {
+
       setIsSelectedAll(true);
     }
   }, [selectedList]);
@@ -97,6 +108,7 @@ const SelectParticipants = ({
   const handleRefresh = () => {
     setIsSelectedAll(false);
     setSelectedList([]);
+    
     const newList = selectedParticipants.map(({ name, isSelected }) =>
       isSelected == true
         ? { name: name, isSelected: false }

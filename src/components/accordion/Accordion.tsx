@@ -63,6 +63,7 @@ const Accordion = ({
                   )} (${dayOfWeek}) ${startTime} ~ ${endTime}`
                 : `${date.slice(5, 7)}월 ${date.slice(8, 10)} (${dayOfWeek}) `}
             </TimeSpan>
+
             <Icon src={isCollapse ? collapse : expand} />
           </TimeWrapper>
         </Content>
