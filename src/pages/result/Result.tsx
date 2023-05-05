@@ -28,6 +28,7 @@ import { roomState } from '../../atoms/roomAtoms';
 import { useNavigate, useParams } from 'react-router-dom';
 import { API } from '../../utils/API';
 import SelectParticipants from '../../components/selectParticipants/SelectParticipants';
+import SortTimes from '../../components/selectParticipants/SortTimes';
 
 const Result = () => {
   const { roomUUID } = useParams();
@@ -35,6 +36,8 @@ const Result = () => {
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isParticipantOpened, setIsParticipantOpened] = useState(false);
+  const [isSortOpened, setIsSortOpened] = useState(false);
+
   const [selectedTimeId, setSelectedTimeId] = useState('');
   const [selectedList, setSelectedList] = useState<string[]>([]);
   const [filteredParticipants, setFilteredParticipants] = useState<
@@ -45,6 +48,7 @@ const Result = () => {
   >([]);
 
   const [nameQS, setNameQS] = useState<string>('');
+  const [sortedQS, setSortedQS] = useState<string>('fast');
 
   const handleConfirmButtonClick = (e: any) => {
     setIsPopupOpened(true);
@@ -56,7 +60,7 @@ const Result = () => {
   };
 
   const handleOrderOpen = () => {
-    setIsParticipantOpened(!isParticipantOpened);
+    setIsSortOpened(!isSortOpened);
   };
 
   const [room, setRoom] = useRecoilState(roomState);
@@ -83,10 +87,14 @@ const Result = () => {
     getRoomInfo();
   }, []);
 
+  console.log(
+    `/api/room/${roomUUID}/adjustment-result?sorted=${sortedQS}&${nameQS}`
+  );
+
   useEffect(() => {
     const getCandidateTimes = async () => {
       const { data } = await API.get(
-        `/api/room/${roomUUID}/adjustment-result?sorted=&${nameQS}`
+        `/api/room/${roomUUID}/adjustment-result?sorted=${sortedQS}&${nameQS}`
       );
       setCandidateTimes(data);
     };
@@ -126,7 +134,10 @@ const Result = () => {
             }
             handleClick={handleParticipantOpen}
           />
-          <SelectBox text="빠른 시간 순" handleClick={handleOrderOpen} />
+          <SelectBox
+            text={sortedQS === 'fast' ? '빠른 시간 순' : '오래 만날 수 있는 순'}
+            handleClick={handleOrderOpen}
+          />
         </SelectWrapper>
 
         {participants.length === headCount ? (
@@ -239,6 +250,19 @@ const Result = () => {
               selectedList={selectedList}
               setSelectedList={setSelectedList}
               setIsParticipantOpened={setIsParticipantOpened}
+            />
+          }
+        />
+      )}
+      {isSortOpened && (
+        <BottomSheet
+          setIsBottomSheetOpened={setIsSortOpened}
+          title="정렬"
+          children={
+            <SortTimes
+              sortedQS={sortedQS}
+              setSortedQS={setSortedQS}
+              setIsSortOpened={setIsSortOpened}
             />
           }
         />

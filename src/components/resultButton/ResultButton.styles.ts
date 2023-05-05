@@ -44,6 +44,7 @@ export const CurrentButtonWrapper = styled.div`
   background: ${theme.colors.gray01};
 
   filter: drop-shadow(0px 0px 7px rgba(0, 0, 0, 0.1));
+  cursor: pointer;
 `;
 
 export const CurrentButton = styled.img`
