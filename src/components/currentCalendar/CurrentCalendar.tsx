@@ -46,8 +46,6 @@ const CurrentCalendar = ({
         if (element != null) {
           if (opacity != 0) {
             element.style.backgroundColor = `rgba(106, 123, 255, ${opacity})`;
-            element.style.color = `${theme.colors.gray01}`;
-          } else {
             element.style.color = `${theme.colors.purple06}`;
           }
         }
