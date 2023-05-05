@@ -18,9 +18,9 @@ function App() {
       <Route path="/roomTimer" element={<Timer />} />
       <Route path="/roomStart" element={<RoomStart />} />
       <Route path="/roomCalendar" element={<RoomCalendar />} />
-      <Route path="/current/:roomUuid" element={<Current />} />
+      <Route path="/current/:roomUUID" element={<Current />} />
       <Route path="/login/:roomUuid" element={<Login />} />
-      <Route path="/result/:roomUuid" element={<Result />} />
+      <Route path="/result/:roomUUID" element={<Result />} />
     </Routes>
   );
 }

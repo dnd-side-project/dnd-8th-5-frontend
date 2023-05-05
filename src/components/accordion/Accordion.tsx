@@ -55,9 +55,9 @@ const Accordion = ({
             </PeopleWrapper>
           )}
           <TimeWrapper>
-            <TimeSpan>{`${date.slice(0, 2)}월 ${date.slice(
-              3,
-              5
+            <TimeSpan>{`${date.slice(5, 7)}월 ${date.slice(
+              8,
+              10
             )} (${dayOfWeek}) ${startTime} ~ ${endTime}`}</TimeSpan>
             <Icon src={isCollapse ? collapse : expand} />
           </TimeWrapper>

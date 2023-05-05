@@ -5,13 +5,6 @@ export const Wrapper = styled.div`
   width: 100%;
   max-width: 412px;
   margin: 0 auto;
-
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 export const Body = styled.div`
@@ -21,6 +14,12 @@ export const Body = styled.div`
   overflow: scroll;
 
   padding-bottom: 117px;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const TitleWrapper = styled.div`

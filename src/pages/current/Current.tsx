@@ -35,7 +35,7 @@ import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 import { userNameState } from '../../atoms/userNameAtoms';
 
 const Current = () => {
-  const { roomUuid } = useParams();
+  const { roomUUID } = useParams();
   const { state } = useLocation();
 
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ const Current = () => {
     }
 
     const getRoomInfo = async () => {
-      const { data } = await API.get(`/api/room/${roomUuid}`);
+      const { data } = await API.get(`/api/room/${roomUUID}`);
       setRoom(data);
     };
 
@@ -76,7 +76,7 @@ const Current = () => {
   useEffect(() => {
     const getCurrentRoomInfo = async () => {
       const { data } = await API.get(
-        `/api/room/${roomUuid}/available-time/group`
+        `/api/room/${roomUUID}/available-time/group`
       );
       setCurrentRoomState(data);
     };
@@ -105,15 +105,15 @@ const Current = () => {
         localStorage.getItem('name') === null) &&
       userName === ''
     ) {
-      navigate(`/Login/${roomUuid}`);
+      navigate(`/Login/${roomUUID}`);
     } else {
       setSelectedMethod('possible');
-      navigate(`/add/${roomUuid}`);
+      navigate(`/add/${roomUUID}`);
     }
   };
 
   const goToResult = () => {
-    navigate(`/result/${roomUuid}`);
+    navigate(`/result/${roomUUID}`);
   };
 
   return (
@@ -169,7 +169,7 @@ const Current = () => {
         </BottomButtonCover>
       </BottomWrapper>
 
-      {isAvailableBottomSheet ? <BottomSheetShare roomUuid={roomUuid} /> : null}
+      {isAvailableBottomSheet ? <BottomSheetShare roomUuid={roomUUID} /> : null}
     </Wrapper>
   );
 };

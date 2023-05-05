@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+import { API } from '../../utils/API';
 import {
   ButtonWrapper,
   ConfirmButton,
@@ -9,7 +11,14 @@ import {
 } from './Popup.styles';
 import { PopupTypes } from './Popup.types';
 
-const Popup = ({ setIsPopupOpened, setIsConfirmed }: PopupTypes) => {
+const Popup = ({
+  selectedTimeId,
+  setIsPopupOpened,
+  setIsConfirmed,
+}: PopupTypes) => {
+  const { roomUUID } = useParams();
+  console.log(roomUUID);
+
   const closePopup = () => {
     setIsPopupOpened(false);
   };
@@ -17,6 +26,20 @@ const Popup = ({ setIsPopupOpened, setIsConfirmed }: PopupTypes) => {
   const handleConfirmButtonClick = () => {
     setIsPopupOpened(false);
     setIsConfirmed(true);
+
+    const payload = {
+      candidateDateTimeId: parseInt(selectedTimeId),
+      participantName: localStorage.getItem('name'),
+    };
+
+    const makeConfirm = async () => {
+      await API.post(
+        `/api/room/${roomUUID}/adjustment-result/confirmation`,
+        JSON.stringify(payload)
+      );
+    };
+
+    makeConfirm();
   };
 
   return (
@@ -26,7 +49,7 @@ const Popup = ({ setIsPopupOpened, setIsConfirmed }: PopupTypes) => {
         <Title>약속을 확정할까요?</Title>
         <Subtitle>확정하면 일정 등록과 수정은 할 수 없어요</Subtitle>
         <ButtonWrapper>
-          <NoButton>아니오</NoButton>
+          <NoButton onClick={closePopup}>아니오</NoButton>
           <ConfirmButton onClick={handleConfirmButtonClick}>
             네. 확정할게요
           </ConfirmButton>
