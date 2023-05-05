@@ -37,7 +37,14 @@ const Result = () => {
   const [isParticipantOpened, setIsParticipantOpened] = useState(false);
   const [selectedTimeId, setSelectedTimeId] = useState('');
   const [selectedList, setSelectedList] = useState<string[]>([]);
-  const [names, setNames] = useState([]);
+  const [filteredParticipants, setFilteredParticipants] = useState<
+    {
+      name: string;
+      isSelected: boolean;
+    }[]
+  >([]);
+
+  const [nameQS, setNameQS] = useState<string>('');
 
   const handleConfirmButtonClick = (e: any) => {
     setIsPopupOpened(true);
@@ -79,13 +86,13 @@ const Result = () => {
   useEffect(() => {
     const getCandidateTimes = async () => {
       const { data } = await API.get(
-        `/api/room/${roomUUID}/adjustment-result?sorted=&name=`
+        `/api/room/${roomUUID}/adjustment-result?sorted=&${nameQS}`
       );
       setCandidateTimes(data);
     };
 
     getCandidateTimes();
-  }, []);
+  }, [nameQS]);
 
   const { title, participants, headCount } = room;
 
@@ -106,7 +113,19 @@ const Result = () => {
           <Title isNumber={false}>약속 조율 결과예요</Title>
         </TitleWrapper>
         <SelectWrapper>
-          <SelectBox text="전체 참여자" handleClick={handleParticipantOpen} />
+          <SelectBox
+            text={
+              filteredParticipants.length === 0 ||
+              filteredParticipants.length == participantsList.length
+                ? '전체 참여자'
+                : filteredParticipants.length === 1
+                ? `${filteredParticipants[0].name}`
+                : `${filteredParticipants[0].name} 외 ${
+                    filteredParticipants.length - 1
+                  }명`
+            }
+            handleClick={handleParticipantOpen}
+          />
           <SelectBox text="빠른 시간 순" handleClick={handleOrderOpen} />
         </SelectWrapper>
 
@@ -188,7 +207,7 @@ const Result = () => {
                   </ConfirmButton>
                 ) : (
                   <ConfirmButton
-                    id={id.toString()}
+                    id={`${id}`}
                     isConfirmed={isConfirmed}
                     onClick={handleConfirmButtonClick}
                   >
@@ -214,9 +233,11 @@ const Result = () => {
           title="참여자"
           children={
             <SelectParticipants
+              setFilteredParticipants={setFilteredParticipants}
+              participantsList={participantsList}
+              setNameQS={setNameQS}
               selectedList={selectedList}
               setSelectedList={setSelectedList}
-              participantsList={participantsList}
               setIsParticipantOpened={setIsParticipantOpened}
             />
           }
