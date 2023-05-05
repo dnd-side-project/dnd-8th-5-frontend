@@ -21,6 +21,18 @@ const ResultButton = () => {
     navigate(`/current/${roomUUID}`);
   };
 
+  const shareData = {
+    title: '모두의 시간',
+    text: '쉽고 빠른 약속시간 정하기, 모두의 시간',
+    url: `https://modu-time.site/current/${roomUUID}`, // 공유될 URL
+  };
+
+  const handleShareClick = () => {
+    if (navigator.share) {
+      navigator.share(shareData);
+    }
+  };
+
   return (
     <Wrapper>
       <Bubble src={bubble} alt="go to current page bubble" />
@@ -32,7 +44,7 @@ const ResultButton = () => {
             onClick={goToCurrent}
           />
         </CurrentButtonWrapper>
-        <BottomButton>
+        <BottomButton onClick={handleShareClick}>
           결과 공유하기
           <ShareButton src={shareResult} alt="share" />
         </BottomButton>

@@ -28,6 +28,7 @@ import { roomState } from '../../atoms/roomAtoms';
 import { useNavigate, useParams } from 'react-router-dom';
 import { API } from '../../utils/API';
 import SelectParticipants from '../../components/selectParticipants/SelectParticipants';
+import SortTimes from '../../components/selectParticipants/SortTimes';
 
 const Result = () => {
   const { roomUUID } = useParams();
@@ -35,14 +36,22 @@ const Result = () => {
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isParticipantOpened, setIsParticipantOpened] = useState(false);
+  const [isSortOpened, setIsSortOpened] = useState(false);
+
   const [selectedTimeId, setSelectedTimeId] = useState('');
   const [selectedList, setSelectedList] = useState<string[]>([]);
-  console.log(selectedList);
-  const [names, setNames] = useState([]);
+  const [filteredParticipants, setFilteredParticipants] = useState<
+    {
+      name: string;
+      isSelected: boolean;
+    }[]
+  >([]);
+
+  const [nameQS, setNameQS] = useState<string>('');
+  const [sortedQS, setSortedQS] = useState<string>('fast');
 
   const handleConfirmButtonClick = (e: any) => {
     setIsPopupOpened(true);
-    console.log(isPopupOpened);
     setSelectedTimeId(e.target.id);
   };
 
@@ -51,7 +60,7 @@ const Result = () => {
   };
 
   const handleOrderOpen = () => {
-    setIsParticipantOpened(!isParticipantOpened);
+    setIsSortOpened(!isSortOpened);
   };
 
   const [room, setRoom] = useRecoilState(roomState);
@@ -81,14 +90,13 @@ const Result = () => {
   useEffect(() => {
     const getCandidateTimes = async () => {
       const { data } = await API.get(
-        `/api/room/${roomUUID}/adjustment-result?sorted=&name=`
+        `/api/room/${roomUUID}/adjustment-result?sorted=${sortedQS}&${nameQS}`
       );
-      console.log(data);
       setCandidateTimes(data);
     };
 
     getCandidateTimes();
-  }, []);
+  }, [nameQS]);
 
   const { title, participants, headCount } = room;
 
@@ -109,8 +117,23 @@ const Result = () => {
           <Title isNumber={false}>약속 조율 결과예요</Title>
         </TitleWrapper>
         <SelectWrapper>
-          <SelectBox text="전체 참여자" handleClick={handleParticipantOpen} />
-          <SelectBox text="빠른 시간 순" handleClick={handleOrderOpen} />
+          <SelectBox
+            text={
+              filteredParticipants.length === 0 ||
+              filteredParticipants.length == participantsList.length
+                ? '전체 참여자'
+                : filteredParticipants.length === 1
+                ? `${filteredParticipants[0].name}`
+                : `${filteredParticipants[0].name} 외 ${
+                    filteredParticipants.length - 1
+                  }명`
+            }
+            handleClick={handleParticipantOpen}
+          />
+          <SelectBox
+            text={sortedQS === 'fast' ? '빠른 시간 순' : '오래 만날 수 있는 순'}
+            handleClick={handleOrderOpen}
+          />
         </SelectWrapper>
 
         {participants.length === headCount ? (
@@ -191,7 +214,7 @@ const Result = () => {
                   </ConfirmButton>
                 ) : (
                   <ConfirmButton
-                    id={id.toString()}
+                    id={`${id}`}
                     isConfirmed={isConfirmed}
                     onClick={handleConfirmButtonClick}
                   >
@@ -217,10 +240,25 @@ const Result = () => {
           title="참여자"
           children={
             <SelectParticipants
+              setFilteredParticipants={setFilteredParticipants}
+              participantsList={participantsList}
+              setNameQS={setNameQS}
               selectedList={selectedList}
               setSelectedList={setSelectedList}
-              participantsList={participantsList}
               setIsParticipantOpened={setIsParticipantOpened}
+            />
+          }
+        />
+      )}
+      {isSortOpened && (
+        <BottomSheet
+          setIsBottomSheetOpened={setIsSortOpened}
+          title="정렬"
+          children={
+            <SortTimes
+              sortedQS={sortedQS}
+              setSortedQS={setSortedQS}
+              setIsSortOpened={setIsSortOpened}
             />
           }
         />
