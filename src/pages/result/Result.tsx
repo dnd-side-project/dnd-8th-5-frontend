@@ -87,10 +87,6 @@ const Result = () => {
     getRoomInfo();
   }, []);
 
-  console.log(
-    `/api/room/${roomUUID}/adjustment-result?sorted=${sortedQS}&${nameQS}`
-  );
-
   useEffect(() => {
     const getCandidateTimes = async () => {
       const { data } = await API.get(
