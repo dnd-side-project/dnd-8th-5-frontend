@@ -57,7 +57,7 @@ const CurrentCalendar = ({
 
   useEffect(() => {
     updateColors();
-  }, []);
+  }, [availableDatesInfo]);
 
   return (
     <StyledCalendar

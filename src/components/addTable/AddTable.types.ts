@@ -14,7 +14,5 @@ export interface AddTableType {
   selectedMethod: string;
   tablePage: number;
   validDateChunks: Array<ChunkType[]>;
-  availableTimes: string[];
-  setAvailableTimes: React.Dispatch<React.SetStateAction<string[]>>;
   times: number[];
 }

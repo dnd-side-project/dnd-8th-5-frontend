@@ -26,7 +26,6 @@ import Header from '../../components/header/Header';
 import BottomButton from '../../components/bottomButton/BottomButton';
 import AddTable from '../../components/addTable/AddTable';
 
-import { availableDatesState } from '../../atoms/availableDatesAtom';
 import AddToggle from '../../components/addToggle/AddToggle';
 import { RoomTypes } from '../../types/roomInfo';
 import { API } from '../../utils/API';
@@ -35,6 +34,7 @@ import AddCalendar from '../../components/addCalendar/AddCalendar';
 import { getRange } from '../../utils/getRange';
 import { getTimeArray } from '../../utils/getTimeArray';
 import _ from 'lodash';
+import { userNameState } from '../../atoms/userNameAtoms';
 
 const AddTime = () => {
   const { roomUuid } = useParams();
@@ -49,6 +49,9 @@ const AddTime = () => {
     startTime: null,
     endTime: null,
   });
+
+  const [userName, setUserName] = useRecoilState(userNameState);
+  const storedName = localStorage.getItem('name');
 
   useEffect(() => {
     const getRoomInfo = async () => {
@@ -68,7 +71,7 @@ const AddTime = () => {
     getCurrentRoomInfo();
   }, []);
 
-  const { title, dates, participants, startTime, endTime } = room;
+  const { title, dates, startTime, endTime } = room;
 
   const [tablePage, setTablePage] = useState(0);
   const [isPageMoved, setIsPageMoved] = useState(false);
@@ -77,8 +80,6 @@ const AddTime = () => {
     useRecoilState(selectedMethodState);
   const [availableTimes, setAvailableTimes] =
     useRecoilState(availableTimesState);
-  const [availableDates, setAvailableDates] =
-    useRecoilState(availableDatesState);
 
   const handleSelectMethod = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedMethod(e.target.value);
@@ -120,13 +121,12 @@ const AddTime = () => {
   };
 
   const [selected, setSelected] = useState<string[]>([]);
+  console.log(selected);
 
   useEffect(() => {
     const getPreviousInfo = async () => {
       const { data } = await API.get(
-        `/api/room/${roomUuid}/available-time?name=${localStorage.getItem(
-          'name'
-        )}`
+        `/api/room/${roomUuid}/available-time?name=${storedName || userName}`
       );
 
       setSelected(data.availableDateTimes);
@@ -137,42 +137,68 @@ const AddTime = () => {
 
   const handleApplyClick = () => {
     if (selectedMethod === 'possible') {
-      const payload = {
-        name: localStorage.getItem('name'),
-        hasTime: true,
-        availableDateTimes: [...selected],
-      };
-
+      const payload =
+        startTime === null || endTime === null
+          ? {
+              name: storedName || userName,
+              hasTime: false,
+              availableDateTimes: [...selected],
+            }
+          : {
+              name: storedName || userName,
+              hasTime: true,
+              availableDateTimes: [...selected],
+            };
+      console.log('pay: ', payload);
       const putAvailableTime = async () => {
-        const { data } = await API.put(
+        await API.put(
           `/api/room/${roomUuid}/available-time`,
           JSON.stringify(payload)
         );
-        setCurrentRoomState(data);
       };
 
       putAvailableTime();
     }
 
     if (selectedMethod === 'impossible') {
-      const filteredTime = _.difference(allTimeRange, selected);
-      console.log('impos: ', filteredTime);
+      if (startTime === null || endTime === null) {
+        const newDates = dates.map((date) => `${date} 00:00`);
+        const filteredTime = selected && _.difference(newDates, selected);
 
-      const payload = {
-        name: localStorage.getItem('name'),
-        hasTime: true,
-        availableDateTimes: filteredTime,
-      };
+        const payload = {
+          name: storedName || userName,
+          hasTime: false,
+          availableDateTimes: filteredTime,
+        };
 
-      const putAvailableTime = async () => {
-        const { data } = await API.put(
-          `/api/room/${roomUuid}/available-time`,
-          JSON.stringify(payload)
-        );
-        setCurrentRoomState(data);
-      };
+        const putAvailableTime = async () => {
+          await API.put(
+            `/api/room/${roomUuid}/available-time`,
+            JSON.stringify(payload)
+          );
+        };
 
-      putAvailableTime();
+        putAvailableTime();
+      } else {
+        const filteredTime = _.difference(allTimeRange, selected);
+
+        const payload = {
+          name: storedName || userName,
+          hasTime: false,
+          availableDateTimes: filteredTime,
+        };
+
+        console.dir('설마', payload);
+
+        const putAvailableTime = async () => {
+          await API.put(
+            `/api/room/${roomUuid}/available-time`,
+            JSON.stringify(payload)
+          );
+        };
+
+        putAvailableTime();
+      }
     }
 
     goToResult();
@@ -206,7 +232,7 @@ const AddTime = () => {
       <Header pageName="addTime" title={title} />
       <Body>
         <TitleWrapper>
-          <Title>{`${localStorage.getItem('name')} 님의 일정을`}</Title>
+          <Title>{`${storedName || userName} 님의 일정을`}</Title>
         </TitleWrapper>
         <TitleWrapper>
           <AddToggle setSelected={setSelected} />
@@ -236,8 +262,6 @@ const AddTime = () => {
                   tablePage={tablePage}
                   selectedMethod={selectedMethod}
                   validDateChunks={validDateChunks}
-                  availableTimes={availableTimes}
-                  setAvailableTimes={setAvailableTimes}
                 />
               </TableWrapper>
               <ScrollbarTrack>
@@ -245,11 +269,13 @@ const AddTime = () => {
               </ScrollbarTrack>
             </>
           ) : (
-            <AddCalendar
-              participants={participants}
-              availableDates={availableDates}
-              setAvailableDates={setAvailableDates}
-            />
+            <TableWrapper>
+              <AddCalendar
+                dates={dates}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </TableWrapper>
           )}
         </Main>
         <BottomButton

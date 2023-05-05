@@ -1,13 +1,15 @@
 export interface AddCalendarType {
-  availableDates: string[];
-  setAvailableDates: React.Dispatch<React.SetStateAction<string[]>>;
-  participants: string[];
+  dates: string[];
+  selected: string[];
+  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export interface currentRoomState {
-  availableDate: string;
-  availableTimeInfos: {
-    time: string;
-    count: number;
+  availableDateTimes: {
+    availableDate: string;
+    availableTimeInfos: {
+      time: null | string;
+      count: number;
+    }[];
   }[];
 }

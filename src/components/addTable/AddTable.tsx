@@ -23,9 +23,7 @@ const AddTable = ({
   selectedMethod,
   tablePage,
   validDateChunks,
-  availableTimes, // 백엔드로 보내 주기 위한 '가능한시간' 배열
   times,
-  setAvailableTimes,
 }: AddTableType) => {
   const timeDetail = getTimeArray(times);
 

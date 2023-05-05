@@ -36,7 +36,7 @@ export const StyledCalendar = styled(Calendar)`
   }
 
   .react-calendar button:enabled:hover {
-    /* cursor: default; */
+    cursor: default;
   }
 
   /* 헤더 */
@@ -94,6 +94,7 @@ export const StyledCalendar = styled(Calendar)`
     cursor: default;
 
     &.valid {
+      color: ${theme.colors.purple06};
       cursor: pointer;
     }
   }

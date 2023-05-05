@@ -32,6 +32,7 @@ import { useRecoilState } from 'recoil';
 import { roomState } from '../../atoms/roomAtoms';
 import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
+import { userNameState } from '../../atoms/userNameAtoms';
 
 const Current = () => {
   const { roomUuid } = useParams();
@@ -56,6 +57,7 @@ const Current = () => {
 
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);
+  const [userName, setUserName] = useRecoilState(userNameState);
 
   useEffect(() => {
     if (state !== null) {
@@ -99,13 +101,14 @@ const Current = () => {
 
   const handleEditButtonClick = () => {
     if (
-      localStorage.getItem('name') &&
-      localStorage.getItem('uuid') === roomUuid
+      (localStorage.getItem('name') === '' ||
+        localStorage.getItem('name') === null) &&
+      userName === ''
     ) {
+      navigate(`/Login/${roomUuid}`);
+    } else {
       setSelectedMethod('possible');
       navigate(`/add/${roomUuid}`);
-    } else {
-      navigate(`/Login/${roomUuid}`);
     }
   };
 
