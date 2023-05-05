@@ -47,8 +47,14 @@ const SelectParticipants = ({
           : { name: name, isSelected: isSelected }
       );
       setParticipants(newArr);
+
+      if (selectedList.length === participants.length) {
+        setIsSelectedAll(false);
+      }
     }
   };
+
+  console.log(participants);
 
   const handleAllClick = (e: any) => {
     if (selectedList.length === participants.length) {

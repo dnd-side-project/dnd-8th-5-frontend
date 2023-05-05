@@ -37,12 +37,10 @@ const Result = () => {
   const [isParticipantOpened, setIsParticipantOpened] = useState(false);
   const [selectedTimeId, setSelectedTimeId] = useState('');
   const [selectedList, setSelectedList] = useState<string[]>([]);
-  console.log(selectedList);
   const [names, setNames] = useState([]);
 
   const handleConfirmButtonClick = (e: any) => {
     setIsPopupOpened(true);
-    console.log(isPopupOpened);
     setSelectedTimeId(e.target.id);
   };
 
@@ -83,7 +81,6 @@ const Result = () => {
       const { data } = await API.get(
         `/api/room/${roomUUID}/adjustment-result?sorted=&name=`
       );
-      console.log(data);
       setCandidateTimes(data);
     };
 
