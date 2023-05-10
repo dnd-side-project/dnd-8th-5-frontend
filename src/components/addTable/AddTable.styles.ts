@@ -50,13 +50,12 @@ export const Date = styled.div<{ isValidDate: boolean }>`
   background: ${({ isValidDate }) =>
     isValidDate ? theme.colors.gray01 : theme.colors.gray02};
 
+  border-left: ${({ isValidDate }) =>
+    !isValidDate && `1px solid ${theme.colors.gray03}`};
+
   & + & {
     width: 71px;
-    /* border-left: 1px solid ${theme.colors.gray03}; */
-    border-left: ${({ isValidDate }) =>
-      isValidDate
-        ? `1px solid ${theme.colors.gray03}`
-        : `1px solid ${theme.colors.gray03}`};
+    border-left: 1px solid ${theme.colors.gray03};
   }
 `;
 
