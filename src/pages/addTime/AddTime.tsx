@@ -35,6 +35,7 @@ import { getRange } from '../../utils/getRange';
 import { getTimeArray } from '../../utils/getTimeArray';
 import _ from 'lodash';
 import { userNameState } from '../../atoms/userNameAtoms';
+import { getThreeChunks } from '../../utils/getThreeChunks';
 
 const AddTime = () => {
   const { roomUuid } = useParams();
@@ -81,12 +82,8 @@ const AddTime = () => {
   const [availableTimes, setAvailableTimes] =
     useRecoilState(availableTimesState);
 
-  const handleSelectMethod = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedMethod(e.target.value);
-  };
-
   const validDateChunks = getChunks(
-    getValidDates(getDateRange(dates[0], dates[dates.length - 1]))
+    getValidDates(getThreeChunks(dates.sort()))
   );
 
   const handlePrevButtonClick = () => {
@@ -116,12 +113,11 @@ const AddTime = () => {
   }, [isPageMoved]);
 
   const navigate = useNavigate();
-  const goToResult = () => {
-    navigate(`/result/${roomUuid}`);
+  const goToCurrent = () => {
+    navigate(`/current/${roomUuid}`);
   };
 
   const [selected, setSelected] = useState<string[]>([]);
-  console.log(selected);
 
   useEffect(() => {
     const getPreviousInfo = async () => {
@@ -149,7 +145,7 @@ const AddTime = () => {
               hasTime: true,
               availableDateTimes: [...selected],
             };
-      console.log('pay: ', payload);
+
       const putAvailableTime = async () => {
         await API.put(
           `/api/room/${roomUuid}/available-time`,
@@ -184,11 +180,9 @@ const AddTime = () => {
 
         const payload = {
           name: storedName || userName,
-          hasTime: false,
+          hasTime: true,
           availableDateTimes: filteredTime,
         };
-
-        console.dir('설마', payload);
 
         const putAvailableTime = async () => {
           await API.put(
@@ -201,7 +195,7 @@ const AddTime = () => {
       }
     }
 
-    goToResult();
+    goToCurrent();
   };
 
   const [times, setTimes] = useState<number[]>([]);
@@ -280,7 +274,7 @@ const AddTime = () => {
         </Main>
         <BottomButton
           onClick={handleApplyClick}
-          navigate={goToResult}
+          navigate={goToCurrent}
           text="등록하기"
           isActivated={true}
         />

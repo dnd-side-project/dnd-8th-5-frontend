@@ -9,6 +9,8 @@ export const Wrapper = styled.div`
   border: 1px solid ${theme.colors.gray03};
   color: ${theme.colors.gray06};
   ${theme.typography.medium02};
+
+  overflow: hidden;
 `;
 
 export const Top = styled.div`
@@ -34,8 +36,8 @@ export const DateWrapper = styled.div`
   display: flex;
 `;
 
-export const Date = styled.div`
-  width: 70px;
+export const Date = styled.div<{ isValidDate: boolean }>`
+  width: ${({ isValidDate }) => (isValidDate ? '70px' : '71px')};
   height: 36px;
 
   display: flex;
@@ -44,6 +46,12 @@ export const Date = styled.div`
 
   color: ${theme.colors.gray06};
   ${theme.typography.medium04};
+
+  background: ${({ isValidDate }) =>
+    isValidDate ? theme.colors.gray01 : theme.colors.gray02};
+
+  border-left: ${({ isValidDate }) =>
+    !isValidDate && `1px solid ${theme.colors.gray03}`};
 
   & + & {
     width: 71px;
