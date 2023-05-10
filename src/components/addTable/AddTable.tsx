@@ -58,12 +58,17 @@ const AddTable = ({
       <Top>
         <Blank />
         <DateWrapper>
-          {validDateChunks[tablePage].map(({ date }: { date: string }) => (
-            <Date key={date}>{`${date.slice(5, 7)}월${date.slice(
-              8,
-              10
-            )}일`}</Date>
-          ))}
+          {validDateChunks[tablePage].map(
+            ({ date, isValidDate }: { date: string; isValidDate: boolean }) =>
+              date.slice(0, 5) === 'blank' ? (
+                <Date key={date} isValidDate={isValidDate} />
+              ) : (
+                <Date key={date} isValidDate={isValidDate}>{`${date.slice(
+                  5,
+                  7
+                )}월${date.slice(8, 10)}일`}</Date>
+              )
+          )}
         </DateWrapper>
       </Top>
 
@@ -74,7 +79,7 @@ const AddTable = ({
           ))}
         </TimeWrapper>
 
-        {validDateChunks[tablePage].map(
+        {validDateChunks[tablePage]?.map(
           ({ date, isValidDate }: { date: string; isValidDate: boolean }) => (
             <SelectWrapper key={date} className="container">
               <Selecto
