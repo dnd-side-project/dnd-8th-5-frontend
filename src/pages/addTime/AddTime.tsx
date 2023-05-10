@@ -113,8 +113,8 @@ const AddTime = () => {
   }, [isPageMoved]);
 
   const navigate = useNavigate();
-  const goToResult = () => {
-    navigate(`/result/${roomUuid}`);
+  const goToCurrent = () => {
+    navigate(`/current/${roomUuid}`);
   };
 
   const [selected, setSelected] = useState<string[]>([]);
@@ -145,6 +145,7 @@ const AddTime = () => {
               hasTime: true,
               availableDateTimes: [...selected],
             };
+
       const putAvailableTime = async () => {
         await API.put(
           `/api/room/${roomUuid}/available-time`,
@@ -179,11 +180,9 @@ const AddTime = () => {
 
         const payload = {
           name: storedName || userName,
-          hasTime: false,
+          hasTime: true,
           availableDateTimes: filteredTime,
         };
-
-        console.dir('설마', payload);
 
         const putAvailableTime = async () => {
           await API.put(
@@ -196,7 +195,7 @@ const AddTime = () => {
       }
     }
 
-    goToResult();
+    goToCurrent();
   };
 
   const [times, setTimes] = useState<number[]>([]);
@@ -275,7 +274,7 @@ const AddTime = () => {
         </Main>
         <BottomButton
           onClick={handleApplyClick}
-          navigate={goToResult}
+          navigate={goToCurrent}
           text="등록하기"
           isActivated={true}
         />
