@@ -21,6 +21,7 @@ const Table = ({ dates, participants, startTime, endTime }: any) => {
     parseInt(endTime.slice(0, 2))
   );
 
+  console.log('partici: ', participants);
   const { roomUUID } = useParams();
 
   const [current, setCurrent] = useState<any>({
@@ -77,7 +78,9 @@ const Table = ({ dates, participants, startTime, endTime }: any) => {
               {availableTimeInfos.map(({ time, count }: any) => (
                 <Select
                   key={`${availableDate} ${time}`}
-                  opacity={participants ? count / participants.length : 0}
+                  opacity={
+                    participants.length === 0 ? 0 : count / participants.length
+                  }
                 />
               ))}
             </SelectWrapper>
