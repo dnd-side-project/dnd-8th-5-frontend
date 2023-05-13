@@ -23,7 +23,6 @@ import {
   TImerWrapper,
 } from './RoomTimer.styles';
 import { recoilUuidState } from '../../recoil/recoilUuidState';
-import { ErrorResponse } from '@remix-run/router';
 import { useNavigate } from 'react-router-dom';
 import { API } from '../../utils/API';
 
