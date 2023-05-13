@@ -5,12 +5,16 @@ export const MainContainer = styled.div`
   position: relative;
   width: 100%;
   max-width: 412px;
-  height: calc(100vh + 90px);
+  height: 100vh;
   left: 0;
   right: 0;
   margin: 0 auto;
   overflow-x: hidden;
   overflow-y: hidden;
+
+  @media screen and (max-height: 667px) {
+    height: calc(100vh + 90px);
+  }
 `;
 
 export const HeaderContainer = styled.div`
@@ -23,16 +27,17 @@ export const HeaderContainer = styled.div`
 `;
 
 export const TimerContainr = styled.div`
+  position: absolute;
   display: flex;
   top: 176px;
   width: 100%;
   justify-content: center;
-  position: absolute;
   margin-bottom: 0px;
   z-index: 1;
 `;
 
 export const TImerWrapper = styled.div`
+  width: 100%;
   position: absolute;
   background-color: ${theme.colors.gray01};
   z-index: 2;
@@ -79,7 +84,8 @@ export const RecommendWrapper = styled.div`
   display: flex;
   flex-direction: row;
   top: 62px;
-  width: 335px;
+  width: 100%;
+  padding-inline: 20px;
   height: 94px;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -88,7 +94,7 @@ export const RecommendWrapper = styled.div`
 
 export const RecommendBox = styled.div<{ value: boolean; isChecked: boolean }>`
   display: flex;
-  width: 104px;
+  width: calc(100% / 3 - 10px);
   height: 41px;
   justify-content: center;
   align-items: center;
