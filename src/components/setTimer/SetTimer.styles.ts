@@ -7,7 +7,8 @@ export const MainContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 336px;
+  width: 100%;
+  max-width: 412px;
   overflow: hidden;
   touch-action: none;
   z-index: 1;
@@ -15,10 +16,12 @@ export const MainContainer = styled.div`
 
 export const GreyBox = styled.div`
   position: absolute;
-  z-index: 2;
-  background-color: ${theme.colors.gray02};
-  width: 335px;
+  max-width: 412px;
+  left: 20px;
+  right: 20px;
   height: 48px;
+  background-color: ${theme.colors.gray02};
+  z-index: 2;
 `;
 
 export const TimeText = styled.div`
