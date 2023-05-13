@@ -4,8 +4,8 @@ import theme from '../../styles/theme';
 export const MainContainer = styled.div`
   position: relative;
   width: 100%;
+  height: 100vh;
   max-width: 412px;
-  height: 812px;
   left: 0;
   right: 0;
   background-color: ${theme.colors.gray01};
@@ -72,6 +72,15 @@ export const CheckBoxContainer = styled.div`
 `;
 
 export const BottomButtonContainer = styled.div`
-  position: absolute;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 90px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 412px;
+  background: ${theme.colors.gray01};
+  border-top: 2px solid ${theme.colors.gray02};
   z-index: 100;
 `;
