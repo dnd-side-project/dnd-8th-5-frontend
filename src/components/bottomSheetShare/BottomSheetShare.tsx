@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { useEffect, useRef, useState } from 'react';
-import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet';
+import { useEffect, useState } from 'react';
+import { BottomSheet } from 'react-spring-bottom-sheet';
 import theme from '../../styles/theme';
 import RoomHeader from '../roomHeader/RoomHeader';
 import './botttomSheetShare.css';
@@ -13,7 +13,7 @@ const BottomSheetShare = ({ roomUuid }: { roomUuid: string | undefined }) => {
   const [url, setUrl] = useState('');
 
   useEffect(() => {
-    setUrl(`https://modutime.site/Current/${roomUuid}`);
+    setUrl(`${process.env.REACT_APP_ROOM_PATH}/Current/${roomUuid}`);
   }, []);
 
   const onDismiss = () => {
@@ -88,9 +88,15 @@ const BottomSheetShare = ({ roomUuid }: { roomUuid: string | undefined }) => {
 
 export default BottomSheetShare;
 
+const MainContainer = styled.div`
+  width: 100%;
+  max-width: 412px;
+  height: 300px;
+  padding-inline: 20px;
+`;
+
 const HeaderRabbit = styled.img`
   position: fixed;
-
   z-index: 5;
   top: -127px;
   left: 0px;
@@ -98,14 +104,8 @@ const HeaderRabbit = styled.img`
   margin: 0 auto;
 `;
 
-const MainContainer = styled.div`
-  width: 412px;
-  height: 300px;
-`;
-
 const HeaderContainer = styled.div`
   padding-top: 10px;
-  padding-left: 20px;
 `;
 
 const UrlContainer = styled.div`
@@ -114,12 +114,7 @@ const UrlContainer = styled.div`
   border: 1px solid ${theme.colors.gray04};
   border-radius: 5px;
   width: 100%;
-  max-width: 335px;
-  left: 20px;
-
-  width: 336px;
   height: 50px;
-  margin: 0 auto;
   margin-top: 24px;
 `;
 
@@ -131,6 +126,7 @@ const UrlWrapper = styled.div`
   outline: none;
   color: ${theme.colors.gray04};
   ${theme.typography.regular01};
+  margin-right: 30px;
 `;
 
 const UrlText = styled.div`
@@ -158,7 +154,8 @@ const RateButtonWrapper = styled.div`
   ${theme.typography.medium02};
   color: ${theme.colors.gray04};
   position: absolute;
-  width: 100%;
+  width: calc(100% - 40px);
+  max-width: 412px;
   top: 271px;
   text-align: center;
   cursor: pointer;

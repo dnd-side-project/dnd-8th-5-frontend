@@ -4,15 +4,14 @@ import share from '../../assets/icons/share.svg';
 import emailDefault from '../../assets/icons/emailDefault.svg';
 import emailRegistered from '../../assets/icons/emailRegistered.svg';
 
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { emailState } from '../../atoms/emailAtoms';
+import { recoilUuidInfoState } from '../../atoms/recoilUuidAtoms';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 const Header = ({ pageName, title }: { pageName: string; title: string }) => {
   const [isEmailRegistered, setIsEmailRegistered] = useRecoilState(emailState);
-  const { roomUuid } = useParams();
+  const roomUuid = useRecoilValue(recoilUuidInfoState);
 
   return (
     <Wrapper>
@@ -26,7 +25,7 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
         )
       ) : (
         <CopyToClipboard
-          text={`https://modutime.site/Current/${roomUuid}`}
+          text={`${process.env.REACT_APP_ROOM_PATH}/Current/${roomUuid}`}
           onCopy={() => alert('클립보드에 복사되었습니다.')}
         >
           <Icon src={share} alt="share" />
