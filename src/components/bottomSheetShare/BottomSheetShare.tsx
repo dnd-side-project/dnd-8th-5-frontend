@@ -1,12 +1,23 @@
-import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { BottomSheet } from 'react-spring-bottom-sheet';
-import theme from '../../styles/theme';
 import RoomHeader from '../roomHeader/RoomHeader';
-import './botttomSheetShare.css';
 import clipBoard from '../../assets/icons/clipBoard.png';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import headerRabbit from '../../assets/images/headerRabbit.png';
+
+import {
+  BottomSheetComponent,
+  MainContainer,
+  HeaderRabbit,
+  HeaderContainer,
+  UrlContainer,
+  UrlWrapper,
+  UrlText,
+  ClipBoardWrapper,
+  ClipBoard,
+  ShareButtonWrapper,
+  RateButtonWrapper,
+  ShareButton,
+} from './BottomSheetShare.styles';
 
 const BottomSheetShare = ({ roomUuid }: { roomUuid: string | undefined }) => {
   const [open, setOpen] = useState<boolean>(true);
@@ -40,7 +51,7 @@ const BottomSheetShare = ({ roomUuid }: { roomUuid: string | undefined }) => {
   };
 
   return (
-    <BottomSheet
+    <BottomSheetComponent
       open={open}
       blocking={true}
       onSpringEnd={(e) => {
@@ -82,104 +93,8 @@ const BottomSheetShare = ({ roomUuid }: { roomUuid: string | undefined }) => {
           나중에 할게요
         </RateButtonWrapper>
       </MainContainer>
-    </BottomSheet>
+    </BottomSheetComponent>
   );
 };
 
 export default BottomSheetShare;
-
-const MainContainer = styled.div`
-  width: 100%;
-  max-width: 412px;
-  height: 300px;
-  padding-inline: 20px;
-`;
-
-const HeaderRabbit = styled.img`
-  position: fixed;
-  z-index: 5;
-  top: -127px;
-  left: 0px;
-  right: 0px;
-  margin: 0 auto;
-`;
-
-const HeaderContainer = styled.div`
-  padding-top: 10px;
-`;
-
-const UrlContainer = styled.div`
-  display: flex;
-  align-items: center;
-  border: 1px solid ${theme.colors.gray04};
-  border-radius: 5px;
-  width: 100%;
-  height: 50px;
-  margin-top: 24px;
-`;
-
-const UrlWrapper = styled.div`
-  display: block;
-  width: 300px;
-  height: 48px;
-  padding: 15px;
-  outline: none;
-  color: ${theme.colors.gray04};
-  ${theme.typography.regular01};
-  margin-right: 30px;
-`;
-
-const UrlText = styled.div`
-  max-width: 300px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
-
-const ClipBoardWrapper = styled.div`
-  cursor: pointer;
-`;
-
-const ClipBoard = styled.img`
-  width: 24px;
-  height: 24px;
-`;
-
-const ShareButtonWrapper = styled.div`
-  top: 0px;
-  padding-bottom: 30px;
-`;
-
-const RateButtonWrapper = styled.div`
-  ${theme.typography.medium02};
-  color: ${theme.colors.gray04};
-  position: absolute;
-  width: calc(100% - 40px);
-  max-width: 412px;
-  top: 271px;
-  text-align: center;
-  cursor: pointer;
-`;
-
-const ShareButton = styled.button<{ isActivated: boolean }>`
-  width: calc(100% - 40px);
-  max-width: 412px;
-  height: 52px;
-  margin: 0 auto;
-
-  border-radius: 6px;
-
-  ${theme.typography.semibold03};
-  color: ${({ isActivated }) =>
-    isActivated ? theme.colors.gray01 : theme.colors.gray06};
-  background: ${({ isActivated }) =>
-    isActivated ? theme.colors.purple06 : theme.colors.gray03};
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 203px;
-  left: 0;
-  right: 0;
-`;
