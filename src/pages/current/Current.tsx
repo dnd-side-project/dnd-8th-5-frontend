@@ -10,7 +10,6 @@ import edit from '../../assets/icons/edit.svg';
 import {
   Body,
   Border,
-  BottomButtonCover,
   BottomWrapper,
   Edit,
   EditIcon,
@@ -167,14 +166,12 @@ const Current = () => {
         <Edit onClick={handleEditButtonClick}>
           <EditIcon src={edit} alt="edit" />
         </Edit>
-        <BottomButtonCover>
-          <BottomButton
-            onClick={goToResult}
-            text="우선순위 보기"
-            isActivated={true}
-            navigate={goToResult}
-          />
-        </BottomButtonCover>
+        <BottomButton
+          onClick={goToResult}
+          text="우선순위 보기"
+          isActivated={true}
+          navigate={goToResult}
+        />
       </BottomWrapper>
 
       {isAvailableBottomSheet ? <BottomSheetShare roomUuid={roomUUID} /> : null}
