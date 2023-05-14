@@ -33,6 +33,7 @@ import { roomState } from '../../atoms/roomAtoms';
 import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 import { userNameState } from '../../atoms/userNameAtoms';
+import { availableBottomSheetState } from '../../atoms/availableBottomSheet';
 
 const Current = () => {
   const { roomUUID } = useParams();
@@ -41,6 +42,9 @@ const Current = () => {
   const navigate = useNavigate();
 
   const [room, setRoom] = useRecoilState(roomState);
+  const [recoilBottomSheet, setRecoilBottomSheet] = useRecoilState(
+    availableBottomSheetState
+  );
   const [currentRoomState, setCurrentRoomState] = useState({
     availableDateTimes: [
       {
@@ -62,9 +66,13 @@ const Current = () => {
   useEffect(() => {
     if (state !== null) {
       const { isRoomCreator } = state;
-      setIsAvailableBottomSheet(isRoomCreator);
+      if (recoilBottomSheet == true) {
+        setIsAvailableBottomSheet(false);
+      } else {
+        setRecoilBottomSheet(true);
+        setIsAvailableBottomSheet(isRoomCreator);
+      }
     }
-
     const getRoomInfo = async () => {
       const { data } = await API.get(`/api/room/${roomUUID}`);
       setRoom(data);
