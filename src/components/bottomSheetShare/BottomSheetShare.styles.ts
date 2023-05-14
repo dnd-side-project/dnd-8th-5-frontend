@@ -305,4 +305,6 @@ export const ShareButton = styled.button<{ isActivated: boolean }>`
 
   align-items: center;
   justify-content: center;
+
+  outline: 0;
 `;
