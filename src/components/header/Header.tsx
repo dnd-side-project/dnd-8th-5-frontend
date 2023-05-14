@@ -4,14 +4,15 @@ import share from '../../assets/icons/share.svg';
 import emailDefault from '../../assets/icons/emailDefault.svg';
 import emailRegistered from '../../assets/icons/emailRegistered.svg';
 
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { emailState } from '../../atoms/emailAtoms';
-import { recoilUuidInfoState } from '../../atoms/recoilUuidAtoms';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 const Header = ({ pageName, title }: { pageName: string; title: string }) => {
   const [isEmailRegistered, setIsEmailRegistered] = useRecoilState(emailState);
-  const roomUuid = useRecoilValue(recoilUuidInfoState);
+
+  const roomUuidArray = window.location.href.split('/');
+  const roomUuid = roomUuidArray[roomUuidArray.length - 1];
 
   return (
     <Wrapper>
