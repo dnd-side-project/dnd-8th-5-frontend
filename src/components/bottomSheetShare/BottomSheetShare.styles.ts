@@ -91,6 +91,7 @@ export const BottomSheetComponent = styled(BottomSheet)`
     flex-shrink: 0;
     cursor: ns-resize;
     padding: 16px;
+    box-shadow: none !important;
   }
 
   [data-rsbs-header] {
@@ -219,6 +220,7 @@ export const MainContainer = styled.div`
 `;
 
 export const HeaderRabbit = styled.img`
+  width: 209px;
   position: fixed;
   z-index: 5;
   top: -127px;
