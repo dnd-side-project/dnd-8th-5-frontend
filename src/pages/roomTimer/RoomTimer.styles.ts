@@ -5,7 +5,7 @@ export const MainContainer = styled.div`
   position: relative;
   width: 100%;
   max-width: 412px;
-  height: 100vh;
+  height: calc(100vh + 20px);
   left: 0;
   right: 0;
   margin: 0 auto;
