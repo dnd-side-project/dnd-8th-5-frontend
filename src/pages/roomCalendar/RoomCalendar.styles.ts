@@ -11,6 +11,9 @@ export const MainContainer = styled.div`
   background-color: ${theme.colors.gray01};
   margin: 0 auto;
   overflow-x: hidden;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const HeaderContainer = styled.div`
