@@ -5,7 +5,7 @@ import startBack from '../../assets/images/startBack.png';
 export const MainContainer = styled.div`
   width: 100%;
   max-width: 412px;
-  height: 875px;
+  height: calc(100vh + 90px);
   position: relative;
   left: 0;
   right: 0;

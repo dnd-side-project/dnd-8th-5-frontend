@@ -5,33 +5,39 @@ export const MainContainer = styled.div`
   position: relative;
   width: 100%;
   max-width: 412px;
+  height: 100vh;
   left: 0;
   right: 0;
-  height: 812px;
   margin: 0 auto;
   overflow-x: hidden;
+  overflow-y: hidden;
+
+  @media screen and (max-height: 667px) {
+    height: calc(100vh + 90px);
+  }
 `;
 
 export const HeaderContainer = styled.div`
   position: absolute;
   top: 33px;
-  left: 20px;
   width: 100%;
   height: 116px;
+  left: 20px;
   margin-bottom: 34px;
 `;
 
 export const TimerContainr = styled.div`
-  display: flex;
-  justify-content: center;
   position: absolute;
+  display: flex;
   top: 176px;
   width: 100%;
-  z-index: 1;
+  justify-content: center;
   margin-bottom: 0px;
+  z-index: 1;
 `;
 
 export const TImerWrapper = styled.div`
+  width: 100%;
   position: absolute;
   background-color: ${theme.colors.gray01};
   z-index: 2;
@@ -48,10 +54,11 @@ export const BottomContainer = styled.div`
   display: flex;
   position: absolute;
   top: 435px;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
   height: 100%;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 90px;
   background-color: #f5f6ff;
   z-index: 2;
 `;
@@ -76,20 +83,21 @@ export const RecommendWrapper = styled.div`
   position: absolute;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 335px;
-  height: 94px;
   top: 62px;
+  width: 100%;
+  padding-inline: 20px;
+  height: 94px;
+  justify-content: space-between;
   flex-wrap: wrap;
   z-index: 2;
 `;
 
 export const RecommendBox = styled.div<{ value: boolean; isChecked: boolean }>`
   display: flex;
+  width: calc(100% / 3 - 10px);
+  height: 41px;
   justify-content: center;
   align-items: center;
-  width: 104px;
-  height: 41px;
   background-color: ${(props) =>
     props.value ? theme.colors.purple05 : theme.colors.gray01};
   border-radius: 6px;
@@ -105,7 +113,7 @@ export const CheckboxWrapper = styled.div`
   position: absolute;
   top: 180px;
   width: 100%;
-  padding: 20px;
+  padding-inline: 20px;
 `;
 
 export const BottomButtonContainer = styled.div`

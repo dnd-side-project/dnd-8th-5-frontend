@@ -5,10 +5,7 @@ import {
   MainContainer,
   ToggleWrapper,
 } from './Calendar.styles';
-import './calendar.css';
-import Checkbox from '../checkbox/CheckBox';
 import Toggle from '../toggle/Toggle';
-import styled from '@emotion/styled';
 
 interface Calendar {
   dates: string[];
@@ -16,8 +13,7 @@ interface Calendar {
 }
 
 const Calendar = ({ dates, setDates }: Calendar) => {
-  const [isRange, setIsRange] = useState<boolean>(false);
-  const [dateArray, setDateArray] = useState<string[]>([]);
+  const [isRange, setIsRange] = useState<boolean>(true);
 
   const ko = {
     name: 'ko',
