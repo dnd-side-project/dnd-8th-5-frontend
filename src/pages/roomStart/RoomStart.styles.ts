@@ -8,11 +8,12 @@ export const MainContainer = styled.div`
   position: relative;
   left: 0;
   right: 0;
-  height: 812px;
+  height: calc(100vh + 90px);
   background-image: url(${roomStartBack});
   background-size: cover;
   margin: 0 auto;
   overflow-x: hidden;
+  overflow-y: hidden;
 `;
 
 export const FormContainer = styled.div`
