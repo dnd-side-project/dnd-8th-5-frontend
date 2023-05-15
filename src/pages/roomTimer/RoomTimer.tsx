@@ -5,9 +5,10 @@ import Checkbox from '../../components/checkbox/CheckBox';
 import RoomHeader from '../../components/roomHeader/RoomHeader';
 import Timer from '../../components/setTimer/SetTimer';
 import {
-  recoilRoomState,
+  recoilRoomAtoms,
   recoilRoomInfoState,
-} from '../../recoil/recoilRoomState';
+} from '../../atoms/recoilRoomAtoms';
+import { recoilUuidAtoms } from '../../atoms/recoilUuidAtoms';
 import {
   BottomButtonContainer,
   BottomContainer,
@@ -22,6 +23,7 @@ import {
   TimerContainr,
   TImerWrapper,
 } from './RoomTimer.styles';
+import { ErrorResponse } from '@remix-run/router';
 import { recoilUuidState } from '../../recoil/recoilUuidState';
 import { useNavigate } from 'react-router-dom';
 import { API } from '../../utils/API';
@@ -41,9 +43,9 @@ const TimerPage = () => {
     false,
   ]);
 
-  const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomState);
+  const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomAtoms);
   const recoilRoomInfoStates = useRecoilValue(recoilRoomInfoState);
-  const [recoilUuid, setRecoilUuid] = useRecoilState(recoilUuidState);
+  const [recoilUuid, setRecoilUuid] = useRecoilState(recoilUuidAtoms);
 
   const navigate = useNavigate();
 
@@ -63,7 +65,7 @@ const TimerPage = () => {
   const roomInfo = async () => {
     try {
       const response = await API.post(`/api/room`, recoilRoom);
-      navigate(`/Current/${response.data.roomUuid}`, {
+      navigate(`/current/${response.data.roomUuid}`, {
         state: { isRoomCreator: true },
       });
       setRecoilUuid(response.data.roomUuid);

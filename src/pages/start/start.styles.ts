@@ -16,7 +16,7 @@ export const MainContainer = styled.div`
 
 export const BottomButton = styled.button`
   width: calc(100% - 40px);
-  max-width: 335px;
+  max-width: 375px;
   height: 52px;
   margin: 0 auto;
   position: absolute;
