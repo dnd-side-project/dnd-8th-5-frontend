@@ -90,9 +90,7 @@ const RoomCalendar = () => {
           </BottomButtonContainer>
         </Link>
       ) : (
-        <BottomButtonContainer>
-          <BottomButton text="다음" isActivated={canGoNext} />
-        </BottomButtonContainer>
+        <BottomButton text="다음" isActivated={canGoNext} />
       )}
     </MainContainer>
   );
