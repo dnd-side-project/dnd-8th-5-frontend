@@ -297,13 +297,13 @@ const AddTime = () => {
           isActivated={true}
         />
       </Body>
-      {!availableShowGuide ? (
+      {!availableShowGuide && (
         <Guide>
           <GuideIcon src={guideIcon} />
           <GuideHandleIcon src={guideHandle} />
           <CloseButton src={closeIcon} onClick={handleGuideCloseClick} />
         </Guide>
-      ) : null}
+      )}
     </Wrapper>
   );
 };
