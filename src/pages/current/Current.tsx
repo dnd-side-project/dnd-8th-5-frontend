@@ -112,7 +112,7 @@ const Current = () => {
         localStorage.getItem('name') === null) &&
       userName === ''
     ) {
-      navigate(`/Login/${roomUUID}`);
+      navigate(`/login/${roomUUID}`);
     } else {
       setSelectedMethod('possible');
       navigate(`/add/${roomUUID}`);

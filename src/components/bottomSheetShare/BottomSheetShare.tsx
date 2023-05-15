@@ -24,7 +24,7 @@ const BottomSheetShare = ({ roomUuid }: { roomUuid: string | undefined }) => {
   const [url, setUrl] = useState('');
 
   useEffect(() => {
-    setUrl(`${process.env.REACT_APP_ROOM_PATH}/Current/${roomUuid}`);
+    setUrl(`${process.env.REACT_APP_ROOM_PATH}/current/${roomUuid}`);
   }, []);
 
   const onDismiss = () => {

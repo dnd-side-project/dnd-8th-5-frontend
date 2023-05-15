@@ -26,7 +26,7 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
         )
       ) : (
         <CopyToClipboard
-          text={`${process.env.REACT_APP_ROOM_PATH}/Current/${roomUuid}`}
+          text={`${process.env.REACT_APP_ROOM_PATH}/current/${roomUuid}`}
           onCopy={() => alert('클립보드에 복사되었습니다.')}
         >
           <Icon src={share} alt="share" />

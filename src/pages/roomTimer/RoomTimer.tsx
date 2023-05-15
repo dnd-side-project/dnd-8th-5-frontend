@@ -65,7 +65,7 @@ const TimerPage = () => {
   const roomInfo = async () => {
     try {
       const response = await API.post(`/api/room`, recoilRoom);
-      navigate(`/Current/${response.data.roomUuid}`, {
+      navigate(`/current/${response.data.roomUuid}`, {
         state: { isRoomCreator: true },
       });
       setRecoilUuid(response.data.roomUuid);

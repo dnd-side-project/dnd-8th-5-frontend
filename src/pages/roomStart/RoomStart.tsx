@@ -74,7 +74,7 @@ const Room = () => {
       };
     });
 
-    navigate('/RoomCalendar');
+    navigate('/roomCalendar');
   }, [recoilRoom, roomName, peopleNumber, isNotDecided]);
 
   return (
