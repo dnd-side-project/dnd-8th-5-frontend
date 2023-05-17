@@ -9,6 +9,7 @@ export interface ChunkType {
 }
 
 export interface AddTableType {
+  contentRef: any;
   selected: string[];
   setSelected: React.Dispatch<React.SetStateAction<string[]>>;
   selectedMethod: string;

@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { availableTimesState } from '../../atoms/availableTimesAtom';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
@@ -221,6 +221,9 @@ const AddTime = () => {
     .reduce((acc, cur) => acc.concat(cur), [])
     .filter(Boolean);
 
+  const contentRef = useRef<any>(null);
+  console.log(contentRef.current.offsetHeight);
+
   return (
     <Wrapper>
       <Header pageName="addTime" title={title} />
@@ -250,6 +253,7 @@ const AddTime = () => {
               </ButtonWrapper>
               <TableWrapper>
                 <AddTable
+                  contentRef={contentRef}
                   selected={selected}
                   setSelected={setSelected}
                   times={times}
