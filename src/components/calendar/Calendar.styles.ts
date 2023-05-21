@@ -11,35 +11,26 @@ export const ToggleWrapper = styled.div`
 `;
 
 export const CalendarComponent = styled(Calendar)`
-  :root {
-    --rmdp-primary-calendar: #6a7bff;
-    --rmdp-secondary-calendar: #00796b;
-    --rmdp-shadow-calendar: #26a69a;
-    --rmdp-today-calendar: #cef0dd;
-    --rmdp-hover-calendar: #6a7bff;
-    --rmdp-deselect-calendar: #00695c;
-  }
-
-  .calendar .rmdp-wrapper {
+  .rmdp-wrapper {
     border: 1px solid var(--rmdp-secondary-calendar);
   }
 
-  .calendar .rmdp-panel-body li {
-    background-color: var(--rmdp-primary-calendar);
+  .rmdp-panel-body li {
+    background-color: ${theme.colors.purple06};
   }
 
-  .calendar .rmdp-week-day {
-    color: black;
+  .rmdp-week-day {
+    color: black !important;
   }
 
-  .calendar .rmdp-day.rmdp-deactive {
+  .rmdp-day.rmdp-deactive {
     color: var(--rmdp-secondary-calendar);
   }
 
-  .calendar .rmdp-day.rmdp-today span {
-    background-color: var(--rmdp-today-calendar);
-    color: #59ce8f;
-    box-shadow: #cef0dd -0.4px 0px 0px 3px;
+  .rmdp-day.rmdp-today span {
+    background-color: ${theme.colors.green01};
+    color: ${theme.colors.green02};
+    box-shadow: ${theme.colors.green01} -0.4px 0px 0px 3px;
   }
 
   .rmdp-arrow {
@@ -49,53 +40,53 @@ export const CalendarComponent = styled(Calendar)`
     height: 10px !important;
   }
 
-  .calendar .rmdp-day.rmdp-today.rmdp-range span {
-    background-color: var(--rmdp-primary-calendar);
+  .rmdp-day.rmdp-today.rmdp-range span {
+    background-color: ${theme.colors.purple06};
     color: white;
-    box-shadow: var(--rmdp-primary-calendar) -0.4px 0px 0px 3px;
+    box-shadow: ${theme.colors.purple06} -0.4px 0px 0px 3px;
   }
 
-  .calendar .rmdp-panel-body::-webkit-scrollbar-thumb {
-    background: var(--rmdp-primary-calendar);
+  .rmdp-panel-body::-webkit-scrollbar-thumb {
+    background: ${theme.colors.purple06};
   }
 
-  .calendar .rmdp-rtl .rmdp-panel {
+  .rmdp-rtl .rmdp-panel {
     border-left: unset;
     border-right: 1px solid var(--rmdp-secondary-calendar);
   }
 
-  .calendar .rmdp-day.rmdp-selected span:not(.highlight) {
-    background-color: var(--rmdp-primary-calendar);
+  .rmdp-day.rmdp-selected span:not(.highlight) {
+    background-color: ${theme.colors.purple06};
     color: white;
-    box-shadow: var(--rmdp-primary-calendar) -0.4px 0px 0px 2.5px;
+    box-shadow: ${theme.colors.purple06} -0.4px 0px 0px 3px;
   }
 
-  .calendar .rmdp-arrow-container:hover {
+  .rmdp-arrow-container:hover {
     color: none;
     background-color: none;
   }
 
-  .calendar .rmdp-day:not(.rmdp-day-hidden) span:hover {
-    background-color: var(--rmdp-hover-calendar);
-    box-shadow: var(--rmdp-primary-calendar) -0.4px 0px 0px 2.5px;
+  .rmdp-day:not(.rmdp-day-hidden) span:hover {
+    background-color: ${theme.colors.purple06};
+    box-shadow: ${theme.colors.purple06} -0.4px 0px 0px 3px;
   }
 
-  .calendar .b-deselect {
+  .b-deselect {
     color: var(--rmdp-deselect-calendar);
     background-color: white;
   }
 
-  .calendar .rmdp-action-button {
-    color: var(--rmdp-primary-calendar);
+  .rmdp-action-button {
+    color: ${theme.colors.purple06};
   }
 
-  .calendar .rmdp-button:not(.rmdp-action-button) {
-    background-color: var(--rmdp-primary-calendar);
+  .rmdp-button:not(.rmdp-action-button) {
+    background-color: ${theme.colors.purple06};
   }
 
-  .calendar .rmdp-button:not(.rmdp-action-button):hover {
+  .rmdp-button:not(.rmdp-action-button):hover {
     background-color: var(--rmdp-deselect-calendar);
-    box-shadow: var(--rmdp-primary-calendar) -0.4px 0px 0px 3px;
+    box-shadow: ${theme.colors.purple06} -0.4px 0px 0px 3px;
   }
 
   .rmdp-header-values {
@@ -158,7 +149,13 @@ export const CalendarComponent = styled(Calendar)`
   }
 
   .rmdp-shadow {
-    box-shadow: 0 0 0px white;
+    box-shadow: 0px !important;
+    display: none !important;
+  }
+
+  .rmdp-wrapper.rmdp-shadow.calendar.css-1djealw {
+    display: none !important;
+    box-shadow: 0 0 5px #00695c !important;
   }
 
   .rmdp-calendar {
@@ -187,15 +184,15 @@ export const CalendarComponent = styled(Calendar)`
   }
 
   .rmdp-range.start span {
-    background-color: var(--rmdp-primary-calendar);
+    background-color: ${theme.colors.purple06};
     color: white;
-    box-shadow: var(--rmdp-primary-calendar) -0.4px 0px 0px 3px;
+    box-shadow: ${theme.colors.purple06} -0.4px 0px 0px 3px;
   }
 
   .rmdp-range.end span {
-    background-color: var(--rmdp-primary-calendar);
+    background: ${theme.colors.purple06};
     color: white;
-    box-shadow: var(--rmdp-primary-calendar) 0px 0px 0px 3px;
+    box-shadow: ${theme.colors.purple06} 0px 0px 0px 3px;
   }
 
   .rmdp-selected {
@@ -203,8 +200,16 @@ export const CalendarComponent = styled(Calendar)`
   }
 
   .rmdp-range {
-    background-color: #dadeff;
+    background-color: #dadef3;
     box-shadow: none;
     color: black;
+  }
+
+  .rmdp-wrapper.rmdp-shadow.calendar {
+    box-shadow: 0 0 0px white !important;
+  }
+
+  .rmdp-top-class {
+    width: 0px;
   }
 `;

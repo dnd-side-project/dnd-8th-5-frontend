@@ -10,7 +10,6 @@ import edit from '../../assets/icons/edit.svg';
 import {
   Body,
   Border,
-  BottomButtonCover,
   BottomWrapper,
   Edit,
   EditIcon,
@@ -33,6 +32,7 @@ import { roomState } from '../../atoms/roomAtoms';
 import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 import { userNameState } from '../../atoms/userNameAtoms';
+import { availableBottomSheetState } from '../../atoms/availableBottomSheet';
 
 const Current = () => {
   const { roomUUID } = useParams();
@@ -41,6 +41,9 @@ const Current = () => {
   const navigate = useNavigate();
 
   const [room, setRoom] = useRecoilState(roomState);
+  const [recoilBottomSheet, setRecoilBottomSheet] = useRecoilState(
+    availableBottomSheetState
+  );
   const [currentRoomState, setCurrentRoomState] = useState({
     availableDateTimes: [
       {
@@ -62,9 +65,13 @@ const Current = () => {
   useEffect(() => {
     if (state !== null) {
       const { isRoomCreator } = state;
-      setIsAvailableBottomSheet(isRoomCreator);
+      if (recoilBottomSheet == true) {
+        setIsAvailableBottomSheet(false);
+      } else {
+        setRecoilBottomSheet(true);
+        setIsAvailableBottomSheet(isRoomCreator);
+      }
     }
-
     const getRoomInfo = async () => {
       const { data } = await API.get(`/api/room/${roomUUID}`);
       setRoom(data);
@@ -105,7 +112,7 @@ const Current = () => {
         localStorage.getItem('name') === null) &&
       userName === ''
     ) {
-      navigate(`/Login/${roomUUID}`);
+      navigate(`/login/${roomUUID}`);
     } else {
       setSelectedMethod('possible');
       navigate(`/add/${roomUUID}`);
@@ -159,14 +166,12 @@ const Current = () => {
         <Edit onClick={handleEditButtonClick}>
           <EditIcon src={edit} alt="edit" />
         </Edit>
-        <BottomButtonCover>
-          <BottomButton
-            onClick={goToResult}
-            text="우선순위 보기"
-            isActivated={true}
-            navigate={goToResult}
-          />
-        </BottomButtonCover>
+        <BottomButton
+          onClick={goToResult}
+          text="우선순위 보기"
+          isActivated={true}
+          navigate={goToResult}
+        />
       </BottomWrapper>
 
       {isAvailableBottomSheet ? <BottomSheetShare roomUuid={roomUUID} /> : null}

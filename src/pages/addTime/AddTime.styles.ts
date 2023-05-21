@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
 import theme from '../../styles/theme';
 
 export const Wrapper = styled.div`
   display: block;
-  position: fixed;
   margin: 0 auto;
   left: 0;
   right: 0;
@@ -11,6 +11,8 @@ export const Wrapper = styled.div`
   width: 100%;
   max-width: 412px;
   height: 100%;
+
+  overflow: hidden;
 `;
 
 export const Body = styled.div`
@@ -86,7 +88,7 @@ export const ScrollbarTrack = styled.div`
   height: 160px;
   border-radius: 41px;
   background: ${theme.colors.gray02};
-  position: absolute;
+  position: relative;
   right: 29px;
   top: 52px;
 `;
@@ -99,4 +101,69 @@ export const ScrollbarThumb = styled.div`
 
   position: absolute;
   width: 18px;
+`;
+
+export const Guide = styled.div`
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  top: 0px;
+  width: 100%;
+  max-width: 412px;
+  height: 100%;
+  z-index: 3;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+`;
+
+export const GuideIcon = styled.img`
+  position: fixed;
+  top: 190px;
+  width: 100%;
+  height: 380px;
+  max-width: 412px;
+  padding-inline: 10px;
+  z-index: 5;
+  /* background-color: red; */
+`;
+
+export const handleFade = keyframes`
+0%{
+  top:260px;
+}
+75% {
+  top: 410px;
+}
+100%{
+  top: 410px;
+}
+
+`;
+
+export const GuideHandleIcon = styled.img`
+  position: absolute;
+  top: 260px;
+  left: 100px;
+  width: 95px;
+  height: 80px;
+  max-width: 412px;
+  padding-inline: 10px;
+  z-index: 5;
+  animation: ${handleFade} 2s 0s ease-in infinite forwards;
+`;
+
+export const CloseButton = styled.img`
+  position: absolute;
+  width: 80px;
+  height: 66px;
+  bottom: 80px;
+
+  @media screen and (max-height: 700px) {
+    bottom: 20px;
+  }
+
+  max-width: 412px;
+  padding-inline: 10px;
+  z-index: 5;
+  cursor: pointer;
 `;

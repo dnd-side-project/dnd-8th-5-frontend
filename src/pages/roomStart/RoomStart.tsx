@@ -24,7 +24,7 @@ import {
 } from './RoomStart.styles';
 
 import { useRecoilState } from 'recoil';
-import { recoilRoomState } from '../../recoil/recoilRoomState';
+import { recoilRoomAtoms } from '../../atoms/recoilRoomAtoms';
 import { useNavigate } from 'react-router-dom';
 
 const Room = () => {
@@ -32,7 +32,7 @@ const Room = () => {
   const [peopleNumber, setPeopleNumber] = useState(0);
   const [isNotDecided, setIsNotDecided] = useState(false);
 
-  const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomState);
+  const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomAtoms);
 
   const navigate = useNavigate();
 
@@ -74,7 +74,7 @@ const Room = () => {
       };
     });
 
-    navigate('/RoomCalendar');
+    navigate('/roomCalendar');
   }, [recoilRoom, roomName, peopleNumber, isNotDecided]);
 
   return (

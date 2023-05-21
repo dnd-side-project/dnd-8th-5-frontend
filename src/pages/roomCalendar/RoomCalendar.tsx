@@ -17,7 +17,7 @@ import {
   TimePickerWrapper,
 } from './RoomCalendar.styles';
 import { useRecoilState } from 'recoil';
-import { recoilRoomState } from '../../recoil/recoilRoomState';
+import { recoilRoomAtoms } from '../../atoms/recoilRoomAtoms';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 
@@ -27,7 +27,7 @@ const RoomCalendar = () => {
   const [endTime, setEndTime] = useState('09:00');
   const [dates, setDates] = useState<string[]>([]);
 
-  const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomState);
+  const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomAtoms);
 
   const newStartTime = dayjs(`1900-01-01 ${startTime}`);
   const newEndTime = dayjs(`1900-01-01 ${endTime}`);
@@ -90,9 +90,7 @@ const RoomCalendar = () => {
           </BottomButtonContainer>
         </Link>
       ) : (
-        <BottomButtonContainer>
-          <BottomButton text="다음" isActivated={canGoNext} />
-        </BottomButtonContainer>
+        <BottomButton text="다음" isActivated={canGoNext} />
       )}
     </MainContainer>
   );

@@ -5,6 +5,9 @@ import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 
 import addPrev from '../../assets/icons/addPrev.png';
 import addNext from '../../assets/icons/addNext.png';
+import guideIcon from '../../assets/icons/guide.png';
+import guideHandle from '../../assets/icons/guideHandle.png';
+import closeIcon from '../../assets/icons/close.png';
 
 import { getChunks } from '../../utils/getChunks';
 import { getValidDates } from '../../utils/getValidDates';
@@ -20,7 +23,11 @@ import {
   TableWrapper,
   Title,
   TitleWrapper,
+  Guide,
   Wrapper,
+  GuideIcon,
+  GuideHandleIcon,
+  CloseButton,
 } from './AddTime.styles';
 import Header from '../../components/header/Header';
 import BottomButton from '../../components/bottomButton/BottomButton';
@@ -53,6 +60,11 @@ const AddTime = () => {
 
   const [userName, setUserName] = useRecoilState(userNameState);
   const storedName = localStorage.getItem('name');
+
+  const showGuide = localStorage.getItem('availableShowGuide');
+  const [availableShowGuide, setAvailableShowGuide] = useState<boolean>(
+    Boolean(showGuide)
+  );
 
   useEffect(() => {
     const getRoomInfo = async () => {
@@ -198,6 +210,12 @@ const AddTime = () => {
     goToCurrent();
   };
 
+  const handleGuideCloseClick = () => {
+    localStorage.setItem('availableShowGuide', 'true');
+    setAvailableShowGuide(true);
+    return;
+  };
+
   const [times, setTimes] = useState<number[]>([]);
 
   useEffect(() => {
@@ -221,8 +239,10 @@ const AddTime = () => {
     .reduce((acc, cur) => acc.concat(cur), [])
     .filter(Boolean);
 
-  const contentRef = useRef<any>(null);
-  console.log(contentRef.current.offsetHeight);
+  /* scrollbar */
+  const contentRef = useRef<HTMLDivElement>(null);
+  const scrollbarTrackRef = useRef<HTMLDivElement>(null);
+  const scrollbarThumbRef = useRef<HTMLDivElement>(null);
 
   return (
     <Wrapper>
@@ -262,8 +282,8 @@ const AddTime = () => {
                   validDateChunks={validDateChunks}
                 />
               </TableWrapper>
-              <ScrollbarTrack>
-                <ScrollbarThumb />
+              <ScrollbarTrack ref={scrollbarTrackRef}>
+                <ScrollbarThumb draggable ref={scrollbarThumbRef} />
               </ScrollbarTrack>
             </>
           ) : (
@@ -283,6 +303,13 @@ const AddTime = () => {
           isActivated={true}
         />
       </Body>
+      {!availableShowGuide && (
+        <Guide>
+          <GuideIcon src={guideIcon} />
+          <GuideHandleIcon src={guideHandle} />
+          <CloseButton src={closeIcon} onClick={handleGuideCloseClick} />
+        </Guide>
+      )}
     </Wrapper>
   );
 };

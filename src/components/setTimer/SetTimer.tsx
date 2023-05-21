@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import Current from '../timePicker/TimePicker';
-import './setTimer.css';
 import {
   MainContainer,
   StyledSlider,

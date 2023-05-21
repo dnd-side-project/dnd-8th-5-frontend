@@ -87,21 +87,6 @@ export const BottomWrapper = styled.div`
   bottom: 0;
 `;
 
-export const BottomButtonCover = styled.div`
-  width: 100%;
-  max-width: 412px;
-  height: 90px;
-  margin: 0 auto;
-
-  background: ${theme.colors.gray01};
-  border-top: 2px solid ${theme.colors.gray02};
-
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-`;
-
 export const Edit = styled.div`
   width: 54px;
   height: 54px;

@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   color: ${theme.colors.gray06};
   ${theme.typography.medium02};
 
-  overflow: hidden;
+  /* overflow: hidden; */
 `;
 
 export const Top = styled.div`

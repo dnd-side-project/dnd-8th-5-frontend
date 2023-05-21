@@ -21,7 +21,6 @@ const Table = ({ dates, participants, startTime, endTime }: any) => {
     parseInt(endTime.slice(0, 2))
   );
 
-  console.log('partici: ', participants);
   const { roomUUID } = useParams();
 
   const [current, setCurrent] = useState<any>({
