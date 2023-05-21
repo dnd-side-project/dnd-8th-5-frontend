@@ -136,27 +136,24 @@ const TimerPage = () => {
     setRecoilRoom((prev) => {
       return {
         ...prev,
-        ['timer']: isChecked
+        timer: isChecked
           ? null
           : {
-              day:
-                isChecked || allZero
-                  ? null
-                  : isClickedRecommend.indexOf(true) >= 0
-                  ? recommendDay
-                  : day,
-              hour:
-                isChecked || allZero
-                  ? null
-                  : isClickedRecommend.indexOf(true) >= 0
-                  ? recommendHour
-                  : hour,
-              minute:
-                isChecked || allZero
-                  ? null
-                  : isClickedRecommend.indexOf(true) >= 0
-                  ? recommendMinute
-                  : minute,
+              day: isChecked
+                ? null
+                : isClickedRecommend.indexOf(true) >= 0
+                ? recommendDay
+                : day,
+              hour: isChecked
+                ? null
+                : isClickedRecommend.indexOf(true) >= 0
+                ? recommendHour
+                : hour,
+              minute: isChecked
+                ? null
+                : isClickedRecommend.indexOf(true) >= 0
+                ? recommendMinute
+                : minute,
             },
       };
     });
