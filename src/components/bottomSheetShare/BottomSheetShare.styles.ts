@@ -235,6 +235,7 @@ export const HeaderContainer = styled.div`
 
 export const UrlContainer = styled.div`
   display: flex;
+  flex-direction: row;
   align-items: center;
   border: 1px solid ${theme.colors.gray04};
   border-radius: 5px;
@@ -244,14 +245,12 @@ export const UrlContainer = styled.div`
 `;
 
 export const UrlWrapper = styled.div`
-  display: block;
-  width: 300px;
+  width: 90%;
   height: 48px;
   padding: 15px;
   outline: none;
   color: ${theme.colors.gray04};
   ${theme.typography.regular01};
-  margin-right: 30px;
 `;
 
 export const UrlText = styled.div`
@@ -262,6 +261,11 @@ export const UrlText = styled.div`
 `;
 
 export const ClipBoardWrapper = styled.div`
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
   cursor: pointer;
 `;
 
