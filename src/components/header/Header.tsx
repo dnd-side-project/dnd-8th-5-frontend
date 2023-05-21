@@ -11,13 +11,11 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 const Header = ({ pageName, title }: { pageName: string; title: string }) => {
   const [isEmailRegistered, setIsEmailRegistered] = useRecoilState(emailState);
 
-  const roomUuidArray = window.location.href.split('/');
-  const roomUuid = roomUuidArray[roomUuidArray.length - 1];
+  const currentUrl = window.location.href;
 
   return (
     <Wrapper>
       <Title>{title.slice(0, 16)}</Title>
-
       {pageName === 'result' ? (
         isEmailRegistered ? (
           <Icon src={emailRegistered} alt="email registered" />
@@ -26,7 +24,7 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
         )
       ) : (
         <CopyToClipboard
-          text={`${process.env.REACT_APP_ROOM_PATH}/current/${roomUuid}`}
+          text={currentUrl}
           onCopy={() => alert('클립보드에 복사되었습니다.')}
         >
           <Icon src={share} alt="share" />
