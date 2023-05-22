@@ -1,10 +1,13 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { availableTimesState } from '../../atoms/availableTimesAtom';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 
-import addPrev from '../../assets/icons/addPrev.png';
-import addNext from '../../assets/icons/addNext.png';
+import addPrevDisable from '../../assets/icons/addPrevDisable.png';
+import addNextDisable from '../../assets/icons/addNextDisable.png';
+import addPrevActive from '../../assets/icons/addPrevActive.png';
+import addNextActive from '../../assets/icons/addNextActive.png';
+
 import guideIcon from '../../assets/icons/guide.png';
 import guideHandle from '../../assets/icons/guideHandle.png';
 import closeIcon from '../../assets/icons/close.png';
@@ -256,12 +259,16 @@ const AddTime = () => {
             <>
               <ButtonWrapper>
                 <MoveButton
-                  src={addPrev}
+                  src={tablePage === 0 ? addPrevDisable : addPrevActive}
                   alt="Prev Button"
                   onClick={handlePrevButtonClick}
                 />
                 <MoveButton
-                  src={addNext}
+                  src={
+                    tablePage !== validDateChunks.length - 1
+                      ? addNextActive
+                      : addNextDisable
+                  }
                   alt="Next Button"
                   onClick={handleNextButtonClick}
                 />

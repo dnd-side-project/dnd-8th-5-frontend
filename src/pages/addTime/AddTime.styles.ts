@@ -50,7 +50,7 @@ export const Main = styled.div`
 
 export const ButtonWrapper = styled.div`
   width: 100%;
-  padding: 0 15px;
+  padding: 0 20px;
 
   display: flex;
   justify-content: space-between;
@@ -61,8 +61,9 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const MoveButton = styled.img`
-  width: 45px;
-  height: 45px;
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
   border-radius: 50%;
   filter: drop-shadow(0px 3px 9px rgba(0, 0, 0, 0.1));
 
