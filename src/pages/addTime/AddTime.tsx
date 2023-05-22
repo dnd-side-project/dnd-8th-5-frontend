@@ -283,10 +283,12 @@ const AddTime = () => {
     if (e.cancelable) {
       e.preventDefault();
     }
+
     const touch = e.touches && e.touches[0];
-    if (!touch) return; // 예외 처리
+    if (!touch) return;
 
     const startY = touch.clientY;
+    console.timeLog(touch.clientY);
     setStartY(startY);
 
     document.addEventListener('touchmove', handleTouchMove, { passive: false });
@@ -306,6 +308,7 @@ const AddTime = () => {
     const maxHeight = sliderHeight - thumbHeight;
 
     let newTop = offsetY;
+
     if (newTop < 0) {
       newTop = 0;
     } else if (newTop > maxHeight) {
@@ -319,6 +322,20 @@ const AddTime = () => {
     document.removeEventListener('touchend', handleTouchEnd);
     document.removeEventListener('touchmove', handleTouchMove);
   };
+
+  useEffect(() => {
+    const preventPullToRefresh = (e: any) => {
+      e.preventDefault();
+    };
+
+    document.addEventListener('touchmove', preventPullToRefresh, {
+      passive: false,
+    });
+
+    return () => {
+      document.removeEventListener('touchmove', preventPullToRefresh);
+    };
+  }, []);
 
   return (
     <Wrapper>
@@ -363,6 +380,7 @@ const AddTime = () => {
                   ref={scrollbarThumbRef}
                   // style={{ top: `${topPosition}px` }}
                   style={{ top: `${offsetY}px` }}
+                  onMouseDown={handleMouseDown}
                   onTouchStart={handleTouchStart}
                   onTouchMove={handleTouchMove}
                   onTouchEnd={handleTouchEnd}

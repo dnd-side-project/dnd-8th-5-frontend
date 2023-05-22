@@ -3,16 +3,15 @@ import { keyframes } from '@emotion/react';
 import theme from '../../styles/theme';
 
 export const Wrapper = styled.div`
-  display: block;
+  /* display: block;
+  position: fixed;
   margin: 0 auto;
   left: 0;
-  right: 0;
+  right: 0; */
 
   width: 100%;
-  max-width: 412px;
+  max-width: 375px;
   height: 100%;
-
-  overflow: hidden;
 `;
 
 export const Body = styled.div`
@@ -51,7 +50,7 @@ export const Main = styled.div`
 
 export const ButtonWrapper = styled.div`
   width: 100%;
-  padding: 0 15px;
+  padding: 0 20px;
 
   display: flex;
   justify-content: space-between;
@@ -62,8 +61,9 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const MoveButton = styled.img`
-  width: 45px;
-  height: 45px;
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
   border-radius: 50%;
   filter: drop-shadow(0px 3px 9px rgba(0, 0, 0, 0.1));
 
@@ -78,6 +78,7 @@ export const TableWrapper = styled.div`
 
   -ms-overflow-style: none;
   scrollbar-width: none;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -88,7 +89,7 @@ export const ScrollbarTrack = styled.div`
   height: 160px;
   border-radius: 41px;
   background: ${theme.colors.gray02};
-  position: relative;
+  position: absolute;
   right: 29px;
   top: 52px;
 `;
@@ -111,7 +112,7 @@ export const Guide = styled.div`
   width: 100%;
   max-width: 412px;
   height: 100%;
-  z-index: 3;
+  z-index: 200;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
 `;
@@ -124,7 +125,6 @@ export const GuideIcon = styled.img`
   max-width: 412px;
   padding-inline: 10px;
   z-index: 5;
-  /* background-color: red; */
 `;
 
 export const handleFade = keyframes`
