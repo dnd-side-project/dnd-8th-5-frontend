@@ -31,7 +31,6 @@ import { useRecoilState } from 'recoil';
 import { roomState } from '../../atoms/roomAtoms';
 import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
-import { userNameState } from '../../atoms/userNameAtoms';
 import { availableBottomSheetState } from '../../atoms/availableBottomSheet';
 
 const Current = () => {
@@ -60,11 +59,11 @@ const Current = () => {
 
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);
-  const [userName, setUserName] = useRecoilState(userNameState);
 
   useEffect(() => {
     if (state !== null) {
       const { isRoomCreator } = state;
+
       if (recoilBottomSheet == true) {
         setIsAvailableBottomSheet(false);
       } else {
@@ -72,15 +71,12 @@ const Current = () => {
         setIsAvailableBottomSheet(isRoomCreator);
       }
     }
+
     const getRoomInfo = async () => {
       const { data } = await API.get(`/api/room/${roomUUID}`);
       setRoom(data);
     };
 
-    getRoomInfo();
-  }, []);
-
-  useEffect(() => {
     const getCurrentRoomInfo = async () => {
       const { data } = await API.get(
         `/api/room/${roomUUID}/available-time/group`
@@ -88,6 +84,7 @@ const Current = () => {
       setCurrentRoomState(data);
     };
 
+    getRoomInfo();
     getCurrentRoomInfo();
   }, []);
 
