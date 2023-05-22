@@ -45,7 +45,7 @@ import { userNameState } from '../../atoms/userNameAtoms';
 import { getThreeChunks } from '../../utils/getThreeChunks';
 
 const AddTime = () => {
-  const { roomUuid } = useParams();
+  const { roomUUID } = useParams();
 
   const [currentRoomState, setCurrentRoomState] = useState<any>([]);
   const [room, setRoom] = useState<RoomTypes>({
@@ -68,13 +68,13 @@ const AddTime = () => {
 
   useEffect(() => {
     const getRoomInfo = async () => {
-      const { data } = await API.get(`/api/room/${roomUuid}`);
+      const { data } = await API.get(`/api/room/${roomUUID}`);
       setRoom(data);
     };
 
     const getCurrentRoomInfo = async () => {
       const { data } = await API.get(
-        `/api/room/${roomUuid}/available-time/group`
+        `/api/room/${roomUUID}/available-time/group`
       );
 
       setCurrentRoomState(data);
@@ -126,7 +126,7 @@ const AddTime = () => {
 
   const navigate = useNavigate();
   const goToCurrent = () => {
-    navigate(`/current/${roomUuid}`);
+    navigate(`/current/${roomUUID}`);
   };
 
   const [selected, setSelected] = useState<string[]>([]);
@@ -134,7 +134,7 @@ const AddTime = () => {
   useEffect(() => {
     const getPreviousInfo = async () => {
       const { data } = await API.get(
-        `/api/room/${roomUuid}/available-time?name=${storedName || userName}`
+        `/api/room/${roomUUID}/available-time?name=${storedName || userName}`
       );
 
       setSelected(data.availableDateTimes);
@@ -160,7 +160,7 @@ const AddTime = () => {
 
       const putAvailableTime = async () => {
         await API.put(
-          `/api/room/${roomUuid}/available-time`,
+          `/api/room/${roomUUID}/available-time`,
           JSON.stringify(payload)
         );
       };
@@ -181,7 +181,7 @@ const AddTime = () => {
 
         const putAvailableTime = async () => {
           await API.put(
-            `/api/room/${roomUuid}/available-time`,
+            `/api/room/${roomUUID}/available-time`,
             JSON.stringify(payload)
           );
         };
@@ -198,7 +198,7 @@ const AddTime = () => {
 
         const putAvailableTime = async () => {
           await API.put(
-            `/api/room/${roomUuid}/available-time`,
+            `/api/room/${roomUUID}/available-time`,
             JSON.stringify(payload)
           );
         };

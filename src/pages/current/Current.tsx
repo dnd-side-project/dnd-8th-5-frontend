@@ -107,15 +107,18 @@ const Current = () => {
     useState<boolean>(false);
 
   const handleEditButtonClick = () => {
-    if (
-      (localStorage.getItem('name') === '' ||
-        localStorage.getItem('name') === null) &&
-      userName === ''
-    ) {
+    const userName = localStorage.getItem('name');
+
+    if ((userName === '' || userName === null) && userName === '') {
       navigate(`/login/${roomUUID}`);
     } else {
-      setSelectedMethod('possible');
-      navigate(`/add/${roomUUID}`);
+      if (localStorage.getItem('uuid') == roomUUID) {
+        setSelectedMethod('possible');
+        navigate(`/add/${roomUUID}`);
+      } else {
+        localStorage.clear();
+        navigate(`/login/${roomUUID}`);
+      }
     }
   };
 
