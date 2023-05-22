@@ -92,8 +92,9 @@ export const Edit = styled.div`
   height: 54px;
   border-radius: 50px;
 
+  border: 1px solid ${theme.colors.purple06};
   background: ${theme.colors.gray01};
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  filter: drop-shadow(0px 0px 15px rgba(0, 0, 0, 0.1));
 
   display: flex;
   align-items: center;

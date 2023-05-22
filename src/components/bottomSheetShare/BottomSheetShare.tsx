@@ -33,20 +33,11 @@ const BottomSheetShare = ({ roomUuid }: { roomUuid: string | undefined }) => {
 
   const onShareUrl = () => {
     if (navigator.share) {
-      navigator
-        .share({
-          title: '모두의 시간',
-          text: '지금 바로 모두 가능한 시간을 알아보세요!',
-          url: url,
-        })
-        .then(() => {
-          console.log('링크가 공유 되었습니다.');
-        })
-        .catch(() => {
-          console.log('오류가 발생했습니다.');
-        });
-    } else {
-      console.log('공유기능을 지원 하지않는 브라우저입니다.');
+      navigator.share({
+        title: '모두의 시간',
+        text: '지금 바로 모두 가능한 시간을 알아보세요!',
+        url: url,
+      });
     }
   };
 
@@ -54,9 +45,6 @@ const BottomSheetShare = ({ roomUuid }: { roomUuid: string | undefined }) => {
     <BottomSheetComponent
       open={open}
       blocking={true}
-      onSpringEnd={(e) => {
-        console.log(e);
-      }}
       onDismiss={onDismiss}
       snapPoints={({ minHeight }) => minHeight}
     >
