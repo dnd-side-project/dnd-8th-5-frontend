@@ -244,6 +244,82 @@ const AddTime = () => {
   const scrollbarTrackRef = useRef<HTMLDivElement>(null);
   const scrollbarThumbRef = useRef<HTMLDivElement>(null);
 
+  const [topPosition, setTopPosition] = useState(0);
+
+  const track = scrollbarTrackRef.current as HTMLDivElement;
+  const thumb = scrollbarThumbRef.current as HTMLDivElement;
+
+  const handleMouseDown = (e: any) => {
+    e.preventDefault();
+    const shiftY = e.clientY - thumb.getBoundingClientRect().top;
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+
+    function onMouseMove(event: MouseEvent) {
+      let newTop = event.clientY - shiftY - track.getBoundingClientRect().top;
+
+      if (newTop < 0) {
+        newTop = 0;
+      }
+      const bottomEdge = track.offsetHeight - thumb.offsetHeight;
+      if (newTop > bottomEdge) {
+        newTop = bottomEdge;
+      }
+
+      setTopPosition(newTop);
+    }
+
+    function onMouseUp() {
+      document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('mousemove', onMouseMove);
+    }
+  };
+
+  const [startY, setStartY] = useState(0);
+  const [offsetY, setOffsetY] = useState(0);
+
+  const handleTouchStart = (e: any) => {
+    if (e.cancelable) {
+      e.preventDefault();
+    }
+    const touch = e.touches && e.touches[0];
+    if (!touch) return; // 예외 처리
+
+    const startY = touch.clientY;
+    setStartY(startY);
+
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('touchend', handleTouchEnd);
+  };
+
+  const handleTouchMove = (e: any) => {
+    const touch = e.touches && e.touches[0];
+    if (!touch) return; // 예외 처리
+
+    const currentY = touch.clientY;
+    const offsetY = currentY - startY;
+    setOffsetY(offsetY);
+
+    const sliderHeight = track.offsetHeight;
+    const thumbHeight = thumb.offsetHeight;
+    const maxHeight = sliderHeight - thumbHeight;
+
+    let newTop = offsetY;
+    if (newTop < 0) {
+      newTop = 0;
+    } else if (newTop > maxHeight) {
+      newTop = maxHeight;
+    }
+
+    setOffsetY(newTop);
+  };
+
+  const handleTouchEnd = () => {
+    document.removeEventListener('touchend', handleTouchEnd);
+    document.removeEventListener('touchmove', handleTouchMove);
+  };
+
   return (
     <Wrapper>
       <Header pageName="addTime" title={title} />
@@ -283,7 +359,14 @@ const AddTime = () => {
                 />
               </TableWrapper>
               <ScrollbarTrack ref={scrollbarTrackRef}>
-                <ScrollbarThumb draggable ref={scrollbarThumbRef} />
+                <ScrollbarThumb
+                  ref={scrollbarThumbRef}
+                  // style={{ top: `${topPosition}px` }}
+                  style={{ top: `${offsetY}px` }}
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
+                />
               </ScrollbarTrack>
             </>
           ) : (
