@@ -110,7 +110,7 @@ export const Guide = styled.div`
   width: 100%;
   max-width: 412px;
   height: 100%;
-  z-index: 3;
+  z-index: 200;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
 `;

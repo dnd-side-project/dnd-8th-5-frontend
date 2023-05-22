@@ -1,7 +1,8 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { availableTimesState } from '../../atoms/availableTimesAtom';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
+import { availableGuideState } from '../../atoms/availableGuideAtoms';
 
 import addPrev from '../../assets/icons/addPrev.png';
 import addNext from '../../assets/icons/addNext.png';
@@ -58,13 +59,26 @@ const AddTime = () => {
     endTime: null,
   });
 
-  const [userName, setUserName] = useRecoilState(userNameState);
-  const storedName = localStorage.getItem('name');
+  const [tablePage, setTablePage] = useState(0);
+  const [isPageMoved, setIsPageMoved] = useState(false);
 
-  const showGuide = localStorage.getItem('availableShowGuide');
-  const [availableShowGuide, setAvailableShowGuide] = useState<boolean>(
-    Boolean(showGuide)
+  const [userName, setUserName] = useRecoilState(userNameState);
+  const [availableGuide, setAvailbleGuide] =
+    useRecoilState(availableGuideState);
+
+  const { title, dates, startTime, endTime } = room;
+
+  const [selectedMethod, setSelectedMethod] =
+    useRecoilState(selectedMethodState);
+  const [availableTimes, setAvailableTimes] =
+    useRecoilState(availableTimesState);
+
+  const validDateChunks = getChunks(
+    getValidDates(getThreeChunks(dates.sort()))
   );
+
+  const storedName = localStorage.getItem('name');
+  const showGuide = localStorage.getItem('availableShowGuide');
 
   useEffect(() => {
     const getRoomInfo = async () => {
@@ -82,21 +96,12 @@ const AddTime = () => {
 
     getRoomInfo();
     getCurrentRoomInfo();
+
+    if (!showGuide) {
+      throw new Error();
+    }
+    setAvailbleGuide(JSON.parse(showGuide));
   }, []);
-
-  const { title, dates, startTime, endTime } = room;
-
-  const [tablePage, setTablePage] = useState(0);
-  const [isPageMoved, setIsPageMoved] = useState(false);
-
-  const [selectedMethod, setSelectedMethod] =
-    useRecoilState(selectedMethodState);
-  const [availableTimes, setAvailableTimes] =
-    useRecoilState(availableTimesState);
-
-  const validDateChunks = getChunks(
-    getValidDates(getThreeChunks(dates.sort()))
-  );
 
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {
@@ -210,11 +215,11 @@ const AddTime = () => {
     goToCurrent();
   };
 
-  const handleGuideCloseClick = () => {
-    localStorage.setItem('availableShowGuide', 'true');
-    setAvailableShowGuide(true);
+  const handleGuideCloseClick = useCallback(() => {
+    localStorage.setItem('availableShowGuide', 'false');
+    setAvailbleGuide(false);
     return;
-  };
+  }, [availableGuide, showGuide]);
 
   const [times, setTimes] = useState<number[]>([]);
 
@@ -297,7 +302,7 @@ const AddTime = () => {
           isActivated={true}
         />
       </Body>
-      {!availableShowGuide && (
+      {availableGuide && (
         <Guide>
           <GuideIcon src={guideIcon} />
           <GuideHandleIcon src={guideHandle} />
