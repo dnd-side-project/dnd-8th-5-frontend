@@ -3,6 +3,7 @@ import { Icon, Title, Wrapper } from './Header.styles';
 import share from '../../assets/icons/share.svg';
 import emailDefault from '../../assets/icons/emailDefault.svg';
 import emailRegistered from '../../assets/icons/emailRegistered.svg';
+import headerInfo from '../../assets/icons/headerInfo.svg';
 
 import { useRecoilState } from 'recoil';
 import { emailState } from '../../atoms/emailAtoms';
@@ -17,13 +18,13 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
   return (
     <Wrapper>
       <Title>{title.slice(0, 16)}</Title>
-
       {pageName === 'result' ? (
-        isEmailRegistered ? (
-          <Icon src={emailRegistered} alt="email registered" />
-        ) : (
-          <Icon src={emailDefault} alt="email default" />
-        )
+        <Icon
+          src={isEmailRegistered ? emailRegistered : emailDefault}
+          alt="email registered"
+        />
+      ) : pageName === 'add' ? (
+        <Icon src={headerInfo} alt="share" />
       ) : (
         <CopyToClipboard
           text={`${process.env.REACT_APP_ROOM_PATH}/current/${roomUuid}`}

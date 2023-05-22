@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   right: 0;
 
   width: 100%;
-  max-width: 412px;
+  max-width: 375px;
   height: 100%;
 `;
 
