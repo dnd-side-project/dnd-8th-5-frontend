@@ -3,10 +3,10 @@ import theme from '../../styles/theme';
 import { slideUpAnimation } from '../../utils/slideUpAnimation';
 
 export const Overlay = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
 
-  position: absolute;
+  position: fixed;
   z-index: 3;
   top: 0;
   left: 0;
@@ -23,7 +23,7 @@ export const Wrapper = styled.div`
   border-radius: 12px 12px 0 0;
   background: ${theme.colors.gray01};
 
-  position: absolute;
+  position: fixed;
   z-index: 4;
   bottom: 0;
 

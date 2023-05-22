@@ -11,45 +11,18 @@ import {
   Wrapper,
 } from './Table.styles';
 import { getRange } from '../../utils/getRange';
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { API } from '../../utils/API';
 
-const Table = ({ dates, participants, startTime, endTime }: any) => {
-  const times = getRange(
+const Table = ({
+  currentroomState,
+  dates,
+  participants,
+  startTime,
+  endTime,
+}: any) => {
+  const timeRange = getRange(
     parseInt(startTime.slice(0, 2)),
     parseInt(endTime.slice(0, 2))
   );
-
-  console.log('partici: ', participants);
-  const { roomUUID } = useParams();
-
-  const [current, setCurrent] = useState<any>({
-    availableDateTimes: [
-      {
-        availableDate: '2023-02-20',
-        availableTimeInfos: [
-          {
-            time: '09:00',
-            count: 0,
-          },
-        ],
-      },
-    ],
-  });
-
-  useEffect(() => {
-    const getCurrentInfo = async () => {
-      const { data } = await API.get(
-        `/api/room/${roomUUID}/available-time/group`
-      );
-      setCurrent(data);
-    };
-
-    getCurrentInfo();
-  }, []);
-
-  const { availableDateTimes } = current;
 
   return (
     <Wrapper>
@@ -67,25 +40,23 @@ const Table = ({ dates, participants, startTime, endTime }: any) => {
 
       <Bottom>
         <TimeWrapper>
-          {times.map((time) => (
+          {timeRange.map((time) => (
             <Time key={time}>{time}</Time>
           ))}
         </TimeWrapper>
 
-        {availableDateTimes.map(
-          ({ availableDate, availableTimeInfos }: any) => (
-            <SelectWrapper key={availableDate}>
-              {availableTimeInfos.map(({ time, count }: any) => (
-                <Select
-                  key={`${availableDate} ${time}`}
-                  opacity={
-                    participants.length === 0 ? 0 : count / participants.length
-                  }
-                />
-              ))}
-            </SelectWrapper>
-          )
-        )}
+        {currentroomState.map(({ availableDate, availableTimeInfos }: any) => (
+          <SelectWrapper key={availableDate}>
+            {availableTimeInfos.map(({ time, count }: any) => (
+              <Select
+                key={`${availableDate} ${time}`}
+                opacity={
+                  participants.length === 0 ? 0 : count / participants.length
+                }
+              />
+            ))}
+          </SelectWrapper>
+        ))}
       </Bottom>
     </Wrapper>
   );

@@ -63,8 +63,9 @@ const Current = () => {
   const [userName, setUserName] = useRecoilState(userNameState);
 
   useEffect(() => {
-    if (state !== null) {
+    if (state) {
       const { isRoomCreator } = state;
+
       if (recoilBottomSheet == true) {
         setIsAvailableBottomSheet(false);
       } else {
@@ -72,6 +73,7 @@ const Current = () => {
         setIsAvailableBottomSheet(isRoomCreator);
       }
     }
+
     const getRoomInfo = async () => {
       const { data } = await API.get(`/api/room/${roomUUID}`);
       setRoom(data);
@@ -89,7 +91,7 @@ const Current = () => {
     };
 
     getCurrentRoomInfo();
-  }, []);
+  }, [currentRoomState]);
 
   const { availableDateTimes } = currentRoomState;
 
@@ -107,15 +109,16 @@ const Current = () => {
     useState<boolean>(false);
 
   const handleEditButtonClick = () => {
-    if (
-      (localStorage.getItem('name') === '' ||
-        localStorage.getItem('name') === null) &&
-      userName === ''
-    ) {
+    const savedUserName = localStorage.getItem('name');
+    const savedRoomUUID = localStorage.getItem('uuid');
+
+    if ((savedUserName === '' || savedUserName === null) && userName === '') {
       navigate(`/login/${roomUUID}`);
     } else {
-      setSelectedMethod('possible');
-      navigate(`/add/${roomUUID}`);
+      if (roomUUID === savedRoomUUID) {
+        setSelectedMethod('possible');
+        navigate(`/add/${roomUUID}`);
+      } else navigate(`/login/${roomUUID}`);
     }
   };
 
@@ -153,6 +156,7 @@ const Current = () => {
               startTime={startTime}
               endTime={endTime}
               participants={participants}
+              currentroomState={currentRoomState.availableDateTimes}
             />
           </TableWrapper>
         ) : (
@@ -174,7 +178,7 @@ const Current = () => {
         />
       </BottomWrapper>
 
-      {isAvailableBottomSheet ? <BottomSheetShare roomUuid={roomUUID} /> : null}
+      {isAvailableBottomSheet && <BottomSheetShare roomUuid={roomUUID} />}
     </Wrapper>
   );
 };

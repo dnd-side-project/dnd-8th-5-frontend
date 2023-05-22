@@ -3,7 +3,7 @@ import { Icon, Title, Wrapper } from './Header.styles';
 import share from '../../assets/icons/share.svg';
 import emailDefault from '../../assets/icons/emailDefault.svg';
 import emailRegistered from '../../assets/icons/emailRegistered.svg';
-import infoCircle from '../../assets/icons/InfoCircle.svg';
+import headerInfo from '../../assets/icons/headerInfo.svg';
 
 import { useRecoilState } from 'recoil';
 import { emailState } from '../../atoms/emailAtoms';
@@ -29,7 +29,7 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
       case 'addTime':
         return (
           <Icon
-            src={infoCircle}
+            src={headerInfo}
             alt="share"
             onClick={() => setAvailbleGuide(true)}
           />
