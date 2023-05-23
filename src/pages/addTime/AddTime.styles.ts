@@ -3,11 +3,11 @@ import { keyframes } from '@emotion/react';
 import theme from '../../styles/theme';
 
 export const Wrapper = styled.div`
-  /* display: block;
+  display: block;
   position: fixed;
   margin: 0 auto;
   left: 0;
-  right: 0; */
+  right: 0;
 
   width: 100%;
   max-width: 375px;

@@ -241,6 +241,7 @@ const AddTime = () => {
 
   /* scrollbar */
   const contentRef = useRef<HTMLDivElement>(null);
+
   const scrollbarTrackRef = useRef<HTMLDivElement>(null);
   const scrollbarThumbRef = useRef<HTMLDivElement>(null);
 
@@ -249,8 +250,12 @@ const AddTime = () => {
   const track = scrollbarTrackRef.current as HTMLDivElement;
   const thumb = scrollbarThumbRef.current as HTMLDivElement;
 
+  const [dragMethod, setDragMethod] = useState<string>('touch');
+
   const handleMouseDown = (e: any) => {
     e.preventDefault();
+    setDragMethod('mouse');
+
     const shiftY = e.clientY - thumb.getBoundingClientRect().top;
 
     document.addEventListener('mousemove', onMouseMove);
@@ -280,27 +285,25 @@ const AddTime = () => {
   const [offsetY, setOffsetY] = useState(0);
 
   const handleTouchStart = (e: any) => {
-    if (e.cancelable) {
-      e.preventDefault();
-    }
+    setDragMethod('touch');
 
     const touch = e.touches && e.touches[0];
     if (!touch) return;
 
     const startY = touch.clientY;
-    console.timeLog(touch.clientY);
     setStartY(startY);
 
-    document.addEventListener('touchmove', handleTouchMove, { passive: false });
     document.addEventListener('touchend', handleTouchEnd);
   };
 
   const handleTouchMove = (e: any) => {
     const touch = e.touches && e.touches[0];
-    if (!touch) return; // 예외 처리
+    if (!touch || !track) return;
 
     const currentY = touch.clientY;
     const offsetY = currentY - startY;
+    // console.log(currentY, startY);
+
     setOffsetY(offsetY);
 
     const sliderHeight = track.offsetHeight;
@@ -324,17 +327,7 @@ const AddTime = () => {
   };
 
   useEffect(() => {
-    const preventPullToRefresh = (e: any) => {
-      e.preventDefault();
-    };
-
-    document.addEventListener('touchmove', preventPullToRefresh, {
-      passive: false,
-    });
-
-    return () => {
-      document.removeEventListener('touchmove', preventPullToRefresh);
-    };
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
   }, []);
 
   return (
@@ -378,8 +371,11 @@ const AddTime = () => {
               <ScrollbarTrack ref={scrollbarTrackRef}>
                 <ScrollbarThumb
                   ref={scrollbarThumbRef}
-                  // style={{ top: `${topPosition}px` }}
-                  style={{ top: `${offsetY}px` }}
+                  style={
+                    dragMethod === 'touch'
+                      ? { top: `${offsetY}px` }
+                      : { top: `${topPosition}px` }
+                  }
                   onMouseDown={handleMouseDown}
                   onTouchStart={handleTouchStart}
                   onTouchMove={handleTouchMove}
