@@ -61,6 +61,8 @@ const TimerPage = () => {
   }
 
   const roomInfo = async () => {
+    console.log(recoilRoom);
+
     try {
       const response = await API.post(`/api/room`, recoilRoom);
       navigate(`/current/${response.data.roomUuid}`, {

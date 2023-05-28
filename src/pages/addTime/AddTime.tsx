@@ -76,7 +76,6 @@ const AddTime = () => {
       const { data } = await API.get(
         `/api/room/${roomUUID}/available-time/group`
       );
-
       setCurrentRoomState(data);
     };
 
@@ -136,7 +135,6 @@ const AddTime = () => {
       const { data } = await API.get(
         `/api/room/${roomUUID}/available-time?name=${storedName || userName}`
       );
-
       setSelected(data.availableDateTimes);
     };
 
@@ -239,99 +237,110 @@ const AddTime = () => {
     .reduce((acc, cur) => acc.concat(cur), [])
     .filter(Boolean);
 
-  /* scrollbar */
+  // 스크롤바
+  const contentWrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const thumbRef = useRef<HTMLDivElement>(null);
 
-  const scrollbarTrackRef = useRef<HTMLDivElement>(null);
-  const scrollbarThumbRef = useRef<HTMLDivElement>(null);
+  const [offsetY, setOffsetY] = useState<number>(0);
 
-  const [topPosition, setTopPosition] = useState(0);
-
-  const track = scrollbarTrackRef.current as HTMLDivElement;
-  const thumb = scrollbarThumbRef.current as HTMLDivElement;
-
-  const [dragMethod, setDragMethod] = useState<string>('touch');
-
-  const handleMouseDown = (e: any) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
-    setDragMethod('mouse');
+
+    const track = trackRef.current as HTMLDivElement;
+    const thumb = thumbRef.current as HTMLDivElement;
+
+    if (!thumb || !track) return;
 
     const shiftY = e.clientY - thumb.getBoundingClientRect().top;
 
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-
-    function onMouseMove(event: MouseEvent) {
-      let newTop = event.clientY - shiftY - track.getBoundingClientRect().top;
-
-      if (newTop < 0) {
-        newTop = 0;
-      }
+    const onMouseMove = (e: MouseEvent) => {
+      const newTop = e.clientY - shiftY - track.getBoundingClientRect().top;
       const bottomEdge = track.offsetHeight - thumb.offsetHeight;
-      if (newTop > bottomEdge) {
-        newTop = bottomEdge;
-      }
 
-      setTopPosition(newTop);
-    }
+      const updatedOffsetY = Math.min(Math.max(0, newTop), bottomEdge);
+      setOffsetY(updatedOffsetY);
+    };
 
-    function onMouseUp() {
+    const onMouseUp = () => {
       document.removeEventListener('mouseup', onMouseUp);
       document.removeEventListener('mousemove', onMouseMove);
-    }
+    };
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
   };
 
-  const [startY, setStartY] = useState(0);
-  const [offsetY, setOffsetY] = useState(0);
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    const track = trackRef.current as HTMLDivElement;
+    const thumb = thumbRef.current as HTMLDivElement;
 
-  const handleTouchStart = (e: any) => {
-    setDragMethod('touch');
+    if (!thumb || !track) return;
 
-    const touch = e.touches && e.touches[0];
-    if (!touch) return;
+    const shiftY = e.touches[0].clientY - thumb.getBoundingClientRect().top;
 
-    const startY = touch.clientY;
-    setStartY(startY);
+    const onTouchMove = (e: TouchEvent) => {
+      const newTop =
+        e.touches[0].clientY - shiftY - track.getBoundingClientRect().top;
+      const bottomEdge = track.offsetHeight - thumb.offsetHeight;
 
-    document.addEventListener('touchend', handleTouchEnd);
+      const updatedOffsetY = Math.min(Math.max(0, newTop), bottomEdge);
+      setOffsetY(updatedOffsetY);
+    };
+
+    const onTouchEnd = () => {
+      document.removeEventListener('touchend', onTouchEnd);
+      document.removeEventListener('touchmove', onTouchMove);
+    };
+
+    document.addEventListener('touchmove', onTouchMove);
+    document.addEventListener('touchend', onTouchEnd);
   };
 
-  const handleTouchMove = (e: any) => {
-    const touch = e.touches && e.touches[0];
-    if (!touch || !track) return;
-
-    const currentY = touch.clientY;
-    const offsetY = currentY - startY;
-    // console.log(currentY, startY);
-
-    setOffsetY(offsetY);
-
-    const sliderHeight = track.offsetHeight;
-    const thumbHeight = thumb.offsetHeight;
-    const maxHeight = sliderHeight - thumbHeight;
-
-    let newTop = offsetY;
-
-    if (newTop < 0) {
-      newTop = 0;
-    } else if (newTop > maxHeight) {
-      newTop = maxHeight;
-    }
-
-    setOffsetY(newTop);
-  };
-
-  const handleTouchEnd = () => {
-    document.removeEventListener('touchend', handleTouchEnd);
-    document.removeEventListener('touchmove', handleTouchMove);
+  const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
   };
 
   useEffect(() => {
-    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    const contentWrapper = contentWrapperRef.current as HTMLDivElement;
+    const content = contentRef.current as HTMLDivElement;
+    const track = trackRef.current as HTMLDivElement;
+    const thumb = thumbRef.current as HTMLDivElement;
+
+    if (contentWrapper && content && track) {
+      const maxScrollTop =
+        contentWrapper.scrollHeight - contentWrapper.clientHeight;
+      const ratio = offsetY / (track.scrollHeight - thumb.scrollHeight);
+
+      const newScrollTop = ratio * maxScrollTop;
+
+      contentWrapper.scrollTop = newScrollTop;
+    }
+  }, [offsetY, trackRef, contentRef]);
+
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current as HTMLDivElement;
+
+    const preventPullToRefresh = (e: any) => {
+      e.preventDefault();
+    };
+
+    if (wrapper) {
+      wrapper.addEventListener('touchmove', preventPullToRefresh, {
+        passive: false,
+      });
+    }
+
+    return () => {
+      wrapper.removeEventListener('touchmove', preventPullToRefresh);
+    };
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper ref={wrapperRef}>
       <Header pageName="addTime" title={title} />
       <Body>
         <TitleWrapper>
@@ -357,7 +366,7 @@ const AddTime = () => {
                   onClick={handleNextButtonClick}
                 />
               </ButtonWrapper>
-              <TableWrapper>
+              <TableWrapper ref={contentWrapperRef}>
                 <AddTable
                   contentRef={contentRef}
                   selected={selected}
@@ -368,18 +377,13 @@ const AddTime = () => {
                   validDateChunks={validDateChunks}
                 />
               </TableWrapper>
-              <ScrollbarTrack ref={scrollbarTrackRef}>
+              <ScrollbarTrack ref={trackRef}>
                 <ScrollbarThumb
-                  ref={scrollbarThumbRef}
-                  style={
-                    dragMethod === 'touch'
-                      ? { top: `${offsetY}px` }
-                      : { top: `${topPosition}px` }
-                  }
+                  ref={thumbRef}
+                  offsetY={offsetY}
                   onMouseDown={handleMouseDown}
+                  onDragStart={handleDragStart}
                   onTouchStart={handleTouchStart}
-                  onTouchMove={handleTouchMove}
-                  onTouchEnd={handleTouchEnd}
                 />
               </ScrollbarTrack>
             </>

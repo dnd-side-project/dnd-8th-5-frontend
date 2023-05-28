@@ -14,6 +14,7 @@ import { getRange } from '../../utils/getRange';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { API } from '../../utils/API';
+import { getFourChunks } from '../../utils/getFourChunks';
 
 const Table = ({ dates, participants, startTime, endTime }: any) => {
   const times = getRange(
