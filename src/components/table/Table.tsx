@@ -24,8 +24,6 @@ const Table = ({
     parseInt(endTime.slice(0, 2))
   );
 
-  console.log(startTime, endTime);
-
   return (
     <Wrapper>
       <Top>

@@ -343,9 +343,9 @@ const AddTime = () => {
     }
 
     return () => {
-      wrapper.removeEventListener('touchmove', preventPullToRefresh);
+      wrapper?.removeEventListener('touchmove', preventPullToRefresh);
     };
-  }, []);
+  }, [wrapperRef.current]);
 
   return (
     <Wrapper>

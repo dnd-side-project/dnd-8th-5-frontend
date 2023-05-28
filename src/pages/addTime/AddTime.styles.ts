@@ -76,7 +76,7 @@ export const TableWrapper = styled.div`
   padding-bottom: 32px;
   margin: 0 auto;
   position: relative;
-  height: 360px;
+  height: 388px;
 
   overflow: hidden;
 `;
