@@ -68,7 +68,7 @@ export const DependingBox = styled.div`
 export const CheckBoxContainer = styled.div`
   position: absolute;
   width: 100%;
-  height: 152px;
+  height: 200px;
   top: 625px;
   padding: 20px;
   padding-bottom: 50px;

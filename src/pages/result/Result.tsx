@@ -30,6 +30,11 @@ import { API } from '../../utils/API';
 import SelectParticipants from '../../components/selectParticipants/SelectParticipants';
 import SortTimes from '../../components/selectParticipants/SortTimes';
 
+interface FilteredParticipantsTypes {
+  name: string;
+  isSelected: boolean;
+}
+
 const Result = () => {
   const { roomUUID } = useParams();
 
@@ -41,10 +46,7 @@ const Result = () => {
   const [selectedTimeId, setSelectedTimeId] = useState('');
   const [selectedList, setSelectedList] = useState<string[]>([]);
   const [filteredParticipants, setFilteredParticipants] = useState<
-    {
-      name: string;
-      isSelected: boolean;
-    }[]
+    FilteredParticipantsTypes[]
   >([]);
 
   const [nameQS, setNameQS] = useState<string>('');

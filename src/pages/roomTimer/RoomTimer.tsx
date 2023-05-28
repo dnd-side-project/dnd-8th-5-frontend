@@ -60,9 +60,7 @@ const TimerPage = () => {
     title: string;
   }
 
-  const roomInfo = async () => {
-    console.log(recoilRoom);
-
+  const postRoomInfo = async () => {
     try {
       const response = await API.post(`/api/room`, recoilRoom);
       navigate(`/current/${response.data.roomUuid}`, {
@@ -87,11 +85,11 @@ const TimerPage = () => {
       isClickedRecommend.indexOf(true) >= 0 ||
       isChecked
     ) {
-      roomInfo();
+      postRoomInfo();
     }
   }, [recoilRoom]);
 
-  const onClickRecommendBox = useCallback(
+  const handleClickRecommendBox = useCallback(
     (idx: number) => {
       setIsClickedRecommend((prev) =>
         prev.map((element, index) => {
@@ -104,7 +102,7 @@ const TimerPage = () => {
 
   const allZero = day === 0 && hour === 0 && minute === 0;
 
-  const onSetRecoilState = useCallback(() => {
+  const handleClickCompleteButton = useCallback(() => {
     let recommendDay = day;
     let recommendHour = hour;
     let recommendMinute = minute;
@@ -138,27 +136,24 @@ const TimerPage = () => {
     setRecoilRoom((prev) => {
       return {
         ...prev,
-        ['timer']: isChecked
+        timer: isChecked
           ? null
           : {
-              day:
-                isChecked || allZero
-                  ? null
-                  : isClickedRecommend.indexOf(true) >= 0
-                  ? recommendDay
-                  : day,
-              hour:
-                isChecked || allZero
-                  ? null
-                  : isClickedRecommend.indexOf(true) >= 0
-                  ? recommendHour
-                  : hour,
-              minute:
-                isChecked || allZero
-                  ? null
-                  : isClickedRecommend.indexOf(true) >= 0
-                  ? recommendMinute
-                  : minute,
+              day: isChecked
+                ? null
+                : isClickedRecommend.indexOf(true) >= 0
+                ? recommendDay
+                : day,
+              hour: isChecked
+                ? null
+                : isClickedRecommend.indexOf(true) >= 0
+                ? recommendHour
+                : hour,
+              minute: isChecked
+                ? null
+                : isClickedRecommend.indexOf(true) >= 0
+                ? recommendMinute
+                : minute,
             },
       };
     });
@@ -200,7 +195,7 @@ const TimerPage = () => {
           {RecommendArray.map((item: string, index: number) => {
             return (
               <RecommendBox
-                onClick={() => onClickRecommendBox(index)}
+                onClick={() => handleClickRecommendBox(index)}
                 key={item}
                 value={isClickedRecommend[index]}
                 isChecked={isChecked}
@@ -218,7 +213,7 @@ const TimerPage = () => {
           />
         </CheckboxWrapper>
       </BottomContainer>
-      <BottomButtonContainer onClick={onSetRecoilState}>
+      <BottomButtonContainer onClick={handleClickCompleteButton}>
         <BottomButton
           text="완료하기"
           isActivated={

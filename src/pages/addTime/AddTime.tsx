@@ -1,10 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { availableTimesState } from '../../atoms/availableTimesAtom';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
+import { availableGuideState } from '../../atoms/availableGuideAtoms';
 
-import addPrev from '../../assets/icons/addPrev.png';
-import addNext from '../../assets/icons/addNext.png';
+import addPrevDisable from '../../assets/icons/addPrevDisable.png';
+import addNextDisable from '../../assets/icons/addNextDisable.png';
+import addPrevActive from '../../assets/icons/addPrevActive.png';
+import addNextActive from '../../assets/icons/addNextActive.png';
+
 import guideIcon from '../../assets/icons/guide.png';
 import guideHandle from '../../assets/icons/guideHandle.png';
 import closeIcon from '../../assets/icons/close.png';
@@ -58,13 +62,26 @@ const AddTime = () => {
     endTime: null,
   });
 
-  const [userName, setUserName] = useRecoilState(userNameState);
-  const storedName = localStorage.getItem('name');
+  const [tablePage, setTablePage] = useState(0);
+  const [isPageMoved, setIsPageMoved] = useState(false);
 
-  const showGuide = localStorage.getItem('availableShowGuide');
-  const [availableShowGuide, setAvailableShowGuide] = useState<boolean>(
-    Boolean(showGuide)
+  const [userName, setUserName] = useRecoilState(userNameState);
+  const [availableGuide, setAvailbleGuide] =
+    useRecoilState(availableGuideState);
+
+  const { title, dates, startTime, endTime } = room;
+
+  const [selectedMethod, setSelectedMethod] =
+    useRecoilState(selectedMethodState);
+  const [availableTimes, setAvailableTimes] =
+    useRecoilState(availableTimesState);
+
+  const validDateChunks = getChunks(
+    getValidDates(getThreeChunks(dates.sort()))
   );
+
+  const storedName = localStorage.getItem('name');
+  const showGuide = localStorage.getItem('availableShowGuide');
 
   useEffect(() => {
     const getRoomInfo = async () => {
@@ -81,21 +98,12 @@ const AddTime = () => {
 
     getRoomInfo();
     getCurrentRoomInfo();
+
+    if (!showGuide) {
+      throw new Error();
+    }
+    setAvailbleGuide(JSON.parse(showGuide));
   }, []);
-
-  const { title, dates, startTime, endTime } = room;
-
-  const [tablePage, setTablePage] = useState(0);
-  const [isPageMoved, setIsPageMoved] = useState(false);
-
-  const [selectedMethod, setSelectedMethod] =
-    useRecoilState(selectedMethodState);
-  const [availableTimes, setAvailableTimes] =
-    useRecoilState(availableTimesState);
-
-  const validDateChunks = getChunks(
-    getValidDates(getThreeChunks(dates.sort()))
-  );
 
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {
@@ -208,11 +216,11 @@ const AddTime = () => {
     goToCurrent();
   };
 
-  const handleGuideCloseClick = () => {
-    localStorage.setItem('availableShowGuide', 'true');
-    setAvailableShowGuide(true);
+  const handleGuideCloseClick = useCallback(() => {
+    localStorage.setItem('availableShowGuide', 'false');
+    setAvailbleGuide(false);
     return;
-  };
+  }, [availableGuide, showGuide]);
 
   const [times, setTimes] = useState<number[]>([]);
 
@@ -340,7 +348,7 @@ const AddTime = () => {
   }, []);
 
   return (
-    <Wrapper ref={wrapperRef}>
+    <Wrapper>
       <Header pageName="addTime" title={title} />
       <Body>
         <TitleWrapper>
@@ -356,12 +364,16 @@ const AddTime = () => {
             <>
               <ButtonWrapper>
                 <MoveButton
-                  src={addPrev}
+                  src={tablePage === 0 ? addPrevDisable : addPrevActive}
                   alt="Prev Button"
                   onClick={handlePrevButtonClick}
                 />
                 <MoveButton
-                  src={addNext}
+                  src={
+                    tablePage !== validDateChunks.length - 1
+                      ? addNextActive
+                      : addNextDisable
+                  }
                   alt="Next Button"
                   onClick={handleNextButtonClick}
                 />
@@ -404,7 +416,7 @@ const AddTime = () => {
           isActivated={true}
         />
       </Body>
-      {!availableShowGuide && (
+      {availableGuide && (
         <Guide>
           <GuideIcon src={guideIcon} />
           <GuideHandleIcon src={guideHandle} />

@@ -31,6 +31,7 @@ import { useRecoilState } from 'recoil';
 import { roomState } from '../../atoms/roomAtoms';
 import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
+import { userNameState } from '../../atoms/userNameAtoms';
 import { availableBottomSheetState } from '../../atoms/availableBottomSheet';
 
 const Current = () => {
@@ -49,7 +50,7 @@ const Current = () => {
         availableDate: '',
         availableTimeInfos: [
           {
-            time: '',
+            time: null,
             count: 0,
           },
         ],
@@ -59,9 +60,10 @@ const Current = () => {
 
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);
+  const [userName, setUserName] = useRecoilState(userNameState);
 
   useEffect(() => {
-    if (state !== null) {
+    if (state) {
       const { isRoomCreator } = state;
 
       if (recoilBottomSheet == true) {
@@ -77,6 +79,10 @@ const Current = () => {
       setRoom(data);
     };
 
+    getRoomInfo();
+  }, []);
+
+  useEffect(() => {
     const getCurrentRoomInfo = async () => {
       const { data } = await API.get(
         `/api/room/${roomUUID}/available-time/group`
@@ -84,9 +90,8 @@ const Current = () => {
       setCurrentRoomState(data);
     };
 
-    getRoomInfo();
     getCurrentRoomInfo();
-  }, []);
+  }, [currentRoomState]);
 
   const { availableDateTimes } = currentRoomState;
 
@@ -104,18 +109,16 @@ const Current = () => {
     useState<boolean>(false);
 
   const handleEditButtonClick = () => {
-    const userName = localStorage.getItem('name');
+    const savedUserName = localStorage.getItem('name');
+    const savedRoomUUID = localStorage.getItem('uuid');
 
-    if ((userName === '' || userName === null) && userName === '') {
+    if ((savedUserName === '' || savedUserName === null) && userName === '') {
       navigate(`/login/${roomUUID}`);
     } else {
-      if (localStorage.getItem('uuid') == roomUUID) {
+      if (roomUUID === savedRoomUUID) {
         setSelectedMethod('possible');
         navigate(`/add/${roomUUID}`);
-      } else {
-        localStorage.clear();
-        navigate(`/login/${roomUUID}`);
-      }
+      } else navigate(`/login/${roomUUID}`);
     }
   };
 
@@ -127,11 +130,11 @@ const Current = () => {
     <Wrapper>
       <Header pageName="current" title={title} />
       <Body>
-        {deadLine && <Timer deadLine={deadLine} />}
+        {/* {deadLine && <Timer deadLine={deadLine} />} */}
         <Title>실시간 참여 현황</Title>
         <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
 
-        {headCount && (
+        {!headCount && (
           <ProgressBar headCount={headCount} participants={participants} />
         )}
         <Participants>
@@ -153,6 +156,7 @@ const Current = () => {
               startTime={startTime}
               endTime={endTime}
               participants={participants}
+              currentroomState={currentRoomState.availableDateTimes}
             />
           </TableWrapper>
         ) : (
@@ -174,7 +178,7 @@ const Current = () => {
         />
       </BottomWrapper>
 
-      {isAvailableBottomSheet ? <BottomSheetShare roomUuid={roomUUID} /> : null}
+      {isAvailableBottomSheet && <BottomSheetShare roomUuid={roomUUID} />}
     </Wrapper>
   );
 };
