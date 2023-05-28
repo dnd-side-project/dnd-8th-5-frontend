@@ -91,7 +91,7 @@ const Current = () => {
     };
 
     getCurrentRoomInfo();
-  }, [currentRoomState]);
+  }, []);
 
   const { availableDateTimes } = currentRoomState;
 
