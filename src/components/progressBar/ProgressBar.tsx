@@ -18,7 +18,7 @@ import rabbit3060 from '../../assets/images/rabbit3060.png';
 
 const ProgressBar = ({ headCount, participants }: currentParticipants) => {
   // const progress = (headCount && participants.length / headCount) || 0;
-  const progress = (headCount && 1 / headCount) || 0;
+  const progress = (headCount && 2 / headCount) || 0;
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
@@ -70,7 +70,7 @@ const ProgressBar = ({ headCount, participants }: currentParticipants) => {
           ref={barRef}
           headCount={headCount || 0}
           // participantsNumber={participants.length}
-          participantsNumber={1}
+          participantsNumber={2}
         />
       </BarWrapper>
     </Wrapper>
