@@ -11,19 +11,30 @@ import { emailState } from '../../atoms/emailAtoms';
 import { availableGuideState } from '../../atoms/availableGuideAtoms';
 
 import CopyToClipboard from 'react-copy-to-clipboard';
+import Menu from '../menu/Menu';
+import { useState } from 'react';
 
 const Header = ({ pageName, title }: { pageName: string; title: string }) => {
   const [isEmailRegistered, setIsEmailRegistered] = useRecoilState(emailState);
   const [availableGuide, setAvailbleGuide] =
     useRecoilState(availableGuideState);
 
+  const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
+
+  const handleMenuClick = () => {
+    setIsMenuOpened(true);
+  };
+
   const currentUrl = window.location.href;
 
   return (
     <Wrapper>
       <Title>{title.slice(0, 16)}</Title>
+
       <IconWrapper pageName={pageName}>
-        {pageName !== 'addTime' && <Icon src={headerMenu} alt="menu" />}
+        {pageName !== 'addTime' && (
+          <Icon src={headerMenu} alt="menu" onClick={handleMenuClick} />
+        )}
 
         {pageName === 'addTime' && (
           <Icon
@@ -49,6 +60,8 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
           </CopyToClipboard>
         )}
       </IconWrapper>
+
+      {isMenuOpened && <Menu setIsMenuOpened={setIsMenuOpened} />}
     </Wrapper>
   );
 };
