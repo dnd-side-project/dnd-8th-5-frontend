@@ -3,6 +3,7 @@ import theme from '../../styles/theme';
 
 export const Wrapper = styled.div`
   display: inline-block;
+  margin-bottom: 60px;
 
   overflow: hidden;
   color: ${theme.colors.gray06};
