@@ -18,6 +18,8 @@ export const Top = styled.div`
 
   height: 36px;
   border-bottom: 1px solid ${theme.colors.tableBorder};
+
+  overflow: hidden;
 `;
 
 export const Bottom = styled.div`
@@ -40,7 +42,7 @@ export const DateWrapper = styled.div`
   height: 36px;
 `;
 
-export const Date = styled.div`
+export const Date = styled.div<{ isBlank: boolean }>`
   width: 88px;
   height: 36px;
 
@@ -50,9 +52,15 @@ export const Date = styled.div`
 
   color: ${theme.colors.gray06};
   ${theme.typography.medium02};
+  overflow: hidden;
 
-  & + & {
-    border-left: 1px solid ${theme.colors.tableBorder};
+  background: ${({ isBlank }) =>
+    isBlank ? theme.colors.gray02 : theme.colors.gray01};
+
+  border-left: 1px solid ${theme.colors.tableBorder};
+
+  &:first-of-type {
+    border-left: none;
   }
 `;
 
@@ -85,12 +93,17 @@ export const SelectWrapper = styled.div`
   }
 `;
 
-export const Select = styled.div<{ opacity: number }>`
+export const Select = styled.div<{ count: number; total: number }>`
   width: 88px;
   height: 19px;
   box-sizing: content-box;
 
-  background-color: ${({ opacity }) => `rgba( 106, 123, 255,  ${opacity})`};
+  background-color: ${({ count, total }) =>
+    count === -1
+      ? theme.colors.gray02
+      : total === 0
+      ? 0
+      : `rgba( 106, 123, 255,  ${count / total})`};
 
   &:nth-of-type(odd) {
     border-bottom: 1px dashed ${theme.colors.tableBorder};

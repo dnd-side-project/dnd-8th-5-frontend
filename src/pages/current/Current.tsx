@@ -33,6 +33,9 @@ import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 import { userNameState } from '../../atoms/userNameAtoms';
 import { availableBottomSheetState } from '../../atoms/availableBottomSheet';
+import { getFourChunks } from '../../utils/getFourChunks';
+import { getCurrentTableInfo } from '../../utils/getCurrentTableInfo';
+import { getRange } from '../../utils/getRange';
 
 const Current = () => {
   const { roomUUID } = useParams();
@@ -152,11 +155,15 @@ const Current = () => {
         {startTime !== null && endTime !== null ? (
           <TableWrapper>
             <Table
-              dates={dates}
-              startTime={startTime}
-              endTime={endTime}
+              dates={dates.length < 4 ? getFourChunks(dates) : dates}
+              // startTime={startTime}
+              // endTime={endTime}
+              times={getRange(
+                parseInt(startTime.slice(0, 2)),
+                parseInt(endTime.slice(0, 2))
+              )}
               participants={participants}
-              currentroomState={currentRoomState.availableDateTimes}
+              currentRoomState={currentRoomState.availableDateTimes}
             />
           </TableWrapper>
         ) : (
