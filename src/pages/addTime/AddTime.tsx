@@ -249,7 +249,7 @@ const AddTime = () => {
 
   return (
     <Wrapper>
-      <Header pageName="add" title={title} />
+      <Header pageName="addTime" title={title} />
       <Body>
         <TitleWrapper>
           <Title>{`${storedName || userName} 님의 일정을`}</Title>

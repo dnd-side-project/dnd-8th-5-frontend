@@ -28,12 +28,22 @@ export const Title = styled.div`
   ${theme.typography.semibold03};
 `;
 
+export const IconWrapper = styled.div<{ pageName: string }>`
+  width: 100%;
+  height: 100%;
+  padding: 0 28px;
+
+  z-index: 3;
+
+  display: flex;
+  align-items: center;
+  justify-content: ${({ pageName }) =>
+    pageName === 'addTime' ? 'flex-end' : 'space-between'};
+`;
+
 export const Icon = styled.img`
   width: 24px;
   height: 24px;
-
-  margin: 0 28px 0 auto;
-  z-index: 3;
 
   cursor: pointer;
 `;
