@@ -102,7 +102,7 @@ const AddTime = () => {
     if (!showGuide) {
       throw new Error();
     }
-    setAvailbleGuide(JSON.parse(showGuide));
+    setAvailbleGuide(JSON.parse(showGuide as string));
   }, []);
 
   const handlePrevButtonClick = () => {
