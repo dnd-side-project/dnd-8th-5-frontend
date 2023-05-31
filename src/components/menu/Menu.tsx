@@ -1,5 +1,7 @@
 import menuFavicon from '../../assets/icons/menuFavicon.png';
 import menuPlus from '../../assets/icons/menuPlus.svg';
+import menuExit from '../../assets/images/menuExit.png';
+
 import { useNavigate } from 'react-router-dom';
 import {
   Bottom,
@@ -10,6 +12,7 @@ import {
   PlusText,
   PlusWrapper,
   Side,
+  Exit,
   Top,
   Wrapper,
 } from './Menu.styles';
@@ -34,6 +37,8 @@ const Menu = ({ setIsMenuOpened }: MenuTypes) => {
       <Overlay onClick={closeMenu} />
       <Side onClick={closeMenu} />
       <Wrapper>
+        <Exit src={menuExit} alt="close menu" onClick={closeMenu} />
+
         <Top>
           <Icon src={menuFavicon} alt="icon" />
         </Top>

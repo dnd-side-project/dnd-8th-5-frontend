@@ -20,7 +20,7 @@ export const Side = styled.div`
   width: 254px;
   height: 100%;
   background: ${theme.colors.purple02};
-  border-radius: 0 24px 24px 0;
+  border-radius: 0 20px 20px 0;
 
   position: fixed;
   z-index: 4;
@@ -31,11 +31,22 @@ export const Side = styled.div`
   animation: ${slideRightAnimation} 0.5s;
 `;
 
+export const Exit = styled.img`
+  width: 29px;
+  height: 86px;
+
+  position: absolute;
+  right: 0;
+  top: 44%;
+
+  cursor: pointer;
+`;
+
 export const Wrapper = styled.div`
   width: 243px;
   height: 100%;
   padding: 0 20px;
-  border-radius: 0 24px 24px 0;
+  border-radius: 0 20px 20px 0;
 
   background: ${theme.colors.gray01};
 
