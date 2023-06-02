@@ -99,15 +99,11 @@ const AddTime = () => {
 
     getRoomInfo();
     getCurrentRoomInfo();
-
-    if (!showGuide) {
-      throw new Error();
-    }
-    setAvailbleGuide(JSON.parse(showGuide));
   }, []);
 
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {
+      getSelected();
       setTablePage(tablePage - 1);
     }
 
@@ -116,6 +112,7 @@ const AddTime = () => {
 
   const handleNextButtonClick = () => {
     if (tablePage !== validDateChunks.length - 1) {
+      getSelected();
       setTablePage(tablePage + 1);
     }
 
@@ -173,6 +170,7 @@ const AddTime = () => {
         );
       };
 
+      console.log(payload.availableDateTimes);
       putAvailableTime();
     }
 
@@ -193,6 +191,7 @@ const AddTime = () => {
             JSON.stringify(payload)
           );
         };
+        console.log(payload);
 
         putAvailableTime();
       } else {
@@ -210,6 +209,7 @@ const AddTime = () => {
             JSON.stringify(payload)
           );
         };
+        console.log(payload);
 
         putAvailableTime();
       }
@@ -246,6 +246,16 @@ const AddTime = () => {
     )
     .reduce((acc, cur) => acc.concat(cur), [])
     .filter(Boolean);
+
+  const getSelected = () => {
+    const selectedElements = document.querySelectorAll('.selected');
+    const selectedIds = Array.from(selectedElements).map(
+      (element) => element.id
+    );
+
+    setSelected([...selected, ...selectedIds]);
+    console.log(selected);
+  };
 
   return (
     <Wrapper>
@@ -298,6 +308,7 @@ const AddTime = () => {
                 dates={dates}
                 selected={selected}
                 setSelected={setSelected}
+                selectedMethod={selectedMethod}
               />
             </TableWrapper>
           )}

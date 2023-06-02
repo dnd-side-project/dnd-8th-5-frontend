@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import theme from '../../styles/theme';
 import { getRange } from '../../utils/getRange';
 import { getTimeArray } from '../../utils/getTimeArray';
@@ -16,6 +16,7 @@ import {
 } from './AddTable.styles';
 import { AddTableType } from './AddTable.types';
 import Selecto from 'react-selecto';
+import { selector } from 'recoil';
 
 const AddTable = ({
   selected,
@@ -26,15 +27,20 @@ const AddTable = ({
   times,
 }: AddTableType) => {
   const timeDetail = getTimeArray(times);
+  const selectoRef = useRef<any>(null);
 
   useEffect(() => {
     if (selected) {
-      selected.map((id) => {
+      selected.forEach((id) => {
         const element = document.getElementById(id);
         element?.classList.add('selected');
       });
     }
-  }, [tablePage, selectedMethod, selected]);
+
+    selectoRef.current.setSelectedTargets(
+      selected.map((id) => document.getElementById(id))
+    );
+  }, [selected, tablePage, selectedMethod]);
 
   const handleCellSelect = (e: any) => {
     e.added.forEach((el: any) => {
@@ -79,23 +85,24 @@ const AddTable = ({
           ))}
         </TimeWrapper>
 
+        <Selecto
+          ref={selectoRef}
+          dragContainer={'.container'}
+          selectableTargets={['.valid']}
+          onSelect={handleCellSelect}
+          hitRate={0}
+          selectByClick={true}
+          selectFromInside={true}
+          continueSelect={true}
+          continueSelectWithoutDeselect={false}
+          toggleContinueSelect={'shift'}
+          toggleContinueSelectWithoutDeselect={[['ctrl'], ['meta']]}
+          ratio={0}
+        ></Selecto>
+
         {validDateChunks[tablePage]?.map(
           ({ date, isValidDate }: { date: string; isValidDate: boolean }) => (
             <SelectWrapper key={date} className="container">
-              <Selecto
-                dragContainer={'.container'}
-                selectableTargets={['.valid']}
-                onSelect={handleCellSelect}
-                hitRate={0}
-                selectByClick={true}
-                selectFromInside={true}
-                continueSelect={true}
-                continueSelectWithoutDeselect={false}
-                toggleContinueSelect={'shift'}
-                toggleContinueSelectWithoutDeselect={[['ctrl'], ['meta']]}
-                ratio={0}
-              ></Selecto>
-
               {timeDetail.map((time) => (
                 <Select
                   className={isValidDate ? 'valid' : 'invalid'}

@@ -2,6 +2,7 @@ export interface AddCalendarType {
   dates: string[];
   selected: string[];
   setSelected: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedMethod: string;
 }
 
 export interface currentRoomState {

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import theme from '../../styles/theme';
 import Calendar from 'react-calendar';
 
-export const StyledCalendar = styled(Calendar)`
+export const StyledCalendar = styled(Calendar)<{ selectedMethod: string }>`
   width: 336px;
   background: ${theme.colors.gray01};
   border: 1px solid ${theme.colors.gray03};
@@ -96,6 +96,15 @@ export const StyledCalendar = styled(Calendar)`
     &.valid {
       color: ${theme.colors.purple06};
       cursor: pointer;
+    }
+
+    &.selected {
+      color: ${theme.colors.gray01};
+
+      background: ${({ selectedMethod }) =>
+        selectedMethod === 'possible'
+          ? `${theme.colors.purple06}`
+          : `${theme.colors.orange02}`};
     }
   }
 
