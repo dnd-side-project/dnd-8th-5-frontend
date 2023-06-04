@@ -25,11 +25,23 @@ import checkedBox from '../../assets/icons/checkedBox.png';
 import { useRecoilState } from 'recoil';
 import { userNameState } from '../../atoms/userNameAtoms';
 
+import { RoomTypes } from '../../types/roomInfo';
+
 const Login = () => {
+  const { roomUUID } = useParams();
   const [title, setTitle] = useState<string>('이멤버 리멤버 연말파티');
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
   const [userName, setUserName] = useRecoilState(userNameState);
+  const [room, setRoom] = useState<RoomTypes>({
+    title: '',
+    deadLine: null,
+    headCount: 0,
+    participants: [''],
+    dates: [''],
+    startTime: null,
+    endTime: null,
+  });
 
   const { roomUuid } = useParams();
 
@@ -47,6 +59,11 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const getRoomInfo = async () => {
+      const { data } = await API.get(`/api/room/${roomUUID}`);
+      setRoom(data);
+    };
+    getRoomInfo();
     setIsPasswordError(false);
   }, [form.name, form.password]);
 
@@ -75,7 +92,7 @@ const Login = () => {
     <MainContainer>
       <FormContainer>
         <HeaderContainer>
-          <HeaderText>{title}</HeaderText>
+          <HeaderText>{room.title}</HeaderText>
         </HeaderContainer>
         <InputContnainer>
           <LoginComponent>
