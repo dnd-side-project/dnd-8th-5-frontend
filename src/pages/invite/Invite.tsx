@@ -16,6 +16,7 @@ import {
   ParticipantsTitle,
   ParticipantsWraaper,
   Participant,
+  BottomSubBuuton,
 } from './Invite.styles';
 import calendar from '../../assets/images/calendar.png';
 import { useEffect, useState } from 'react';
@@ -74,6 +75,10 @@ const Invite = () => {
     }
   };
 
+  const handleSubButtonClick = () => {
+    navigate(`/current/${roomUUID}`);
+  };
+
   return (
     <MainContainer>
       <HeaderWrapper>
@@ -96,6 +101,9 @@ const Invite = () => {
       <BottomButton onClick={() => handleStartButtonClick()}>
         입장하기
       </BottomButton>
+      <BottomSubBuuton onClick={() => handleSubButtonClick()}>
+        등록 현황 보러가기
+      </BottomSubBuuton>
     </MainContainer>
   );
 };

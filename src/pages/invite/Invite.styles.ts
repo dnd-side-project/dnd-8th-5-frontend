@@ -106,6 +106,10 @@ export const Participant = styled.div`
   background-color: rgba(255, 255, 255, 0.4);
   ${theme.typography.semibold06}
   color: ${theme.colors.purple06};
+
+  @media screen and (max-width: 412px) {
+    width: 64px;
+  }
 `;
 
 export const RoomTitle = styled.div`
@@ -125,8 +129,24 @@ export const BottomButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
+  position: absolute;
+  top: 636px;
   left: 0;
   right: 0;
   bottom: 28px;
+`;
+
+export const BottomSubBuuton = styled.button`
+  width: calc(100% - 40px);
+  max-width: 375px;
+  margin: 0 auto;
+  position: absolute;
+  border-radius: 6px;
+  ${theme.typography.semibold04};
+  color: ${theme.colors.gray01};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 708px;
 `;
