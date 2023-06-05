@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { API } from '../../utils/API';
 import {
   ButtonWrapper,
@@ -10,6 +10,8 @@ import {
   Wrapper,
 } from './Popup.styles';
 import { PopupTypes } from './Popup.types';
+import { useRecoilState } from 'recoil';
+import { userNameState } from '../../atoms/userNameAtoms';
 
 const Popup = ({
   selectedTimeId,
@@ -17,7 +19,8 @@ const Popup = ({
   setIsConfirmed,
 }: PopupTypes) => {
   const { roomUUID } = useParams();
-  console.log(roomUUID);
+  const navigate = useNavigate();
+  const [userName, setUserName] = useRecoilState(userNameState);
 
   const closePopup = () => {
     setIsPopupOpened(false);
@@ -32,11 +35,22 @@ const Popup = ({
       participantName: localStorage.getItem('name'),
     };
 
+    console.log(payload);
+
     const makeConfirm = async () => {
-      await API.post(
-        `/api/room/${roomUUID}/adjustment-result/confirmation`,
-        JSON.stringify(payload)
-      );
+      const savedUserName = localStorage.getItem('name');
+      const savedRoomUUID = localStorage.getItem('uuid');
+
+      if ((savedUserName === '' || savedUserName === null) && userName === '') {
+        navigate(`/login/${roomUUID}`);
+      } else {
+        if (roomUUID === savedRoomUUID) {
+          await API.post(
+            `/api/room/${roomUUID}/adjustment-result/confirmation`,
+            JSON.stringify(payload)
+          );
+        } else navigate(`/login/${roomUUID}`);
+      }
     };
 
     makeConfirm();
