@@ -33,8 +33,8 @@ import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 import { userNameState } from '../../atoms/userNameAtoms';
 import { availableBottomSheetState } from '../../atoms/availableBottomSheet';
+import dayjs from 'dayjs';
 import { getFourChunks } from '../../utils/getFourChunks';
-import { getCurrentTableInfo } from '../../utils/getCurrentTableInfo';
 import { getRange } from '../../utils/getRange';
 
 const Current = () => {
@@ -64,6 +64,9 @@ const Current = () => {
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);
   const [userName, setUserName] = useRecoilState(userNameState);
+  const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
+    useState<boolean>(false);
+  const [isTimeExpired, setIsTimeExpired] = useState<boolean>(false);
 
   useEffect(() => {
     if (state) {
@@ -82,10 +85,6 @@ const Current = () => {
       setRoom(data);
     };
 
-    getRoomInfo();
-  }, []);
-
-  useEffect(() => {
     const getCurrentRoomInfo = async () => {
       const { data } = await API.get(
         `/api/room/${roomUUID}/available-time/group`
@@ -93,6 +92,7 @@ const Current = () => {
       setCurrentRoomState(data);
     };
 
+    getRoomInfo();
     getCurrentRoomInfo();
   }, []);
 
@@ -107,9 +107,6 @@ const Current = () => {
     startTime,
     endTime,
   } = room;
-
-  const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
-    useState<boolean>(false);
 
   const handleEditButtonClick = () => {
     const savedUserName = localStorage.getItem('name');
@@ -129,11 +126,22 @@ const Current = () => {
     navigate(`/result/${roomUUID}`);
   };
 
+  useEffect(() => {
+    const now = dayjs(new Date());
+    const end = dayjs(deadLine);
+
+    if (end.diff(now) < 0) {
+      setIsTimeExpired(true);
+    }
+  }, [deadLine]);
+
   return (
     <Wrapper>
       <Header pageName="current" title={title} />
       <Body>
-        {deadLine && <Timer deadLine={deadLine} />}
+        {deadLine && (
+          <Timer deadLine={deadLine} isTimeExpired={isTimeExpired} />
+        )}
         <Title>실시간 참여 현황</Title>
         <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
 
@@ -156,8 +164,6 @@ const Current = () => {
           <TableWrapper>
             <Table
               dates={dates.length < 4 ? getFourChunks(dates) : dates}
-              // startTime={startTime}
-              // endTime={endTime}
               times={getRange(
                 parseInt(startTime.slice(0, 2)),
                 parseInt(endTime.slice(0, 2))
