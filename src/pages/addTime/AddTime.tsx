@@ -130,6 +130,9 @@ const AddTime = () => {
 
   const navigate = useNavigate();
   const goToCurrent = () => {
+    const body = document.body;
+    body.style.overflow = '';
+
     navigate(`/current/${roomUUID}`);
   };
 
@@ -324,25 +327,10 @@ const AddTime = () => {
     }
   }, [offsetY, trackRef, contentRef]);
 
-  const wrapperRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    const wrapper = wrapperRef.current as HTMLDivElement;
-
-    const preventPullToRefresh = (e: any) => {
-      e.preventDefault();
-    };
-
-    if (wrapper) {
-      wrapper.addEventListener('touchmove', preventPullToRefresh, {
-        passive: false,
-      });
-    }
-
-    return () => {
-      wrapper?.removeEventListener('touchmove', preventPullToRefresh);
-    };
-  }, [wrapperRef.current]);
+    const body = document.body;
+    body.style.overflow = 'hidden';
+  }, []);
 
   return (
     <Wrapper>
