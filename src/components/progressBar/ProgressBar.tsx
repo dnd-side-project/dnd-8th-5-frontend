@@ -1,5 +1,6 @@
 import {
   Bar,
+  BarCover,
   BarWrapper,
   Proportion,
   Rabbit,
@@ -17,29 +18,31 @@ import rabbit6199 from '../../assets/images/rabbit6199.png';
 import rabbit3060 from '../../assets/images/rabbit3060.png';
 
 const ProgressBar = ({ headCount, participants }: currentParticipants) => {
-  // const progress = (headCount && participants.length / headCount) || 0;
-  const progress = (headCount && 2 / headCount) || 0;
+  const progress = (headCount && participants.length / headCount) || 0;
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const rabbitRef = useRef<HTMLImageElement>(null);
+  const proportionRef = useRef<HTMLDivElement>(null);
 
-  const [position, setPosition] = useState<number>(20);
+  const [leftPosition, setLeftPosition] = useState<number>(0);
 
   useEffect(() => {
-    const wrapperWidth = (wrapperRef.current as HTMLDivElement).offsetWidth;
-    const barRect = barRef.current?.getBoundingClientRect().right;
+    const barRect = barRef.current?.offsetWidth;
+    const proportionWidth = proportionRef.current?.offsetWidth;
 
-    console.log(barRect, barRef.current?.offsetWidth, wrapperWidth);
-
-    if (barRef.current && barRect) {
-      if (barRect < wrapperWidth) {
-        setPosition(barRef.current.offsetWidth);
+    if (barRect) {
+      if (barRect < 34) {
+        setLeftPosition(0);
+      } else if (34 <= barRect && barRect < 260) {
+        setLeftPosition(barRect - 30);
       } else {
-        setPosition(wrapperWidth - 40);
+        if (proportionWidth) {
+          setLeftPosition(254 - (proportionWidth - 20));
+        }
       }
     }
-  }, [barRef]);
+  }, [barRef.current?.offsetWidth]);
 
   return (
     <Wrapper ref={wrapperRef}>
@@ -57,21 +60,22 @@ const ProgressBar = ({ headCount, participants }: currentParticipants) => {
                 : rabbit0029
             }
             alt="rabbit100"
-            style={{ left: `${position - 36}px` }}
+            leftPosition={leftPosition}
           />
         }
-        <Proportion>
+        <Proportion ref={proportionRef}>
           <Span>{participants.length}</Span> / {headCount}
         </Proportion>
       </RabbitWrapper>
 
       <BarWrapper>
-        <Bar
+        <BarCover
           ref={barRef}
           headCount={headCount || 0}
-          // participantsNumber={participants.length}
-          participantsNumber={2}
-        />
+          participantsNumber={participants.length}
+        >
+          <Bar />
+        </BarCover>
       </BarWrapper>
     </Wrapper>
   );
