@@ -13,7 +13,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Start />} />
-      <Route path="/add/:roomUuid" element={<AddTime />} />
+      <Route path="/add/:roomUUID" element={<AddTime />} />
       <Route path="/timer" element={<Timer />} />
       <Route path="/roomTimer" element={<Timer />} />
       <Route path="/roomStart" element={<RoomStart />} />

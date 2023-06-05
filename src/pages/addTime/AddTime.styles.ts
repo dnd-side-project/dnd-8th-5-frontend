@@ -12,6 +12,9 @@ export const Wrapper = styled.div`
   width: 100%;
   max-width: 375px;
   height: 100%;
+
+  overflow: hidden;
+  overscroll-behavior: contain;
 `;
 
 export const Body = styled.div`
@@ -57,7 +60,6 @@ export const ButtonWrapper = styled.div`
   position: absolute;
   z-index: 2;
   top: 0;
-  overflow: visible;
 `;
 
 export const MoveButton = styled.img`
@@ -73,14 +75,10 @@ export const MoveButton = styled.img`
 export const TableWrapper = styled.div`
   padding-bottom: 32px;
   margin: 0 auto;
-  overflow-y: auto;
-  overscroll-behavior: contain;
+  position: relative;
+  height: 388px;
 
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  overflow: hidden;
 `;
 
 export const ScrollbarTrack = styled.div`
@@ -93,13 +91,14 @@ export const ScrollbarTrack = styled.div`
   top: 52px;
 `;
 
-export const ScrollbarThumb = styled.div`
+export const ScrollbarThumb = styled.div<{ offsetY: number }>`
   width: 100%;
   height: 55px;
   border-radius: 41px;
   background: ${theme.colors.purple05};
 
-  position: absolute;
+  position: relative;
+  top: ${({ offsetY }) => `${offsetY}px`};
   width: 18px;
 `;
 
@@ -124,7 +123,6 @@ export const GuideIcon = styled.img`
   max-width: 412px;
   padding-inline: 10px;
   z-index: 5;
-  /* background-color: red; */
 `;
 
 export const handleFade = keyframes`
