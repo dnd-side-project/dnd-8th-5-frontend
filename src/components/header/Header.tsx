@@ -9,14 +9,17 @@ import { useRecoilState } from 'recoil';
 import { emailState } from '../../atoms/emailAtoms';
 import { availableGuideState } from '../../atoms/availableGuideAtoms';
 
+import { useParams } from 'react-router-dom';
+
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 const Header = ({ pageName, title }: { pageName: string; title: string }) => {
   const [isEmailRegistered, setIsEmailRegistered] = useRecoilState(emailState);
   const [availableGuide, setAvailbleGuide] =
     useRecoilState(availableGuideState);
+  const { roomUUID } = useParams();
 
-  const currentUrl = window.location.href;
+  const currentUrl = window.location.origin + '/invite/' + roomUUID;
 
   const renderHeader = () => {
     switch (pageName) {
