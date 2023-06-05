@@ -15,6 +15,11 @@ export const Wrapper = styled.div`
 
   overflow: hidden;
   overscroll-behavior: contain;
+
+  & > * {
+    overflow: hidden;
+    overscroll-behavior: contain;
+  }
 `;
 
 export const Body = styled.div`
@@ -78,7 +83,7 @@ export const TableWrapper = styled.div`
   position: relative;
   height: 388px;
 
-  overflow: hidden;
+  overscroll-behavior: none;
 `;
 
 export const ScrollbarTrack = styled.div`

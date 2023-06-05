@@ -103,9 +103,6 @@ const AddTime = () => {
     getRoomInfo();
     getCurrentRoomInfo();
 
-    if (!showGuide) {
-      throw new Error();
-    }
     setAvailbleGuide(JSON.parse(showGuide as string));
   }, []);
 
@@ -157,6 +154,10 @@ const AddTime = () => {
 
   const navigate = useNavigate();
   const goToCurrent = () => {
+    const body = document.body;
+    body.style.overflow = '';
+    console.log(body.style.overflow);
+
     navigate(`/current/${roomUUID}`);
   };
 
@@ -373,6 +374,11 @@ const AddTime = () => {
       wrapper?.removeEventListener('touchmove', preventPullToRefresh);
     };
   }, [wrapperRef.current]);
+
+  useEffect(() => {
+    const body = document.body;
+    body.style.overflow = 'hidden';
+  }, []);
 
   return (
     <Wrapper>
