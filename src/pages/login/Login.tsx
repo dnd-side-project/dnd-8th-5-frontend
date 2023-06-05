@@ -43,8 +43,6 @@ const Login = () => {
     endTime: null,
   });
 
-  const { roomUuid } = useParams();
-
   const { form, onChange } = useInputs({
     name: '',
     password: '',
@@ -73,15 +71,15 @@ const Login = () => {
         alert('비밀번호는 숫자만 입력해주세요');
         return;
       }
-      await API.post(`/api/room/${roomUuid}/login`, form);
+      await API.post(`/api/room/${roomUUID}/login`, form);
 
       if (saveUserInfo) {
         localStorage.setItem('name', form.name);
-        localStorage.setItem('uuid', String(roomUuid));
+        localStorage.setItem('uuid', String(roomUUID));
       }
 
       setUserName(form.name);
-      navigate(`/add/${roomUuid}`);
+      navigate(`/add/${roomUUID}`);
     } catch {
       setIsPasswordError(true);
       null;
