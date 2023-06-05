@@ -99,9 +99,6 @@ const AddTime = () => {
     getRoomInfo();
     getCurrentRoomInfo();
 
-    if (!showGuide) {
-      throw new Error();
-    }
     setAvailbleGuide(JSON.parse(showGuide as string));
   }, []);
 
