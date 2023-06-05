@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import home from '../../assets/icons/home.svg';
 import shareResult from '../../assets/icons/shareResult.svg';
-import bubble from '../../assets/images/bubble.png';
+import resultBubble from '../../assets/images/resultBubble.png';
 
 import {
   BottomButton,
@@ -35,7 +35,7 @@ const ResultButton = () => {
 
   return (
     <Wrapper>
-      <Bubble src={bubble} alt="go to current page bubble" />
+      <Bubble src={resultBubble} alt="go to current page bubble" />
       <BottomWrapper>
         <CurrentButtonWrapper>
           <CurrentButton
