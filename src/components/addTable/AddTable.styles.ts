@@ -105,11 +105,11 @@ export const Select = styled.div<SelectType>`
 
   &:nth-of-type(odd) {
     height: 18px;
-    border-bottom: 1px solid ${theme.colors.gray03};
+    border-bottom: 1px dashed ${theme.colors.gray03};
   }
 
   &:nth-of-type(even) {
-    border-bottom: 1px dashed ${theme.colors.gray03};
+    border-bottom: 1px solid ${theme.colors.gray03};
   }
 
   &:last-of-type {

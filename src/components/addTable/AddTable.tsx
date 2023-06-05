@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import theme from '../../styles/theme';
-import { getRange } from '../../utils/getRange';
+import { useEffect, useRef } from 'react';
+
 import { getTimeArray } from '../../utils/getTimeArray';
 import {
   Blank,
@@ -16,7 +15,6 @@ import {
 } from './AddTable.styles';
 import { AddTableType } from './AddTable.types';
 import Selecto from 'react-selecto';
-import { selector } from 'recoil';
 
 const AddTable = ({
   selected,
@@ -31,7 +29,7 @@ const AddTable = ({
 
   useEffect(() => {
     if (selected) {
-      selected.forEach((id) => {
+      selected.map((id) => {
         const element = document.getElementById(id);
         element?.classList.add('selected');
       });
@@ -40,22 +38,15 @@ const AddTable = ({
     selectoRef.current.setSelectedTargets(
       selected.map((id) => document.getElementById(id))
     );
-  }, [selected, tablePage, selectedMethod]);
+  }, [tablePage, selectedMethod, selected]);
 
   const handleCellSelect = (e: any) => {
     e.added.forEach((el: any) => {
       el.classList.add('selected');
-
-      if (selected.findIndex((date) => date === el.id) === -1) {
-        setSelected([...selected, el.id]);
-      }
     });
 
     e.removed.forEach((el: any) => {
       el.classList.remove('selected');
-
-      const filtered = selected.filter((date) => date !== el.id);
-      setSelected(filtered);
     });
   };
 
@@ -85,24 +76,24 @@ const AddTable = ({
           ))}
         </TimeWrapper>
 
-        <Selecto
-          ref={selectoRef}
-          dragContainer={'.container'}
-          selectableTargets={['.valid']}
-          onSelect={handleCellSelect}
-          hitRate={0}
-          selectByClick={true}
-          selectFromInside={true}
-          continueSelect={true}
-          continueSelectWithoutDeselect={false}
-          toggleContinueSelect={'shift'}
-          toggleContinueSelectWithoutDeselect={[['ctrl'], ['meta']]}
-          ratio={0}
-        ></Selecto>
-
         {validDateChunks[tablePage]?.map(
           ({ date, isValidDate }: { date: string; isValidDate: boolean }) => (
             <SelectWrapper key={date} className="container">
+              <Selecto
+                ref={selectoRef}
+                dragContainer={'.container'}
+                selectableTargets={['.valid']}
+                onSelect={handleCellSelect}
+                hitRate={0}
+                selectByClick={true}
+                selectFromInside={true}
+                continueSelect={true}
+                continueSelectWithoutDeselect={false}
+                toggleContinueSelect={'shift'}
+                toggleContinueSelectWithoutDeselect={[['ctrl'], ['meta']]}
+                ratio={0}
+              ></Selecto>
+
               {timeDetail.map((time) => (
                 <Select
                   className={isValidDate ? 'valid' : 'invalid'}

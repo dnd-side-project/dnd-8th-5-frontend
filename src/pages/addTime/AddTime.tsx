@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { availableTimesState } from '../../atoms/availableTimesAtom';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
@@ -47,6 +47,10 @@ import { getTimeArray } from '../../utils/getTimeArray';
 import _ from 'lodash';
 import { userNameState } from '../../atoms/userNameAtoms';
 import { getThreeChunks } from '../../utils/getThreeChunks';
+
+interface ObjectState {
+  [key: number]: any;
+}
 
 const AddTime = () => {
   const { roomUuid } = useParams();
@@ -101,9 +105,27 @@ const AddTime = () => {
     getCurrentRoomInfo();
   }, []);
 
+  const [selectedTable, setSelectedTable] = useState<any>({});
+
+  useEffect(() => {
+    console.log(validDateChunks.length);
+    const initialObjectState: ObjectState = {};
+    for (let i = 0; i < tablePage; i++) {
+      initialObjectState[i] = [''];
+    }
+    setSelectedTable(initialObjectState);
+    console.log('[어디', selectedTable);
+  }, [tablePage]);
+
+  const getSelectedTimes = () => {
+    const selectedElements = document.querySelectorAll('.selected');
+    const ids = Array.from(selectedElements).map((element) => element.id);
+    console.log(ids);
+  };
+
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {
-      getSelected();
+      getSelectedTimes();
       setTablePage(tablePage - 1);
     }
 
@@ -112,7 +134,7 @@ const AddTime = () => {
 
   const handleNextButtonClick = () => {
     if (tablePage !== validDateChunks.length - 1) {
-      getSelected();
+      getSelectedTimes();
       setTablePage(tablePage + 1);
     }
 
@@ -246,16 +268,6 @@ const AddTime = () => {
     )
     .reduce((acc, cur) => acc.concat(cur), [])
     .filter(Boolean);
-
-  const getSelected = () => {
-    const selectedElements = document.querySelectorAll('.selected');
-    const selectedIds = Array.from(selectedElements).map(
-      (element) => element.id
-    );
-
-    setSelected([...selected, ...selectedIds]);
-    console.log(selected);
-  };
 
   return (
     <Wrapper>
