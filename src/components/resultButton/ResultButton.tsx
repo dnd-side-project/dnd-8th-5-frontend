@@ -37,27 +37,27 @@ const ResultButton = () => {
   };
 
   return (
-    <CopyToClipboard
-      text={currentUrl}
-      onCopy={() => alert('클립보드에 복사되었습니다.')}
-    >
-      <Wrapper>
-        <Bubble src={resultBubble} alt="go to current page bubble" />
-        <BottomWrapper>
-          <CurrentButtonWrapper>
-            <CurrentButton
-              src={home}
-              alt="go to current page"
-              onClick={goToCurrent}
-            />
-          </CurrentButtonWrapper>
+    <Wrapper>
+      <Bubble src={resultBubble} alt="go to current page bubble" />
+      <BottomWrapper>
+        <CurrentButtonWrapper>
+          <CurrentButton
+            src={home}
+            alt="go to current page"
+            onClick={goToCurrent}
+          />
+        </CurrentButtonWrapper>
+        <CopyToClipboard
+          text={currentUrl}
+          onCopy={() => alert('클립보드에 복사되었습니다.')}
+        >
           <BottomButton onClick={handleShareClick}>
             결과 공유하기
             <ShareButton src={shareResult} alt="share" />
           </BottomButton>
-        </BottomWrapper>
-      </Wrapper>
-    </CopyToClipboard>
+        </CopyToClipboard>
+      </BottomWrapper>
+    </Wrapper>
   );
 };
 
