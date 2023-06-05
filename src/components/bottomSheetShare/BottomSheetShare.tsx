@@ -18,11 +18,14 @@ import {
   RateButtonWrapper,
   ShareButton,
 } from './BottomSheetShare.styles';
+import { useParams } from 'react-router-dom';
 
 const BottomSheetShare = ({ roomUuid }: { roomUuid: string | undefined }) => {
   const [open, setOpen] = useState<boolean>(true);
   const [url, setUrl] = useState('');
-  const currentUrl = window.location.href;
+  const { roomUUID } = useParams();
+
+  const currentUrl = window.location.origin + '/invite/' + roomUUID;
 
   useEffect(() => {
     setUrl(currentUrl);

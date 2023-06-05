@@ -10,6 +10,8 @@ import { useRecoilState } from 'recoil';
 import { emailState } from '../../atoms/emailAtoms';
 import { availableGuideState } from '../../atoms/availableGuideAtoms';
 
+import { useParams } from 'react-router-dom';
+
 import CopyToClipboard from 'react-copy-to-clipboard';
 import Menu from '../menu/Menu';
 import { useState } from 'react';
@@ -18,6 +20,7 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
   const [isEmailRegistered, setIsEmailRegistered] = useRecoilState(emailState);
   const [availableGuide, setAvailbleGuide] =
     useRecoilState(availableGuideState);
+  const { roomUUID } = useParams();
 
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
 
@@ -25,7 +28,7 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
     setIsMenuOpened(true);
   };
 
-  const currentUrl = window.location.href;
+  const currentUrl = window.location.origin + '/invite/' + roomUUID;
 
   return (
     <Wrapper>
