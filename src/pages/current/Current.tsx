@@ -33,6 +33,7 @@ import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 import { userNameState } from '../../atoms/userNameAtoms';
 import { availableBottomSheetState } from '../../atoms/availableBottomSheet';
+import dayjs from 'dayjs';
 
 const Current = () => {
   const { roomUUID } = useParams();
@@ -126,11 +127,24 @@ const Current = () => {
     navigate(`/result/${roomUUID}`);
   };
 
+  const [isTimeExpired, setIsTimeExpired] = useState<boolean>(false);
+
+  useEffect(() => {
+    const now = dayjs(new Date());
+    const end = dayjs(deadLine);
+
+    if (end.diff(now) < 0) {
+      setIsTimeExpired(true);
+    }
+  }, [deadLine]);
+
   return (
     <Wrapper>
       <Header pageName="current" title={title} />
       <Body>
-        {deadLine && <Timer deadLine={deadLine} />}
+        {deadLine && (
+          <Timer deadLine={deadLine} isTimeExpired={isTimeExpired} />
+        )}
         <Title>실시간 참여 현황</Title>
         <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
 

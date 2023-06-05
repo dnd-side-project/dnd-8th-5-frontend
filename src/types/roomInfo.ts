@@ -1,5 +1,6 @@
-export interface deadLine {
+export interface TimerTypes {
   deadLine: string;
+  isTimeExpired: boolean;
 }
 
 export interface participant {
