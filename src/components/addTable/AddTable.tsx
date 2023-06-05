@@ -17,6 +17,7 @@ import { AddTableType } from './AddTable.types';
 import Selecto from 'react-selecto';
 
 const AddTable = ({
+  contentRef,
   selected,
   setSelected,
   selectedMethod,
@@ -51,7 +52,7 @@ const AddTable = ({
   };
 
   return (
-    <Wrapper>
+    <Wrapper ref={contentRef}>
       <Top>
         <Blank />
         <DateWrapper>
