@@ -134,9 +134,10 @@ const Current = () => {
         <Title>실시간 참여 현황</Title>
         <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
 
-        {!headCount && (
+        {headCount && (
           <ProgressBar headCount={headCount} participants={participants} />
         )}
+
         <Participants>
           {participants.map((participant: string) => (
             <ParticipantsBlock key={participant} participant={participant} />
