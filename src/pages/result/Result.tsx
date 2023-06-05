@@ -25,7 +25,7 @@ import {
 } from './Result.styles';
 import { useRecoilState } from 'recoil';
 import { roomState } from '../../atoms/roomAtoms';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { API } from '../../utils/API';
 import SelectParticipants from '../../components/selectParticipants/SelectParticipants';
 import SortTimes from '../../components/selectParticipants/SortTimes';
@@ -55,6 +55,7 @@ const Result = () => {
   const handleConfirmButtonClick = (e: any) => {
     setIsPopupOpened(true);
     setSelectedTimeId(e.target.id);
+    console.log(e.target.id);
   };
 
   const handleParticipantOpen = () => {
@@ -103,7 +104,8 @@ const Result = () => {
   const { title, participants, headCount } = room;
 
   const participantsList: any = participants.map(
-    (participant) => participant && { name: participant, isSelected: false }
+    (participant: string) =>
+      participant && { name: participant, isSelected: false }
   );
 
   return (
@@ -146,11 +148,16 @@ const Result = () => {
                   key={`all ${date} ${dayOfWeek} ${startTime} ${endTime}`}
                   isConfirmed={isConfirmed}
                 >
-                  {`${date.slice(5, 7)}월 ${date.slice(
-                    8,
-                    10
-                  )} (${dayOfWeek}) ${startTime} ~ ${endTime}`}
-                  {isConfirmed ? (
+                  {startTime && endTime
+                    ? `${date.slice(5, 7)}월 ${date.slice(
+                        8,
+                        10
+                      )} (${dayOfWeek}) ${startTime} ~ ${endTime}`
+                    : `${date.slice(5, 7)}월 ${date.slice(
+                        8,
+                        10
+                      )} (${dayOfWeek})`}
+                  {/* {isConfirmed ? (
                     <ConfirmButton
                       id={`${id}`}
                       isConfirmed={isConfirmed}
@@ -166,7 +173,7 @@ const Result = () => {
                     >
                       확정
                     </ConfirmButton>
-                  )}
+                  )} */}
                 </TimeWrapper>
               )
             )}
@@ -228,7 +235,9 @@ const Result = () => {
           )}
         </>
       </Body>
+
       <ResultButton />
+
       {isPopupOpened && (
         <Popup
           selectedTimeId={selectedTimeId}

@@ -12,10 +12,13 @@ import {
   ShareButton,
   Wrapper,
 } from './ResultButton.styles';
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 const ResultButton = () => {
   const { roomUUID } = useParams();
   const navigate = useNavigate();
+
+  const currentUrl = window.location.origin + '/invite/' + roomUUID;
 
   const goToCurrent = () => {
     navigate(`/current/${roomUUID}`);
@@ -24,7 +27,7 @@ const ResultButton = () => {
   const shareData = {
     title: '모두의 시간',
     text: '쉽고 빠른 약속시간 정하기, 모두의 시간',
-    url: `https://modu-time.site/current/${roomUUID}`, // 공유될 URL
+    url: `https://modu-time.site/invite/${roomUUID}`, // 공유될 URL
   };
 
   const handleShareClick = () => {
@@ -44,10 +47,15 @@ const ResultButton = () => {
             onClick={goToCurrent}
           />
         </CurrentButtonWrapper>
-        <BottomButton onClick={handleShareClick}>
-          결과 공유하기
-          <ShareButton src={shareResult} alt="share" />
-        </BottomButton>
+        <CopyToClipboard
+          text={currentUrl}
+          onCopy={() => alert('클립보드에 복사되었습니다.')}
+        >
+          <BottomButton onClick={handleShareClick}>
+            결과 공유하기
+            <ShareButton src={shareResult} alt="share" />
+          </BottomButton>
+        </CopyToClipboard>
       </BottomWrapper>
     </Wrapper>
   );
