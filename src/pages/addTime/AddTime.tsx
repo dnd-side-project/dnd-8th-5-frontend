@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { availableTimesState } from '../../atoms/availableTimesAtom';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
@@ -49,7 +49,7 @@ import { userNameState } from '../../atoms/userNameAtoms';
 import { getThreeChunks } from '../../utils/getThreeChunks';
 
 const AddTime = () => {
-  const { roomUuid } = useParams();
+  const { roomUUID } = useParams();
 
   const [currentRoomState, setCurrentRoomState] = useState<any>([]);
   const [room, setRoom] = useState<RoomTypes>({
@@ -85,15 +85,14 @@ const AddTime = () => {
 
   useEffect(() => {
     const getRoomInfo = async () => {
-      const { data } = await API.get(`/api/room/${roomUuid}`);
+      const { data } = await API.get(`/api/room/${roomUUID}`);
       setRoom(data);
     };
 
     const getCurrentRoomInfo = async () => {
       const { data } = await API.get(
-        `/api/room/${roomUuid}/available-time/group`
+        `/api/room/${roomUUID}/available-time/group`
       );
-
       setCurrentRoomState(data);
     };
 
@@ -103,7 +102,7 @@ const AddTime = () => {
     if (!showGuide) {
       throw new Error();
     }
-    setAvailbleGuide(JSON.parse(showGuide));
+    setAvailbleGuide(JSON.parse(showGuide as string));
   }, []);
 
   const handlePrevButtonClick = () => {
@@ -134,7 +133,7 @@ const AddTime = () => {
 
   const navigate = useNavigate();
   const goToCurrent = () => {
-    navigate(`/current/${roomUuid}`);
+    navigate(`/current/${roomUUID}`);
   };
 
   const [selected, setSelected] = useState<string[]>([]);
@@ -142,9 +141,8 @@ const AddTime = () => {
   useEffect(() => {
     const getPreviousInfo = async () => {
       const { data } = await API.get(
-        `/api/room/${roomUuid}/available-time?name=${storedName || userName}`
+        `/api/room/${roomUUID}/available-time?name=${storedName || userName}`
       );
-
       setSelected(data.availableDateTimes);
     };
 
@@ -168,7 +166,7 @@ const AddTime = () => {
 
       const putAvailableTime = async () => {
         await API.put(
-          `/api/room/${roomUuid}/available-time`,
+          `/api/room/${roomUUID}/available-time`,
           JSON.stringify(payload)
         );
       };
@@ -189,7 +187,7 @@ const AddTime = () => {
 
         const putAvailableTime = async () => {
           await API.put(
-            `/api/room/${roomUuid}/available-time`,
+            `/api/room/${roomUUID}/available-time`,
             JSON.stringify(payload)
           );
         };
@@ -206,7 +204,7 @@ const AddTime = () => {
 
         const putAvailableTime = async () => {
           await API.put(
-            `/api/room/${roomUuid}/available-time`,
+            `/api/room/${roomUUID}/available-time`,
             JSON.stringify(payload)
           );
         };
@@ -247,6 +245,108 @@ const AddTime = () => {
     .reduce((acc, cur) => acc.concat(cur), [])
     .filter(Boolean);
 
+  // 스크롤바
+  const contentWrapperRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const thumbRef = useRef<HTMLDivElement>(null);
+
+  const [offsetY, setOffsetY] = useState<number>(0);
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    const track = trackRef.current as HTMLDivElement;
+    const thumb = thumbRef.current as HTMLDivElement;
+
+    if (!thumb || !track) return;
+
+    const shiftY = e.clientY - thumb.getBoundingClientRect().top;
+
+    const onMouseMove = (e: MouseEvent) => {
+      const newTop = e.clientY - shiftY - track.getBoundingClientRect().top;
+      const bottomEdge = track.offsetHeight - thumb.offsetHeight;
+
+      const updatedOffsetY = Math.min(Math.max(0, newTop), bottomEdge);
+      setOffsetY(updatedOffsetY);
+    };
+
+    const onMouseUp = () => {
+      document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('mousemove', onMouseMove);
+    };
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    const track = trackRef.current as HTMLDivElement;
+    const thumb = thumbRef.current as HTMLDivElement;
+
+    if (!thumb || !track) return;
+
+    const shiftY = e.touches[0].clientY - thumb.getBoundingClientRect().top;
+
+    const onTouchMove = (e: TouchEvent) => {
+      const newTop =
+        e.touches[0].clientY - shiftY - track.getBoundingClientRect().top;
+      const bottomEdge = track.offsetHeight - thumb.offsetHeight;
+
+      const updatedOffsetY = Math.min(Math.max(0, newTop), bottomEdge);
+      setOffsetY(updatedOffsetY);
+    };
+
+    const onTouchEnd = () => {
+      document.removeEventListener('touchend', onTouchEnd);
+      document.removeEventListener('touchmove', onTouchMove);
+    };
+
+    document.addEventListener('touchmove', onTouchMove);
+    document.addEventListener('touchend', onTouchEnd);
+  };
+
+  const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
+
+  useEffect(() => {
+    const contentWrapper = contentWrapperRef.current as HTMLDivElement;
+    const content = contentRef.current as HTMLDivElement;
+    const track = trackRef.current as HTMLDivElement;
+    const thumb = thumbRef.current as HTMLDivElement;
+
+    if (contentWrapper && content && track) {
+      const maxScrollTop =
+        contentWrapper.scrollHeight - contentWrapper.clientHeight;
+      const ratio = offsetY / (track.scrollHeight - thumb.scrollHeight);
+
+      const newScrollTop = ratio * maxScrollTop;
+
+      contentWrapper.scrollTop = newScrollTop;
+    }
+  }, [offsetY, trackRef, contentRef]);
+
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current as HTMLDivElement;
+
+    const preventPullToRefresh = (e: any) => {
+      e.preventDefault();
+    };
+
+    if (wrapper) {
+      wrapper.addEventListener('touchmove', preventPullToRefresh, {
+        passive: false,
+      });
+    }
+
+    return () => {
+      wrapper?.removeEventListener('touchmove', preventPullToRefresh);
+    };
+  }, [wrapperRef.current]);
+
   return (
     <Wrapper>
       <Header pageName="addTime" title={title} />
@@ -278,8 +378,9 @@ const AddTime = () => {
                   onClick={handleNextButtonClick}
                 />
               </ButtonWrapper>
-              <TableWrapper>
+              <TableWrapper ref={contentWrapperRef}>
                 <AddTable
+                  contentRef={contentRef}
                   selected={selected}
                   setSelected={setSelected}
                   times={times}
@@ -288,8 +389,14 @@ const AddTime = () => {
                   validDateChunks={validDateChunks}
                 />
               </TableWrapper>
-              <ScrollbarTrack>
-                <ScrollbarThumb />
+              <ScrollbarTrack ref={trackRef}>
+                <ScrollbarThumb
+                  ref={thumbRef}
+                  offsetY={offsetY}
+                  onMouseDown={handleMouseDown}
+                  onDragStart={handleDragStart}
+                  onTouchStart={handleTouchStart}
+                />
               </ScrollbarTrack>
             </>
           ) : (

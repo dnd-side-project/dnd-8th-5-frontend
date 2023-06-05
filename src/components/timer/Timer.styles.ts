@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   margin-top: 32px;
   padding: 4px 0;
 
+  color: ${theme.colors.orange03};
   background: ${theme.colors.orange01};
   border-radius: 6px;
 
@@ -25,7 +26,6 @@ export const TextWrapper = styled.div<{ isTimerExpired: boolean }>`
 `;
 
 export const Span = styled.span`
-  color: ${theme.colors.orange03};
   ${theme.typography.regular01};
 `;
 
