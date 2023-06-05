@@ -16,12 +16,13 @@ export const Wrapper = styled.div`
   justify-content: center;
 `;
 
-export const TextWrapper = styled.div`
+export const TextWrapper = styled.div<{ isTimerExpired: boolean }>`
   width: 291px;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${({ isTimerExpired }) =>
+    isTimerExpired ? 'center' : 'space-between'};
 `;
 
 export const Span = styled.span`
