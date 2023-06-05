@@ -48,10 +48,6 @@ import _ from 'lodash';
 import { userNameState } from '../../atoms/userNameAtoms';
 import { getThreeChunks } from '../../utils/getThreeChunks';
 
-interface ObjectState {
-  [key: number]: any;
-}
-
 const AddTime = () => {
   const { roomUUID } = useParams();
 
@@ -106,27 +102,8 @@ const AddTime = () => {
     setAvailbleGuide(JSON.parse(showGuide as string));
   }, []);
 
-  const [selectedTable, setSelectedTable] = useState<any>({});
-
-  useEffect(() => {
-    console.log(validDateChunks.length);
-    const initialObjectState: ObjectState = {};
-    for (let i = 0; i < tablePage; i++) {
-      initialObjectState[i] = [''];
-    }
-    setSelectedTable(initialObjectState);
-    console.log('[어디', selectedTable);
-  }, [tablePage]);
-
-  const getSelectedTimes = () => {
-    const selectedElements = document.querySelectorAll('.selected');
-    const ids = Array.from(selectedElements).map((element) => element.id);
-    console.log(ids);
-  };
-
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {
-      getSelectedTimes();
       setTablePage(tablePage - 1);
     }
 
@@ -135,7 +112,6 @@ const AddTime = () => {
 
   const handleNextButtonClick = () => {
     if (tablePage !== validDateChunks.length - 1) {
-      getSelectedTimes();
       setTablePage(tablePage + 1);
     }
 
@@ -154,10 +130,6 @@ const AddTime = () => {
 
   const navigate = useNavigate();
   const goToCurrent = () => {
-    const body = document.body;
-    body.style.overflow = '';
-    console.log(body.style.overflow);
-
     navigate(`/current/${roomUUID}`);
   };
 
@@ -196,7 +168,6 @@ const AddTime = () => {
         );
       };
 
-      console.log(payload.availableDateTimes);
       putAvailableTime();
     }
 
@@ -217,7 +188,6 @@ const AddTime = () => {
             JSON.stringify(payload)
           );
         };
-        console.log(payload);
 
         putAvailableTime();
       } else {
@@ -235,7 +205,6 @@ const AddTime = () => {
             JSON.stringify(payload)
           );
         };
-        console.log(payload);
 
         putAvailableTime();
       }
@@ -374,11 +343,6 @@ const AddTime = () => {
       wrapper?.removeEventListener('touchmove', preventPullToRefresh);
     };
   }, [wrapperRef.current]);
-
-  useEffect(() => {
-    const body = document.body;
-    body.style.overflow = 'hidden';
-  }, []);
 
   return (
     <Wrapper>
