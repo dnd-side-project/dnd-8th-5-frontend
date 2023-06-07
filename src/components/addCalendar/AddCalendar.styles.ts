@@ -4,6 +4,7 @@ import Calendar from 'react-calendar';
 
 export const StyledCalendar = styled(Calendar)<{ selectedMethod: string }>`
   width: 336px;
+
   background: ${theme.colors.gray01};
   border: 1px solid ${theme.colors.gray03};
   border-radius: 10px;

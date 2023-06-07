@@ -32,6 +32,7 @@ import {
   GuideIcon,
   GuideHandleIcon,
   CloseButton,
+  CalendarWrapper,
 } from './AddTime.styles';
 import Header from '../../components/header/Header';
 import BottomButton from '../../components/bottomButton/BottomButton';
@@ -328,8 +329,10 @@ const AddTime = () => {
   }, [offsetY, trackRef, contentRef]);
 
   useEffect(() => {
-    const body = document.body;
-    body.style.overflow = 'hidden';
+    if (startTime && endTime) {
+      const body = document.body;
+      body.style.overflow = 'hidden';
+    }
   }, []);
 
   return (
@@ -385,14 +388,14 @@ const AddTime = () => {
               </ScrollbarTrack>
             </>
           ) : (
-            <TableWrapper>
+            <CalendarWrapper>
               <AddCalendar
                 dates={dates}
                 selected={selected}
                 setSelected={setSelected}
                 selectedMethod={selectedMethod}
               />
-            </TableWrapper>
+            </CalendarWrapper>
           )}
         </Main>
         <BottomButton
