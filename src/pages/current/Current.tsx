@@ -36,6 +36,7 @@ import { availableBottomSheetState } from '../../atoms/availableBottomSheet';
 import dayjs from 'dayjs';
 import { getFourChunks } from '../../utils/getFourChunks';
 import { getRange } from '../../utils/getRange';
+import { useAuth } from '../../hooks/useAuth';
 
 const Current = () => {
   const { roomUUID } = useParams();
@@ -109,16 +110,13 @@ const Current = () => {
   } = room;
 
   const handleEditButtonClick = () => {
-    const savedUserName = localStorage.getItem('name');
-    const savedRoomUUID = localStorage.getItem('uuid');
+    const isValidUser = useAuth(roomUUID as string, userName);
 
-    if ((savedUserName === '' || savedUserName === null) && userName === '') {
-      navigate(`/login/${roomUUID}`);
+    if (isValidUser) {
+      setSelectedMethod('possible');
+      navigate(`/add/${roomUUID}`);
     } else {
-      if (roomUUID === savedRoomUUID) {
-        setSelectedMethod('possible');
-        navigate(`/add/${roomUUID}`);
-      } else navigate(`/login/${roomUUID}`);
+      navigate(`/login/${roomUUID}`);
     }
   };
 

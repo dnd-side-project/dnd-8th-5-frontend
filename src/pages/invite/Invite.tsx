@@ -22,6 +22,7 @@ import calendar from '../../assets/images/calendar.png';
 import { useEffect, useState } from 'react';
 import { RoomTypes } from '../../types/roomInfo';
 import { API } from '../../utils/API';
+import { useAuth } from '../../hooks/useAuth';
 
 const Invite = () => {
   const { roomUUID } = useParams();
@@ -63,15 +64,13 @@ const Invite = () => {
   };
 
   const handleStartButtonClick = () => {
-    const savedUserName = localStorage.getItem('name');
-    const savedRoomUUID = localStorage.getItem('uuid');
+    const isValidUser = useAuth(roomUUID as string, userName);
 
-    if ((savedUserName === '' || savedUserName === null) && userName === '') {
-      navigate(`/login/${roomUUID}`);
+    if (isValidUser) {
+      navigate(`/add/${roomUUID}`);
     } else {
-      if (roomUUID === savedRoomUUID) {
-        navigate(`/current/${roomUUID}`);
-      } else navigate(`/login/${roomUUID}`);
+      localStorage.clear();
+      navigate(`/login/${roomUUID}`);
     }
   };
 
