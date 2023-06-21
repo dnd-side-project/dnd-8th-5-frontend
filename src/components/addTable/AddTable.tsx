@@ -15,6 +15,7 @@ import {
 } from './AddTable.styles';
 import { AddTableType } from './AddTable.types';
 import Selecto from 'react-selecto';
+import _ from 'lodash';
 
 const AddTable = ({
   contentRef,
@@ -44,10 +45,17 @@ const AddTable = ({
   const handleCellSelect = (e: any) => {
     e.added.forEach((el: any) => {
       el.classList.add('selected');
+
+      if (selected.findIndex((date) => date === el.id) === -1) {
+        setSelected([...selected, el.id]);
+      }
     });
 
     e.removed.forEach((el: any) => {
       el.classList.remove('selected');
+
+      const filtered = _.remove(selected, (date) => date !== el.id);
+      setSelected(filtered);
     });
   };
 

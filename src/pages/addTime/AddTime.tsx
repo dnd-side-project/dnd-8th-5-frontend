@@ -48,6 +48,7 @@ import { getTimeArray } from '../../utils/getTimeArray';
 import _ from 'lodash';
 import { userNameState } from '../../atoms/userNameAtoms';
 import { getThreeChunks } from '../../utils/getThreeChunks';
+import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
 
 const AddTime = () => {
   const { roomUUID } = useParams();
@@ -80,6 +81,11 @@ const AddTime = () => {
   const validDateChunks = getChunks(
     getValidDates(getThreeChunks(dates.sort()))
   );
+
+  // console.log(
+  //   '하,,',
+  //   startTime && endTime && getAddTimeTableInfo(dates, startTime, endTime)[0]
+  // );
 
   const storedName = localStorage.getItem('name');
   const showGuide = localStorage.getItem('availableShowGuide');

@@ -1,23 +1,31 @@
 import { getTimeArray } from './getTimeArray';
 
+interface DateTypes {
+  availableDate: string;
+  availableTimeInfos: {
+    time: string;
+    count: number;
+  }[];
+}
+
 export const getCurrentTableInfo = (
-  availableDateTimes: any,
+  availableDateTimes: DateTypes[],
   timeRange: number[]
 ) => {
   const remainder = availableDateTimes.length % 4;
-  const timeInfo = getTimeArray(timeRange);
+  const timeArray = getTimeArray(timeRange);
 
-  const availableTimeInfos = timeInfo.map((time: string) => ({
+  const blankDateTimes = timeArray.map((time: string) => ({
     time: time,
     count: -1,
   }));
 
-  let dates: any = [...availableDateTimes];
+  let dates: DateTypes[] = [...availableDateTimes];
 
   for (let i = 0; i < remainder; i++) {
     dates = [
       ...dates,
-      { availableDate: `blank${i}`, availableTimeInfos: availableTimeInfos },
+      { availableDate: `blank${i}`, availableTimeInfos: blankDateTimes },
     ];
   }
 
