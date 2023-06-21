@@ -45,6 +45,7 @@ const Current = () => {
   const navigate = useNavigate();
 
   const [room, setRoom] = useRecoilState(roomState);
+  const userName = localStorage.getItem('userName');
   const [recoilBottomSheet, setRecoilBottomSheet] = useRecoilState(
     availableBottomSheetState
   );
@@ -64,7 +65,6 @@ const Current = () => {
 
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);
-  const [userName, setUserName] = useRecoilState(userNameState);
   const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
     useState<boolean>(false);
   const [isTimeExpired, setIsTimeExpired] = useState<boolean>(false);
@@ -110,7 +110,7 @@ const Current = () => {
   } = room;
 
   const handleEditButtonClick = () => {
-    const isValidUser = useAuth(roomUUID as string, userName);
+    const isValidUser = useAuth(roomUUID as string);
 
     if (isValidUser) {
       setSelectedMethod('possible');
@@ -143,9 +143,10 @@ const Current = () => {
         <Title>실시간 참여 현황</Title>
         <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
 
-        {!headCount && (
+        {headCount ? (
           <ProgressBar headCount={headCount} participants={participants} />
-        )}
+        ) : null}
+
         <Participants>
           {participants.map((participant: string) => (
             <ParticipantsBlock key={participant} participant={participant} />

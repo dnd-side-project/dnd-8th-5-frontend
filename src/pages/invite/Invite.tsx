@@ -23,19 +23,12 @@ import { useEffect, useState } from 'react';
 import { RoomTypes } from '../../types/roomInfo';
 import { API } from '../../utils/API';
 import { useAuth } from '../../hooks/useAuth';
+import { roomState } from '../../atoms/roomAtoms';
 
 const Invite = () => {
   const { roomUUID } = useParams();
   const [userName, setUserName] = useRecoilState(userNameState);
-  const [room, setRoom] = useState<RoomTypes>({
-    title: '',
-    deadLine: null,
-    headCount: 0,
-    participants: [''],
-    dates: [''],
-    startTime: null,
-    endTime: null,
-  });
+  const [room, setRoom] = useRecoilState(roomState);
 
   const navigate = useNavigate();
 
@@ -64,7 +57,7 @@ const Invite = () => {
   };
 
   const handleStartButtonClick = () => {
-    const isValidUser = useAuth(roomUUID as string, userName);
+    const isValidUser = useAuth(roomUUID as string);
 
     if (isValidUser) {
       navigate(`/add/${roomUUID}`);

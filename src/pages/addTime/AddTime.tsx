@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { availableTimesState } from '../../atoms/availableTimesAtom';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 import { availableGuideState } from '../../atoms/availableGuideAtoms';
 
@@ -49,6 +48,7 @@ import _ from 'lodash';
 import { userNameState } from '../../atoms/userNameAtoms';
 import { getThreeChunks } from '../../utils/getThreeChunks';
 import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
+import { roomState } from '../../atoms/roomAtoms';
 
 const AddTime = () => {
   const { roomUUID } = useParams();
@@ -67,7 +67,7 @@ const AddTime = () => {
   const [tablePage, setTablePage] = useState(0);
   const [isPageMoved, setIsPageMoved] = useState(false);
 
-  const [userName, setUserName] = useRecoilState(userNameState);
+  const userName = localStorage.getItem('userName');
   const [availableGuide, setAvailbleGuide] =
     useRecoilState(availableGuideState);
 
@@ -75,17 +75,6 @@ const AddTime = () => {
 
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);
-  const [availableTimes, setAvailableTimes] =
-    useRecoilState(availableTimesState);
-
-  const validDateChunks = getChunks(
-    getValidDates(getThreeChunks(dates.sort()))
-  );
-
-  // console.log(
-  //   '하,,',
-  //   startTime && endTime && getAddTimeTableInfo(dates, startTime, endTime)[0]
-  // );
 
   const storedName = localStorage.getItem('name');
   const showGuide = localStorage.getItem('availableShowGuide');
@@ -109,6 +98,12 @@ const AddTime = () => {
     setAvailbleGuide(JSON.parse(showGuide as string));
   }, []);
 
+  const validDateChunks = getChunks(
+    getValidDates(getThreeChunks(dates.sort()))
+  );
+
+  console.log('잡았다 ', validDateChunks);
+
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {
       setTablePage(tablePage - 1);
@@ -124,16 +119,6 @@ const AddTime = () => {
 
     setIsPageMoved(true);
   };
-
-  useEffect(() => {
-    availableTimes.map(
-      (time: string) =>
-        document.getElementById(`${time}`) &&
-        document.getElementById(`${time}`)?.classList.add('selected')
-    );
-
-    setIsPageMoved(false);
-  }, [isPageMoved]);
 
   const navigate = useNavigate();
   const goToCurrent = () => {
