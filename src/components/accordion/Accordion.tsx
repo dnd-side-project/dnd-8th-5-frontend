@@ -24,7 +24,7 @@ const Accordion = ({
   startTime,
   endTime,
   participantNames,
-  headCount,
+  count,
 }: AccordionTypes) => {
   const [isCollapse, setIsCollapse] = useState(false);
 
@@ -48,9 +48,9 @@ const Accordion = ({
     <Wrapper>
       <DefaultWrapper>
         <Content onClick={handleCollapse}>
-          {headCount !== null && (
+          {count !== null && (
             <PeopleWrapper>
-              <People isParticipant={false}>{headCount}명 중</People>
+              <People isParticipant={false}>{count}명 중</People>
               <People isParticipant={true}> {participantNames.length}명</People>
             </PeopleWrapper>
           )}

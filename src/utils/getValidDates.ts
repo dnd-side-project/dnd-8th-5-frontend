@@ -20,7 +20,5 @@ export const getValidDates = (dates: string[]) => {
     ),
   ];
 
-  console.log('이거지 ', room);
-
   return validDates[0];
 };

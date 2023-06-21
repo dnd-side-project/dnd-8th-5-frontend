@@ -1,7 +1,5 @@
-import styled from '@emotion/styled';
 import Header from '../../components/header/Header';
 import SelectBox from '../../components/selectBox/SelectBox';
-import theme from '../../styles/theme';
 
 import nobody from '../../assets/images/nobody.png';
 import Accordion from '../../components/accordion/Accordion';
@@ -55,7 +53,6 @@ const Result = () => {
   const handleConfirmButtonClick = (e: any) => {
     setIsPopupOpened(true);
     setSelectedTimeId(e.target.id);
-    console.log(e.target.id);
   };
 
   const handleParticipantOpen = () => {
@@ -195,7 +192,7 @@ const Result = () => {
                   startTime={startTime}
                   endTime={endTime}
                   participantNames={participantNames}
-                  headCount={headCount}
+                  count={participants.length}
                 />
               )
             )}
@@ -214,7 +211,7 @@ const Result = () => {
                   3,
                   5
                 )} (${dayOfWeek}) ${startTime} ~ ${endTime}`}
-                {isConfirmed ? (
+                {/* {isConfirmed ? (
                   <ConfirmButton
                     isConfirmed={isConfirmed}
                     onClick={handleConfirmButtonClick}
@@ -229,7 +226,7 @@ const Result = () => {
                   >
                     확정
                   </ConfirmButton>
-                )}
+                )} */}
               </TimeWrapper>;
             }
           )}

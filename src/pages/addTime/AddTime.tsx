@@ -102,8 +102,6 @@ const AddTime = () => {
     getValidDates(getThreeChunks(dates.sort()))
   );
 
-  console.log('잡았다 ', validDateChunks);
-
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {
       setTablePage(tablePage - 1);

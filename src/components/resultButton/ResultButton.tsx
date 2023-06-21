@@ -16,6 +16,7 @@ import {
 const ResultButton = () => {
   const { roomUUID } = useParams();
   const navigate = useNavigate();
+  const currentUrl = window.location.origin + '/invite/' + roomUUID;
 
   const goToCurrent = () => {
     navigate(`/current/${roomUUID}`);
@@ -24,7 +25,7 @@ const ResultButton = () => {
   const shareData = {
     title: '모두의 시간',
     text: '쉽고 빠른 약속시간 정하기, 모두의 시간',
-    url: `https://modu-time.site/invite/${roomUUID}`, // 공유될 URL
+    url: `${window.location.origin}/invite/${roomUUID}`,
   };
 
   const handleShareClick = () => {
