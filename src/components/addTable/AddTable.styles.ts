@@ -103,12 +103,12 @@ export const Select = styled.div<SelectType>`
         : `${theme.colors.orange02}`};
   }
 
-  &:nth-of-type(odd) {
+  &:nth-of-type(even) {
     height: 18px;
     border-bottom: 1px dashed ${theme.colors.gray03};
   }
 
-  &:nth-of-type(even) {
+  &:nth-of-type(odd) {
     border-bottom: 1px solid ${theme.colors.gray03};
   }
 

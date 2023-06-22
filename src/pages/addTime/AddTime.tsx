@@ -52,6 +52,8 @@ import { roomState } from '../../atoms/roomAtoms';
 const AddTime = () => {
   const { roomUUID } = useParams();
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
   const [currentRoomState, setCurrentRoomState] = useState<any>([]);
   const [room, setRoom] = useState<RoomTypes>({
     title: '',
@@ -119,8 +121,8 @@ const AddTime = () => {
 
   const navigate = useNavigate();
   const goToCurrent = () => {
-    const body = document.body;
-    body.style.overflow = '';
+    document.body.style.overflow = '';
+    (wrapperRef.current as HTMLDivElement).style.overflow = 'auto';
 
     navigate(`/current/${roomUUID}`);
   };
@@ -215,10 +217,14 @@ const AddTime = () => {
   const [times, setTimes] = useState<number[]>([]);
 
   useEffect(() => {
-    if (startTime && endTime) {
+    if (startTime && endTime && wrapperRef.current) {
       setTimes(
         getRange(parseInt(startTime.slice(0, 2)), parseInt(endTime.slice(0, 2)))
       );
+
+      document.body.style.overflow = 'hidden';
+      wrapperRef.current.style.overflow = 'hidden';
+      console.log('실행');
     }
   }, [startTime, endTime]);
 
@@ -317,15 +323,8 @@ const AddTime = () => {
     }
   }, [offsetY, trackRef, contentRef]);
 
-  useEffect(() => {
-    if (startTime && endTime) {
-      const body = document.body;
-      body.style.overflow = 'hidden';
-    }
-  }, []);
-
   return (
-    <Wrapper>
+    <Wrapper ref={wrapperRef}>
       <Header pageName="addTime" title={title} />
       <Body>
         <TitleWrapper>

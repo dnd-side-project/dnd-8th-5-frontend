@@ -13,8 +13,13 @@ export const Wrapper = styled.div`
   max-width: 375px;
   height: 100%;
 
-  overflow: hidden;
-  overscroll-behavior: contain;
+  overflow: auto;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const Body = styled.div`
@@ -82,7 +87,6 @@ export const TableWrapper = styled.div`
 `;
 
 export const CalendarWrapper = styled.div`
-  padding-bottom: 128px;
   margin: 0 auto;
   position: relative;
 `;
