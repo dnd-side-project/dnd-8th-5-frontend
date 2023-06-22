@@ -64,7 +64,8 @@ const ProgressBar = ({ headCount, participants }: currentParticipants) => {
           />
         }
         <Proportion ref={proportionRef}>
-          <Span>{participants.length}</Span> / {headCount}
+          <Span>{participants.length}</Span> /{' '}
+          {participants.length > headCount! ? participants.length : headCount}
         </Proportion>
       </RabbitWrapper>
 

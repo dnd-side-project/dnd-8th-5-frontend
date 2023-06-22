@@ -9,7 +9,8 @@ export const Wrapper = styled.div`
 
 export const BarWrapper = styled.div`
   width: 100%;
-  max-width: 412px;
+  max-width: 372px;
+
   height: 17px;
   border-radius: 61px;
   background: ${theme.colors.gray02};
@@ -20,7 +21,11 @@ export const BarCover = styled.div<{
   participantsNumber: number;
 }>`
   width: ${({ headCount, participantsNumber }) =>
-    headCount ? `${(participantsNumber / headCount) * 100}%` : 0};
+    headCount
+      ? headCount < participantsNumber
+        ? '100%'
+        : `${(participantsNumber / headCount) * 100}%`
+      : 0};
   height: 100%;
   margin-top: 5px;
 
