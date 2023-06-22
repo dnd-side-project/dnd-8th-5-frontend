@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { userNameState } from '../../atoms/userNameAtoms';
 import {
   BottomButton,
   MainContainer,
@@ -19,15 +18,13 @@ import {
   BottomSubBuuton,
 } from './Invite.styles';
 import calendar from '../../assets/images/calendar.png';
-import { useEffect, useState } from 'react';
-import { RoomTypes } from '../../types/roomInfo';
+import { useEffect } from 'react';
 import { API } from '../../utils/API';
 import { useAuth } from '../../hooks/useAuth';
 import { roomState } from '../../atoms/roomAtoms';
 
 const Invite = () => {
   const { roomUUID } = useParams();
-  const [userName, setUserName] = useRecoilState(userNameState);
   const [room, setRoom] = useRecoilState(roomState);
 
   const navigate = useNavigate();

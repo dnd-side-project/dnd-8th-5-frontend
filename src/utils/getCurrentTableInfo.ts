@@ -12,21 +12,23 @@ export const getCurrentTableInfo = (
   availableDateTimes: DateTypes[],
   timeRange: number[]
 ) => {
-  const remainder = availableDateTimes.length % 4;
-  const timeArray = getTimeArray(timeRange);
-
-  const blankDateTimes = timeArray.map((time: string) => ({
-    time: time,
-    count: -1,
-  }));
-
   let dates: DateTypes[] = [...availableDateTimes];
 
-  for (let i = 0; i < remainder; i++) {
-    dates = [
-      ...dates,
-      { availableDate: `blank${i}`, availableTimeInfos: blankDateTimes },
-    ];
+  if (availableDateTimes.length < 4) {
+    const remainder = 4 - (availableDateTimes.length % 4);
+    const timeArray = getTimeArray(timeRange);
+
+    const blankDateTimes = timeArray.map((time: string) => ({
+      time: time,
+      count: -1,
+    }));
+
+    for (let i = 0; i < remainder; i++) {
+      dates = [
+        ...dates,
+        { availableDate: `blank${i}`, availableTimeInfos: blankDateTimes },
+      ];
+    }
   }
 
   return dates;

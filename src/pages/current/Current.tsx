@@ -31,12 +31,19 @@ import { useRecoilState } from 'recoil';
 import { roomState } from '../../atoms/roomAtoms';
 import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
-import { userNameState } from '../../atoms/userNameAtoms';
 import { availableBottomSheetState } from '../../atoms/availableBottomSheet';
 import dayjs from 'dayjs';
 import { getFourChunks } from '../../utils/getFourChunks';
 import { getRange } from '../../utils/getRange';
 import { useAuth } from '../../hooks/useAuth';
+
+interface AvailableDateTimesTypes {
+  availableDate: string;
+  availableTimeInfos: {
+    time: string;
+    count: number;
+  }[];
+}
 
 const Current = () => {
   const { roomUUID } = useParams();
@@ -45,29 +52,19 @@ const Current = () => {
   const navigate = useNavigate();
 
   const [room, setRoom] = useRecoilState(roomState);
-  const userName = localStorage.getItem('userName');
   const [recoilBottomSheet, setRecoilBottomSheet] = useRecoilState(
     availableBottomSheetState
   );
-  const [currentRoomState, setCurrentRoomState] = useState({
-    availableDateTimes: [
-      {
-        availableDate: '',
-        availableTimeInfos: [
-          {
-            time: null,
-            count: 0,
-          },
-        ],
-      },
-    ],
-  });
 
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);
   const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
     useState<boolean>(false);
   const [isTimeExpired, setIsTimeExpired] = useState<boolean>(false);
+
+  const [availableDateTimes, setAvailableDateTimes] = useState<
+    AvailableDateTimesTypes[]
+  >([]);
 
   useEffect(() => {
     if (state) {
@@ -90,14 +87,13 @@ const Current = () => {
       const { data } = await API.get(
         `/api/room/${roomUUID}/available-time/group`
       );
-      setCurrentRoomState(data);
+
+      setAvailableDateTimes(data.availableDateTimes);
     };
 
-    getRoomInfo();
     getCurrentRoomInfo();
+    getRoomInfo();
   }, []);
-
-  const { availableDateTimes } = currentRoomState;
 
   const {
     title,
@@ -168,13 +164,13 @@ const Current = () => {
                 parseInt(endTime.slice(0, 2))
               )}
               participants={participants}
-              currentRoomState={currentRoomState.availableDateTimes}
+              availableDateTimes={availableDateTimes}
             />
           </TableWrapper>
         ) : (
           <CurrentCalendar
-            availableDateTimes={availableDateTimes}
             participants={participants}
+            availableDateTimes={availableDateTimes}
           />
         )}
       </Body>

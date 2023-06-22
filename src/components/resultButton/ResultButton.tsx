@@ -16,7 +16,6 @@ import {
 const ResultButton = () => {
   const { roomUUID } = useParams();
   const navigate = useNavigate();
-  const currentUrl = window.location.origin + '/invite/' + roomUUID;
 
   const goToCurrent = () => {
     navigate(`/current/${roomUUID}`);

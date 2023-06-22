@@ -45,7 +45,6 @@ import AddCalendar from '../../components/addCalendar/AddCalendar';
 import { getRange } from '../../utils/getRange';
 import { getTimeArray } from '../../utils/getTimeArray';
 import _ from 'lodash';
-import { userNameState } from '../../atoms/userNameAtoms';
 import { getThreeChunks } from '../../utils/getThreeChunks';
 import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
 import { roomState } from '../../atoms/roomAtoms';
@@ -204,6 +203,7 @@ const AddTime = () => {
     }
 
     goToCurrent();
+    window.location.reload();
   };
 
   const handleGuideCloseClick = useCallback(() => {

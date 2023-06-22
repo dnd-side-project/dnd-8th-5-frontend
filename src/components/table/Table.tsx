@@ -12,9 +12,14 @@ import {
 } from './Table.styles';
 
 import { getCurrentTableInfo } from '../../utils/getCurrentTableInfo';
+import { useEffect, useState } from 'react';
 
-const Table = ({ currentRoomState, dates, times, participants }: any) => {
-  const currentTableInfo = getCurrentTableInfo(currentRoomState, times);
+const Table = ({ availableDateTimes, dates, times, participants }: any) => {
+  const [currentTableInfo, setCurrentTableInfo] = useState<any>([]);
+
+  useEffect(() => {
+    setCurrentTableInfo(getCurrentTableInfo(availableDateTimes, times));
+  }, [availableDateTimes]);
 
   return (
     <Wrapper>

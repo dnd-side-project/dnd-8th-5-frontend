@@ -11,13 +11,23 @@ import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
 
 import theme from '../../styles/theme';
 
+interface AvailableDateTimesTypes {
+  availableDate: string;
+  availableTimeInfos: {
+    time: string;
+    count: number;
+  }[];
+}
+
+interface CurrentCalendarTypes {
+  participants: string[];
+  availableDateTimes: AvailableDateTimesTypes[];
+}
+
 const CurrentCalendar = ({
   participants,
   availableDateTimes,
-}: {
-  participants: string[];
-  availableDateTimes: any;
-}) => {
+}: CurrentCalendarTypes) => {
   const availableDatesInfo = availableDateTimes.map((date: any) => ({
     date: date.availableDate,
     opacity: date.availableTimeInfos[0].count / participants.length,

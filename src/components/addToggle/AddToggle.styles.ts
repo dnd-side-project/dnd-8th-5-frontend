@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   height: 30px;
   border-radius: 43px;
   margin-right: 9px;
-  overflow: default;
+  overflow: visible;
 
   background: ${theme.colors.gray02};
   ${theme.typography.semibold04};
