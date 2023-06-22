@@ -5,6 +5,7 @@ import theme from '../../styles/theme';
 export const StyledCalendar = styled(Calendar)`
   width: 336px;
   margin-top: 16px;
+  margin-bottom: 60px;
 
   background: ${theme.colors.gray01};
   border: 1px solid ${theme.colors.gray03};
