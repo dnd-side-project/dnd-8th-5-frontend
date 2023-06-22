@@ -73,12 +73,18 @@ export const MoveButton = styled.img`
 `;
 
 export const TableWrapper = styled.div`
-  padding-bottom: 32px;
+  padding-bottom: 64px;
   margin: 0 auto;
   position: relative;
   height: 388px;
 
   overflow: hidden;
+`;
+
+export const CalendarWrapper = styled.div`
+  padding-bottom: 128px;
+  margin: 0 auto;
+  position: relative;
 `;
 
 export const ScrollbarTrack = styled.div`

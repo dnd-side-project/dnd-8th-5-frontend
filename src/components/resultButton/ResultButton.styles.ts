@@ -3,9 +3,8 @@ import theme from '../../styles/theme';
 
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: 412px;
+  max-width: 375px;
   height: 117px;
-  padding: 0 20px;
 
   position: fixed;
   z-index: 3;
@@ -19,18 +18,19 @@ export const Wrapper = styled.div`
 export const Bubble = styled.img`
   width: 142px;
   height: 27px;
+  margin-left: 20px;
 `;
 
 export const BottomWrapper = styled.div`
   width: 100%;
   height: 90px;
+  border-top: 1px solid ${theme.colors.gray02};
 
   background: ${theme.colors.gray01};
-  border-top: 1px solid ${theme.colors.gray02};
 
   display: flex;
   justify-content: space-between;
-  padding: 10px 0 28px 0;
+  padding: 10px 20px 28px 20px;
 `;
 
 export const CurrentButtonWrapper = styled.div`

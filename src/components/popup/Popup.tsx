@@ -10,8 +10,6 @@ import {
   Wrapper,
 } from './Popup.styles';
 import { PopupTypes } from './Popup.types';
-import { useRecoilState } from 'recoil';
-import { userNameState } from '../../atoms/userNameAtoms';
 
 const Popup = ({
   selectedTimeId,
@@ -20,7 +18,7 @@ const Popup = ({
 }: PopupTypes) => {
   const { roomUUID } = useParams();
   const navigate = useNavigate();
-  const [userName, setUserName] = useRecoilState(userNameState);
+  const userName = localStorage.getItem('userName');
 
   const closePopup = () => {
     setIsPopupOpened(false);

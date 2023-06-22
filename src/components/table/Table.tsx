@@ -10,49 +10,49 @@ import {
   Top,
   Wrapper,
 } from './Table.styles';
-import { getRange } from '../../utils/getRange';
 
-const Table = ({
-  currentroomState,
-  dates,
-  participants,
-  startTime,
-  endTime,
-}: any) => {
-  const timeRange = getRange(
-    parseInt(startTime.slice(0, 2)),
-    parseInt(endTime.slice(0, 2))
-  );
+import { getCurrentTableInfo } from '../../utils/getCurrentTableInfo';
+import { useEffect, useState } from 'react';
+
+const Table = ({ availableDateTimes, dates, times, participants }: any) => {
+  const [currentTableInfo, setCurrentTableInfo] = useState<any>([]);
+
+  useEffect(() => {
+    setCurrentTableInfo(getCurrentTableInfo(availableDateTimes, times));
+  }, [availableDateTimes]);
 
   return (
     <Wrapper>
       <Top>
         <Blank />
         <DateWrapper>
-          {dates.map((date: string) => (
-            <Date key={date}>{`${date.slice(5, 7)}월 ${date.slice(
-              8,
-              10
-            )}일`}</Date>
-          ))}
+          {dates.map((date: string) =>
+            date.slice(0, 5) === 'blank' ? (
+              <Date key={date} isBlank={true}></Date>
+            ) : (
+              <Date key={date} isBlank={false}>{`${date.slice(
+                5,
+                7
+              )}월 ${date.slice(8, 10)}일`}</Date>
+            )
+          )}
         </DateWrapper>
       </Top>
 
       <Bottom>
         <TimeWrapper>
-          {timeRange.map((time) => (
+          {times.map((time: number) => (
             <Time key={time}>{time}</Time>
           ))}
         </TimeWrapper>
 
-        {currentroomState.map(({ availableDate, availableTimeInfos }: any) => (
+        {currentTableInfo.map(({ availableDate, availableTimeInfos }: any) => (
           <SelectWrapper key={availableDate}>
             {availableTimeInfos.map(({ time, count }: any) => (
               <Select
                 key={`${availableDate} ${time}`}
-                opacity={
-                  participants.length === 0 ? 0 : count / participants.length
-                }
+                count={count}
+                total={participants.length}
               />
             ))}
           </SelectWrapper>

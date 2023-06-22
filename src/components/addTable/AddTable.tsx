@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-import theme from '../../styles/theme';
-import { getRange } from '../../utils/getRange';
+import { useEffect, useRef } from 'react';
+
 import { getTimeArray } from '../../utils/getTimeArray';
 import {
   Blank,
@@ -16,6 +15,7 @@ import {
 } from './AddTable.styles';
 import { AddTableType } from './AddTable.types';
 import Selecto from 'react-selecto';
+import _ from 'lodash';
 
 const AddTable = ({
   contentRef,
@@ -27,6 +27,7 @@ const AddTable = ({
   times,
 }: AddTableType) => {
   const timeDetail = getTimeArray(times);
+  const selectoRef = useRef<any>(null);
 
   useEffect(() => {
     if (selected) {
@@ -35,6 +36,10 @@ const AddTable = ({
         element?.classList.add('selected');
       });
     }
+
+    selectoRef.current.setSelectedTargets(
+      selected.map((id) => document.getElementById(id))
+    );
   }, [tablePage, selectedMethod, selected]);
 
   const handleCellSelect = (e: any) => {
@@ -49,7 +54,7 @@ const AddTable = ({
     e.removed.forEach((el: any) => {
       el.classList.remove('selected');
 
-      const filtered = selected.filter((date) => date !== el.id);
+      const filtered = _.remove(selected, (date) => date !== el.id);
       setSelected(filtered);
     });
   };
@@ -84,6 +89,7 @@ const AddTable = ({
           ({ date, isValidDate }: { date: string; isValidDate: boolean }) => (
             <SelectWrapper key={date} className="container">
               <Selecto
+                ref={selectoRef}
                 dragContainer={'.container'}
                 selectableTargets={['.valid']}
                 onSelect={handleCellSelect}

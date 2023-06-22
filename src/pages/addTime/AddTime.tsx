@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { availableTimesState } from '../../atoms/availableTimesAtom';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 import { availableGuideState } from '../../atoms/availableGuideAtoms';
 
@@ -32,6 +31,7 @@ import {
   GuideIcon,
   GuideHandleIcon,
   CloseButton,
+  CalendarWrapper,
 } from './AddTime.styles';
 import Header from '../../components/header/Header';
 import BottomButton from '../../components/bottomButton/BottomButton';
@@ -45,8 +45,9 @@ import AddCalendar from '../../components/addCalendar/AddCalendar';
 import { getRange } from '../../utils/getRange';
 import { getTimeArray } from '../../utils/getTimeArray';
 import _ from 'lodash';
-import { userNameState } from '../../atoms/userNameAtoms';
 import { getThreeChunks } from '../../utils/getThreeChunks';
+import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
+import { roomState } from '../../atoms/roomAtoms';
 
 const AddTime = () => {
   const { roomUUID } = useParams();
@@ -65,7 +66,7 @@ const AddTime = () => {
   const [tablePage, setTablePage] = useState(0);
   const [isPageMoved, setIsPageMoved] = useState(false);
 
-  const [userName, setUserName] = useRecoilState(userNameState);
+  const userName = localStorage.getItem('userName');
   const [availableGuide, setAvailbleGuide] =
     useRecoilState(availableGuideState);
 
@@ -73,12 +74,6 @@ const AddTime = () => {
 
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);
-  const [availableTimes, setAvailableTimes] =
-    useRecoilState(availableTimesState);
-
-  const validDateChunks = getChunks(
-    getValidDates(getThreeChunks(dates.sort()))
-  );
 
   const storedName = localStorage.getItem('name');
   const showGuide = localStorage.getItem('availableShowGuide');
@@ -102,6 +97,10 @@ const AddTime = () => {
     setAvailbleGuide(JSON.parse(showGuide as string));
   }, []);
 
+  const validDateChunks = getChunks(
+    getValidDates(getThreeChunks(dates.sort()))
+  );
+
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {
       setTablePage(tablePage - 1);
@@ -118,18 +117,11 @@ const AddTime = () => {
     setIsPageMoved(true);
   };
 
-  useEffect(() => {
-    availableTimes.map(
-      (time: string) =>
-        document.getElementById(`${time}`) &&
-        document.getElementById(`${time}`)?.classList.add('selected')
-    );
-
-    setIsPageMoved(false);
-  }, [isPageMoved]);
-
   const navigate = useNavigate();
   const goToCurrent = () => {
+    const body = document.body;
+    body.style.overflow = '';
+
     navigate(`/current/${roomUUID}`);
   };
 
@@ -211,6 +203,7 @@ const AddTime = () => {
     }
 
     goToCurrent();
+    window.location.reload();
   };
 
   const handleGuideCloseClick = useCallback(() => {
@@ -324,25 +317,12 @@ const AddTime = () => {
     }
   }, [offsetY, trackRef, contentRef]);
 
-  const wrapperRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    const wrapper = wrapperRef.current as HTMLDivElement;
-
-    const preventPullToRefresh = (e: any) => {
-      e.preventDefault();
-    };
-
-    if (wrapper) {
-      wrapper.addEventListener('touchmove', preventPullToRefresh, {
-        passive: false,
-      });
+    if (startTime && endTime) {
+      const body = document.body;
+      body.style.overflow = 'hidden';
     }
-
-    return () => {
-      wrapper?.removeEventListener('touchmove', preventPullToRefresh);
-    };
-  }, [wrapperRef.current]);
+  }, []);
 
   return (
     <Wrapper>
@@ -397,13 +377,14 @@ const AddTime = () => {
               </ScrollbarTrack>
             </>
           ) : (
-            <TableWrapper>
+            <CalendarWrapper>
               <AddCalendar
                 dates={dates}
                 selected={selected}
                 setSelected={setSelected}
+                selectedMethod={selectedMethod}
               />
-            </TableWrapper>
+            </CalendarWrapper>
           )}
         </Main>
         <BottomButton

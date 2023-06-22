@@ -4,5 +4,5 @@ export interface AccordionTypes {
   startTime: string;
   endTime: string;
   participantNames: string[];
-  headCount: number | null;
+  count: number | null;
 }

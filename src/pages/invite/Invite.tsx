@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { userNameState } from '../../atoms/userNameAtoms';
 import {
   BottomButton,
   MainContainer,
@@ -19,22 +18,14 @@ import {
   BottomSubBuuton,
 } from './Invite.styles';
 import calendar from '../../assets/images/calendar.png';
-import { useEffect, useState } from 'react';
-import { RoomTypes } from '../../types/roomInfo';
+import { useEffect } from 'react';
 import { API } from '../../utils/API';
+import { useAuth } from '../../hooks/useAuth';
+import { roomState } from '../../atoms/roomAtoms';
 
 const Invite = () => {
   const { roomUUID } = useParams();
-  const [userName, setUserName] = useRecoilState(userNameState);
-  const [room, setRoom] = useState<RoomTypes>({
-    title: '',
-    deadLine: null,
-    headCount: 0,
-    participants: [''],
-    dates: [''],
-    startTime: null,
-    endTime: null,
-  });
+  const [room, setRoom] = useRecoilState(roomState);
 
   const navigate = useNavigate();
 
@@ -63,15 +54,13 @@ const Invite = () => {
   };
 
   const handleStartButtonClick = () => {
-    const savedUserName = localStorage.getItem('name');
-    const savedRoomUUID = localStorage.getItem('uuid');
+    const isValidUser = useAuth(roomUUID as string);
 
-    if ((savedUserName === '' || savedUserName === null) && userName === '') {
-      navigate(`/login/${roomUUID}`);
+    if (isValidUser) {
+      navigate(`/add/${roomUUID}`);
     } else {
-      if (roomUUID === savedRoomUUID) {
-        navigate(`/current/${roomUUID}`);
-      } else navigate(`/login/${roomUUID}`);
+      localStorage.clear();
+      navigate(`/login/${roomUUID}`);
     }
   };
 

@@ -6,7 +6,8 @@ export const Wrapper = styled.div`
   max-width: 375px;
 
   margin: 0 auto;
-  padding-bottom: 108px;
+  /* padding-bottom: 168px;  // 캘린더 */
+  padding-bottom: 108px; // 표
 
   overflow-y: scroll;
 

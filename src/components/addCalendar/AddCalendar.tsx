@@ -1,29 +1,34 @@
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 
+import calendarNextMonth from '../../assets/icons/calendarNextMonth.svg';
+import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
+
+import { AddCalendarType } from './AddCalendar.types';
+
 import {
   NextMonthIcon,
   PrevMonthIcon,
   StyledCalendar,
 } from './AddCalendar.styles';
 
-import calendarNextMonth from '../../assets/icons/calendarNextMonth.svg';
-import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
-
-import { AddCalendarType } from './AddCalendar.types';
-
-import theme from '../../styles/theme';
-import { useRecoilState } from 'recoil';
-import { selectedMethodState } from '../../atoms/selectedMethodAtom';
-
-const AddCalendar = ({ dates, selected, setSelected }: AddCalendarType) => {
+const AddCalendar = ({
+  dates,
+  selected,
+  setSelected,
+  selectedMethod,
+}: AddCalendarType) => {
   const [date, setDate] = useState<Date>(new Date());
-  const [selectedMethod, setSelectedMethod] =
-    useRecoilState(selectedMethodState);
 
   const addTileClassName = ({ date }: { date: Date }) => {
     if (dates.indexOf(dayjs(date).format('YYYY-MM-DD')) !== -1) {
-      return `valid availableDate${dayjs(date).format('YYYY-MM-DD')}`;
+      if (selected.indexOf(dayjs(date).format('YYYY-MM-DD 00:00')) !== -1) {
+        return `selected valid availableDate${dayjs(date).format(
+          'YYYY-MM-DD'
+        )}`;
+      } else {
+        return `valid availableDate${dayjs(date).format('YYYY-MM-DD')}`;
+      }
     } else {
       return null;
     }
@@ -38,23 +43,10 @@ const AddCalendar = ({ dates, selected, setSelected }: AddCalendarType) => {
 
     if (element) {
       if (index === -1) {
-        if (selectedMethod === 'possible') {
-          element.style.backgroundColor = `${theme.colors.purple06}`;
-          element.style.color = `${theme.colors.gray01}`;
-        }
-
-        if (selectedMethod === 'impossible') {
-          element.style.backgroundColor = `${theme.colors.orange02}`;
-          element.style.color = `${theme.colors.gray01}`;
-        }
-
+        element.classList.add('selected');
         setSelected([...selected, `${dayjs(date).format('YYYY-MM-DD')} 00:00`]);
       } else {
-        element.style.backgroundColor = `${theme.colors.gray01}`;
-        element.style.color = `${theme.colors.purple06}`;
-
-        element.classList.remove('selectedDay');
-
+        element.classList.remove('selected');
         setSelected(
           selected.filter(
             (availableDate: string) =>
@@ -66,36 +58,7 @@ const AddCalendar = ({ dates, selected, setSelected }: AddCalendarType) => {
   }, [date]);
 
   useEffect(() => {
-    selected.forEach((selectedDate) => {
-      const element = document.querySelector(
-        `.availableDate${selectedDate.slice(0, 10)}`
-      ) as HTMLElement;
-
-      if (element) {
-        if (selectedMethod === 'possible') {
-          element.style.color = `${theme.colors.gray01}`;
-          element.style.backgroundColor = `${theme.colors.purple06}`;
-        }
-
-        if (selectedMethod === 'impossible') {
-          element.style.color = `${theme.colors.gray01}`;
-          element.style.backgroundColor = `${theme.colors.orange02}`;
-        }
-      }
-    });
-  }, [selected]);
-
-  useEffect(() => {
-    dates.forEach((date) => {
-      const element = document.querySelector(
-        `.availableDate${date}`
-      ) as HTMLElement;
-
-      if (element) {
-        element.style.backgroundColor = `${theme.colors.gray01}`;
-        element.style.color = `${theme.colors.purple06}`;
-      }
-    });
+    setSelected([]);
   }, [selectedMethod]);
 
   return (
@@ -113,6 +76,7 @@ const AddCalendar = ({ dates, selected, setSelected }: AddCalendarType) => {
       calendarType="US"
       formatDay={(_, date) => dayjs(date).format('D')}
       formatMonthYear={(_, date) => dayjs(date).format('M월')}
+      selectedMethod={selectedMethod}
     />
   );
 };

@@ -31,9 +31,19 @@ import { useRecoilState } from 'recoil';
 import { roomState } from '../../atoms/roomAtoms';
 import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
-import { userNameState } from '../../atoms/userNameAtoms';
 import { availableBottomSheetState } from '../../atoms/availableBottomSheet';
 import dayjs from 'dayjs';
+import { getFourChunks } from '../../utils/getFourChunks';
+import { getRange } from '../../utils/getRange';
+import { useAuth } from '../../hooks/useAuth';
+
+interface AvailableDateTimesTypes {
+  availableDate: string;
+  availableTimeInfos: {
+    time: string;
+    count: number;
+  }[];
+}
 
 const Current = () => {
   const { roomUUID } = useParams();
@@ -45,23 +55,16 @@ const Current = () => {
   const [recoilBottomSheet, setRecoilBottomSheet] = useRecoilState(
     availableBottomSheetState
   );
-  const [currentRoomState, setCurrentRoomState] = useState({
-    availableDateTimes: [
-      {
-        availableDate: '',
-        availableTimeInfos: [
-          {
-            time: null,
-            count: 0,
-          },
-        ],
-      },
-    ],
-  });
 
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);
-  const [userName, setUserName] = useRecoilState(userNameState);
+  const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
+    useState<boolean>(false);
+  const [isTimeExpired, setIsTimeExpired] = useState<boolean>(false);
+
+  const [availableDateTimes, setAvailableDateTimes] = useState<
+    AvailableDateTimesTypes[]
+  >([]);
 
   useEffect(() => {
     if (state) {
@@ -80,21 +83,17 @@ const Current = () => {
       setRoom(data);
     };
 
-    getRoomInfo();
-  }, []);
-
-  useEffect(() => {
     const getCurrentRoomInfo = async () => {
       const { data } = await API.get(
         `/api/room/${roomUUID}/available-time/group`
       );
-      setCurrentRoomState(data);
+
+      setAvailableDateTimes(data.availableDateTimes);
     };
 
     getCurrentRoomInfo();
+    getRoomInfo();
   }, []);
-
-  const { availableDateTimes } = currentRoomState;
 
   const {
     title,
@@ -106,28 +105,20 @@ const Current = () => {
     endTime,
   } = room;
 
-  const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
-    useState<boolean>(false);
-
   const handleEditButtonClick = () => {
-    const savedUserName = localStorage.getItem('name');
-    const savedRoomUUID = localStorage.getItem('uuid');
+    const isValidUser = useAuth(roomUUID as string);
 
-    if ((savedUserName === '' || savedUserName === null) && userName === '') {
-      navigate(`/login/${roomUUID}`);
+    if (isValidUser) {
+      setSelectedMethod('possible');
+      navigate(`/add/${roomUUID}`);
     } else {
-      if (roomUUID === savedRoomUUID) {
-        setSelectedMethod('possible');
-        navigate(`/add/${roomUUID}`);
-      } else navigate(`/login/${roomUUID}`);
+      navigate(`/login/${roomUUID}`);
     }
   };
 
   const goToResult = () => {
     navigate(`/result/${roomUUID}`);
   };
-
-  const [isTimeExpired, setIsTimeExpired] = useState<boolean>(false);
 
   useEffect(() => {
     const now = dayjs(new Date());
@@ -148,9 +139,9 @@ const Current = () => {
         <Title>실시간 참여 현황</Title>
         <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
 
-        {headCount && (
+        {headCount ? (
           <ProgressBar headCount={headCount} participants={participants} />
-        )}
+        ) : null}
 
         <Participants>
           {participants.map((participant: string) => (
@@ -167,17 +158,19 @@ const Current = () => {
         {startTime !== null && endTime !== null ? (
           <TableWrapper>
             <Table
-              dates={dates}
-              startTime={startTime}
-              endTime={endTime}
+              dates={dates.length < 4 ? getFourChunks(dates) : dates}
+              times={getRange(
+                parseInt(startTime.slice(0, 2)),
+                parseInt(endTime.slice(0, 2))
+              )}
               participants={participants}
-              currentroomState={currentRoomState.availableDateTimes}
+              availableDateTimes={availableDateTimes}
             />
           </TableWrapper>
         ) : (
           <CurrentCalendar
-            availableDateTimes={availableDateTimes}
             participants={participants}
+            availableDateTimes={availableDateTimes}
           />
         )}
       </Body>

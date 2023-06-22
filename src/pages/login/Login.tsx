@@ -22,8 +22,6 @@ import { API } from '../../utils/API';
 
 import uncheckedbox from '../../assets/icons/uncheckdBox.png';
 import checkedBox from '../../assets/icons/checkedBox.png';
-import { useRecoilState } from 'recoil';
-import { userNameState } from '../../atoms/userNameAtoms';
 
 import { RoomTypes } from '../../types/roomInfo';
 
@@ -32,7 +30,6 @@ const Login = () => {
   const [title, setTitle] = useState<string>('이멤버 리멤버 연말파티');
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
-  const [userName, setUserName] = useRecoilState(userNameState);
   const [room, setRoom] = useState<RoomTypes>({
     title: '',
     deadLine: null,
@@ -78,7 +75,7 @@ const Login = () => {
         localStorage.setItem('uuid', String(roomUUID));
       }
 
-      setUserName(form.name);
+      localStorage.setItem('userName', form.name);
       navigate(`/add/${roomUUID}`);
     } catch {
       setIsPasswordError(true);
