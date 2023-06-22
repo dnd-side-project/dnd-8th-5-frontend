@@ -119,9 +119,7 @@ const AddTime = () => {
 
   const navigate = useNavigate();
   const goToCurrent = () => {
-    const body = document.body;
-    body.style.overflow = '';
-
+    document.body.style.overflow = '';
     navigate(`/current/${roomUUID}`);
   };
 
@@ -215,10 +213,14 @@ const AddTime = () => {
   const [times, setTimes] = useState<number[]>([]);
 
   useEffect(() => {
+    console.log('없어?', startTime, endTime);
+
     if (startTime && endTime) {
       setTimes(
         getRange(parseInt(startTime.slice(0, 2)), parseInt(endTime.slice(0, 2)))
       );
+      document.body.style.overflow = 'hidden';
+      console.log('실행');
     }
   }, [startTime, endTime]);
 
@@ -316,13 +318,6 @@ const AddTime = () => {
       contentWrapper.scrollTop = newScrollTop;
     }
   }, [offsetY, trackRef, contentRef]);
-
-  useEffect(() => {
-    if (startTime && endTime) {
-      const body = document.body;
-      body.style.overflow = 'hidden';
-    }
-  }, []);
 
   return (
     <Wrapper>
