@@ -92,11 +92,12 @@ const Result = () => {
       const { data } = await API.get(
         `/api/room/${roomUUID}/adjustment-result?sorted=${sortedQS}&${nameQS}`
       );
+
       setCandidateTimes(data);
     };
 
     getCandidateTimes();
-  }, [nameQS]);
+  }, [sortedQS, nameQS]);
 
   const { title, participants, headCount } = room;
 

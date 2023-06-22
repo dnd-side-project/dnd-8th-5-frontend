@@ -47,7 +47,6 @@ import { getTimeArray } from '../../utils/getTimeArray';
 import _ from 'lodash';
 import { getThreeChunks } from '../../utils/getThreeChunks';
 import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
-import { roomState } from '../../atoms/roomAtoms';
 
 const AddTime = () => {
   const { roomUUID } = useParams();
@@ -175,6 +174,8 @@ const AddTime = () => {
           hasTime: false,
           availableDateTimes: filteredTime,
         };
+
+        console.log('뭐지', payload);
 
         const putAvailableTime = async () => {
           await API.put(
