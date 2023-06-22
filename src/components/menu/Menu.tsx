@@ -47,7 +47,11 @@ const Menu = ({ setIsMenuOpened }: MenuTypes) => {
             <PlusIcon src={menuPlus} alt="add new promise" />
             <PlusText onClick={goToRoom}>약속 만들기</PlusText>
           </PlusWrapper>
-          <FeedbackBtn>모두의 시간에게 피드백 보내기</FeedbackBtn>
+          <FeedbackBtn>
+            <a href="https://forms.gle/TtLX6B1qihqoR27k6" target="_blank">
+              모두의 시간에게 피드백 보내기
+            </a>
+          </FeedbackBtn>
         </Bottom>
       </Wrapper>
     </>
