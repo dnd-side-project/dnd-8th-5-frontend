@@ -108,8 +108,6 @@ const AddTime = () => {
 
   const allTimeRange = getAllTimeRange(dates, timeRange);
 
-  console.log('prev: ', previousSelectedTimes);
-
   const handleApplyClick = () => {
     if (selectedMethod === 'possible') {
       const payload = isTableView
@@ -123,8 +121,6 @@ const AddTime = () => {
             hasTime: false,
             availableDateTimes: [...calendarSelected],
           };
-
-      console.log(payload);
 
       const putAvailableTime = async () => {
         await API.put(
