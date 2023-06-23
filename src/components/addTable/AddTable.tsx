@@ -34,6 +34,8 @@ const AddTable = ({
   tableSelected,
   setTableSelected,
 }: AddTableTypes) => {
+  const windowHeight = window.innerHeight;
+
   const [tablePage, setTablePage] = useState(0);
 
   const validDateChunks = getAddTimeTableInfo(dates);
@@ -119,7 +121,7 @@ const AddTable = ({
           onClick={handleNextButtonClick}
         />
       </ButtonWrapper>
-      <TableWrapper ref={contentWrapperRef}>
+      <TableWrapper ref={contentWrapperRef} windowHeight={windowHeight}>
         <Table
           contentRef={contentRef}
           tableSelected={tableSelected}

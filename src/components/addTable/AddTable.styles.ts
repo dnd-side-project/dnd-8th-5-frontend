@@ -22,11 +22,11 @@ export const MoveButton = styled.img`
   cursor: pointer;
 `;
 
-export const TableWrapper = styled.div`
+export const TableWrapper = styled.div<{ windowHeight: number }>`
   padding-bottom: 64px;
   margin: 0 auto;
   position: relative;
-  height: 388px;
+  height: ${({ windowHeight }) => `${windowHeight - 260}px`};
 
   overflow: hidden;
 `;
