@@ -12,7 +12,7 @@ import {
 const AddToggle = ({
   setSelected,
 }: {
-  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
+  setSelected: React.Dispatch<React.SetStateAction<any>>;
 }) => {
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);

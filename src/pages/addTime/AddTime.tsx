@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
+import _ from 'lodash';
+
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 import { availableGuideState } from '../../atoms/availableGuideAtoms';
 
@@ -11,10 +13,6 @@ import addNextActive from '../../assets/icons/addNextActive.png';
 import guideIcon from '../../assets/icons/guide.png';
 import guideHandle from '../../assets/icons/guideHandle.png';
 import closeIcon from '../../assets/icons/close.png';
-
-import { getChunks } from '../../utils/getChunks';
-import { getValidDates } from '../../utils/getValidDates';
-import { getDateRange } from '../../utils/getDateRange';
 
 import {
   Body,
@@ -36,21 +34,26 @@ import {
 import Header from '../../components/header/Header';
 import BottomButton from '../../components/bottomButton/BottomButton';
 import AddTable from '../../components/addTable/AddTable';
+import AddCalendar from '../../components/addCalendar/AddCalendar';
 
 import AddToggle from '../../components/addToggle/AddToggle';
 import { RoomTypes } from '../../types/roomInfo';
 import { API } from '../../utils/API';
 import { useNavigate, useParams } from 'react-router-dom';
-import AddCalendar from '../../components/addCalendar/AddCalendar';
 import { getRange } from '../../utils/getRange';
-import { getTimeArray } from '../../utils/getTimeArray';
-import _ from 'lodash';
-import { getThreeChunks } from '../../utils/getThreeChunks';
 import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
 import { useScroll } from '../../hooks/useScroll';
+import { getValidDates } from '../../utils/getValidDates';
+import { getDateRange } from '../../utils/getDateRange';
+import { getTimeArray } from '../../utils/getTimeArray';
+
+interface TableSelectedTypes {
+  [key: number]: string[];
+}
 
 const AddTime = () => {
   const { roomUUID } = useParams();
+  const navigate = useNavigate();
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -65,19 +68,23 @@ const AddTime = () => {
     endTime: null,
   });
 
-  const [tablePage, setTablePage] = useState(0);
-  const [isPageMoved, setIsPageMoved] = useState(false);
-
-  const userName = localStorage.getItem('userName');
-  const [availableGuide, setAvailbleGuide] =
-    useRecoilState(availableGuideState);
-
   const { title, dates, startTime, endTime } = room;
 
+  const isTableView = startTime !== null && endTime !== null ? true : false;
+  const [tablePage, setTablePage] = useState(0);
+  const [availableGuide, setAvailbleGuide] =
+    useRecoilState(availableGuideState);
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);
+  const [selected, setSelected] = useState<string[]>([]);
+  const [tableSelected, setTableSelected] = useState<TableSelectedTypes>({});
+
+  const [previousSelectedTimes, setPreviousSelectedTimes] = useState<string[]>(
+    []
+  );
 
   const storedName = localStorage.getItem('name');
+  const userName = localStorage.getItem('userName');
   const showGuide = localStorage.getItem('availableShowGuide');
 
   useEffect(() => {
@@ -93,126 +100,41 @@ const AddTime = () => {
       setCurrentRoomState(data);
     };
 
+    const getPreviousSelectedTimes = async () => {
+      const { data } = await API.get(
+        `/api/room/${roomUUID}/available-time?name=${userName}`
+      );
+      setPreviousSelectedTimes(data.availableDateTimes);
+    };
+
     getRoomInfo();
     getCurrentRoomInfo();
+    getPreviousSelectedTimes();
 
     setAvailbleGuide(JSON.parse(showGuide as string));
   }, []);
 
-  const validDateChunks = getChunks(
-    getValidDates(getThreeChunks(dates.sort()))
-  );
-
-  const handlePrevButtonClick = () => {
-    if (tablePage !== 0) {
-      setTablePage(tablePage - 1);
-    }
-
-    setIsPageMoved(true);
-  };
-
-  const handleNextButtonClick = () => {
-    if (tablePage !== validDateChunks.length - 1) {
-      setTablePage(tablePage + 1);
-    }
-
-    setIsPageMoved(true);
-  };
-
-  const navigate = useNavigate();
-  const goToCurrent = () => {
-    document.body.style.overflow = '';
-    (wrapperRef.current as HTMLDivElement).style.overflow = 'auto';
-
-    navigate(`/current/${roomUUID}`);
-  };
-
-  const [selected, setSelected] = useState<string[]>([]);
+  const validDateChunks = getAddTimeTableInfo(dates);
 
   useEffect(() => {
-    const getPreviousInfo = async () => {
-      const { data } = await API.get(
-        `/api/room/${roomUUID}/available-time?name=${storedName || userName}`
-      );
-      setSelected(data.availableDateTimes);
-    };
+    const newObj: TableSelectedTypes = {};
 
-    getPreviousInfo();
-  }, []);
-
-  const handleApplyClick = () => {
-    if (selectedMethod === 'possible') {
-      const payload =
-        startTime === null || endTime === null
-          ? {
-              name: storedName || userName,
-              hasTime: false,
-              availableDateTimes: [...selected],
+    previousSelectedTimes.forEach((time) => {
+      validDateChunks.map((chunk, index) => {
+        chunk.map((date) => {
+          if (date.date === time.slice(0, 10)) {
+            if (newObj[index] === undefined) {
+              newObj[index] = [time];
+            } else {
+              newObj[index].push(time);
             }
-          : {
-              name: storedName || userName,
-              hasTime: true,
-              availableDateTimes: [...selected],
-            };
+          }
+        });
+      });
+    });
 
-      const putAvailableTime = async () => {
-        await API.put(
-          `/api/room/${roomUUID}/available-time`,
-          JSON.stringify(payload)
-        );
-      };
-
-      putAvailableTime();
-    }
-
-    if (selectedMethod === 'impossible') {
-      if (startTime === null || endTime === null) {
-        const newDates = dates.map((date) => `${date} 00:00`);
-        const filteredTime = selected && _.difference(newDates, selected);
-
-        const payload = {
-          name: storedName || userName,
-          hasTime: false,
-          availableDateTimes: filteredTime,
-        };
-
-        const putAvailableTime = async () => {
-          await API.put(
-            `/api/room/${roomUUID}/available-time`,
-            JSON.stringify(payload)
-          );
-        };
-
-        putAvailableTime();
-      } else {
-        const filteredTime = _.difference(allTimeRange, selected);
-
-        const payload = {
-          name: storedName || userName,
-          hasTime: true,
-          availableDateTimes: filteredTime,
-        };
-
-        const putAvailableTime = async () => {
-          await API.put(
-            `/api/room/${roomUUID}/available-time`,
-            JSON.stringify(payload)
-          );
-        };
-
-        putAvailableTime();
-      }
-    }
-
-    goToCurrent();
-    window.location.reload();
-  };
-
-  const handleGuideCloseClick = useCallback(() => {
-    localStorage.setItem('availableShowGuide', 'false');
-    setAvailbleGuide(false);
-    return;
-  }, [availableGuide, showGuide]);
+    setTableSelected(newObj);
+  }, [previousSelectedTimes]);
 
   const [times, setTimes] = useState<number[]>([]);
 
@@ -224,7 +146,6 @@ const AddTime = () => {
 
       document.body.style.overflow = 'hidden';
       wrapperRef.current.style.overflow = 'hidden';
-      console.log('실행');
     }
   }, [startTime, endTime]);
 
@@ -241,6 +162,107 @@ const AddTime = () => {
     .reduce((acc, cur) => acc.concat(cur), [])
     .filter(Boolean);
 
+  const handlePrevButtonClick = () => {
+    if (tablePage !== 0) {
+      setTablePage(tablePage - 1);
+    }
+  };
+
+  const handleNextButtonClick = () => {
+    if (tablePage !== validDateChunks.length - 1) {
+      setTablePage(tablePage + 1);
+    }
+  };
+
+  const goToCurrent = () => {
+    document.body.style.overflow = '';
+    (wrapperRef.current as HTMLDivElement).style.overflow = 'auto';
+
+    navigate(`/current/${roomUUID}`);
+  };
+
+  const getPayload = async () => {
+    if (selectedMethod === 'possible') {
+      const payload = isTableView
+        ? {
+            name: userName,
+            hasTime: true,
+            availableDateTimes: Object.values(tableSelected).flat(),
+          }
+        : {
+            name: userName,
+            hasTime: false,
+            availableDateTimes: [...selected],
+          };
+
+      const putAvailableTime = async () => {
+        await API.put(
+          `/api/room/${roomUUID}/available-time`,
+          JSON.stringify(payload)
+        );
+      };
+
+      putAvailableTime();
+    }
+
+    if (selectedMethod === 'impossible') {
+      if (isTableView) {
+        const filteredTime = _.difference(
+          allTimeRange,
+          Object.values(tableSelected).flat()
+        );
+
+        const payload = {
+          name: userName,
+          hasTime: true,
+          availableDateTimes: filteredTime,
+        };
+
+        console.log('젭알', filteredTime);
+
+        const putAvailableTime = async () => {
+          await API.put(
+            `/api/room/${roomUUID}/available-time`,
+            JSON.stringify(payload)
+          );
+        };
+
+        putAvailableTime();
+      } else {
+        const newDates = dates.map((date) => `${date} 00:00`);
+        const filteredTime = selected && _.difference(newDates, selected);
+
+        const payload = {
+          name: userName,
+          hasTime: false,
+          availableDateTimes: filteredTime,
+        };
+
+        const putAvailableTime = async () => {
+          await API.put(
+            `/api/room/${roomUUID}/available-time`,
+            JSON.stringify(payload)
+          );
+        };
+
+        putAvailableTime();
+      }
+    }
+  };
+
+  const handleApplyClick = () => {
+    getPayload();
+    goToCurrent();
+
+    // window.location.reload();
+  };
+
+  const handleGuideCloseClick = useCallback(() => {
+    localStorage.setItem('availableShowGuide', 'false');
+    setAvailbleGuide(false);
+    return;
+  }, [availableGuide, showGuide]);
+
   const {
     contentWrapperRef,
     contentRef,
@@ -251,23 +273,6 @@ const AddTime = () => {
     handleTouchStart,
     handleDragStart,
   } = useScroll();
-
-  useEffect(() => {
-    const contentWrapper = contentWrapperRef.current as HTMLDivElement;
-    const content = contentRef.current as HTMLDivElement;
-    const track = trackRef.current as HTMLDivElement;
-    const thumb = thumbRef.current as HTMLDivElement;
-
-    if (contentWrapper && content && track) {
-      const maxScrollTop =
-        contentWrapper.scrollHeight - contentWrapper.clientHeight;
-      const ratio = offsetY / (track.scrollHeight - thumb.scrollHeight);
-
-      const newScrollTop = ratio * maxScrollTop;
-
-      contentWrapper.scrollTop = newScrollTop;
-    }
-  }, [offsetY, trackRef, contentRef]);
 
   return (
     <Wrapper ref={wrapperRef}>
@@ -282,7 +287,7 @@ const AddTime = () => {
         </TitleWrapper>
 
         <Main>
-          {startTime !== null && endTime !== null ? (
+          {isTableView ? (
             <>
               <ButtonWrapper>
                 <MoveButton
@@ -303,8 +308,8 @@ const AddTime = () => {
               <TableWrapper ref={contentWrapperRef}>
                 <AddTable
                   contentRef={contentRef}
-                  selected={selected}
-                  setSelected={setSelected}
+                  tableSelected={tableSelected}
+                  setTableSelected={setTableSelected}
                   times={times}
                   tablePage={tablePage}
                   selectedMethod={selectedMethod}

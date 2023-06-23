@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export const useScroll = () => {
   const contentWrapperRef = useRef<HTMLDivElement>(null);
@@ -64,6 +64,23 @@ export const useScroll = () => {
   const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
+
+  useEffect(() => {
+    const contentWrapper = contentWrapperRef.current as HTMLDivElement;
+    const content = contentRef.current as HTMLDivElement;
+    const track = trackRef.current as HTMLDivElement;
+    const thumb = thumbRef.current as HTMLDivElement;
+
+    if (contentWrapper && content && track) {
+      const maxScrollTop =
+        contentWrapper.scrollHeight - contentWrapper.clientHeight;
+      const ratio = offsetY / (track.scrollHeight - thumb.scrollHeight);
+
+      const newScrollTop = ratio * maxScrollTop;
+
+      contentWrapper.scrollTop = newScrollTop;
+    }
+  }, [offsetY, trackRef, contentRef]);
 
   return {
     contentWrapperRef,

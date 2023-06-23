@@ -1,20 +1,9 @@
-import { getRange } from './getRange';
-
 interface ValidDate {
   date: string;
   isValidDate: boolean;
 }
 
-export const getAddTimeTableInfo = (
-  dates: string[],
-  startTime: string,
-  endTime: string
-) => {
-  const times = getRange(
-    parseInt(startTime.slice(0, 2)),
-    parseInt(endTime.slice(0, 2))
-  );
-
+export const getAddTimeTableInfo = (dates: string[]) => {
   let extra = 0;
 
   if (dates.length % 3 == 1) {

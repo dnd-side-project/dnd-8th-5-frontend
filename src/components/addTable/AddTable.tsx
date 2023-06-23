@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { getTimeArray } from '../../utils/getTimeArray';
 import {
@@ -19,8 +19,8 @@ import _ from 'lodash';
 
 const AddTable = ({
   contentRef,
-  selected,
-  setSelected,
+  tableSelected,
+  setTableSelected,
   selectedMethod,
   tablePage,
   validDateChunks,
@@ -30,33 +30,37 @@ const AddTable = ({
   const selectoRef = useRef<any>(null);
 
   useEffect(() => {
-    if (selected) {
-      selected.map((id) => {
+    if (tableSelected[tablePage]) {
+      tableSelected[tablePage].forEach((id) => {
         const element = document.getElementById(id);
         element?.classList.add('selected');
       });
-    }
 
-    selectoRef.current.setSelectedTargets(
-      selected.map((id) => document.getElementById(id))
-    );
-  }, [tablePage, selectedMethod, selected]);
+      selectoRef.current.setSelectedTargets(
+        tableSelected[tablePage].map((id) => document.getElementById(id))
+      );
+    }
+  }, [tablePage, selectedMethod, tableSelected]);
 
   const handleCellSelect = (e: any) => {
     e.added.forEach((el: any) => {
       el.classList.add('selected');
-
-      // if (selected.findIndex((date) => date === el.id) === -1) {
-      //   setSelected([...selected, el.id]);
-      // }
     });
 
     e.removed.forEach((el: any) => {
       el.classList.remove('selected');
-
-      // const filtered = _.remove(selected, (date) => date !== el.id);
-      // setSelected(filtered);
     });
+  };
+
+  const addSelectedToObject = () => {
+    const newArr: string[] = Array.from(
+      document.querySelectorAll('.selected')
+    ).map((node: Element) => node.id);
+
+    const newObj = { ...tableSelected };
+    newObj[tablePage] = newArr;
+
+    setTableSelected(newObj);
   };
 
   return (
@@ -93,6 +97,7 @@ const AddTable = ({
                 dragContainer={'.container'}
                 selectableTargets={['.valid']}
                 onSelect={handleCellSelect}
+                onDragEnd={addSelectedToObject}
                 hitRate={0}
                 selectByClick={true}
                 selectFromInside={true}
