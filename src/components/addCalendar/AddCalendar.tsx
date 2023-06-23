@@ -17,6 +17,7 @@ const AddCalendar = ({
   selected,
   setSelected,
   selectedMethod,
+  previousSelectedTimes,
 }: AddCalendarType) => {
   const [date, setDate] = useState<Date>(new Date());
 

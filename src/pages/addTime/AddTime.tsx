@@ -64,6 +64,8 @@ const AddTime = () => {
     useRecoilState<boolean>(isTooltipShownState);
 
   useEffect(() => {
+    setSelectedMethod('possible');
+
     const getRoomInfo = async () => {
       const { data } = await API.get(`/api/room/${roomUUID}`);
       setRoom(data);
@@ -79,6 +81,12 @@ const AddTime = () => {
     getRoomInfo();
     getPreviousSelectedTimes();
   }, []);
+
+  useEffect(() => {
+    if (!isTableView) {
+      setCalendarSelected(previousSelectedTimes);
+    }
+  }, [previousSelectedTimes]);
 
   useEffect(() => {
     if (startTime && endTime && wrapperRef.current) {
@@ -100,7 +108,9 @@ const AddTime = () => {
 
   const allTimeRange = getAllTimeRange(dates, timeRange);
 
-  const getPayload = async () => {
+  console.log('prev: ', previousSelectedTimes);
+
+  const handleApplyClick = () => {
     if (selectedMethod === 'possible') {
       const payload = isTableView
         ? {
@@ -113,6 +123,8 @@ const AddTime = () => {
             hasTime: false,
             availableDateTimes: [...calendarSelected],
           };
+
+      console.log(payload);
 
       const putAvailableTime = async () => {
         await API.put(
@@ -166,13 +178,9 @@ const AddTime = () => {
         putAvailableTime();
       }
     }
-  };
 
-  const handleApplyClick = () => {
-    getPayload();
     goToCurrent();
-
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (
@@ -208,6 +216,7 @@ const AddTime = () => {
                 selected={calendarSelected}
                 setSelected={setCalendarSelected}
                 selectedMethod={selectedMethod}
+                previousSelectedTimes={previousSelectedTimes}
               />
             </CalendarWrapper>
           )}
@@ -220,7 +229,7 @@ const AddTime = () => {
         />
       </Body>
 
-      {isTooltipShown && (
+      {isTableView && isTooltipShown && (
         <Tooltip
           isTooltipShown={isTooltipShown}
           setIsTooltipShown={setIsTooltipShown}
