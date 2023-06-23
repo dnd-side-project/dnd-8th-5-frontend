@@ -1,5 +1,5 @@
 import { Story } from '@storybook/react';
-import AddTable from './AddTable';
+import AddTable from './Table';
 import { AddTableType } from './AddTable.types';
 
 export default {
