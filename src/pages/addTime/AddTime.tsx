@@ -279,10 +279,14 @@ const AddTime = () => {
       <Header pageName="addTime" title={title} />
       <Body>
         <TitleWrapper>
-          <Title>{`${storedName || userName} 님의 일정을`}</Title>
+          <Title>{`${userName} 님의 일정을`}</Title>
         </TitleWrapper>
         <TitleWrapper>
-          <AddToggle setSelected={setSelected} />
+          <AddToggle
+            isTableView={isTableView}
+            setTableSelected={setTableSelected}
+            setSelected={setSelected}
+          />
           <Title>시간으로 선택해 주세요</Title>
         </TitleWrapper>
 

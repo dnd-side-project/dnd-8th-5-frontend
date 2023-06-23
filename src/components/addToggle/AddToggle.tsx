@@ -9,22 +9,40 @@ import {
   Wrapper,
 } from './AddToggle.styles';
 
+interface TableSelectedTypes {
+  [key: number]: string[];
+}
+interface AddToggleTypes {
+  isTableView: boolean;
+  setTableSelected: React.Dispatch<React.SetStateAction<TableSelectedTypes>>;
+  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
+}
 const AddToggle = ({
+  isTableView,
+  setTableSelected,
   setSelected,
-}: {
-  setSelected: React.Dispatch<React.SetStateAction<any>>;
-}) => {
+}: AddToggleTypes) => {
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);
 
   const handleButtonToggle = () => {
     if (selectedMethod === 'possible') {
       setSelectedMethod('impossible');
-      setSelected([]);
-    } else if (selectedMethod === 'impossible') {
+      if (isTableView) {
+        setTableSelected({});
+      } else {
+        setSelected([]);
+      }
+    }
+
+    if (selectedMethod === 'impossible') {
       setSelectedMethod('possible');
-      setSelected([]);
-    } else return;
+      if (isTableView) {
+        setTableSelected({});
+      } else {
+        setSelected([]);
+      }
+    }
   };
 
   return (
