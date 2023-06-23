@@ -1,18 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import _ from 'lodash';
 
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
-import { availableGuideState } from '../../atoms/availableGuideAtoms';
 
 import addPrevDisable from '../../assets/icons/addPrevDisable.png';
 import addNextDisable from '../../assets/icons/addNextDisable.png';
 import addPrevActive from '../../assets/icons/addPrevActive.png';
 import addNextActive from '../../assets/icons/addNextActive.png';
-
-import guideIcon from '../../assets/icons/guide.png';
-import guideHandle from '../../assets/icons/guideHandle.png';
-import closeIcon from '../../assets/icons/close.png';
 
 import {
   Body,
@@ -24,11 +19,7 @@ import {
   TableWrapper,
   Title,
   TitleWrapper,
-  Guide,
   Wrapper,
-  GuideIcon,
-  GuideHandleIcon,
-  CloseButton,
   CalendarWrapper,
 } from './AddTime.styles';
 import Header from '../../components/header/Header';
@@ -43,9 +34,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getRange } from '../../utils/getRange';
 import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
 import { useScroll } from '../../hooks/useScroll';
-import { getValidDates } from '../../utils/getValidDates';
-import { getDateRange } from '../../utils/getDateRange';
-import { getTimeArray } from '../../utils/getTimeArray';
+import { getAllTimeRange } from '../../utils/getAllTimeRange';
+import Tooltip from '../../components/tooltip/Tooltip';
+import { isTooltipShownState } from '../../atoms/isTooltipShownAtoms';
 
 interface TableSelectedTypes {
   [key: number]: string[];
@@ -72,8 +63,7 @@ const AddTime = () => {
 
   const isTableView = startTime !== null && endTime !== null ? true : false;
   const [tablePage, setTablePage] = useState(0);
-  const [availableGuide, setAvailbleGuide] =
-    useRecoilState(availableGuideState);
+
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);
   const [selected, setSelected] = useState<string[]>([]);
@@ -83,9 +73,10 @@ const AddTime = () => {
     []
   );
 
-  const storedName = localStorage.getItem('name');
   const userName = localStorage.getItem('userName');
-  const showGuide = localStorage.getItem('availableShowGuide');
+
+  const [isTooltipShown, setIsTooltipShown] =
+    useRecoilState<boolean>(isTooltipShownState);
 
   useEffect(() => {
     const getRoomInfo = async () => {
@@ -110,8 +101,6 @@ const AddTime = () => {
     getRoomInfo();
     getCurrentRoomInfo();
     getPreviousSelectedTimes();
-
-    setAvailbleGuide(JSON.parse(showGuide as string));
   }, []);
 
   const validDateChunks = getAddTimeTableInfo(dates);
@@ -149,18 +138,7 @@ const AddTime = () => {
     }
   }, [startTime, endTime]);
 
-  const validDates = getValidDates(
-    getDateRange(dates[0], dates[dates.length - 1])
-  );
-
-  const timeDetail = getTimeArray(times);
-
-  const allTimeRange = validDates
-    .map(({ date, isValidDate }) =>
-      timeDetail.map((time) => isValidDate && `${date} ${time}`)
-    )
-    .reduce((acc, cur) => acc.concat(cur), [])
-    .filter(Boolean);
+  const allTimeRange = getAllTimeRange(dates, times);
 
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {
@@ -257,12 +235,6 @@ const AddTime = () => {
     // window.location.reload();
   };
 
-  const handleGuideCloseClick = useCallback(() => {
-    localStorage.setItem('availableShowGuide', 'false');
-    setAvailbleGuide(false);
-    return;
-  }, [availableGuide, showGuide]);
-
   const {
     contentWrapperRef,
     contentRef,
@@ -348,12 +320,12 @@ const AddTime = () => {
           isActivated={true}
         />
       </Body>
-      {availableGuide && (
-        <Guide>
-          <GuideIcon src={guideIcon} />
-          <GuideHandleIcon src={guideHandle} />
-          <CloseButton src={closeIcon} onClick={handleGuideCloseClick} />
-        </Guide>
+
+      {isTooltipShown && (
+        <Tooltip
+          isTooltipShown={isTooltipShown}
+          setIsTooltipShown={setIsTooltipShown}
+        />
       )}
     </Wrapper>
   );
