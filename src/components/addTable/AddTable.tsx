@@ -46,16 +46,16 @@ const AddTable = ({
     e.added.forEach((el: any) => {
       el.classList.add('selected');
 
-      if (selected.findIndex((date) => date === el.id) === -1) {
-        setSelected([...selected, el.id]);
-      }
+      // if (selected.findIndex((date) => date === el.id) === -1) {
+      //   setSelected([...selected, el.id]);
+      // }
     });
 
     e.removed.forEach((el: any) => {
       el.classList.remove('selected');
 
-      const filtered = _.remove(selected, (date) => date !== el.id);
-      setSelected(filtered);
+      // const filtered = _.remove(selected, (date) => date !== el.id);
+      // setSelected(filtered);
     });
   };
 
