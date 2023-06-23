@@ -176,7 +176,7 @@ const AddTime = () => {
     }
 
     goToCurrent();
-    // window.location.reload();
+    window.location.reload();
   };
 
   return (
