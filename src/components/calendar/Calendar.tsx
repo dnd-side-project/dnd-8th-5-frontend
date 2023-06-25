@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { DateObject, getAllDatesInRange } from 'react-multi-date-picker';
 import {
   CalendarComponent,
@@ -14,6 +14,7 @@ interface Calendar {
 
 const Calendar = ({ dates, setDates }: Calendar) => {
   const [isRange, setIsRange] = useState<boolean>(true);
+  const [value, setValue] = useState();
 
   const ko = {
     name: 'ko',
@@ -70,6 +71,40 @@ const Calendar = ({ dates, setDates }: Calendar) => {
     console.log('newDateArray', newDateArray);
   };
 
+  useEffect(() => {
+    setDates([]);
+    setValue(undefined);
+  }, [isRange]);
+
+  const handleChangeDate = useCallback(
+    (dataObjects: any) => {
+      if (isRange) {
+        setValue(dataObjects);
+        const allDates = getAllDatesInRange(Object(dataObjects), true);
+        makeDatesRange(allDates);
+      } else {
+        if (Object(dataObjects).length !== 0) {
+          for (const key in Object(dataObjects)) {
+            setValue(dataObjects);
+            const year = Object(dataObjects)[key].year;
+            const month = Object(dataObjects)[key].month;
+            const day = Object(dataObjects)[key].day;
+            const format =
+              year +
+              '-' +
+              ('00' + month.toString()).slice(-2) +
+              '-' +
+              ('00' + day.toString()).slice(-2);
+            const newArr = [...dates, format];
+            const newDateArr = Array.from(new Set(newArr));
+            setDates(newDateArr);
+          }
+        }
+      }
+    },
+    [isRange, dates]
+  );
+
   return (
     <MainContainer>
       <ToggleWrapper>
@@ -80,28 +115,9 @@ const Calendar = ({ dates, setDates }: Calendar) => {
         />
       </ToggleWrapper>
       <CalendarComponent
+        value={value}
         onChange={(dataObjects) => {
-          if (isRange) {
-            const allDates = getAllDatesInRange(Object(dataObjects), true);
-            makeDatesRange(allDates);
-          } else {
-            if (Object(dataObjects).length !== 0) {
-              for (const key in Object(dataObjects)) {
-                const year = Object(dataObjects)[key].year;
-                const month = Object(dataObjects)[key].month;
-                const day = Object(dataObjects)[key].day;
-                const format =
-                  year +
-                  '-' +
-                  ('00' + month.toString()).slice(-2) +
-                  '-' +
-                  ('00' + day.toString()).slice(-2);
-                const newArr = [...dates, format];
-                const newDateArr = Array.from(new Set(newArr));
-                setDates(newDateArr);
-              }
-            }
-          }
+          handleChangeDate(dataObjects);
         }}
         locale={ko}
         multiple={true}
