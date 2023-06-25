@@ -212,4 +212,8 @@ export const CalendarComponent = styled(Calendar)`
   .rmdp-top-class {
     width: 0px;
   }
+
+  .rmdp-day.rmdp-disabled {
+    pointer-events: none;
+  }
 `;
