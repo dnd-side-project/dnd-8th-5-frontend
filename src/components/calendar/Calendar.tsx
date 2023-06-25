@@ -68,7 +68,6 @@ const Calendar = ({ dates, setDates }: Calendar) => {
       newDateArray.push(format);
     }
     setDates(newDateArray);
-    console.log('newDateArray', newDateArray);
   };
 
   useEffect(() => {
@@ -83,22 +82,21 @@ const Calendar = ({ dates, setDates }: Calendar) => {
         const allDates = getAllDatesInRange(Object(dataObjects), true);
         makeDatesRange(allDates);
       } else {
-        if (Object(dataObjects).length !== 0) {
-          for (const key in Object(dataObjects)) {
-            setValue(dataObjects);
-            const year = Object(dataObjects)[key].year;
-            const month = Object(dataObjects)[key].month;
-            const day = Object(dataObjects)[key].day;
-            const format =
-              year +
-              '-' +
-              ('00' + month.toString()).slice(-2) +
-              '-' +
-              ('00' + day.toString()).slice(-2);
-            const newArr = [...dates, format];
-            const newDateArr = Array.from(new Set(newArr));
-            setDates(newDateArr);
-          }
+        const newArr = [];
+        for (const key in Object(dataObjects)) {
+          setValue(dataObjects);
+          const year = Object(dataObjects)[key].year;
+          const month = Object(dataObjects)[key].month;
+          const day = Object(dataObjects)[key].day;
+          const format =
+            year +
+            '-' +
+            ('00' + month.toString()).slice(-2) +
+            '-' +
+            ('00' + day.toString()).slice(-2);
+          newArr.push(format);
+          const newDateArr = Array.from(new Set(newArr));
+          setDates(newDateArr);
         }
       }
     },
