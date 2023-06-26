@@ -96,6 +96,9 @@ const Calendar = ({ dates, setDates }: Calendar) => {
             ('00' + day.toString()).slice(-2);
           newArr.push(format);
           const newDateArr = Array.from(new Set(newArr));
+          newDateArr.sort((a, b) => {
+            return new Date(a).getTime() - new Date(b).getTime();
+          });
           setDates(newDateArr);
         }
       }
@@ -125,6 +128,7 @@ const Calendar = ({ dates, setDates }: Calendar) => {
         minDate={new Date()}
         hideYear={true}
         buttons={true}
+        rangeHover={false}
       />
     </MainContainer>
   );
