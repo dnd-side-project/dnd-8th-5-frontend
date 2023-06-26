@@ -61,9 +61,11 @@ export const CalendarComponent = styled(Calendar)`
     box-shadow: ${theme.colors.purple06} -0.4px 0px 0px 3px;
   }
 
-  .rmdp-arrow-container:hover {
-    color: none;
-    background-color: none;
+  @media (min-width: 860px) {
+    .rmdp-arrow-container:hover {
+      color: none;
+      background-color: none;
+    }
   }
 
   @media (min-width: 860px) {
@@ -239,6 +241,16 @@ export const CalendarComponent = styled(Calendar)`
   }
 
   .rmdp-day.rmdp-day-hidden {
-    /* pointer-events: none; */
+    pointer-events: none;
+  }
+
+  .rmdp-arrow-container:hover {
+    background-color: white;
+    box-shadow: none;
+  }
+
+  .rmdp-arrow-container:hover .rmdp-arrow {
+    border: solid black !important;
+    border-width: 0 2px 2px 0 !important;
   }
 `;
