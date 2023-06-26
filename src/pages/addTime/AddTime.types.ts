@@ -1,3 +1,7 @@
+export interface TableSelectedTypes {
+  [key: number]: string[];
+}
+
 export interface AddTimeTypes {
   availableDateTimes: [
     {

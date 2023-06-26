@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { keyframes } from '@emotion/react';
 import theme from '../../styles/theme';
 
 export const Wrapper = styled.div`
@@ -10,7 +9,7 @@ export const Wrapper = styled.div`
   right: 0;
 
   width: 100%;
-  max-width: 375px;
+  max-width: 412px;
   height: 100%;
 
   overflow: auto;
@@ -56,122 +55,7 @@ export const Main = styled.div`
   position: relative;
 `;
 
-export const ButtonWrapper = styled.div`
-  width: 100%;
-  padding: 0 20px;
-
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  z-index: 2;
-  top: 0;
-`;
-
-export const MoveButton = styled.img`
-  width: 36px;
-  height: 36px;
-  object-fit: cover;
-  border-radius: 50%;
-  filter: drop-shadow(0px 3px 9px rgba(0, 0, 0, 0.1));
-
-  cursor: pointer;
-`;
-
-export const TableWrapper = styled.div`
-  padding-bottom: 64px;
-  margin: 0 auto;
-  position: relative;
-  height: 388px;
-
-  overflow: hidden;
-`;
-
 export const CalendarWrapper = styled.div`
   margin: 0 auto;
   position: relative;
-`;
-
-export const ScrollbarTrack = styled.div`
-  width: 18px;
-  height: 160px;
-  border-radius: 41px;
-  background: ${theme.colors.gray02};
-  position: absolute;
-  right: 29px;
-  top: 52px;
-`;
-
-export const ScrollbarThumb = styled.div<{ offsetY: number }>`
-  width: 100%;
-  height: 55px;
-  border-radius: 41px;
-  background: ${theme.colors.purple05};
-
-  position: relative;
-  top: ${({ offsetY }) => `${offsetY}px`};
-  width: 18px;
-`;
-
-export const Guide = styled.div`
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  top: 0px;
-  width: 100%;
-  max-width: 412px;
-  height: 100%;
-  z-index: 200;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
-`;
-
-export const GuideIcon = styled.img`
-  position: fixed;
-  top: 190px;
-  width: 100%;
-  height: 380px;
-  max-width: 412px;
-  padding-inline: 10px;
-  z-index: 5;
-`;
-
-export const handleFade = keyframes`
-0%{
-  top:260px;
-}
-75% {
-  top: 410px;
-}
-100%{
-  top: 410px;
-}
-
-`;
-
-export const GuideHandleIcon = styled.img`
-  position: absolute;
-  top: 260px;
-  left: 100px;
-  width: 95px;
-  height: 80px;
-  max-width: 412px;
-  padding-inline: 10px;
-  z-index: 5;
-  animation: ${handleFade} 2s 0s ease-in infinite forwards;
-`;
-
-export const CloseButton = styled.img`
-  position: absolute;
-  width: 80px;
-  height: 66px;
-  bottom: 80px;
-
-  @media screen and (max-height: 700px) {
-    bottom: 20px;
-  }
-
-  max-width: 412px;
-  padding-inline: 10px;
-  z-index: 5;
-  cursor: pointer;
 `;

@@ -3,15 +3,28 @@ export interface SelectType {
   selectedMethod: string;
 }
 
+export interface TableSelectedTypes {
+  [key: number]: string[];
+}
+
 export interface ChunkType {
   date: string;
   isValidDate: boolean;
 }
 
-export interface AddTableType {
+export interface AddTableTypes {
+  selectedMethod: string;
+  dates: string[];
+  timeRange: number[];
+  previousSelectedTimes: string[];
+  tableSelected: TableSelectedTypes;
+  setTableSelected: React.Dispatch<React.SetStateAction<TableSelectedTypes>>;
+}
+
+export interface TableType {
   contentRef: React.RefObject<HTMLDivElement>;
-  selected: string[];
-  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
+  tableSelected: TableSelectedTypes;
+  setTableSelected: React.Dispatch<React.SetStateAction<TableSelectedTypes>>;
   selectedMethod: string;
   tablePage: number;
   validDateChunks: Array<ChunkType[]>;

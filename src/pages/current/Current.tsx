@@ -56,8 +56,7 @@ const Current = () => {
     availableBottomSheetState
   );
 
-  const [selectedMethod, setSelectedMethod] =
-    useRecoilState(selectedMethodState);
+  const [, setSelectedMethod] = useRecoilState(selectedMethodState);
   const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
     useState<boolean>(false);
   const [isTimeExpired, setIsTimeExpired] = useState<boolean>(false);

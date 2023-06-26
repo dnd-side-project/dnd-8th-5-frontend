@@ -8,7 +8,7 @@ import headerInfo from '../../assets/icons/headerInfo.svg';
 
 import { useRecoilState } from 'recoil';
 import { emailState } from '../../atoms/emailAtoms';
-import { availableGuideState } from '../../atoms/availableGuideAtoms';
+import { isTooltipShownState } from '../../atoms/isTooltipShownAtoms';
 
 import { useParams } from 'react-router-dom';
 
@@ -17,10 +17,11 @@ import Menu from '../menu/Menu';
 import { useState } from 'react';
 
 const Header = ({ pageName, title }: { pageName: string; title: string }) => {
-  const [isEmailRegistered, setIsEmailRegistered] = useRecoilState(emailState);
-  const [availableGuide, setAvailbleGuide] =
-    useRecoilState(availableGuideState);
   const { roomUUID } = useParams();
+
+  const [isEmailRegistered, setIsEmailRegistered] = useRecoilState(emailState);
+  const [isTooltipShown, setIsTooltipShown] =
+    useRecoilState(isTooltipShownState);
 
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
 
@@ -43,7 +44,7 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
           <Icon
             src={headerInfo}
             alt="share"
-            onClick={() => setAvailbleGuide(true)}
+            onClick={() => setIsTooltipShown(true)}
           />
         )}
 

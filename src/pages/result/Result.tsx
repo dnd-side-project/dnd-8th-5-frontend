@@ -10,7 +10,7 @@ import BottomSheet from '../../components/bottomSheet/BottomSheet';
 
 import {
   Body,
-  ConfirmButton,
+  // ConfirmButton,
   Nobody,
   NobodyRabbit,
   NobodyText,
@@ -25,8 +25,8 @@ import { useRecoilState } from 'recoil';
 import { roomState } from '../../atoms/roomAtoms';
 import { useParams } from 'react-router-dom';
 import { API } from '../../utils/API';
-import SelectParticipants from '../../components/selectParticipants/SelectParticipants';
-import SortTimes from '../../components/selectParticipants/SortTimes';
+import SelectParticipants from '../../components/resultOption/SelectParticipants';
+import SortTimes from '../../components/resultOption/SortTimes';
 
 interface FilteredParticipantsTypes {
   name: string;
@@ -50,10 +50,10 @@ const Result = () => {
   const [nameQS, setNameQS] = useState<string>('');
   const [sortedQS, setSortedQS] = useState<string>('fast');
 
-  const handleConfirmButtonClick = (e: any) => {
-    setIsPopupOpened(true);
-    setSelectedTimeId(e.target.id);
-  };
+  // const handleConfirmButtonClick = (e: any) => {
+  //   setIsPopupOpened(true);
+  //   setSelectedTimeId(e.target.id);
+  // };
 
   const handleParticipantOpen = () => {
     setIsParticipantOpened(!isParticipantOpened);

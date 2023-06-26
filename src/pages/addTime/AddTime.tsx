@@ -1,59 +1,39 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import _ from 'lodash';
+
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
-import { availableGuideState } from '../../atoms/availableGuideAtoms';
-
-import addPrevDisable from '../../assets/icons/addPrevDisable.png';
-import addNextDisable from '../../assets/icons/addNextDisable.png';
-import addPrevActive from '../../assets/icons/addPrevActive.png';
-import addNextActive from '../../assets/icons/addNextActive.png';
-
-import guideIcon from '../../assets/icons/guide.png';
-import guideHandle from '../../assets/icons/guideHandle.png';
-import closeIcon from '../../assets/icons/close.png';
-
-import { getChunks } from '../../utils/getChunks';
-import { getValidDates } from '../../utils/getValidDates';
-import { getDateRange } from '../../utils/getDateRange';
+import { isTooltipShownState } from '../../atoms/isTooltipShownAtoms';
 
 import {
   Body,
-  ButtonWrapper,
   Main,
-  MoveButton,
-  ScrollbarThumb,
-  ScrollbarTrack,
-  TableWrapper,
   Title,
   TitleWrapper,
-  Guide,
   Wrapper,
-  GuideIcon,
-  GuideHandleIcon,
-  CloseButton,
   CalendarWrapper,
 } from './AddTime.styles';
 import Header from '../../components/header/Header';
-import BottomButton from '../../components/bottomButton/BottomButton';
-import AddTable from '../../components/addTable/AddTable';
-
 import AddToggle from '../../components/addToggle/AddToggle';
-import { RoomTypes } from '../../types/roomInfo';
-import { API } from '../../utils/API';
-import { useNavigate, useParams } from 'react-router-dom';
+import AddTable from '../../components/addTable/AddTable';
 import AddCalendar from '../../components/addCalendar/AddCalendar';
+import BottomButton from '../../components/bottomButton/BottomButton';
+import Tooltip from '../../components/tooltip/Tooltip';
+
+import { RoomTypes } from '../../types/roomInfo';
+
+import { API } from '../../utils/API';
 import { getRange } from '../../utils/getRange';
-import { getTimeArray } from '../../utils/getTimeArray';
-import _ from 'lodash';
-import { getThreeChunks } from '../../utils/getThreeChunks';
-import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
+import { getAllTimeRange } from '../../utils/getAllTimeRange';
+import { TableSelectedTypes } from './AddTime.types';
 
 const AddTime = () => {
   const { roomUUID } = useParams();
+  const navigate = useNavigate();
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const [currentRoomState, setCurrentRoomState] = useState<any>([]);
   const [room, setRoom] = useState<RoomTypes>({
     title: '',
     deadLine: null,
@@ -64,61 +44,61 @@ const AddTime = () => {
     endTime: null,
   });
 
-  const [tablePage, setTablePage] = useState(0);
-  const [isPageMoved, setIsPageMoved] = useState(false);
-
-  const userName = localStorage.getItem('userName');
-  const [availableGuide, setAvailbleGuide] =
-    useRecoilState(availableGuideState);
-
   const { title, dates, startTime, endTime } = room;
+  const [timeRange, setTimeRange] = useState<number[]>([]);
+
+  const isTableView = startTime !== null && endTime !== null ? true : false;
 
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);
 
-  const storedName = localStorage.getItem('name');
-  const showGuide = localStorage.getItem('availableShowGuide');
+  const [previousSelectedTimes, setPreviousSelectedTimes] = useState<string[]>(
+    []
+  );
+  const [tableSelected, setTableSelected] = useState<TableSelectedTypes>({});
+  const [calendarSelected, setCalendarSelected] = useState<string[]>([]);
+
+  const userName = localStorage.getItem('userName') || '';
+
+  const [isTooltipShown, setIsTooltipShown] =
+    useRecoilState<boolean>(isTooltipShownState);
 
   useEffect(() => {
+    setSelectedMethod('possible');
+
     const getRoomInfo = async () => {
       const { data } = await API.get(`/api/room/${roomUUID}`);
       setRoom(data);
     };
 
-    const getCurrentRoomInfo = async () => {
+    const getPreviousSelectedTimes = async () => {
       const { data } = await API.get(
-        `/api/room/${roomUUID}/available-time/group`
+        `/api/room/${roomUUID}/available-time?name=${userName}`
       );
-      setCurrentRoomState(data);
+      setPreviousSelectedTimes(data.availableDateTimes);
     };
 
     getRoomInfo();
-    getCurrentRoomInfo();
-
-    setAvailbleGuide(JSON.parse(showGuide as string));
+    getPreviousSelectedTimes();
   }, []);
 
-  const validDateChunks = getChunks(
-    getValidDates(getThreeChunks(dates.sort()))
-  );
-
-  const handlePrevButtonClick = () => {
-    if (tablePage !== 0) {
-      setTablePage(tablePage - 1);
+  useEffect(() => {
+    if (!isTableView) {
+      setCalendarSelected(previousSelectedTimes);
     }
+  }, [previousSelectedTimes]);
 
-    setIsPageMoved(true);
-  };
+  useEffect(() => {
+    if (startTime && endTime && wrapperRef.current) {
+      setTimeRange(
+        getRange(parseInt(startTime.slice(0, 2)), parseInt(endTime.slice(0, 2)))
+      );
 
-  const handleNextButtonClick = () => {
-    if (tablePage !== validDateChunks.length - 1) {
-      setTablePage(tablePage + 1);
+      document.body.style.overflow = 'hidden';
+      wrapperRef.current.style.overflow = 'hidden';
     }
+  }, [startTime, endTime]);
 
-    setIsPageMoved(true);
-  };
-
-  const navigate = useNavigate();
   const goToCurrent = () => {
     document.body.style.overflow = '';
     (wrapperRef.current as HTMLDivElement).style.overflow = 'auto';
@@ -126,262 +106,100 @@ const AddTime = () => {
     navigate(`/current/${roomUUID}`);
   };
 
-  const [selected, setSelected] = useState<string[]>([]);
-
-  useEffect(() => {
-    const getPreviousInfo = async () => {
-      const { data } = await API.get(
-        `/api/room/${roomUUID}/available-time?name=${storedName || userName}`
-      );
-      setSelected(data.availableDateTimes);
-    };
-
-    getPreviousInfo();
-  }, []);
+  const allTimeRange = getAllTimeRange(dates, timeRange);
 
   const handleApplyClick = () => {
+    const putAvailableTime = async (payload: {
+      name: string;
+      hasTime: boolean;
+      availableDateTimes: string[];
+    }) => {
+      await API.put(
+        `/api/room/${roomUUID}/available-time`,
+        JSON.stringify(payload)
+      );
+    };
+
     if (selectedMethod === 'possible') {
-      const payload =
-        startTime === null || endTime === null
-          ? {
-              name: storedName || userName,
-              hasTime: false,
-              availableDateTimes: [...selected],
-            }
-          : {
-              name: storedName || userName,
-              hasTime: true,
-              availableDateTimes: [...selected],
-            };
+      const payload = isTableView
+        ? {
+            name: userName,
+            hasTime: true,
+            availableDateTimes: Object.values(tableSelected).flat(),
+          }
+        : {
+            name: userName,
+            hasTime: false,
+            availableDateTimes: [...calendarSelected],
+          };
 
-      const putAvailableTime = async () => {
-        await API.put(
-          `/api/room/${roomUUID}/available-time`,
-          JSON.stringify(payload)
-        );
-      };
-
-      putAvailableTime();
+      putAvailableTime(payload);
     }
 
     if (selectedMethod === 'impossible') {
-      if (startTime === null || endTime === null) {
-        const newDates = dates.map((date) => `${date} 00:00`);
-        const filteredTime = selected && _.difference(newDates, selected);
+      if (isTableView) {
+        const filteredTime = _.difference(
+          allTimeRange,
+          Object.values(tableSelected).flat()
+        );
 
         const payload = {
-          name: storedName || userName,
-          hasTime: false,
-          availableDateTimes: filteredTime,
-        };
-
-        console.log('뭐지', payload);
-
-        const putAvailableTime = async () => {
-          await API.put(
-            `/api/room/${roomUUID}/available-time`,
-            JSON.stringify(payload)
-          );
-        };
-
-        putAvailableTime();
-      } else {
-        const filteredTime = _.difference(allTimeRange, selected);
-
-        const payload = {
-          name: storedName || userName,
+          name: userName,
           hasTime: true,
           availableDateTimes: filteredTime,
         };
 
-        const putAvailableTime = async () => {
-          await API.put(
-            `/api/room/${roomUUID}/available-time`,
-            JSON.stringify(payload)
-          );
+        putAvailableTime(payload);
+      } else {
+        const newDates = dates.map((date) => `${date} 00:00`);
+        const filteredTime =
+          calendarSelected && _.difference(newDates, calendarSelected);
+
+        const payload = {
+          name: userName,
+          hasTime: false,
+          availableDateTimes: filteredTime,
         };
 
-        putAvailableTime();
+        putAvailableTime(payload);
       }
     }
 
     goToCurrent();
-    window.location.reload();
   };
-
-  const handleGuideCloseClick = useCallback(() => {
-    localStorage.setItem('availableShowGuide', 'false');
-    setAvailbleGuide(false);
-    return;
-  }, [availableGuide, showGuide]);
-
-  const [times, setTimes] = useState<number[]>([]);
-
-  useEffect(() => {
-    if (startTime && endTime && wrapperRef.current) {
-      setTimes(
-        getRange(parseInt(startTime.slice(0, 2)), parseInt(endTime.slice(0, 2)))
-      );
-
-      document.body.style.overflow = 'hidden';
-      wrapperRef.current.style.overflow = 'hidden';
-      console.log('실행');
-    }
-  }, [startTime, endTime]);
-
-  const validDates = getValidDates(
-    getDateRange(dates[0], dates[dates.length - 1])
-  );
-
-  const timeDetail = getTimeArray(times);
-
-  const allTimeRange = validDates
-    .map(({ date, isValidDate }) =>
-      timeDetail.map((time) => isValidDate && `${date} ${time}`)
-    )
-    .reduce((acc, cur) => acc.concat(cur), [])
-    .filter(Boolean);
-
-  // 스크롤바
-  const contentWrapperRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const thumbRef = useRef<HTMLDivElement>(null);
-
-  const [offsetY, setOffsetY] = useState<number>(0);
-
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-
-    const track = trackRef.current as HTMLDivElement;
-    const thumb = thumbRef.current as HTMLDivElement;
-
-    if (!thumb || !track) return;
-
-    const shiftY = e.clientY - thumb.getBoundingClientRect().top;
-
-    const onMouseMove = (e: MouseEvent) => {
-      const newTop = e.clientY - shiftY - track.getBoundingClientRect().top;
-      const bottomEdge = track.offsetHeight - thumb.offsetHeight;
-
-      const updatedOffsetY = Math.min(Math.max(0, newTop), bottomEdge);
-      setOffsetY(updatedOffsetY);
-    };
-
-    const onMouseUp = () => {
-      document.removeEventListener('mouseup', onMouseUp);
-      document.removeEventListener('mousemove', onMouseMove);
-    };
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  };
-
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    const track = trackRef.current as HTMLDivElement;
-    const thumb = thumbRef.current as HTMLDivElement;
-
-    if (!thumb || !track) return;
-
-    const shiftY = e.touches[0].clientY - thumb.getBoundingClientRect().top;
-
-    const onTouchMove = (e: TouchEvent) => {
-      const newTop =
-        e.touches[0].clientY - shiftY - track.getBoundingClientRect().top;
-      const bottomEdge = track.offsetHeight - thumb.offsetHeight;
-
-      const updatedOffsetY = Math.min(Math.max(0, newTop), bottomEdge);
-      setOffsetY(updatedOffsetY);
-    };
-
-    const onTouchEnd = () => {
-      document.removeEventListener('touchend', onTouchEnd);
-      document.removeEventListener('touchmove', onTouchMove);
-    };
-
-    document.addEventListener('touchmove', onTouchMove);
-    document.addEventListener('touchend', onTouchEnd);
-  };
-
-  const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  };
-
-  useEffect(() => {
-    const contentWrapper = contentWrapperRef.current as HTMLDivElement;
-    const content = contentRef.current as HTMLDivElement;
-    const track = trackRef.current as HTMLDivElement;
-    const thumb = thumbRef.current as HTMLDivElement;
-
-    if (contentWrapper && content && track) {
-      const maxScrollTop =
-        contentWrapper.scrollHeight - contentWrapper.clientHeight;
-      const ratio = offsetY / (track.scrollHeight - thumb.scrollHeight);
-
-      const newScrollTop = ratio * maxScrollTop;
-
-      contentWrapper.scrollTop = newScrollTop;
-    }
-  }, [offsetY, trackRef, contentRef]);
 
   return (
     <Wrapper ref={wrapperRef}>
       <Header pageName="addTime" title={title} />
       <Body>
         <TitleWrapper>
-          <Title>{`${storedName || userName} 님의 일정을`}</Title>
+          <Title>{`${userName} 님의 일정을`}</Title>
         </TitleWrapper>
         <TitleWrapper>
-          <AddToggle setSelected={setSelected} />
+          <AddToggle
+            isTableView={isTableView}
+            setTableSelected={setTableSelected}
+            setSelected={setCalendarSelected}
+          />
           <Title>시간으로 선택해 주세요</Title>
         </TitleWrapper>
 
         <Main>
-          {startTime !== null && endTime !== null ? (
-            <>
-              <ButtonWrapper>
-                <MoveButton
-                  src={tablePage === 0 ? addPrevDisable : addPrevActive}
-                  alt="Prev Button"
-                  onClick={handlePrevButtonClick}
-                />
-                <MoveButton
-                  src={
-                    tablePage !== validDateChunks.length - 1
-                      ? addNextActive
-                      : addNextDisable
-                  }
-                  alt="Next Button"
-                  onClick={handleNextButtonClick}
-                />
-              </ButtonWrapper>
-              <TableWrapper ref={contentWrapperRef}>
-                <AddTable
-                  contentRef={contentRef}
-                  selected={selected}
-                  setSelected={setSelected}
-                  times={times}
-                  tablePage={tablePage}
-                  selectedMethod={selectedMethod}
-                  validDateChunks={validDateChunks}
-                />
-              </TableWrapper>
-              <ScrollbarTrack ref={trackRef}>
-                <ScrollbarThumb
-                  ref={thumbRef}
-                  offsetY={offsetY}
-                  onMouseDown={handleMouseDown}
-                  onDragStart={handleDragStart}
-                  onTouchStart={handleTouchStart}
-                />
-              </ScrollbarTrack>
-            </>
+          {isTableView ? (
+            <AddTable
+              selectedMethod={selectedMethod}
+              dates={dates}
+              timeRange={timeRange}
+              previousSelectedTimes={previousSelectedTimes}
+              tableSelected={tableSelected}
+              setTableSelected={setTableSelected}
+            />
           ) : (
             <CalendarWrapper>
               <AddCalendar
                 dates={dates}
-                selected={selected}
-                setSelected={setSelected}
+                selected={calendarSelected}
+                setSelected={setCalendarSelected}
                 selectedMethod={selectedMethod}
               />
             </CalendarWrapper>
@@ -394,12 +212,12 @@ const AddTime = () => {
           isActivated={true}
         />
       </Body>
-      {availableGuide && (
-        <Guide>
-          <GuideIcon src={guideIcon} />
-          <GuideHandleIcon src={guideHandle} />
-          <CloseButton src={closeIcon} onClick={handleGuideCloseClick} />
-        </Guide>
+
+      {isTableView && isTooltipShown && (
+        <Tooltip
+          isTooltipShown={isTooltipShown}
+          setIsTooltipShown={setIsTooltipShown}
+        />
       )}
     </Wrapper>
   );
