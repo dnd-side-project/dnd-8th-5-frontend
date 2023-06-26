@@ -90,8 +90,8 @@ const Current = () => {
       setAvailableDateTimes(data.availableDateTimes);
     };
 
-    getCurrentRoomInfo();
     getRoomInfo();
+    setTimeout(getCurrentRoomInfo, 50);
   }, []);
 
   const {
