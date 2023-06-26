@@ -1,15 +1,15 @@
-import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, MouseEvent, TouchEvent } from 'react';
 import Participant from './Pariticipant';
-import theme from '../../styles/theme';
 import refresh from '../../assets/icons/refresh.svg';
-
-interface ParticipantsList {
-  name: string;
-  isSelected: boolean;
-}
-
-interface ParticipantsListProps extends Array<ParticipantsList> {}
+import {
+  Bottom,
+  Button,
+  Refresh,
+  RefreshButton,
+  RefreshIcon,
+  Wrapper,
+} from './SelectParticipants.styles';
+import { SelectParticipantsTypes } from './resultOption.types';
 
 const SelectParticipants = ({
   setFilteredParticipants,
@@ -18,44 +18,33 @@ const SelectParticipants = ({
   selectedList,
   setSelectedList,
   setIsParticipantOpened,
-}: {
-  setFilteredParticipants: React.Dispatch<
-    React.SetStateAction<ParticipantsListProps>
-  >;
-  participantsList: ParticipantsListProps;
-  setNameQS: React.Dispatch<React.SetStateAction<string>>;
-  selectedList: string[];
-  setSelectedList: React.Dispatch<React.SetStateAction<string[]>>;
-
-  setIsParticipantOpened: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+}: SelectParticipantsTypes) => {
   const [isSelectedAll, setIsSelectedAll] = useState<boolean>(false);
   const [selectedParticipants, setSelectedParticipants] =
     useState(participantsList);
 
-
-  const handleBlockClick = (e: any) => {
-    const idx = selectedList.findIndex((name) => name === e.target.id);
+  const handleBlockClick = (
+    e: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>
+  ) => {
+    const targetId = (e.target as HTMLDivElement).id;
+    const idx = selectedList.findIndex((name) => name === targetId);
 
     if (idx === -1) {
-      setSelectedList([...selectedList, e.target.id]);
+      setSelectedList([...selectedList, targetId]);
 
       const newList = selectedParticipants.map(({ name, isSelected }) =>
-
-        name === e.target.id
+        name === targetId
           ? { name: name, isSelected: true }
           : { name: name, isSelected: isSelected }
       );
 
       setSelectedParticipants(newList);
-
     } else {
-      const newList = selectedList.filter((name) => name !== e.target.id);
+      const newList = selectedList.filter((name) => name !== targetId);
       setSelectedList(newList);
 
       const newArr = selectedParticipants.map(({ name, isSelected }) =>
-
-        name === e.target.id
+        name === targetId
           ? { name: name, isSelected: false }
           : { name: name, isSelected: isSelected }
       );
@@ -65,16 +54,14 @@ const SelectParticipants = ({
       if (selectedList.length === selectedParticipants.length) {
         setIsSelectedAll(false);
       }
-
     }
   };
 
-  const handleAllClick = (e: any) => {
+  const handleAllClick = () => {
     if (selectedList.length === selectedParticipants.length) {
       setIsSelectedAll(false);
       setSelectedList([]);
       const newList = selectedParticipants.map(({ name, isSelected }) =>
-
         isSelected == true
           ? { name: name, isSelected: false }
           : { name: name, isSelected: isSelected }
@@ -85,7 +72,6 @@ const SelectParticipants = ({
       setIsSelectedAll(true);
 
       const newList = selectedParticipants.map(({ name, isSelected }) =>
-
         isSelected == false
           ? { name: name, isSelected: true }
           : { name: name, isSelected: isSelected }
@@ -100,7 +86,6 @@ const SelectParticipants = ({
 
   useEffect(() => {
     if (selectedList.length === selectedParticipants.length) {
-
       setIsSelectedAll(true);
     }
   }, [selectedList]);
@@ -108,7 +93,7 @@ const SelectParticipants = ({
   const handleRefresh = () => {
     setIsSelectedAll(false);
     setSelectedList([]);
-    
+
     const newList = selectedParticipants.map(({ name, isSelected }) =>
       isSelected == true
         ? { name: name, isSelected: false }
@@ -161,62 +146,5 @@ const SelectParticipants = ({
     </>
   );
 };
-
-const Wrapper = styled.div`
-  width: 100%;
-
-  display: flex;
-  flex-wrap: wrap;
-  row-gap: 5px;
-  column-gap: 6px;
-`;
-
-const Bottom = styled.div`
-  width: 100%;
-  height: 44px;
-
-  display: flex;
-  justify-content: space-between;
-
-  position: absolute;
-  bottom: 28px;
-`;
-
-const Button = styled.div`
-  width: 243px;
-  height: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 6px;
-  ${theme.typography.semibold04};
-  color: ${theme.colors.gray01};
-  background: ${theme.colors.purple06};
-
-  cursor: pointer;
-`;
-
-const Refresh = styled.div`
-  width: 87px;
-  margin-left: 2px;
-
-  display: flex;
-  align-items: center;
-
-  cursor: pointer;
-`;
-
-const RefreshIcon = styled.img`
-  width: 18px;
-  height: 18px;
-  margin-right: 2px;
-`;
-
-const RefreshButton = styled.div`
-  ${theme.typography.semibold04}
-  color: ${theme.colors.gray06};
-`;
 
 export default SelectParticipants;

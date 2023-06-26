@@ -3,7 +3,6 @@ export interface AddCalendarType {
   selected: string[];
   setSelected: React.Dispatch<React.SetStateAction<string[]>>;
   selectedMethod: string;
-  previousSelectedTimes: string[];
 }
 
 export interface currentRoomState {

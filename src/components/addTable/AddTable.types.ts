@@ -12,7 +12,16 @@ export interface ChunkType {
   isValidDate: boolean;
 }
 
-export interface AddTableType {
+export interface AddTableTypes {
+  selectedMethod: string;
+  dates: string[];
+  timeRange: number[];
+  previousSelectedTimes: string[];
+  tableSelected: TableSelectedTypes;
+  setTableSelected: React.Dispatch<React.SetStateAction<TableSelectedTypes>>;
+}
+
+export interface TableType {
   contentRef: React.RefObject<HTMLDivElement>;
   tableSelected: TableSelectedTypes;
   setTableSelected: React.Dispatch<React.SetStateAction<TableSelectedTypes>>;

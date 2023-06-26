@@ -58,7 +58,7 @@ const AddTime = () => {
   const [tableSelected, setTableSelected] = useState<TableSelectedTypes>({});
   const [calendarSelected, setCalendarSelected] = useState<string[]>([]);
 
-  const userName = localStorage.getItem('userName');
+  const userName = localStorage.getItem('userName') || '';
 
   const [isTooltipShown, setIsTooltipShown] =
     useRecoilState<boolean>(isTooltipShownState);
@@ -109,6 +109,17 @@ const AddTime = () => {
   const allTimeRange = getAllTimeRange(dates, timeRange);
 
   const handleApplyClick = () => {
+    const putAvailableTime = async (payload: {
+      name: string;
+      hasTime: boolean;
+      availableDateTimes: string[];
+    }) => {
+      await API.put(
+        `/api/room/${roomUUID}/available-time`,
+        JSON.stringify(payload)
+      );
+    };
+
     if (selectedMethod === 'possible') {
       const payload = isTableView
         ? {
@@ -122,14 +133,7 @@ const AddTime = () => {
             availableDateTimes: [...calendarSelected],
           };
 
-      const putAvailableTime = async () => {
-        await API.put(
-          `/api/room/${roomUUID}/available-time`,
-          JSON.stringify(payload)
-        );
-      };
-
-      putAvailableTime();
+      putAvailableTime(payload);
     }
 
     if (selectedMethod === 'impossible') {
@@ -145,14 +149,7 @@ const AddTime = () => {
           availableDateTimes: filteredTime,
         };
 
-        const putAvailableTime = async () => {
-          await API.put(
-            `/api/room/${roomUUID}/available-time`,
-            JSON.stringify(payload)
-          );
-        };
-
-        putAvailableTime();
+        putAvailableTime(payload);
       } else {
         const newDates = dates.map((date) => `${date} 00:00`);
         const filteredTime =
@@ -164,19 +161,11 @@ const AddTime = () => {
           availableDateTimes: filteredTime,
         };
 
-        const putAvailableTime = async () => {
-          await API.put(
-            `/api/room/${roomUUID}/available-time`,
-            JSON.stringify(payload)
-          );
-        };
-
-        putAvailableTime();
+        putAvailableTime(payload);
       }
     }
 
     goToCurrent();
-    window.location.reload();
   };
 
   return (
@@ -212,7 +201,6 @@ const AddTime = () => {
                 selected={calendarSelected}
                 setSelected={setCalendarSelected}
                 selectedMethod={selectedMethod}
-                previousSelectedTimes={previousSelectedTimes}
               />
             </CalendarWrapper>
           )}

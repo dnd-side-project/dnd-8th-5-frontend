@@ -13,9 +13,8 @@ import {
   Top,
   Wrapper,
 } from './Table.styles';
-import { AddTableType } from './AddTable.types';
+import { TableType } from './AddTable.types';
 import Selecto from 'react-selecto';
-import _ from 'lodash';
 
 const Table = ({
   contentRef,
@@ -25,7 +24,7 @@ const Table = ({
   tablePage,
   validDateChunks,
   times,
-}: AddTableType) => {
+}: TableType) => {
   const timeDetail = getTimeArray(times);
   const selectoRef = useRef<any>(null);
 

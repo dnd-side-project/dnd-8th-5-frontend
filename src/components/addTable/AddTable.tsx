@@ -14,17 +14,8 @@ import addNextDisable from '../../assets/icons/addNextDisable.png';
 import addPrevActive from '../../assets/icons/addPrevActive.png';
 import addNextActive from '../../assets/icons/addNextActive.png';
 import Table from './Table';
-import { TableSelectedTypes } from './AddTable.types';
+import { AddTableTypes, TableSelectedTypes } from './AddTable.types';
 import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
-
-interface AddTableTypes {
-  selectedMethod: string;
-  dates: string[];
-  timeRange: number[];
-  previousSelectedTimes: string[];
-  tableSelected: TableSelectedTypes;
-  setTableSelected: React.Dispatch<React.SetStateAction<TableSelectedTypes>>;
-}
 
 const AddTable = ({
   selectedMethod,
@@ -43,7 +34,7 @@ const AddTable = ({
   useEffect(() => {
     const newObj: TableSelectedTypes = {};
 
-    previousSelectedTimes.forEach((time: any) => {
+    previousSelectedTimes.forEach((time: string) => {
       validDateChunks.map((chunk, index) => {
         chunk.map((date) => {
           if (date.date === time.slice(0, 10)) {
