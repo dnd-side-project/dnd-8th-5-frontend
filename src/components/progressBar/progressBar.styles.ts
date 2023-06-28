@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import theme from '../../styles/theme';
+import { keyframes } from '@emotion/react';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -87,7 +88,8 @@ export const Rabbit = styled.img<{ leftPosition: number }>`
   left: ${({ leftPosition }) => `${leftPosition}px`};
   filter: drop-shadow(0px 0px 11px rgba(106, 123, 255, 0.49));
 
-  animation: rabbitPosition 1s ease-out;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 
   @keyframes rabbitPosition {
     0% {
@@ -97,4 +99,6 @@ export const Rabbit = styled.img<{ leftPosition: number }>`
       left: ${({ leftPosition }) => `${leftPosition}px`};
     }
   }
+
+  animation: rabbitPosition 1s ease-out;
 `;
