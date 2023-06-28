@@ -34,6 +34,9 @@ export const ActiveButton = styled.div<{ selectedMethod: string }>`
     selectedMethod === 'possible'
       ? `drop-shadow(0px 0px 13px rgba(106, 123, 255, 0.26))`
       : `drop-shadow(0px 0px 13px rgba(117, 40, 15, 0.26))`};
+
+  backface-visibility: hidden;
+  transform: translateZ(0);
 `;
 
 export const ActiveText = styled.span<{
