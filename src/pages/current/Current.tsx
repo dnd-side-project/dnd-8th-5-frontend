@@ -91,7 +91,7 @@ const Current = () => {
     };
 
     getRoomInfo();
-    setTimeout(getCurrentRoomInfo, 50);
+    setTimeout(getCurrentRoomInfo, 500);
   }, []);
 
   const {
