@@ -12,16 +12,14 @@ interface availableTimeInfo {
   count: number;
 }
 
-export interface CurrentTypes {
-  availableDateTimes: [
-    {
-      availableDate: string;
-      availableTimeInfos: [
-        {
-          time: string;
-          count: number;
-        }
-      ];
-    }
-  ];
+export interface AvailableDateTimeTypes {
+  availableDate: string;
+  availableTimeInfos: {
+    time: string;
+    count: number;
+  }[];
+}
+
+export interface AvailableDateTimesTypes {
+  availableDateTimes: AvailableDateTimeTypes[];
 }

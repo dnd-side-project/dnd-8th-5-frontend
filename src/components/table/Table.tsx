@@ -13,9 +13,24 @@ import {
 
 import { getCurrentTableInfo } from '../../utils/getCurrentTableInfo';
 import { useEffect, useState } from 'react';
+import { AvailableDateTimeTypes } from '../../types/current';
 
-const Table = ({ availableDateTimes, dates, times, participants }: any) => {
-  const [currentTableInfo, setCurrentTableInfo] = useState<any>([]);
+interface TableTypes {
+  availableDateTimes: AvailableDateTimeTypes[];
+  dates: string[];
+  times: number[];
+  participants: string[];
+}
+
+const Table = ({
+  availableDateTimes,
+  dates,
+  times,
+  participants,
+}: TableTypes) => {
+  const [currentTableInfo, setCurrentTableInfo] = useState<
+    AvailableDateTimeTypes[]
+  >([]);
 
   useEffect(() => {
     setCurrentTableInfo(getCurrentTableInfo(availableDateTimes, times));

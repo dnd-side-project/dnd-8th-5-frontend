@@ -1,18 +1,11 @@
+import { AvailableDateTimeTypes } from '../types/current';
 import { getTimeArray } from './getTimeArray';
 
-interface DateTypes {
-  availableDate: string;
-  availableTimeInfos: {
-    time: string;
-    count: number;
-  }[];
-}
-
 export const getCurrentTableInfo = (
-  availableDateTimes: DateTypes[],
+  availableDateTimes: AvailableDateTimeTypes[],
   timeRange: number[]
 ) => {
-  let dates: DateTypes[] = [...availableDateTimes];
+  let dates: AvailableDateTimeTypes[] = [...availableDateTimes];
 
   if (availableDateTimes.length < 4) {
     const remainder = 4 - (availableDateTimes.length % 4);

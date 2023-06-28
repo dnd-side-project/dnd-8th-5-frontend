@@ -10,10 +10,6 @@ const defaultStyle = css`
     font-display: fallback;
   }
 
-  :root {
-    --vh: 100%;
-  }
-
   html,
   body {
     margin: 0;
