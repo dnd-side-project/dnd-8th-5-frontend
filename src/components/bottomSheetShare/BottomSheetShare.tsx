@@ -50,7 +50,7 @@ const BottomSheetShare = ({ roomUuid }: { roomUuid: string | undefined }) => {
       open={open}
       blocking={true}
       onDismiss={onDismiss}
-      snapPoints={({ minHeight }) => minHeight}
+      snapPoints={({ footerHeight }) => footerHeight}
     >
       <MainContainer>
         <HeaderRabbit src={headerRabbit} />
