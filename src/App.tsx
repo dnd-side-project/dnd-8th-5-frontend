@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import AddTime from './pages/addTime/AddTime';
@@ -9,8 +10,13 @@ import Timer from './pages/roomTimer/RoomTimer';
 import Login from './pages/login/Login';
 import Result from './pages/result/Result';
 import Invite from './pages/invite/Invite';
+import { setScreenSize } from './utils/setScreenSize';
 
 function App() {
+  useEffect(() => {
+    setScreenSize();
+  }, []);
+
   return (
     <Routes>
       <Route path="/" element={<Start />} />
