@@ -11,6 +11,7 @@ export const MainContainer = styled.div`
   right: 0;
   margin: 0 auto;
   background-size: cover;
+  background-position: center;
   background-image: url(${startBack});
 `;
 
