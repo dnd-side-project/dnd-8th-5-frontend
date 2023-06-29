@@ -1,3 +1,6 @@
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+
 interface ValidDate {
   date: string;
   isValidDate: boolean;
@@ -12,7 +15,9 @@ export const getAddTimeTableInfo = (dates: string[]) => {
     extra = 1;
   }
 
-  let newDates: string[] = [...dates];
+  let newDates: string[] = dates.map((date) =>
+    dayjs(date).locale('ko').format('YYYY-MM-DD dddd').toString()
+  );
 
   for (let i = 0; i < extra; i++) {
     newDates = [...newDates, `blank${i}`];

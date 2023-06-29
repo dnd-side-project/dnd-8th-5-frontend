@@ -73,9 +73,9 @@ const Table = ({
                 <Date key={date} isValidDate={isValidDate} />
               ) : (
                 <Date key={date} isValidDate={isValidDate}>{`${date.slice(
-                  5,
+                  6,
                   7
-                )}월${date.slice(8, 10)}일`}</Date>
+                )}월${date.slice(8, 10)}일(${date.slice(11, 12)})`}</Date>
               )
           )}
         </DateWrapper>
