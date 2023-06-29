@@ -146,7 +146,11 @@ const Current = () => {
           {participants.map((participant: string) => (
             <ParticipantsBlock key={participant} participant={participant} />
           ))}
-          <ParticipantsBlock participant={'?'} />
+
+          {headCount &&
+            (participants.length < headCount ? (
+              <ParticipantsBlock participant={'?'} />
+            ) : null)}
         </Participants>
       </Body>
 
