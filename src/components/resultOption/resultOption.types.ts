@@ -8,7 +8,7 @@ export interface SelectParticipants {
 export interface ParticipantsListTypes extends Array<SelectParticipants> {}
 
 export interface SelectParticipantsTypes {
-  participantsList: ParticipantsListTypes;
+  participants: string[];
   setFilteredParticipants: Dispatch<SetStateAction<ParticipantsListTypes>>;
 
   selectedList: string[];

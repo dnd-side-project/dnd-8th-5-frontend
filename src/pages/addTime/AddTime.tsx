@@ -175,7 +175,6 @@ const AddTime = () => {
         <TitleWrapper>
           <Title>{`${userName} 님의 일정을`}</Title>
         </TitleWrapper>
-        ㄴ
         <TitleWrapper>
           <AddToggle
             isTableView={isTableView}
