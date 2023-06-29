@@ -1,8 +1,5 @@
 import { useEffect, useState, MouseEvent, TouchEvent } from 'react';
-
 import Participant from './Pariticipant';
-import { SelectParticipantsTypes } from './resultOption.types';
-
 import refresh from '../../assets/icons/refresh.svg';
 import {
   Bottom,
@@ -12,26 +9,16 @@ import {
   RefreshIcon,
   Wrapper,
 } from './SelectParticipants.styles';
-
-interface ParticipantTypes {
-  name: string;
-  isSelected: boolean;
-}
+import { SelectParticipantsTypes } from './resultOption.types';
 
 const SelectParticipants = ({
-  participants,
   setFilteredParticipants,
+  participantsList,
   setNameQS,
   selectedList,
   setSelectedList,
   setIsParticipantOpened,
 }: SelectParticipantsTypes) => {
-  const participantsList: any = participants.map((participant: string) =>
-    selectedList.indexOf(participant) === -1
-      ? { name: participant, isSelected: false }
-      : { name: participant, isSelected: true }
-  );
-
   const [isSelectedAll, setIsSelectedAll] = useState<boolean>(false);
   const [selectedParticipants, setSelectedParticipants] =
     useState(participantsList);
@@ -42,37 +29,27 @@ const SelectParticipants = ({
     const targetId = (e.target as HTMLDivElement).id;
     const idx = selectedList.findIndex((name) => name === targetId);
 
-    const updateSelectedListByTargetId = (selectedValue: boolean) => {
-      const newList = selectedParticipants.map(
-        ({ name, isSelected }: ParticipantTypes) =>
-          name === targetId
-            ? { name: name, isSelected: selectedValue }
-            : { name: name, isSelected: isSelected }
-      );
-
-      setSelectedParticipants(newList);
-    };
-
-    const updateSelectedListByValue = (selectedValue: boolean) => {
-      const newList = selectedParticipants.map(
-        ({ name, isSelected }: ParticipantTypes) =>
-          isSelected == selectedValue
-            ? { name: name, isSelected: !selectedValue }
-            : { name: name, isSelected: isSelected }
-      );
-
-      setSelectedParticipants(newList);
-    };
-
     if (idx === -1) {
       setSelectedList([...selectedList, targetId]);
 
-      updateSelectedListByTargetId(true);
+      const newList = selectedParticipants.map(({ name, isSelected }) =>
+        name === targetId
+          ? { name: name, isSelected: true }
+          : { name: name, isSelected: isSelected }
+      );
+
+      setSelectedParticipants(newList);
     } else {
       const newList = selectedList.filter((name) => name !== targetId);
       setSelectedList(newList);
 
-      updateSelectedListByTargetId(false);
+      const newArr = selectedParticipants.map(({ name, isSelected }) =>
+        name === targetId
+          ? { name: name, isSelected: false }
+          : { name: name, isSelected: isSelected }
+      );
+
+      setSelectedParticipants(newArr);
 
       if (selectedList.length === selectedParticipants.length) {
         setIsSelectedAll(false);
@@ -84,20 +61,26 @@ const SelectParticipants = ({
     if (selectedList.length === selectedParticipants.length) {
       setIsSelectedAll(false);
       setSelectedList([]);
+      const newList = selectedParticipants.map(({ name, isSelected }) =>
+        isSelected == true
+          ? { name: name, isSelected: false }
+          : { name: name, isSelected: isSelected }
+      );
+
+      setSelectedParticipants(newList);
     } else {
       setIsSelectedAll(true);
 
-      // const newList = selectedParticipants.map(
-      //   ({ name, isSelected }: ParticipantTypes) =>
-      //     isSelected == false
-      //       ? { name: name, isSelected: true }
-      //       : { name: name, isSelected: isSelected }
-      // );
+      const newList = selectedParticipants.map(({ name, isSelected }) =>
+        isSelected == false
+          ? { name: name, isSelected: true }
+          : { name: name, isSelected: isSelected }
+      );
 
-      // setSelectedParticipants(newList);
+      setSelectedParticipants(newList);
 
-      // const newArr = newList.map(({ name }: { name: string }) => name);
-      // setSelectedList(newArr);
+      const newArr = newList.map(({ name }) => name);
+      setSelectedList(newArr);
     }
   };
 
@@ -111,43 +94,28 @@ const SelectParticipants = ({
     setIsSelectedAll(false);
     setSelectedList([]);
 
-    // const newList = selectedParticipants.map(
-    //   ({ name, isSelected }: ParticipantTypes) =>
-    //     isSelected == true
-    //       ? { name: name, isSelected: false }
-    //       : { name: name, isSelected: isSelected }
-    // );
-    // setSelectedParticipants(newList);
+    const newList = selectedParticipants.map(({ name, isSelected }) =>
+      isSelected == true
+        ? { name: name, isSelected: false }
+        : { name: name, isSelected: isSelected }
+    );
+    setSelectedParticipants(newList);
   };
+
+  useEffect(() => {
+    handleRefresh();
+  }, []);
 
   const handleApplyClick = () => {
     setIsParticipantOpened(false);
 
-    if (selectedList.length === 0) {
-      setIsSelectedAll(true);
-
-      // const newList = selectedParticipants.map(
-      //   ({ name, isSelected }: ParticipantTypes) =>
-      //     isSelected == false
-      //       ? { name: name, isSelected: true }
-      //       : { name: name, isSelected: isSelected }
-      // );
-
-      // setSelectedParticipants(newList);
-
-      // const newArr = newList.map(({ name }: { name: string }) => name);
-      // setSelectedList(newArr);
-    }
-
     const selected = selectedParticipants.filter(
-      (participant: ParticipantTypes) => participant.isSelected === true
+      (participant) => participant.isSelected === true
     );
 
     setFilteredParticipants(selected);
 
-    const qs = selected.map(
-      (participant: ParticipantTypes) => `name=${participant.name}&`
-    );
+    const qs = selected.map((name) => `name=${name.name}&`);
     setNameQS(qs.join(''));
   };
 
@@ -159,12 +127,12 @@ const SelectParticipants = ({
           onClick={handleAllClick}
           isSelected={isSelectedAll}
         />
-        {selectedParticipants.map(({ name, isSelected }: ParticipantTypes) => (
+        {selectedParticipants.map(({ name, isSelected }) => (
           <Participant
+            onClick={handleBlockClick}
             key={name}
             id={name}
             isSelected={isSelected}
-            onClick={handleBlockClick}
           />
         ))}
       </Wrapper>

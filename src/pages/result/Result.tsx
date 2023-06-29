@@ -5,7 +5,7 @@ import nobody from '../../assets/images/nobody.png';
 import Accordion from '../../components/accordion/Accordion';
 import { useEffect, useState } from 'react';
 import ResultButton from '../../components/resultButton/ResultButton';
-// import Popup from '../../components/popup/Popup';
+import Popup from '../../components/popup/Popup';
 import BottomSheet from '../../components/bottomSheet/BottomSheet';
 
 import {
@@ -36,6 +36,33 @@ interface FilteredParticipantsTypes {
 const Result = () => {
   const { roomUUID } = useParams();
 
+  const [isPopupOpened, setIsPopupOpened] = useState(false);
+  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [isParticipantOpened, setIsParticipantOpened] = useState(false);
+  const [isSortOpened, setIsSortOpened] = useState(false);
+
+  const [selectedTimeId, setSelectedTimeId] = useState('');
+  const [selectedList, setSelectedList] = useState<string[]>([]);
+  const [filteredParticipants, setFilteredParticipants] = useState<
+    FilteredParticipantsTypes[]
+  >([]);
+
+  const [nameQS, setNameQS] = useState<string>('');
+  const [sortedQS, setSortedQS] = useState<string>('fast');
+
+  // const handleConfirmButtonClick = (e: any) => {
+  //   setIsPopupOpened(true);
+  //   setSelectedTimeId(e.target.id);
+  // };
+
+  const handleParticipantOpen = () => {
+    setIsParticipantOpened(!isParticipantOpened);
+  };
+
+  const handleOrderOpen = () => {
+    setIsSortOpened(!isSortOpened);
+  };
+
   const [room, setRoom] = useRecoilState(roomState);
   const [candidateTimes, setCandidateTimes] = useState({
     candidateTimes: [
@@ -60,41 +87,6 @@ const Result = () => {
     getRoomInfo();
   }, []);
 
-  const { title, participants, headCount } = room;
-
-  const [isParticipantOpened, setIsParticipantOpened] = useState(false);
-  const [isSortOpened, setIsSortOpened] = useState(false);
-
-  const [selectedList, setSelectedList] = useState<string[]>([]);
-
-  const [filteredParticipants, setFilteredParticipants] = useState<
-    FilteredParticipantsTypes[]
-  >([]);
-
-  const [nameQS, setNameQS] = useState<string>('');
-  const [sortedQS, setSortedQS] = useState<string>('fast');
-
-  // const [isPopupOpened, setIsPopupOpened] = useState(false);
-  // const [isConfirmed, setIsConfirmed] = useState(false);
-  // const [selectedTimeId, setSelectedTimeId] = useState('');
-
-  // const handleConfirmButtonClick = (e: any) => {
-  //   setIsPopupOpened(true);
-  //   setSelectedTimeId(e.target.id);
-  // };
-
-  const handleParticipantOpen = () => {
-    setIsParticipantOpened(!isParticipantOpened);
-  };
-
-  const handleOrderOpen = () => {
-    setIsSortOpened(!isSortOpened);
-  };
-
-  useEffect(() => {
-    setSelectedList(participants);
-  }, [participants]);
-
   useEffect(() => {
     const getCandidateTimes = async () => {
       const { data } = await API.get(
@@ -106,6 +98,13 @@ const Result = () => {
 
     getCandidateTimes();
   }, [sortedQS, nameQS]);
+
+  const { title, participants, headCount } = room;
+
+  const participantsList: any = participants.map(
+    (participant: string) =>
+      participant && { name: participant, isSelected: false }
+  );
 
   return (
     <Wrapper>
@@ -123,7 +122,7 @@ const Result = () => {
           <SelectBox
             text={
               filteredParticipants.length === 0 ||
-              filteredParticipants.length == participants.length
+              filteredParticipants.length == participantsList.length
                 ? '전체 참여자'
                 : filteredParticipants.length === 1
                 ? `${filteredParticipants[0].name}`
@@ -237,21 +236,21 @@ const Result = () => {
 
       <ResultButton />
 
-      {/* {isPopupOpened && (
+      {isPopupOpened && (
         <Popup
           selectedTimeId={selectedTimeId}
           setIsPopupOpened={setIsPopupOpened}
           setIsConfirmed={setIsConfirmed}
         />
-      )} */}
+      )}
       {isParticipantOpened && (
         <BottomSheet
           setIsBottomSheetOpened={setIsParticipantOpened}
           title="참여자"
           children={
             <SelectParticipants
-              participants={participants}
               setFilteredParticipants={setFilteredParticipants}
+              participantsList={participantsList}
               setNameQS={setNameQS}
               selectedList={selectedList}
               setSelectedList={setSelectedList}

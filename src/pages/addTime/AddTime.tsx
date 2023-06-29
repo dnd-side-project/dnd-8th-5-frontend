@@ -108,18 +108,24 @@ const AddTime = () => {
 
   const allTimeRange = getAllTimeRange(dates, timeRange);
 
-  const handleApplyClick = () => {
-    const putAvailableTime = async (payload: {
-      name: string;
-      hasTime: boolean;
-      availableDateTimes: string[];
-    }) => {
-      await API.put(
-        `/api/room/${roomUUID}/available-time`,
-        JSON.stringify(payload)
-      );
-    };
+  const putAvailableTime = async (payload: {
+    name: string;
+    hasTime: boolean;
+    availableDateTimes: string[];
+  }) => {
+    const response = await API.put(
+      `/api/room/${roomUUID}/available-time`,
+      JSON.stringify(payload)
+    );
 
+    if (response.status === 200) {
+      goToCurrent();
+    } else {
+      alert('처리 중 오류가 발생했습니다!');
+    }
+  };
+
+  const handleApplyClick = () => {
     if (selectedMethod === 'possible') {
       const payload = isTableView
         ? {
@@ -164,8 +170,6 @@ const AddTime = () => {
         putAvailableTime(payload);
       }
     }
-
-    goToCurrent();
   };
 
   return (
@@ -175,6 +179,7 @@ const AddTime = () => {
         <TitleWrapper>
           <Title>{`${userName} 님의 일정을`}</Title>
         </TitleWrapper>
+
         <TitleWrapper>
           <AddToggle
             isTableView={isTableView}
