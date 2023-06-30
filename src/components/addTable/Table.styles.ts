@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   width: 231px;
 
   border-radius: 5.5px;
-  border: 1px solid ${theme.colors.gray03};
+  border: 1px solid ${theme.colors.addTableBorder};
   color: ${theme.colors.gray06};
   ${theme.typography.medium02};
 
@@ -17,7 +17,7 @@ export const Top = styled.div`
   display: flex;
   width: 100%;
   height: 37px;
-  border-bottom: 1px solid ${theme.colors.gray03};
+  border-bottom: 1px solid ${theme.colors.addTableBorder};
 `;
 
 export const Bottom = styled.div`
@@ -29,7 +29,7 @@ export const Blank = styled.div`
   width: 17px;
   height: 36px;
 
-  border-right: 1px solid ${theme.colors.gray03};
+  border-right: 1px solid ${theme.colors.addTableBorder};
 `;
 
 export const DateWrapper = styled.div`
@@ -51,17 +51,17 @@ export const Date = styled.div<{ isValidDate: boolean }>`
     isValidDate ? theme.colors.gray01 : theme.colors.gray02};
 
   border-left: ${({ isValidDate }) =>
-    !isValidDate && `1px solid ${theme.colors.gray03}`};
+    !isValidDate && `1px solid ${theme.colors.addTableBorder}`};
 
   & + & {
     width: 71px;
-    border-left: 1px solid ${theme.colors.gray03};
+    border-left: 1px solid ${theme.colors.addTableBorder};
   }
 `;
 
 export const TimeWrapper = styled.div`
   width: 17px;
-  border-right: 1px solid ${theme.colors.gray03};
+  border-right: 1px solid ${theme.colors.addTableBorder};
 `;
 
 export const Time = styled.div`
@@ -76,7 +76,7 @@ export const Time = styled.div`
 
   & + & {
     height: 37px;
-    border-top: 1px solid ${theme.colors.gray03};
+    border-top: 1px solid ${theme.colors.addTableBorder};
   }
 `;
 
@@ -85,7 +85,7 @@ export const SelectWrapper = styled.div`
 
   & + & {
     width: 71px;
-    border-left: 1px solid ${theme.colors.gray03};
+    border-left: 1px solid ${theme.colors.addTableBorder};
   }
 `;
 
@@ -105,11 +105,11 @@ export const Select = styled.div<SelectType>`
 
   &:nth-of-type(even) {
     height: 18px;
-    border-bottom: 1px dashed ${theme.colors.gray03};
+    border-bottom: 1px dashed ${theme.colors.addTableBorder};
   }
 
   &:nth-of-type(odd) {
-    border-bottom: 1px solid ${theme.colors.gray03};
+    border-bottom: 1px solid ${theme.colors.addTableBorder};
   }
 
   &:last-of-type {
