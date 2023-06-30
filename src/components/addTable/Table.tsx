@@ -39,7 +39,11 @@ const Table = ({
         tableSelected[tablePage].map((id) => document.getElementById(id))
       );
     }
-  }, [tablePage, selectedMethod, tableSelected]);
+  }, [tablePage, tableSelected]);
+
+  useEffect(() => {
+    selectoRef.current.setSelectedTargets([]);
+  }, [selectedMethod]);
 
   const handleCellSelect = (e: any) => {
     e.added.forEach((el: any) => {
