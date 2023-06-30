@@ -27,7 +27,6 @@ import { RoomTypes } from '../../types/roomInfo';
 
 const Login = () => {
   const { roomUUID } = useParams();
-  const [title, setTitle] = useState<string>('이멤버 리멤버 연말파티');
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
   const [room, setRoom] = useState<RoomTypes>({
@@ -102,6 +101,8 @@ const Login = () => {
             ></NameInput>
             <PasswordInput
               type="password"
+              pattern="[0-9]*"
+              inputMode="numeric"
               name="password"
               autoComplete="current-password"
               placeholder="4자리 비밀번호 입력"

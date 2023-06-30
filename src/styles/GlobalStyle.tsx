@@ -8,6 +8,11 @@ const defaultStyle = css`
     box-sizing: border-box;
     font-family: 'Pretendard', Arial, Helvetica, sans-serif;
     font-display: fallback;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-use-select: none;
+    user-select: none;
   }
 
   html,

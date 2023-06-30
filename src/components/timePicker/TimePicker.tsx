@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './timePicker.css';
 import {
   MainContainer,
@@ -31,6 +30,7 @@ const Current = ({ startTime, endTime, setStartTime, setEndTime }: Current) => {
     '21:00',
     '22:00',
     '23:00',
+    // '24:00',
     '00:00',
     '01:00',
     '02:00',
@@ -54,7 +54,6 @@ const Current = ({ startTime, endTime, setStartTime, setEndTime }: Current) => {
         if (startEnd === 'start') {
           setStartTime(TIME_ARRAY[currentSlide]);
         } else {
-          console.log(currentSlide);
           setEndTime(TIME_ARRAY[currentSlide]);
         }
       },

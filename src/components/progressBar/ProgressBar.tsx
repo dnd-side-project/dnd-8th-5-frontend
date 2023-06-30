@@ -38,7 +38,7 @@ const ProgressBar = ({ headCount, participants }: currentParticipants) => {
         setLeftPosition(barRect - 30);
       } else {
         if (proportionWidth) {
-          setLeftPosition(254 - (proportionWidth - 20));
+          setLeftPosition(262 - (proportionWidth - 20));
         }
       }
     }

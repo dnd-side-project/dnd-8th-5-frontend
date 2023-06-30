@@ -19,9 +19,8 @@ import { useState } from 'react';
 const Header = ({ pageName, title }: { pageName: string; title: string }) => {
   const { roomUUID } = useParams();
 
-  const [isEmailRegistered, setIsEmailRegistered] = useRecoilState(emailState);
-  const [isTooltipShown, setIsTooltipShown] =
-    useRecoilState(isTooltipShownState);
+  const [isEmailRegistered] = useRecoilState(emailState);
+  const [, setIsTooltipShown] = useRecoilState(isTooltipShownState);
 
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
 

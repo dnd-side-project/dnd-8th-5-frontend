@@ -1,15 +1,6 @@
 import styled from '@emotion/styled';
-import theme from '../../styles/theme';
 import { css } from '@emotion/react';
-
-export const Wrapper = styled.div`
-  width: 100%;
-
-  display: flex;
-  flex-wrap: wrap;
-  row-gap: 5px;
-  column-gap: 6px;
-`;
+import theme from '../../../styles/theme';
 
 export const Bottom = styled.div`
   width: 100%;

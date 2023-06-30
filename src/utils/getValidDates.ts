@@ -7,7 +7,7 @@ interface ValidDate {
 }
 
 export const getValidDates = (dates: string[]) => {
-  const [room, setRoom] = useRecoilState(roomState);
+  const [room] = useRecoilState(roomState);
 
   let validDates: Array<ValidDate[]> = [];
 

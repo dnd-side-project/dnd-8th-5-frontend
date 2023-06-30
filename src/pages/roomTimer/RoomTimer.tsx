@@ -43,7 +43,7 @@ const TimerPage = () => {
 
   const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomAtoms);
   const recoilRoomInfoStates = useRecoilValue(recoilRoomInfoState);
-  const [recoilUuid, setRecoilUuid] = useRecoilState(recoilUuidAtoms);
+  const [, setRecoilUuid] = useRecoilState(recoilUuidAtoms);
 
   const navigate = useNavigate();
 
@@ -70,6 +70,7 @@ const TimerPage = () => {
     } catch {
       {
         const yesNo = confirm('오류가 발생했습니다.\n처음부터 다시 시도하세요');
+
         if (yesNo) {
           navigate('/');
         }
