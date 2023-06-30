@@ -15,16 +15,20 @@ export const getAddTimeTableInfo = (dates: string[]) => {
     extra = 1;
   }
 
+  // let newDates: string[] = dates.map((date) =>
+  //   dayjs(date).locale('ko').format('YYYY-MM-DD dddd').toString()
+  // );
+
   let newDates: string[] = dates.map((date) =>
-    dayjs(date).locale('ko').format('YYYY-MM-DD dddd').toString()
+    dayjs(date).format('YYYY-MM-DD').toString()
   );
 
   for (let i = 0; i < extra; i++) {
     newDates = [...newDates, `blank${i}`];
   }
 
-  const validDates: any = [
-    newDates.map((date) =>
+  const validDates: ValidDate[][] = [
+    newDates.map((date: string) =>
       date.slice(0, 5) === 'blank'
         ? { date: date, isValidDate: false }
         : { date: date, isValidDate: true }
