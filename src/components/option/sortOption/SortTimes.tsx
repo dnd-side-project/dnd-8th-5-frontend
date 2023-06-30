@@ -1,10 +1,15 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, Dispatch, SetStateAction } from 'react';
 
-import { Wrapper } from './SelectParticipants.styles';
 import { Check, List, ListWrapper } from './SortTimes.styles';
-import { SortTimesTypes } from './resultOption.types';
 
-import sortCheck from '../../assets/icons/sortCheck.svg';
+import sortCheck from '../../../assets/icons/sortCheck.svg';
+import { Wrapper } from '../index.styles';
+
+interface SortTimesTypes {
+  sortedQS: string;
+  setSortedQS: Dispatch<string>;
+  setIsSortOpened: Dispatch<SetStateAction<boolean>>;
+}
 
 const SortTimes = ({
   sortedQS,

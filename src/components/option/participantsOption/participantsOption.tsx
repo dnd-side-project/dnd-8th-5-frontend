@@ -1,15 +1,18 @@
 import { useEffect, useState, MouseEvent, TouchEvent } from 'react';
-import Participant from './Pariticipant';
-import refresh from '../../assets/icons/refresh.svg';
+
 import {
   Bottom,
   Button,
   Refresh,
   RefreshButton,
   RefreshIcon,
-  Wrapper,
-} from './SelectParticipants.styles';
-import { SelectParticipantsTypes } from './resultOption.types';
+} from './participantsOption.styles';
+import { Wrapper } from '../index.styles';
+
+import { SelectParticipantsTypes } from './participantsOption.types';
+
+import Participant from './Pariticipant';
+import refresh from '../../../assets/icons/refresh.svg';
 
 const SelectParticipants = ({
   setFilteredParticipants,

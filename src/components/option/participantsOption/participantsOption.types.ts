@@ -23,9 +23,3 @@ export interface ParticipantBlockTypes {
   onClick: React.MouseEventHandler<HTMLDivElement>;
   isSelected: boolean;
 }
-
-export interface SortTimesTypes {
-  sortedQS: string;
-  setSortedQS: Dispatch<string>;
-  setIsSortOpened: Dispatch<SetStateAction<boolean>>;
-}

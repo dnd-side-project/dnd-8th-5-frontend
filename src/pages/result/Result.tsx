@@ -25,8 +25,8 @@ import { useRecoilState } from 'recoil';
 import { roomState } from '../../atoms/roomAtoms';
 import { useParams } from 'react-router-dom';
 import { API } from '../../utils/API';
-import SelectParticipants from '../../components/resultOption/SelectParticipants';
-import SortTimes from '../../components/resultOption/SortTimes';
+import SelectParticipants from '../../components/option/participantsOption/participantsOption';
+import SortTimes from '../../components/option/sortOption/SortTimes';
 
 interface FilteredParticipantsTypes {
   name: string;
@@ -37,11 +37,11 @@ const Result = () => {
   const { roomUUID } = useParams();
 
   const [isPopupOpened, setIsPopupOpened] = useState(false);
-  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [, setIsConfirmed] = useState(false);
   const [isParticipantOpened, setIsParticipantOpened] = useState(false);
   const [isSortOpened, setIsSortOpened] = useState(false);
 
-  const [selectedTimeId, setSelectedTimeId] = useState('');
+  const [selectedTimeId] = useState('');
   const [selectedList, setSelectedList] = useState<string[]>([]);
   const [filteredParticipants, setFilteredParticipants] = useState<
     FilteredParticipantsTypes[]
@@ -101,9 +101,11 @@ const Result = () => {
 
   const { title, participants, headCount } = room;
 
-  const participantsList: any = participants.map(
-    (participant: string) =>
-      participant && { name: participant, isSelected: false }
+  const participantsList: FilteredParticipantsTypes[] = participants.map(
+    (participant) =>
+      participant
+        ? { name: participant, isSelected: false }
+        : { name: participant, isSelected: false }
   );
 
   return (
@@ -141,7 +143,7 @@ const Result = () => {
         {participants.length === headCount ? (
           <>
             {candidateTimes.candidateTimes.map(
-              ({ id, date, dayOfWeek, startTime, endTime, isConfirmed }) => (
+              ({ date, dayOfWeek, startTime, endTime, isConfirmed }) => (
                 <TimeWrapper
                   key={`all ${date} ${dayOfWeek} ${startTime} ${endTime}`}
                   isConfirmed={isConfirmed}
@@ -202,7 +204,7 @@ const Result = () => {
 
         <>
           {candidateTimes.candidateTimes.map(
-            ({ id, date, dayOfWeek, startTime, endTime, isConfirmed }) => {
+            ({ date, dayOfWeek, startTime, endTime, isConfirmed }) => {
               <TimeWrapper
                 key={`all ${date} ${dayOfWeek} ${startTime} ${endTime}`}
                 isConfirmed={isConfirmed}
