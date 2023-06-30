@@ -1,16 +1,16 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
 import Header from '../../components/header/Header';
 import SelectBox from '../../components/selectBox/SelectBox';
-
-import nobody from '../../assets/images/nobody.png';
 import Accordion from '../../components/accordion/Accordion';
-import { useEffect, useState } from 'react';
 import ResultButton from '../../components/resultButton/ResultButton';
-import Popup from '../../components/popup/Popup';
 import BottomSheet from '../../components/bottomSheet/BottomSheet';
+import SelectParticipants from '../../components/option/participantsOption/participantsOption';
+import SortTimes from '../../components/option/sortOption/SortTimes';
 
 import {
   Body,
-  // ConfirmButton,
   Nobody,
   NobodyRabbit,
   NobodyText,
@@ -21,14 +21,13 @@ import {
   TitleWrapper,
   Wrapper,
 } from './Result.styles';
-import { useRecoilState } from 'recoil';
-import { roomState } from '../../atoms/roomAtoms';
-import { useParams } from 'react-router-dom';
-import { API } from '../../utils/API';
-import SelectParticipants from '../../components/option/participantsOption/participantsOption';
-import SortTimes from '../../components/option/sortOption/SortTimes';
 
-interface FilteredParticipantsTypes {
+import nobody from '../../assets/images/nobody.png';
+
+import { API } from '../../utils/API';
+import { RoomTypes } from '../../types/roomInfo';
+
+interface Participants {
   name: string;
   isSelected: boolean;
 }
@@ -36,34 +35,39 @@ interface FilteredParticipantsTypes {
 const Result = () => {
   const { roomUUID } = useParams();
 
-  const [isPopupOpened, setIsPopupOpened] = useState(false);
-  const [, setIsConfirmed] = useState(false);
-  const [isParticipantOpened, setIsParticipantOpened] = useState(false);
-  const [isSortOpened, setIsSortOpened] = useState(false);
-
-  const [selectedTimeId] = useState('');
-  const [selectedList, setSelectedList] = useState<string[]>([]);
+  const [isParticipantsOpened, setIsParticipantsOpened] = useState(false);
   const [filteredParticipants, setFilteredParticipants] = useState<
-    FilteredParticipantsTypes[]
+    Participants[]
   >([]);
 
-  const [nameQS, setNameQS] = useState<string>('');
-  const [sortedQS, setSortedQS] = useState<string>('fast');
+  const [isSortOpened, setIsSortOpened] = useState(false);
 
-  // const handleConfirmButtonClick = (e: any) => {
-  //   setIsPopupOpened(true);
-  //   setSelectedTimeId(e.target.id);
-  // };
+  const [queryString, setQueryString] = useState<{
+    name: string;
+    sort: string;
+  }>({
+    name: '',
+    sort: 'fast',
+  });
 
   const handleParticipantOpen = () => {
-    setIsParticipantOpened(!isParticipantOpened);
+    setIsParticipantsOpened(!isParticipantsOpened);
   };
 
   const handleOrderOpen = () => {
     setIsSortOpened(!isSortOpened);
   };
 
-  const [room, setRoom] = useRecoilState(roomState);
+  const [room, setRoom] = useState<RoomTypes>({
+    title: '',
+    deadLine: '',
+    headCount: 0,
+    participants: [''],
+    dates: [''],
+    startTime: '',
+    endTime: '',
+  });
+
   const [candidateTimes, setCandidateTimes] = useState({
     candidateTimes: [
       {
@@ -87,26 +91,51 @@ const Result = () => {
     getRoomInfo();
   }, []);
 
+  const { title, participants, headCount } = room;
+
+  const [participantsList, setParticipantsList] = useState<Participants[]>([]);
+
+  useEffect(() => {
+    const newList = participants.map((participant: string) => ({
+      name: participant,
+      isSelected: true,
+    }));
+
+    setParticipantsList(newList);
+  }, [participants]);
+
+  useEffect(() => {
+    const selected = participantsList.filter(
+      ({ isSelected }: { isSelected: boolean }) => isSelected === true
+    );
+
+    setFilteredParticipants(selected);
+
+    const qs = selected.map(({ name }: { name: string }) => `name=${name}&`);
+    setQueryString({ ...queryString, name: qs.join('') });
+  }, [participantsList]);
+
   useEffect(() => {
     const getCandidateTimes = async () => {
       const { data } = await API.get(
-        `/api/room/${roomUUID}/adjustment-result?sorted=${sortedQS}&${nameQS}`
+        `/api/room/${roomUUID}/adjustment-result?sorted=${queryString.sort}&${queryString.name}`
       );
 
       setCandidateTimes(data);
     };
 
     getCandidateTimes();
-  }, [sortedQS, nameQS]);
+  }, [queryString]);
 
-  const { title, participants, headCount } = room;
+  const getFilteredName = () => {
+    const selectedCount = filteredParticipants.length;
 
-  const participantsList: FilteredParticipantsTypes[] = participants.map(
-    (participant) =>
-      participant
-        ? { name: participant, isSelected: false }
-        : { name: participant, isSelected: false }
-  );
+    if (selectedCount === 0 || selectedCount === participantsList.length) {
+      return '전체 참여자';
+    } else if (selectedCount === 1) {
+      return `${filteredParticipants[0].name}`;
+    } else return `${filteredParticipants[0].name} 외 ${selectedCount - 1}명`;
+  };
 
   return (
     <Wrapper>
@@ -122,20 +151,15 @@ const Result = () => {
         </TitleWrapper>
         <SelectWrapper>
           <SelectBox
-            text={
-              filteredParticipants.length === 0 ||
-              filteredParticipants.length == participantsList.length
-                ? '전체 참여자'
-                : filteredParticipants.length === 1
-                ? `${filteredParticipants[0].name}`
-                : `${filteredParticipants[0].name} 외 ${
-                    filteredParticipants.length - 1
-                  }명`
-            }
+            text={getFilteredName()}
             handleClick={handleParticipantOpen}
           />
           <SelectBox
-            text={sortedQS === 'fast' ? '빠른 시간 순' : '오래 만날 수 있는 순'}
+            text={
+              queryString.sort === 'fast'
+                ? '빠른 시간 순'
+                : '오래 만날 수 있는 순'
+            }
             handleClick={handleOrderOpen}
           />
         </SelectWrapper>
@@ -157,23 +181,6 @@ const Result = () => {
                         8,
                         10
                       )} (${dayOfWeek})`}
-                  {/* {isConfirmed ? (
-                    <ConfirmButton
-                      id={`${id}`}
-                      isConfirmed={isConfirmed}
-                      onClick={handleConfirmButtonClick}
-                    >
-                      확정 취소
-                    </ConfirmButton>
-                  ) : (
-                    <ConfirmButton
-                      id={`${id}`}
-                      isConfirmed={isConfirmed}
-                      onClick={handleConfirmButtonClick}
-                    >
-                      확정
-                    </ConfirmButton>
-                  )} */}
                 </TimeWrapper>
               )
             )}
@@ -214,22 +221,6 @@ const Result = () => {
                   3,
                   5
                 )} (${dayOfWeek}) ${startTime} ~ ${endTime}`}
-                {/* {isConfirmed ? (
-                  <ConfirmButton
-                    isConfirmed={isConfirmed}
-                    onClick={handleConfirmButtonClick}
-                  >
-                    확정 취소
-                  </ConfirmButton>
-                ) : (
-                  <ConfirmButton
-                    id={`${id}`}
-                    isConfirmed={isConfirmed}
-                    onClick={handleConfirmButtonClick}
-                  >
-                    확정
-                  </ConfirmButton>
-                )} */}
               </TimeWrapper>;
             }
           )}
@@ -238,37 +229,28 @@ const Result = () => {
 
       <ResultButton />
 
-      {isPopupOpened && (
-        <Popup
-          selectedTimeId={selectedTimeId}
-          setIsPopupOpened={setIsPopupOpened}
-          setIsConfirmed={setIsConfirmed}
-        />
-      )}
-      {isParticipantOpened && (
+      {isParticipantsOpened && (
         <BottomSheet
-          setIsBottomSheetOpened={setIsParticipantOpened}
+          setIsBottomSheetOpened={setIsParticipantsOpened}
           title="참여자"
           children={
             <SelectParticipants
-              setFilteredParticipants={setFilteredParticipants}
+              setIsParticipantOpened={setIsParticipantsOpened}
               participantsList={participantsList}
-              setNameQS={setNameQS}
-              selectedList={selectedList}
-              setSelectedList={setSelectedList}
-              setIsParticipantOpened={setIsParticipantOpened}
+              setParticipantsList={setParticipantsList}
             />
           }
         />
       )}
+
       {isSortOpened && (
         <BottomSheet
           setIsBottomSheetOpened={setIsSortOpened}
           title="정렬"
           children={
             <SortTimes
-              sortedQS={sortedQS}
-              setSortedQS={setSortedQS}
+              queryString={queryString}
+              setQueryString={setQueryString}
               setIsSortOpened={setIsSortOpened}
             />
           }

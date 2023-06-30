@@ -1,25 +1,18 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, MouseEventHandler } from 'react';
 
-export interface SelectParticipants {
+export interface Participants {
   name: string;
   isSelected: boolean;
 }
 
-export interface ParticipantsListTypes extends Array<SelectParticipants> {}
-
-export interface SelectParticipantsTypes {
-  participantsList: ParticipantsListTypes;
-  setFilteredParticipants: Dispatch<SetStateAction<ParticipantsListTypes>>;
-
-  selectedList: string[];
-  setSelectedList: Dispatch<SetStateAction<string[]>>;
-
-  setNameQS: Dispatch<SetStateAction<string>>;
+export interface ParticipantsOptionTypes {
   setIsParticipantOpened: Dispatch<SetStateAction<boolean>>;
+  participantsList: Participants[];
+  setParticipantsList: Dispatch<SetStateAction<Participants[]>>;
 }
 
 export interface ParticipantBlockTypes {
   id: string;
-  onClick: React.MouseEventHandler<HTMLDivElement>;
+  onClick: MouseEventHandler<HTMLDivElement>;
   isSelected: boolean;
 }
