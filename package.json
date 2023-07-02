@@ -45,7 +45,6 @@
     "eject": "react-scripts eject",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode=none",
-    "deploy": "aws s3 sync ./build s3://modutime-client-bucket --profile=modutime-client",
     "storybook": "start-storybook -p 6006 -s public",
     "deploy-storybook": "storybook-to-ghpages -d -o=storybook-static --ci",
     "build-storybook": "build-storybook -s public",
