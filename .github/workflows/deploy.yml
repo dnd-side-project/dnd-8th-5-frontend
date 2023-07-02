@@ -1,0 +1,36 @@
+name: Deploy to S3 and CloudFront
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔔 Check out source code
+        uses: actions/checkout@v3
+
+      - name: 📂 Install dependencies
+        run: |
+          yarn install
+
+      - name: 🏗️ Build project
+        run: |
+          yarn build
+
+      - name: 🚀 Deploy to S3
+        run: aws s3 sync ./build s3://modutime-client-bucket --acl public-read
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: 📄 Create invalidation in CloudFront
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID }} --paths /*
+        env:
+          DISTRIBUTION: ${{ secrets.AWS_CLOUDFRONT_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
