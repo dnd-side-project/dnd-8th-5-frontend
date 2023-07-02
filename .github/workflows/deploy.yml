@@ -23,7 +23,7 @@ jobs:
           yarn build
 
       - name: 🚀 Deploy to S3
-        run: aws s3 sync ./build s3://modutime-client-bucket --profile=${{secrets.AWS_PROFILE}}
+        run: aws s3 sync ./build s3://modutime-client-bucket --profile ${{secrets.AWS_PROFILE}}
         env:
           AWS_PROFILE: ${{ secrets.AWS_PROFILE }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -31,7 +31,7 @@ jobs:
 
       - name: 📄 Create invalidation in CloudFront
         run: |
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID }} --paths /*
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID }} --paths "/*"
         env:
           DISTRIBUTION: ${{ secrets.AWS_CLOUDFRONT_ID }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
