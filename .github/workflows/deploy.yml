@@ -19,7 +19,7 @@ jobs:
 
       - name: 🏗️ Build project
         run: |
-          yarn build
+          CI='' yarn build
 
       - name: 🚀 Deploy to S3
         run: aws s3 sync ./build s3://modutime-client-bucket --acl public-read
