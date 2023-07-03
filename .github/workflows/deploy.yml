@@ -13,6 +13,11 @@ jobs:
       - name: 🔔 Check out source code
         uses: actions/checkout@v3
 
+      - name: ⚙️ Setup env
+        run: |
+          echo "REACT_APP_API_PATH=${{secrets.REACT_APP_API_PATH}}" >> .env
+          echo "PUBLIC_URL=${{secrets.PUBLIC_URL}}" >> .env
+
       - name: 🔐 AWS Credential
         uses: aws-actions/configure-aws-credentials@v2
         with:
