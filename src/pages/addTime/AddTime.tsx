@@ -45,6 +45,7 @@ const AddTime = () => {
   });
 
   const { title, dates, startTime, endTime } = room;
+
   const [timeRange, setTimeRange] = useState<number[]>([]);
 
   const isTableView = startTime !== null && endTime !== null ? true : false;
@@ -90,9 +91,16 @@ const AddTime = () => {
 
   useEffect(() => {
     if (startTime && endTime && wrapperRef.current) {
-      setTimeRange(
-        getRange(parseInt(startTime.slice(0, 2)), parseInt(endTime.slice(0, 2)))
-      );
+      if (endTime.slice(0, 2) === '00') {
+        setTimeRange(getRange(parseInt(startTime.slice(0, 2)), 24));
+      } else {
+        setTimeRange(
+          getRange(
+            parseInt(startTime.slice(0, 2)),
+            parseInt(endTime.slice(0, 2))
+          )
+        );
+      }
 
       document.body.style.overflow = 'hidden';
       wrapperRef.current.style.overflow = 'hidden';
