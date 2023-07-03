@@ -32,7 +32,6 @@ import { roomState } from '../../atoms/roomAtoms';
 import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 import { availableBottomSheetState } from '../../atoms/availableBottomSheet';
-import dayjs from 'dayjs';
 import { getFourChunks } from '../../utils/getFourChunks';
 import { getRange } from '../../utils/getRange';
 import { useAuth } from '../../hooks/useAuth';
@@ -59,7 +58,6 @@ const Current = () => {
   const [, setSelectedMethod] = useRecoilState(selectedMethodState);
   const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
     useState<boolean>(false);
-  const [isTimeExpired, setIsTimeExpired] = useState<boolean>(false);
 
   const [availableDateTimes, setAvailableDateTimes] = useState<
     AvailableDateTimesTypes[]
@@ -119,22 +117,11 @@ const Current = () => {
     navigate(`/result/${roomUUID}`);
   };
 
-  useEffect(() => {
-    const now = dayjs(new Date());
-    const end = dayjs(deadLine);
-
-    if (end.diff(now) < 0) {
-      setIsTimeExpired(true);
-    }
-  }, [deadLine]);
-
   return (
     <Wrapper>
       <Header pageName="current" title={title} />
       <Body>
-        {deadLine && (
-          <Timer deadLine={deadLine} isTimeExpired={isTimeExpired} />
-        )}
+        {deadLine && <Timer deadLine={deadLine} />}
         <Title>실시간 참여 현황</Title>
         <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
 

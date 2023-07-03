@@ -1,10 +1,25 @@
+import { useEffect, useState } from 'react';
 import { TimerTypes } from '../../types/roomInfo';
 import { getCountdown } from '../../utils/getCountdown';
 import { Span, TextWrapper, Time, Wrapper } from './Timer.styles';
+import dayjs from 'dayjs';
 
-const Timer = ({ deadLine, isTimeExpired }: TimerTypes) => {
+const Timer = ({ deadLine }: TimerTypes) => {
+  const [isTimeExpired, setIsTimeExpired] = useState<boolean>(false);
+
   const targetDate = new Date(deadLine);
   const { days, hours, minutes, seconds } = getCountdown(targetDate);
+
+  useEffect(() => {
+    if (!isTimeExpired) {
+      const now = dayjs(new Date());
+      const end = dayjs(deadLine);
+
+      if (end.diff(now) < 1000) {
+        setIsTimeExpired(true);
+      }
+    }
+  }, [seconds, isTimeExpired]);
 
   return (
     <Wrapper>
