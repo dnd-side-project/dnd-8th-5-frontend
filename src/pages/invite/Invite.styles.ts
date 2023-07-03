@@ -139,6 +139,7 @@ export const BottomButton = styled.button`
 export const BottomSubBuuton = styled.button`
   width: calc(100% - 40px);
   max-width: 375px;
+  height: 52px;
   margin: 0 auto;
   position: absolute;
   border-radius: 6px;
@@ -148,5 +149,5 @@ export const BottomSubBuuton = styled.button`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 708px;
+  top: 690px;
 `;
