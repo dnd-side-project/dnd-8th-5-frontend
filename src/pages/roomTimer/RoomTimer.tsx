@@ -60,8 +60,6 @@ const TimerPage = () => {
     title: string;
   }
 
-  console.log(recoilRoom);
-
   const postRoomInfo = async () => {
     try {
       const response = await API.post(`/api/room`, recoilRoom);
