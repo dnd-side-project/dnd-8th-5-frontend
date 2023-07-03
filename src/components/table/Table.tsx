@@ -63,13 +63,15 @@ const Table = ({
 
         {currentTableInfo.map(({ availableDate, availableTimeInfos }: any) => (
           <SelectWrapper key={availableDate}>
-            {availableTimeInfos.map(({ time, count }: any) => (
-              <Select
-                key={`${availableDate} ${time}`}
-                count={count}
-                total={participants.length}
-              />
-            ))}
+            {availableTimeInfos.map(
+              ({ time, count }: { time: number; count: number }) => (
+                <Select
+                  key={`${availableDate} ${time}`}
+                  count={count}
+                  total={participants.length}
+                />
+              )
+            )}
           </SelectWrapper>
         ))}
       </Bottom>

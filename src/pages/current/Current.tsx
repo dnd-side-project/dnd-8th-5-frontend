@@ -149,10 +149,14 @@ const Current = () => {
           <TableWrapper>
             <Table
               dates={dates.length < 4 ? getFourChunks(dates) : dates}
-              times={getRange(
-                parseInt(startTime.slice(0, 2)),
-                parseInt(endTime.slice(0, 2))
-              )}
+              times={
+                endTime.slice(0, 2) === '00'
+                  ? getRange(parseInt(startTime.slice(0, 2)), 24)
+                  : getRange(
+                      parseInt(startTime.slice(0, 2)),
+                      parseInt(endTime.slice(0, 2))
+                    )
+              }
               participants={participants}
               availableDateTimes={availableDateTimes}
             />
