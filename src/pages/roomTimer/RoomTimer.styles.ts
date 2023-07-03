@@ -13,7 +13,7 @@ export const MainContainer = styled.div`
   overflow-y: hidden;
 
   @media screen and (max-height: 667px) {
-    height: calc(100vh + 90px);
+    height: calc(100vh + 120px);
   }
 `;
 
