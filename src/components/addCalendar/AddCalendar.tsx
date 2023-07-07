@@ -73,7 +73,6 @@ const AddCalendar = ({
         `/api/room/${roomUUID}/available-time?name=${userName}`
       );
       setSelected(data.availableDateTimes);
-      console.log(data.availableDateTimes);
     };
 
     getPreviousSelectedTimes();
