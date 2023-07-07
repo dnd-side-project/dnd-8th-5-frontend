@@ -33,7 +33,6 @@ import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 import { availableBottomSheetState } from '../../atoms/availableBottomSheet';
 import { getFourChunks } from '../../utils/getFourChunks';
-import { getRange } from '../../utils/getRange';
 import { useAuth } from '../../hooks/useAuth';
 
 const Current = () => {
