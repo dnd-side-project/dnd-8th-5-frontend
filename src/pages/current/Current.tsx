@@ -36,14 +36,6 @@ import { getFourChunks } from '../../utils/getFourChunks';
 import { getRange } from '../../utils/getRange';
 import { useAuth } from '../../hooks/useAuth';
 
-interface AvailableDateTimesTypes {
-  availableDate: string;
-  availableTimeInfos: {
-    time: string;
-    count: number;
-  }[];
-}
-
 const Current = () => {
   const { roomUUID } = useParams();
   const { state } = useLocation();
@@ -58,10 +50,6 @@ const Current = () => {
   const [, setSelectedMethod] = useRecoilState(selectedMethodState);
   const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
     useState<boolean>(false);
-
-  const [availableDateTimes, setAvailableDateTimes] = useState<
-    AvailableDateTimesTypes[]
-  >([]);
 
   useEffect(() => {
     if (state) {
@@ -80,16 +68,7 @@ const Current = () => {
       setRoom(data);
     };
 
-    const getCurrentRoomInfo = async () => {
-      const { data } = await API.get(
-        `/api/room/${roomUUID}/available-time/group`
-      );
-
-      setAvailableDateTimes(data.availableDateTimes);
-    };
-
     getRoomInfo();
-    getCurrentRoomInfo();
   }, []);
 
   const {
@@ -101,6 +80,8 @@ const Current = () => {
     startTime,
     endTime,
   } = room;
+
+  const isTableView = startTime !== null && endTime !== null;
 
   const handleEditButtonClick = () => {
     const isValidUser = useAuth(roomUUID as string);
@@ -145,27 +126,17 @@ const Current = () => {
 
       <Body>
         <Title>실시간 조율 현황</Title>
-        {startTime !== null && endTime !== null ? (
+        {isTableView ? (
           <TableWrapper>
             <Table
               dates={dates.length < 4 ? getFourChunks(dates) : dates}
-              times={
-                endTime.slice(0, 2) === '00'
-                  ? getRange(parseInt(startTime.slice(0, 2)), 24)
-                  : getRange(
-                      parseInt(startTime.slice(0, 2)),
-                      parseInt(endTime.slice(0, 2))
-                    )
-              }
+              startTime={startTime}
+              endTime={endTime}
               participants={participants}
-              availableDateTimes={availableDateTimes}
             />
           </TableWrapper>
         ) : (
-          <CurrentCalendar
-            participants={participants}
-            availableDateTimes={availableDateTimes}
-          />
+          <CurrentCalendar participants={participants} />
         )}
       </Body>
       <BottomWrapper>

@@ -11,30 +11,119 @@ import {
   Wrapper,
 } from './Table.styles';
 
-import { getCurrentTableInfo } from '../../utils/getCurrentTableInfo';
 import { useEffect, useState } from 'react';
 import { AvailableDateTimeTypes } from '../../types/current';
+import { API } from '../../utils/API';
+import { useParams } from 'react-router-dom';
+import { getRange } from '../../utils/getRange';
+import { getTimeRange } from '../../utils/getTimeRange';
 
 interface TableTypes {
-  availableDateTimes: AvailableDateTimeTypes[];
   dates: string[];
-  times: number[];
+  startTime: string;
+  endTime: string;
   participants: string[];
 }
 
-const Table = ({
-  availableDateTimes,
-  dates,
-  times,
-  participants,
-}: TableTypes) => {
+const tete = [
+  {
+    availableDate: '2023-07-24',
+    availableTimeInfos: [
+      { time: '00:00', count: 0 },
+      { time: '00:30', count: 2 },
+      { time: '01:00', count: 2 },
+      { time: '01:30', count: 2 },
+      { time: '19:00', count: 2 },
+      { time: '19:30', count: 0 },
+      { time: '20:00', count: 0 },
+      { time: '20:30', count: 0 },
+      { time: '21:00', count: 2 },
+      { time: '21:30', count: 2 },
+      { time: '22:00', count: 2 },
+      { time: '22:30', count: 0 },
+      { time: '23:00', count: 0 },
+      { time: '23:30', count: 0 },
+    ],
+  },
+  {
+    availableDate: '2023-07-25',
+    availableTimeInfos: [
+      { time: '00:00', count: 0 },
+      { time: '00:30', count: 1 },
+      { time: '01:00', count: 1 },
+      { time: '01:30', count: 1 },
+      { time: '19:00', count: 1 },
+      { time: '19:30', count: 1 },
+      { time: '20:00', count: 3 },
+      { time: '20:30', count: 3 },
+      { time: '21:00', count: 3 },
+      { time: '21:30', count: 3 },
+      { time: '22:00', count: 3 },
+      { time: '22:30', count: 0 },
+      { time: '23:00', count: 0 },
+      { time: '23:30', count: 0 },
+    ],
+  },
+  {
+    availableDate: '2023-07-26',
+    availableTimeInfos: [
+      { time: '00:00', count: 0 },
+      { time: '00:30', count: 2 },
+      { time: '01:00', count: 2 },
+      { time: '01:30', count: 2 },
+      { time: '19:00', count: 0 },
+      { time: '19:30', count: 0 },
+      { time: '20:00', count: 0 },
+      { time: '20:30', count: 0 },
+      { time: '21:00', count: 2 },
+      { time: '21:30', count: 3 },
+      { time: '22:00', count: 2 },
+      { time: '22:30', count: 0 },
+      { time: '23:00', count: 0 },
+      { time: '23:30', count: 0 },
+    ],
+  },
+  {
+    availableDate: '2023-07-27',
+    availableTimeInfos: [
+      { time: '00:00', count: 0 },
+      { time: '00:30', count: 2 },
+      { time: '01:00', count: 2 },
+      { time: '01:30', count: 2 },
+      { time: '19:00', count: 0 },
+      { time: '19:30', count: 0 },
+      { time: '20:00', count: 0 },
+      { time: '20:30', count: 0 },
+      { time: '21:00', count: 2 },
+      { time: '21:30', count: 1 },
+      { time: '22:00', count: 2 },
+      { time: '22:30', count: 0 },
+      { time: '23:00', count: 0 },
+      { time: '23:30', count: 0 },
+    ],
+  },
+];
+
+const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
+  const { roomUUID } = useParams();
+  const timeRange = getRange(parseInt(startTime), parseInt(endTime));
+
   const [currentTableInfo, setCurrentTableInfo] = useState<
     AvailableDateTimeTypes[]
   >([]);
 
   useEffect(() => {
-    setCurrentTableInfo(getCurrentTableInfo(availableDateTimes, times));
-  }, [availableDateTimes]);
+    const getCurrentTableInfo = async () => {
+      const { data } = await API.get(
+        `/api/room/${roomUUID}/available-time/group`
+      );
+
+      // setCurrentTableInfo(data.availableDateTimes);
+      setCurrentTableInfo(tete);
+    };
+
+    getCurrentTableInfo();
+  }, []);
 
   return (
     <Wrapper>
@@ -56,7 +145,7 @@ const Table = ({
 
       <Bottom>
         <TimeWrapper>
-          {times.map((time: number) => (
+          {timeRange.map((time: number) => (
             <Time key={time}>{time}</Time>
           ))}
         </TimeWrapper>
