@@ -136,7 +136,7 @@ export const BottomButton = styled.button`
   bottom: 28px;
 `;
 
-export const BottomSubBuuton = styled.button`
+export const BottomSubButton = styled.button`
   width: calc(100% - 40px);
   max-width: 375px;
   height: 52px;
