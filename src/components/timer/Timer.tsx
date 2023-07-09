@@ -12,6 +12,10 @@ const Timer = ({ deadLine }: TimerTypes) => {
   const { days, hours, minutes, seconds } = getCountdown(targetDate);
 
   useEffect(() => {
+    alert(deadLine);
+  }, []);
+
+  useEffect(() => {
     if (!isTimeExpired) {
       const now = dayjs(new Date());
       const end = dayjs(deadLine);
