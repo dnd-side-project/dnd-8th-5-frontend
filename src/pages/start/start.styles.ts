@@ -1,18 +1,19 @@
 import styled from '@emotion/styled';
 import theme from '../../styles/theme';
-import startBack from '../../assets/images/startBack.webp';
+import background from '../../assets/images/background.svg';
 
 export const MainContainer = styled.div`
   width: 100%;
   max-width: 412px;
-  height: calc(100vh + 90px);
+  height: 100vh;
   position: relative;
   left: 0;
   right: 0;
   margin: 0 auto;
   background-size: cover;
   background-position: center;
-  background-image: url(${startBack});
+  background-image: url(${background});
+  overflow-y: hidden;
 `;
 
 export const BottomButton = styled.button`
