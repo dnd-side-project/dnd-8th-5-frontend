@@ -61,10 +61,15 @@ const AddTimeTable = ({
 
   useEffect(() => {
     const getPreviousSelectedTimes = async () => {
-      const { data } = await API.get(
-        `/api/room/${roomUUID}/available-time?name=${userName}`
-      );
-      setPreviousSelectedTimes(data.availableDateTimes);
+      try {
+        const { data } = await API.get(
+          `/api/room/${roomUUID}/available-time?name=${userName}`
+        );
+
+        setPreviousSelectedTimes(data.availableDateTimes);
+      } catch {
+        console.log('사용자가 등록한 시간 불러오기 에러 발생');
+      }
     };
 
     getPreviousSelectedTimes();
