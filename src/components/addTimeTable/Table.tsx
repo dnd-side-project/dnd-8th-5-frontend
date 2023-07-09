@@ -26,6 +26,7 @@ const Table = ({
   times,
 }: TableType) => {
   const timeDetail = getTimeArray(times);
+
   const selectoRef = useRef<any>(null);
 
   useEffect(() => {
