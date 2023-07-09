@@ -8,7 +8,7 @@ import { Span, TextWrapper, Time, Wrapper } from './Timer.styles';
 const Timer = ({ deadLine }: TimerTypes) => {
   const [isTimeExpired, setIsTimeExpired] = useState<boolean>(false);
 
-  const targetDate = new Date(deadLine);
+  const targetDate = new Date(deadLine.replace(' ', 'T'));
   const { days, hours, minutes, seconds } = getCountdown(targetDate);
 
   useEffect(() => {
