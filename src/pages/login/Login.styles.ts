@@ -127,6 +127,7 @@ export const PasswordError = styled.div`
   ${theme.typography.medium04}
   /* left: 0px; */
   color: #ed7c55;
+  padding-left: 40px;
 `;
 
 export const BottomButtonContainer = styled.div``;
