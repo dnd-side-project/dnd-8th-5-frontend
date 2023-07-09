@@ -90,6 +90,14 @@ const TimerPage = () => {
     }
   }, [recoilRoom]);
 
+  useEffect(() => {
+    setIsClickedRecommend((prev) =>
+      prev.map((element, index) => {
+        return false;
+      })
+    );
+  }, [isChecked]);
+
   const handleClickRecommendBox = useCallback(
     (idx: number) => {
       setIsClickedRecommend((prev) =>
