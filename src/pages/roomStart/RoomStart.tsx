@@ -97,6 +97,7 @@ const Room = () => {
               value={roomName}
               onChange={handleRoomNameChange}
               placeholder="최대 15자 입력 가능"
+              autoComplete="new-password"
             />
           </InputWrapper>
         </TitleInputContnainer>
