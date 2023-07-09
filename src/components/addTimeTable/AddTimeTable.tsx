@@ -24,6 +24,7 @@ import { API } from '../../utils/API';
 import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
 import { getAllTimeRange } from '../../utils/getAllTimeRange';
 import { getTimeRange } from '../../utils/getTimeRange';
+import { AxiosError } from 'axios';
 
 const AddTimeTable = ({
   wrapperRef,
@@ -68,7 +69,7 @@ const AddTimeTable = ({
 
         setPreviousSelectedTimes(data.availableDateTimes);
       } catch {
-        console.log('사용자가 등록한 시간 불러오기 에러 발생');
+        alert('에러가 발생했습니다. 다시 시도해 주세요.');
       }
     };
 
