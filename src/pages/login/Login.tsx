@@ -93,7 +93,7 @@ const Login = () => {
             <NameInput
               type="text"
               name="name"
-              placeholder="이름 입력"
+              placeholder="이름을 입력하세요"
               maxLength={4}
               value={form.name}
               onChange={onChange}
@@ -105,7 +105,7 @@ const Login = () => {
               inputMode="numeric"
               name="password"
               autoComplete="current-password"
-              placeholder="4자리 비밀번호 입력"
+              placeholder="비밀번호 4자리를 설정하세요"
               value={form.password}
               onChange={onChange}
               maxLength={4}
@@ -132,7 +132,7 @@ const Login = () => {
             canGoNext ? onClickNext() : null;
           }}
         >
-          <BottomButton text={'다음'} isActivated={canGoNext} />
+          <BottomButton text={'로그인'} isActivated={canGoNext} />
         </BottomButtonContainer>
       </FormContainer>
     </MainContainer>
