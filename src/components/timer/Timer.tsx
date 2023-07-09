@@ -8,16 +8,12 @@ import { Span, TextWrapper, Time, Wrapper } from './Timer.styles';
 const Timer = ({ deadLine }: TimerTypes) => {
   const [isTimeExpired, setIsTimeExpired] = useState<boolean>(false);
 
-  const targetDate = new Date(deadLine);
+  const targetDate = dayjs(deadLine).format('YYYY-MM-DD HH:mm:00');
   const { days, hours, minutes, seconds } = getCountdown(targetDate);
 
   useEffect(() => {
-    alert(deadLine);
-  }, []);
-
-  useEffect(() => {
     if (!isTimeExpired) {
-      const now = dayjs(new Date());
+      const now = dayjs();
       const end = dayjs(deadLine);
 
       if (end.diff(now) < 1000) {

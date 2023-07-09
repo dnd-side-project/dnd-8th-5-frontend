@@ -1,17 +1,16 @@
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
-export const getCountdown = (targetDate: Date) => {
-  const countDownDate = new Date(targetDate).getTime();
+export const getCountdown = (targetDate: string) => {
+  const deadLine = dayjs(targetDate).format('YYYY-MM-DD HH:mm:00');
 
-  const [countDown, setCountDown] = useState(
-    countDownDate - new Date().getTime()
-  );
+  const [countDown, setCountDown] = useState(dayjs(deadLine).diff(dayjs()));
 
   useEffect(() => {
     setInterval(() => {
-      setCountDown(countDownDate - new Date().getTime());
+      setCountDown(dayjs(deadLine).diff(dayjs()));
     }, 1000);
-  }, [countDownDate]);
+  }, [deadLine]);
 
   return getReturnValues(countDown);
 };
