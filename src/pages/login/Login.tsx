@@ -59,7 +59,7 @@ const Login = () => {
     };
     getRoomInfo();
     setIsPasswordError(false);
-  }, [form.name, form.password]);
+  }, []);
 
   const onClickNext = async () => {
     try {

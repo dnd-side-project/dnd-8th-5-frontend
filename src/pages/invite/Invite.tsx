@@ -15,7 +15,7 @@ import {
   ParticipantsTitle,
   ParticipantsWraaper,
   Participant,
-  BottomSubBuuton,
+  BottomSubButton,
 } from './Invite.styles';
 import calendar from '../../assets/images/calendar.png';
 import { useEffect } from 'react';
@@ -90,9 +90,9 @@ const Invite = () => {
       <BottomButton onClick={() => handleStartButtonClick()}>
         입장하기
       </BottomButton>
-      <BottomSubBuuton onClick={() => handleSubButtonClick()}>
+      <BottomSubButton onClick={() => handleSubButtonClick()}>
         등록 현황 보러가기
-      </BottomSubBuuton>
+      </BottomSubButton>
     </MainContainer>
   );
 };
