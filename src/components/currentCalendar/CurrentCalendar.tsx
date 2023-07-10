@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   NextMonthIcon,
@@ -10,25 +10,34 @@ import calendarNextMonth from '../../assets/icons/calendarNextMonth.svg';
 import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
 
 import theme from '../../styles/theme';
-
-interface AvailableDateTimesTypes {
-  availableDate: string;
-  availableTimeInfos: {
-    time: string;
-    count: number;
-  }[];
-}
+import { AvailableDateTimeTypes } from '../../types/current';
+import { useParams } from 'react-router-dom';
+import { API } from '../../utils/API';
 
 interface CurrentCalendarTypes {
   participants: string[];
-  availableDateTimes: AvailableDateTimesTypes[];
 }
 
-const CurrentCalendar = ({
-  participants,
-  availableDateTimes,
-}: CurrentCalendarTypes) => {
-  const availableDatesInfo = availableDateTimes.map((date: any) => ({
+const CurrentCalendar = ({ participants }: CurrentCalendarTypes) => {
+  const { roomUUID } = useParams();
+
+  const [currentTableInfo, setCurrentTableInfo] = useState<
+    AvailableDateTimeTypes[]
+  >([]);
+
+  useEffect(() => {
+    const getCurrentTableInfo = async () => {
+      const { data } = await API.get(
+        `/api/room/${roomUUID}/available-time/group`
+      );
+
+      setCurrentTableInfo(data.availableDateTimes);
+    };
+
+    getCurrentTableInfo();
+  }, []);
+
+  const availableDatesInfo = currentTableInfo.map((date: any) => ({
     date: date.availableDate,
     opacity: date.availableTimeInfos[0].count / participants.length,
   }));

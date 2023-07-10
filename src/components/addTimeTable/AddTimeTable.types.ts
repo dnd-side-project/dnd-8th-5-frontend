@@ -12,19 +12,26 @@ export interface ChunkType {
   isValidDate: boolean;
 }
 
-export interface AddTableTypes {
+export interface PayloadTypes {
+  name: string;
+  hasTime: boolean;
+  availableDateTimes: string[];
+}
+
+export interface AddTimeTableTypes {
+  wrapperRef: React.RefObject<HTMLDivElement>;
   selectedMethod: string;
+  startTime: number;
+  endTime: number;
   dates: string[];
-  timeRange: number[];
-  previousSelectedTimes: string[];
-  tableSelected: TableSelectedTypes;
-  setTableSelected: React.Dispatch<React.SetStateAction<TableSelectedTypes>>;
+  selected: TableSelectedTypes;
+  setSelected: React.Dispatch<React.SetStateAction<TableSelectedTypes>>;
 }
 
 export interface TableType {
   contentRef: React.RefObject<HTMLDivElement>;
-  tableSelected: TableSelectedTypes;
-  setTableSelected: React.Dispatch<React.SetStateAction<TableSelectedTypes>>;
+  selected: TableSelectedTypes;
+  setSelected: React.Dispatch<React.SetStateAction<TableSelectedTypes>>;
   selectedMethod: string;
   tablePage: number;
   validDateChunks: Array<ChunkType[]>;

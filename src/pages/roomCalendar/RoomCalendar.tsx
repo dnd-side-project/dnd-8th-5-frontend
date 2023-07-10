@@ -33,7 +33,9 @@ const RoomCalendar = () => {
   const newEndTime = dayjs(`1900-01-01 ${endTime}`);
 
   const canGoNext =
-    (newStartTime < newEndTime || isCheckedBox) && dates.length > 0;
+    isCheckedBox ||
+    (dayjs(newStartTime).format() != dayjs(newEndTime).format() &&
+      dates.length !== 0);
 
   const onSetRecoilState = useCallback(() => {
     if (isCheckedBox) {

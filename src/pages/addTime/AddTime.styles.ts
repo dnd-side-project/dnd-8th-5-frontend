@@ -54,8 +54,3 @@ export const Main = styled.div`
 
   position: relative;
 `;
-
-export const CalendarWrapper = styled.div`
-  margin: 0 auto;
-  position: relative;
-`;
