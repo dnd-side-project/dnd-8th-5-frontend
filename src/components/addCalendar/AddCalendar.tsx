@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import _ from 'lodash';
 import dayjs from 'dayjs';
 
 import calendarNextMonth from '../../assets/icons/calendarNextMonth.svg';
@@ -7,10 +9,14 @@ import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
 import { AddCalendarType } from './AddCalendar.types';
 
 import {
+  Wrapper,
   NextMonthIcon,
   PrevMonthIcon,
   StyledCalendar,
 } from './AddCalendar.styles';
+import BottomButton from '../bottomButton/BottomButton';
+
+import { API } from '../../utils/API';
 
 const AddCalendar = ({
   dates,
@@ -18,6 +24,10 @@ const AddCalendar = ({
   setSelected,
   selectedMethod,
 }: AddCalendarType) => {
+  const { roomUUID } = useParams();
+  const navigate = useNavigate();
+  const userName = localStorage.getItem('userName') || '';
+
   const [date, setDate] = useState<Date>(new Date());
 
   const addTileClassName = ({ date }: { date: Date }) => {
@@ -58,26 +68,94 @@ const AddCalendar = ({
   }, [date]);
 
   useEffect(() => {
+    const getPreviousSelectedTimes = async () => {
+      const { data } = await API.get(
+        `/api/room/${roomUUID}/available-time?name=${userName}`
+      );
+      setSelected(data.availableDateTimes);
+    };
+
+    getPreviousSelectedTimes();
+  }, []);
+
+  useEffect(() => {
     setSelected([]);
   }, [selectedMethod]);
 
+  const goToCurrent = () => {
+    navigate(`/current/${roomUUID}`);
+  };
+
+  const putAvailableTime = async (payload: {
+    name: string;
+    hasTime: boolean;
+    availableDateTimes: string[];
+  }) => {
+    const response = await API.put(
+      `/api/room/${roomUUID}/available-time`,
+      JSON.stringify(payload)
+    );
+
+    if (response.status === 200) {
+      goToCurrent();
+    } else {
+      alert('처리 중 오류가 발생했습니다!');
+    }
+  };
+
+  const handleApplyClick = () => {
+    if (selectedMethod === 'possible') {
+      const payload = {
+        name: userName,
+        hasTime: false,
+        availableDateTimes: [...selected],
+      };
+
+      putAvailableTime(payload);
+    }
+
+    if (selectedMethod === 'impossible') {
+      const newDates = dates.map((date) => `${date} 00:00`);
+      const filteredTime = selected && _.difference(newDates, selected);
+
+      const payload = {
+        name: userName,
+        hasTime: false,
+        availableDateTimes: filteredTime,
+      };
+
+      putAvailableTime(payload);
+    }
+  };
+
   return (
-    <StyledCalendar
-      value={date}
-      onChange={setDate}
-      tileClassName={addTileClassName}
-      next2Label={null}
-      prev2Label={null}
-      nextLabel={<NextMonthIcon src={calendarNextMonth} />}
-      prevLabel={<PrevMonthIcon src={calendarPrevMonth} />}
-      showNeighboringMonth={false}
-      minDetail="month"
-      maxDetail="month"
-      calendarType="US"
-      formatDay={(_, date) => dayjs(date).format('D')}
-      formatMonthYear={(_, date) => dayjs(date).format('M월')}
-      selectedMethod={selectedMethod}
-    />
+    <>
+      <Wrapper>
+        <StyledCalendar
+          value={date}
+          onChange={setDate}
+          tileClassName={addTileClassName}
+          next2Label={null}
+          prev2Label={null}
+          nextLabel={<NextMonthIcon src={calendarNextMonth} />}
+          prevLabel={<PrevMonthIcon src={calendarPrevMonth} />}
+          showNeighboringMonth={false}
+          minDetail="month"
+          maxDetail="month"
+          calendarType="US"
+          formatDay={(_, date) => dayjs(date).format('D')}
+          formatMonthYear={(_, date) => dayjs(date).format('M월')}
+          selectedMethod={selectedMethod}
+        />
+      </Wrapper>
+
+      <BottomButton
+        onClick={handleApplyClick}
+        navigate={goToCurrent}
+        text="등록하기"
+        isActivated={true}
+      />
+    </>
   );
 };
 

@@ -13,33 +13,34 @@ import {
   Top,
   Wrapper,
 } from './Table.styles';
-import { TableType } from './AddTable.types';
+import { TableType } from './AddTimeTable.types';
 import Selecto from 'react-selecto';
 
 const Table = ({
   contentRef,
-  tableSelected,
-  setTableSelected,
+  selected,
+  setSelected,
   selectedMethod,
   tablePage,
   validDateChunks,
   times,
 }: TableType) => {
   const timeDetail = getTimeArray(times);
+
   const selectoRef = useRef<any>(null);
 
   useEffect(() => {
-    if (tableSelected[tablePage]) {
-      tableSelected[tablePage].forEach((id) => {
+    if (selected[tablePage]) {
+      selected[tablePage].forEach((id) => {
         const element = document.getElementById(id);
         element?.classList.add('selected');
       });
 
       selectoRef.current.setSelectedTargets(
-        tableSelected[tablePage].map((id) => document.getElementById(id))
+        selected[tablePage].map((id) => document.getElementById(id))
       );
     }
-  }, [tablePage, tableSelected]);
+  }, [tablePage, selected]);
 
   useEffect(() => {
     selectoRef.current.setSelectedTargets([]);
@@ -60,10 +61,10 @@ const Table = ({
       document.querySelectorAll('.selected')
     ).map((node: Element) => node.id);
 
-    const newObj = { ...tableSelected };
+    const newObj = { ...selected };
     newObj[tablePage] = newArr;
 
-    setTableSelected(newObj);
+    setSelected(newObj);
   };
 
   return (

@@ -30,7 +30,6 @@ const Current = ({ startTime, endTime, setStartTime, setEndTime }: Current) => {
     '21:00',
     '22:00',
     '23:00',
-    // '24:00',
     '00:00',
     '01:00',
     '02:00',
