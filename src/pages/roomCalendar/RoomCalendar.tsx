@@ -24,18 +24,10 @@ import dayjs from 'dayjs';
 const RoomCalendar = () => {
   const [isCheckedBox, setIsCheckedBox] = useState(false);
   const [startTime, setStartTime] = useState('09:00');
-  const [endTime, setEndTime] = useState('09:00');
+  const [endTime, setEndTime] = useState('18:00');
   const [dates, setDates] = useState<string[]>([]);
 
   const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomAtoms);
-
-  const newStartTime = dayjs(`1900-01-01 ${startTime}`);
-  const newEndTime = dayjs(`1900-01-01 ${endTime}`);
-
-  const canGoNext =
-    isCheckedBox ||
-    (dayjs(newStartTime).format() != dayjs(newEndTime).format() &&
-      dates.length !== 0);
 
   const onSetRecoilState = useCallback(() => {
     if (isCheckedBox) {
@@ -85,15 +77,11 @@ const RoomCalendar = () => {
           setValue={setIsCheckedBox}
         />
       </CheckBoxContainer>
-      {canGoNext ? (
-        <Link to="/roomTimer">
-          <BottomButtonContainer onClick={onSetRecoilState}>
-            <BottomButton text="다음" isActivated={canGoNext} />
-          </BottomButtonContainer>
-        </Link>
-      ) : (
-        <BottomButton text="다음" isActivated={canGoNext} />
-      )}
+      <Link to="/roomTimer">
+        <BottomButtonContainer onClick={onSetRecoilState}>
+          <BottomButton text="다음" isActivated={true} />
+        </BottomButtonContainer>
+      </Link>
     </MainContainer>
   );
 };
