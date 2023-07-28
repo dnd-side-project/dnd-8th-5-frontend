@@ -14,7 +14,7 @@ interface Current {
 }
 
 const Current = ({ startTime, endTime, setStartTime, setEndTime }: Current) => {
-  const TIME_ARRAY = [
+  const START_TIME_ARRAY = [
     '09:00',
     '10:00',
     '11:00',
@@ -40,6 +40,32 @@ const Current = ({ startTime, endTime, setStartTime, setEndTime }: Current) => {
     '07:00',
     '08:00',
   ];
+  const END_TIME_ARRAY = [
+    '18:00',
+    '19:00',
+    '20:00',
+    '21:00',
+    '22:00',
+    '23:00',
+    '00:00',
+    '01:00',
+    '02:00',
+    '03:00',
+    '04:00',
+    '05:00',
+    '06:00',
+    '07:00',
+    '08:00',
+    '09:00',
+    '10:00',
+    '11:00',
+    '12:00',
+    '13:00',
+    '14:00',
+    '15:00',
+    '16:00',
+    '17:00',
+  ];
 
   const settings = (startEnd: string) => {
     const setting = {
@@ -51,9 +77,9 @@ const Current = ({ startTime, endTime, setStartTime, setEndTime }: Current) => {
       swipeToSlide: true,
       afterChange: function (currentSlide: number) {
         if (startEnd === 'start') {
-          setStartTime(TIME_ARRAY[currentSlide]);
+          setStartTime(START_TIME_ARRAY[currentSlide]);
         } else {
-          setEndTime(TIME_ARRAY[currentSlide]);
+          setEndTime(END_TIME_ARRAY[currentSlide]);
         }
       },
       centerMode: true,
@@ -74,7 +100,7 @@ const Current = ({ startTime, endTime, setStartTime, setEndTime }: Current) => {
   return (
     <MainContainer>
       <StyledSlider {...settings('start')}>
-        {TIME_ARRAY.map((time: string) => {
+        {START_TIME_ARRAY.map((time: string) => {
           return (
             <div key={time}>
               <TimeText>{time}</TimeText>
@@ -84,7 +110,7 @@ const Current = ({ startTime, endTime, setStartTime, setEndTime }: Current) => {
       </StyledSlider>
       <TextContainer>부터</TextContainer>
       <StyledSlider {...settings('end')}>
-        {TIME_ARRAY.map((time: string) => {
+        {END_TIME_ARRAY.map((time: string) => {
           return (
             <div key={time}>
               <TimeText>{time}</TimeText>
