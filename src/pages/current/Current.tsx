@@ -34,6 +34,7 @@ import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 import { availableBottomSheetState } from '../../atoms/availableBottomSheet';
 import { getFourChunks } from '../../utils/getFourChunks';
 import { useAuth } from '../../hooks/useAuth';
+import { getRoomInfo } from '../../api/room/getRoomInfo';
 
 const Current = () => {
   const { roomUUID } = useParams();
