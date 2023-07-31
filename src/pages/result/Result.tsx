@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom';
 
 import Header from '../../components/header/Header';
 import SelectBox from '../../components/selectBox/SelectBox';
-import Accordion from '../../components/accordion/Accordion';
 import ResultButton from '../../components/resultButton/ResultButton';
 import BottomSheet from '../../components/bottomSheet/BottomSheet';
 import SelectParticipants from '../../components/option/participantsOption/participantsOption';
 import SortTimes from '../../components/option/sortOption/SortTimes';
+import Candidate from '../../components/candidate/Candidate';
 
 import {
   Body,
@@ -16,7 +16,6 @@ import {
   NobodyText,
   NobodyWrapper,
   SelectWrapper,
-  TimeWrapper,
   Title,
   TitleWrapper,
   Wrapper,
@@ -164,67 +163,29 @@ const Result = () => {
           />
         </SelectWrapper>
 
-        {participants.length === headCount ? (
-          <>
-            {candidateTimes.candidateTimes.map(
-              ({ id, date, dayOfWeek, startTime, endTime, isConfirmed }) => (
-                <TimeWrapper
-                  key={`all ${date} ${dayOfWeek} ${startTime} ${endTime}`}
-                  isConfirmed={isConfirmed}
-                >
-                  {startTime && endTime
-                    ? `${date.slice(5, 7)}월 ${date.slice(
-                        8,
-                        10
-                      )} (${dayOfWeek}) ${startTime} ~ ${endTime}`
-                    : `${date.slice(5, 7)}월 ${date.slice(
-                        8,
-                        10
-                      )} (${dayOfWeek})`}
-                </TimeWrapper>
-              )
-            )}
-          </>
-        ) : (
-          <>
-            <NobodyWrapper>
-              <Nobody>
-                <NobodyRabbit src={nobody} alt="nobody" />
-                <NobodyText>모두가 되는 시간이 없어요</NobodyText>
-              </Nobody>
-            </NobodyWrapper>
-            {candidateTimes.candidateTimes.map(
-              ({ date, dayOfWeek, startTime, endTime, participantNames }) => (
-                <Accordion
-                  key={`part ${date} ${startTime} ${endTime}`}
-                  date={date}
-                  dayOfWeek={dayOfWeek}
-                  startTime={startTime}
-                  endTime={endTime}
-                  participantNames={participantNames}
-                  count={participants.length}
-                />
-              )
-            )}
-          </>
-        )}
+        {participants.length !==
+        candidateTimes.candidateTimes[0].participantNames.length ? (
+          <NobodyWrapper>
+            <Nobody>
+              <NobodyRabbit src={nobody} alt="nobody" />
+              <NobodyText>모두가 되는 시간이 없어요</NobodyText>
+            </Nobody>
+          </NobodyWrapper>
+        ) : null}
 
-        <>
-          {candidateTimes.candidateTimes.map(
-            ({ id, date, dayOfWeek, startTime, endTime, isConfirmed }) => {
-              <TimeWrapper
-                key={`all ${date} ${dayOfWeek} ${startTime} ${endTime}`}
-                isConfirmed={isConfirmed}
-              >
-                {date}
-                {`${date.slice(0, 2)}월 ${date.slice(
-                  3,
-                  5
-                )} (${dayOfWeek}) ${startTime} ~ ${endTime}`}
-              </TimeWrapper>;
-            }
-          )}
-        </>
+        {candidateTimes.candidateTimes.map(
+          ({ date, dayOfWeek, startTime, endTime, participantNames }) => (
+            <Candidate
+              key={`part ${date} ${startTime} ${endTime}`}
+              date={date}
+              dayOfWeek={dayOfWeek}
+              startTime={startTime}
+              endTime={endTime}
+              participantNames={participantNames}
+              count={participants.length}
+            />
+          )
+        )}
       </Body>
 
       <ResultButton />
