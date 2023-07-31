@@ -95,25 +95,3 @@ export const TimeWrapper = styled.div<{ isConfirmed: boolean }>`
   border-radius: 7px;
   ${theme.typography.semibold03};
 `;
-
-export const ConfirmButton = styled.div<{ isConfirmed: boolean }>`
-  height: 28px;
-  padding: 0 8px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 4px;
-  ${theme.typography.medium04};
-
-  color: ${({ isConfirmed }) =>
-    isConfirmed ? `${theme.colors.gray01}` : `${theme.colors.purple06}`};
-
-  border: ${({ isConfirmed }) =>
-    isConfirmed
-      ? `1px solid ${theme.colors.gray01}`
-      : `1px solid ${theme.colors.purple06}`};
-
-  cursor: pointer;
-`;

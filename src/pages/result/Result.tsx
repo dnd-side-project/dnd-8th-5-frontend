@@ -167,7 +167,7 @@ const Result = () => {
         {participants.length === headCount ? (
           <>
             {candidateTimes.candidateTimes.map(
-              ({ date, dayOfWeek, startTime, endTime, isConfirmed }) => (
+              ({ id, date, dayOfWeek, startTime, endTime, isConfirmed }) => (
                 <TimeWrapper
                   key={`all ${date} ${dayOfWeek} ${startTime} ${endTime}`}
                   isConfirmed={isConfirmed}
@@ -211,7 +211,7 @@ const Result = () => {
 
         <>
           {candidateTimes.candidateTimes.map(
-            ({ date, dayOfWeek, startTime, endTime, isConfirmed }) => {
+            ({ id, date, dayOfWeek, startTime, endTime, isConfirmed }) => {
               <TimeWrapper
                 key={`all ${date} ${dayOfWeek} ${startTime} ${endTime}`}
                 isConfirmed={isConfirmed}
