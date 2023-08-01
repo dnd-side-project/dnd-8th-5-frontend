@@ -76,22 +76,3 @@ export const NobodyText = styled.span`
   color: ${theme.colors.gray04};
   ${theme.typography.semibold03};
 `;
-
-// export const TimeWrapper = styled.div<{ isConfirmed: boolean }>`
-//   width: 100%;
-//   height: 64px;
-//   padding: 0 20px;
-//   margin-top: 10px;
-
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-
-//   background: ${({ isConfirmed }) =>
-//     isConfirmed ? `${theme.colors.purple06}` : `${theme.colors.purple01}`};
-//   color: ${({ isConfirmed }) =>
-//     isConfirmed ? `${theme.colors.gray01}` : `${theme.colors.gray06}`};
-
-//   border-radius: 7px;
-//   ${theme.typography.semibold03};
-// `;
