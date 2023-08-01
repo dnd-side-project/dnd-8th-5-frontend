@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react';
 import { AvailableDateTimeTypes } from '../../types/current';
 import { API } from '../../utils/API';
 import { useParams } from 'react-router-dom';
-import { getRange } from '../../utils/getRange';
+import { getTimeRange } from '../../utils/getTimeRange';
 
 interface TableTypes {
   dates: string[];
@@ -26,7 +26,7 @@ interface TableTypes {
 
 const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
   const { roomUUID } = useParams();
-  const timeRange = getRange(parseInt(startTime), parseInt(endTime));
+  const timeRange = getTimeRange(parseInt(startTime), parseInt(endTime));
 
   const [currentTableInfo, setCurrentTableInfo] = useState<
     AvailableDateTimeTypes[]
