@@ -27,7 +27,6 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-multi-date-picker": "^3.3.4",
-    "react-query": "^3.39.3",
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
     "react-scrollable-picker": "^1.0.2",

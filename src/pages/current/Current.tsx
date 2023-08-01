@@ -21,33 +21,41 @@ import {
 } from './Current.styles';
 
 import { useEffect, useState } from 'react';
-import { API } from '../../utils/API';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import BottomSheetShare from '../../components/bottomSheetShare/BottomSheetShare';
 
 import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { roomState } from '../../atoms/roomAtoms';
 import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
 import { availableBottomSheetState } from '../../atoms/availableBottomSheet';
 import { getFourChunks } from '../../utils/getFourChunks';
 import { useAuth } from '../../hooks/useAuth';
-import { getRoomInfo } from '../../api/room/getRoomInfo';
+import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
 
 const Current = () => {
-  const { roomUUID } = useParams();
-  const { state } = useLocation();
-
   const navigate = useNavigate();
+  const { roomUUID } = useParams() as { roomUUID: string };
+  const [, setSelectedMethod] = useRecoilState(selectedMethodState);
 
-  const [room, setRoom] = useRecoilState(roomState);
+  const {
+    data: {
+      title,
+      dates,
+      participants,
+      headCount,
+      deadLine,
+      startTime,
+      endTime,
+    },
+  } = useGetRoomInfo(roomUUID);
+  const isTableView = startTime !== null && endTime !== null;
+
+  const { state } = useLocation();
   const [recoilBottomSheet, setRecoilBottomSheet] = useRecoilState(
     availableBottomSheetState
   );
-
-  const [, setSelectedMethod] = useRecoilState(selectedMethodState);
   const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
     useState<boolean>(false);
 
@@ -62,26 +70,7 @@ const Current = () => {
         setIsAvailableBottomSheet(isRoomCreator);
       }
     }
-
-    const getRoomInfo = async () => {
-      const { data } = await API.get(`/api/room/${roomUUID}`);
-      setRoom(data);
-    };
-
-    getRoomInfo();
   }, []);
-
-  const {
-    title,
-    dates,
-    participants,
-    headCount,
-    deadLine,
-    startTime,
-    endTime,
-  } = room;
-
-  const isTableView = startTime !== null && endTime !== null;
 
   const handleEditButtonClick = () => {
     const isValidUser = useAuth(roomUUID as string);
