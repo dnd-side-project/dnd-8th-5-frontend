@@ -17,6 +17,17 @@ const Candidate = ({
   participantNames,
   count,
 }: CandidateTypes) => {
+  const convertDateFormat = () => {
+    if (startTime && endTime) {
+      return `${date.slice(5, 7)}월 ${date.slice(
+        8,
+        10
+      )} (${dayOfWeek}) ${startTime} ~ ${endTime}`;
+    } else {
+      return `${date.slice(5, 7)}월 ${date.slice(8, 10)} (${dayOfWeek}) `;
+    }
+  };
+
   return (
     <Wrapper>
       <Content>
@@ -26,14 +37,7 @@ const Candidate = ({
             <People isParticipant={true}> {participantNames.length}명</People>
           </ProportionWrapper>
         )}
-        <TimeWrapper>
-          {startTime && endTime
-            ? `${date.slice(5, 7)}월 ${date.slice(
-                8,
-                10
-              )} (${dayOfWeek}) ${startTime} ~ ${endTime}`
-            : `${date.slice(5, 7)}월 ${date.slice(8, 10)} (${dayOfWeek}) `}
-        </TimeWrapper>
+        <TimeWrapper>{convertDateFormat()}</TimeWrapper>
       </Content>
 
       <ListItem>

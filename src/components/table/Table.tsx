@@ -44,6 +44,10 @@ const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
     getCurrentTableInfo();
   }, []);
 
+  const convertDateFormat = (date: string) => {
+    return `${date.slice(5, 7)}월 ${date.slice(8, 10)}일`;
+  };
+
   return (
     <Wrapper>
       <Top>
@@ -53,10 +57,9 @@ const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
             date.slice(0, 5) === 'blank' ? (
               <Date key={date} isBlank={true}></Date>
             ) : (
-              <Date key={date} isBlank={false}>{`${date.slice(
-                5,
-                7
-              )}월 ${date.slice(8, 10)}일`}</Date>
+              <Date key={date} isBlank={false}>
+                {convertDateFormat(date)}
+              </Date>
             )
           )}
         </DateWrapper>

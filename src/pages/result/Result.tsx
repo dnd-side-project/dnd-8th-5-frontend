@@ -90,7 +90,7 @@ const Result = () => {
     getRoomInfo();
   }, []);
 
-  const { title, participants, headCount } = room;
+  const { title, participants } = room;
 
   const [participantsList, setParticipantsList] = useState<Participants[]>([]);
 
@@ -136,6 +136,7 @@ const Result = () => {
     } else return `${filteredParticipants[0].name} 외 ${selectedCount - 1}명`;
   };
 
+  console.log(candidateTimes.candidateTimes);
   return (
     <Wrapper>
       <Header pageName="result" title={title} />
@@ -163,28 +164,39 @@ const Result = () => {
           />
         </SelectWrapper>
 
-        {participants.length !==
-        candidateTimes.candidateTimes[0].participantNames.length ? (
+        {candidateTimes.candidateTimes.length === 0 ? (
           <NobodyWrapper>
             <Nobody>
               <NobodyRabbit src={nobody} alt="nobody" />
               <NobodyText>모두가 되는 시간이 없어요</NobodyText>
             </Nobody>
           </NobodyWrapper>
-        ) : null}
+        ) : (
+          <>
+            {participants.length !==
+            candidateTimes.candidateTimes[0].participantNames.length ? (
+              <NobodyWrapper>
+                <Nobody>
+                  <NobodyRabbit src={nobody} alt="nobody" />
+                  <NobodyText>모두가 되는 시간이 없어요</NobodyText>
+                </Nobody>
+              </NobodyWrapper>
+            ) : null}
 
-        {candidateTimes.candidateTimes.map(
-          ({ date, dayOfWeek, startTime, endTime, participantNames }) => (
-            <Candidate
-              key={`part ${date} ${startTime} ${endTime}`}
-              date={date}
-              dayOfWeek={dayOfWeek}
-              startTime={startTime}
-              endTime={endTime}
-              participantNames={participantNames}
-              count={participants.length}
-            />
-          )
+            {candidateTimes.candidateTimes.map(
+              ({ date, dayOfWeek, startTime, endTime, participantNames }) => (
+                <Candidate
+                  key={`part ${date} ${startTime} ${endTime}`}
+                  date={date}
+                  dayOfWeek={dayOfWeek}
+                  startTime={startTime}
+                  endTime={endTime}
+                  participantNames={participantNames}
+                  count={participants.length}
+                />
+              )
+            )}
+          </>
         )}
       </Body>
 

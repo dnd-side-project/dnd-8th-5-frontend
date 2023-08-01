@@ -1,8 +1,7 @@
 import { Icon, IconWrapper, Title, Wrapper } from './Header.styles';
 
 import share from '../../assets/icons/share.svg';
-import emailDefault from '../../assets/icons/emailDefault.svg';
-import emailRegistered from '../../assets/icons/emailRegistered.svg';
+
 import headerMenu from '../../assets/icons/headerMenu.svg';
 import headerInfo from '../../assets/icons/headerInfo.svg';
 
