@@ -24,6 +24,8 @@ const Table = ({
   tablePage,
   validDateChunks,
   times,
+  isResetButtonClick,
+  setIsResetButtonClick,
 }: TableType) => {
   const timeDetail = getTimeArray(times);
 
@@ -44,7 +46,8 @@ const Table = ({
 
   useEffect(() => {
     selectoRef.current.setSelectedTargets([]);
-  }, [selectedMethod]);
+    setIsResetButtonClick(false);
+  }, [selectedMethod, isResetButtonClick]);
 
   const handleCellSelect = (e: any) => {
     e.added.forEach((el: any) => {

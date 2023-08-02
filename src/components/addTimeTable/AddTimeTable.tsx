@@ -11,7 +11,6 @@ import {
   TableWrapper,
 } from './AddTimeTable.styles';
 import Table from './Table';
-import BottomButton from '../bottomButton/BottomButton';
 
 import addPrevDisable from '../../assets/icons/addPrevDisable.png';
 import addNextDisable from '../../assets/icons/addNextDisable.png';
@@ -24,7 +23,7 @@ import { API } from '../../utils/API';
 import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
 import { getAllTimeRange } from '../../utils/getAllTimeRange';
 import { getTimeRange } from '../../utils/getTimeRange';
-import { AxiosError } from 'axios';
+import AddButton from '../addButton/AddButton';
 
 const AddTimeTable = ({
   wrapperRef,
@@ -34,6 +33,9 @@ const AddTimeTable = ({
   setSelected,
   selectedMethod,
   dates,
+  setTableSelected,
+  isResetButtonClick,
+  setIsResetButtonClick,
 }: AddTimeTableTypes) => {
   const { roomUUID } = useParams();
   const navigate = useNavigate();
@@ -213,6 +215,8 @@ const AddTimeTable = ({
           tablePage={tablePage}
           selectedMethod={selectedMethod}
           validDateChunks={validDateChunks}
+          isResetButtonClick={isResetButtonClick}
+          setIsResetButtonClick={setIsResetButtonClick}
         />
       </TableWrapper>
       <ScrollbarTrack ref={trackRef}>
@@ -225,11 +229,16 @@ const AddTimeTable = ({
         />
       </ScrollbarTrack>
 
-      <BottomButton
+      {/* <BottomButton
         onClick={handleApplyClick}
         navigate={goToCurrent}
         text="등록하기"
         isActivated={true}
+      /> */}
+      <AddButton
+        setTableSelected={setTableSelected}
+        handleApplyClick={handleApplyClick}
+        setIsResetButtonClick={setIsResetButtonClick}
       />
     </>
   );
