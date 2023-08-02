@@ -1,11 +1,7 @@
 import { useState, useCallback } from 'react';
+import { PostAuthType } from '../types/auth';
 
-interface Form {
-  name: string;
-  password: string;
-}
-
-const useInputs = (initialForm: Form) => {
+const useInputs = (initialForm: PostAuthType) => {
   const [form, setForm] = useState(initialForm);
   const onChange = useCallback(
     (e: any) => {

@@ -18,15 +18,16 @@ import {
 import useInputs from '../../hooks/useFormInput';
 import { useNavigate, useParams } from 'react-router-dom';
 import BottomButton from '../../components/bottomButton/BottomButton';
-import { API } from '../../utils/API';
 
 import uncheckedbox from '../../assets/icons/uncheckdBox.png';
 import checkedBox from '../../assets/icons/checkedBox.png';
 
 import { RoomTypes } from '../../types/roomInfo';
+import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
+import { usePostUserInfo } from '../../queries/auth/usePostUserInfo';
 
 const Login = () => {
-  const { roomUUID } = useParams();
+  const { roomUUID } = useParams() as { roomUUID: string };
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
   const [room, setRoom] = useState<RoomTypes>({
@@ -52,14 +53,14 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  const { data } = useGetRoomInfo(roomUUID);
+  const { mutate } = usePostUserInfo();
+
   useEffect(() => {
-    const getRoomInfo = async () => {
-      const { data } = await API.get(`/api/room/${roomUUID}`);
+    if (data) {
       setRoom(data);
-    };
-    getRoomInfo();
-    setIsPasswordError(false);
-  }, []);
+    }
+  }, [data]);
 
   const onClickNext = async () => {
     try {
@@ -67,7 +68,8 @@ const Login = () => {
         alert('비밀번호는 숫자만 입력해주세요');
         return;
       }
-      await API.post(`/api/room/${roomUUID}/login`, form);
+
+      mutate({ roomUUID, form });
 
       if (saveUserInfo) {
         localStorage.setItem('name', form.name);
