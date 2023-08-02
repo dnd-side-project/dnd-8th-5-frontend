@@ -24,7 +24,7 @@ import { API } from '../../utils/API';
 import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
 import { getAllTimeRange } from '../../utils/getAllTimeRange';
 import { getTimeRange } from '../../utils/getTimeRange';
-import { AxiosError } from 'axios';
+import { useGetAvailableTimesByOne } from '../../queries/availableTimes/useGetAvailableTimesByOne';
 
 const AddTimeTable = ({
   wrapperRef,
@@ -35,7 +35,7 @@ const AddTimeTable = ({
   selectedMethod,
   dates,
 }: AddTimeTableTypes) => {
-  const { roomUUID } = useParams();
+  const { roomUUID } = useParams() as { roomUUID: string };
   const navigate = useNavigate();
   const userName = localStorage.getItem('userName') || '';
 
@@ -60,39 +60,13 @@ const AddTimeTable = ({
     handleDragStart,
   } = useScroll();
 
+  const { data } = useGetAvailableTimesByOne(roomUUID, userName);
+
   useEffect(() => {
-    const getPreviousSelectedTimes = async () => {
-      try {
-        const { data } = await API.get(
-          `/api/room/${roomUUID}/available-time?name=${userName}`
-        );
-
-        setPreviousSelectedTimes(data.availableDateTimes);
-      } catch {
-        alert('에러가 발생했습니다. 다시 시도해 주세요.');
-      }
-    };
-
-    getPreviousSelectedTimes();
-
-    const newObj: TableSelectedTypes = {};
-
-    previousSelectedTimes.forEach((time: string) => {
-      validDateChunks.map((chunk, index) => {
-        chunk.map(({ date }) => {
-          if (date === time.slice(0, 10)) {
-            if (newObj[index] === undefined) {
-              newObj[index] = [time];
-            } else {
-              newObj[index].push(time);
-            }
-          }
-        });
-      });
-    });
-
-    setSelected(newObj);
-  }, []);
+    if (data) {
+      setPreviousSelectedTimes(data.availableDateTimes);
+    }
+  }, [data]);
 
   useEffect(() => {
     if (wrapperRef.current) {
