@@ -99,17 +99,20 @@ const Result = () => {
     setQueryString({ ...queryString, name: qs.join('') });
   }, [participantsList]);
 
-  const { data } = useGetCandidateTimes(
+  const { data, refetch } = useGetCandidateTimes(
     roomUUID,
     queryString.sort,
     queryString.name
   );
 
   useEffect(() => {
+    refetch();
+    console.log(queryString);
+
     if (data) {
       setCandidateTimes(data.candidateTimes);
     }
-  }, [data, queryString]);
+  }, [queryString]);
 
   const getFilteredName = () => {
     const selectedCount = filteredParticipants.length;
