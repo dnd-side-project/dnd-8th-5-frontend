@@ -12,10 +12,10 @@ import {
 } from './Table.styles';
 
 import { useParams } from 'react-router-dom';
-import { getRange } from '../../utils/getRange';
 import { useGetAvailableTimesByGroup } from '../../queries/availableTimes/useGetAvailableTimesByGroup';
 import { useEffect, useState } from 'react';
 import { AvailableDateTimesTypes } from '../../types/current';
+import { getTimeRange } from '../../utils/getTimeRange';
 
 interface TableTypes {
   dates: string[];
@@ -26,7 +26,7 @@ interface TableTypes {
 
 const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
   const { roomUUID } = useParams() as { roomUUID: string };
-  const timeRange = getRange(parseInt(startTime), parseInt(endTime));
+  const timeRange = getTimeRange(parseInt(startTime), parseInt(endTime));
 
   const { data } = useGetAvailableTimesByGroup(roomUUID);
   const [availableDateTimes, setAvailableDateTimes] = useState<
@@ -39,7 +39,7 @@ const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
     }
   }, [data]);
 
-  const getDateFormat = (date: string) => {
+  const convertDateFormat = (date: string) => {
     return `${date.slice(5, 7)}월 ${date.slice(8, 10)}일`;
   };
 
@@ -53,7 +53,7 @@ const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
               <Date key={date} isBlank={true}></Date>
             ) : (
               <Date key={date} isBlank={false}>
-                {getDateFormat(date)}
+                {convertDateFormat(date)}
               </Date>
             )
           )}
