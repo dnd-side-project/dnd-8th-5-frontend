@@ -11,7 +11,6 @@ import SortTimes from '../../components/option/sortOption/SortTimes';
 
 import nobody from '../../assets/images/nobody.png';
 
-import { API } from '../../utils/API';
 import { RoomTypes } from '../../types/roomInfo';
 import {
   Body,
@@ -26,14 +25,23 @@ import {
   Wrapper,
 } from './Result.styles';
 import { ROUTES } from '../../constants/ROUTES';
+import { initialRoomInfoData } from '../../assets/data/initialRoomInfoData';
+import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
+import { useGetCandidateTimes } from '../../queries/result/useGetCandidateTimes';
+import { CandidateTimesType } from '../../types/result';
 
 interface Participants {
   name: string;
   isSelected: boolean;
 }
 
+interface QueryStringTypes {
+  name: string;
+  sort: string;
+}
+
 const Result = () => {
-  const { roomUUID } = useParams();
+  const { roomUUID } = useParams() as { roomUUID: string };
 
   const [isParticipantsOpened, setIsParticipantsOpened] = useState(false);
   const [filteredParticipants, setFilteredParticipants] = useState<
@@ -42,10 +50,7 @@ const Result = () => {
 
   const [isSortOpened, setIsSortOpened] = useState(false);
 
-  const [queryString, setQueryString] = useState<{
-    name: string;
-    sort: string;
-  }>({
+  const [queryString, setQueryString] = useState<QueryStringTypes>({
     name: '',
     sort: 'fast',
   });
@@ -58,40 +63,19 @@ const Result = () => {
     setIsSortOpened(!isSortOpened);
   };
 
-  const [room, setRoom] = useState<RoomTypes>({
-    title: '',
-    deadLine: '',
-    headCount: 0,
-    participants: [''],
-    dates: [''],
-    startTime: '',
-    endTime: '',
-  });
+  const [{ title, participants, headCount }, setRoom] =
+    useState<RoomTypes>(initialRoomInfoData);
+  const [candidateTimes, setCandidateTimes] = useState<CandidateTimesType[]>(
+    []
+  );
 
-  const [candidateTimes, setCandidateTimes] = useState({
-    candidateTimes: [
-      {
-        id: 0,
-        date: '',
-        dayOfWeek: '',
-        startTime: '',
-        endTime: '',
-        participantNames: [],
-        isConfirmed: false,
-      },
-    ],
-  });
+  const roomInfo = useGetRoomInfo(roomUUID);
 
   useEffect(() => {
-    const getRoomInfo = async () => {
-      const { data } = await API.get(`/api/room/${roomUUID}`);
-      setRoom(data);
-    };
-
-    getRoomInfo();
-  }, []);
-
-  const { title, participants, headCount } = room;
+    if (roomInfo.data) {
+      setRoom(roomInfo.data);
+    }
+  }, [roomInfo.data]);
 
   const [participantsList, setParticipantsList] = useState<Participants[]>([]);
 
@@ -115,17 +99,17 @@ const Result = () => {
     setQueryString({ ...queryString, name: qs.join('') });
   }, [participantsList]);
 
+  const { data } = useGetCandidateTimes(
+    roomUUID,
+    queryString.sort,
+    queryString.name
+  );
+
   useEffect(() => {
-    const getCandidateTimes = async () => {
-      const { data } = await API.get(
-        `/api/room/${roomUUID}/adjustment-result?sorted=${queryString.sort}&${queryString.name}`
-      );
-
-      setCandidateTimes(data);
-    };
-
-    getCandidateTimes();
-  }, [queryString]);
+    if (data) {
+      setCandidateTimes(data.candidateTimes);
+    }
+  }, [data, queryString]);
 
   const getFilteredName = () => {
     const selectedCount = filteredParticipants.length;
@@ -166,7 +150,7 @@ const Result = () => {
 
         {participants.length === headCount ? (
           <>
-            {candidateTimes.candidateTimes.map(
+            {candidateTimes.map(
               ({ date, dayOfWeek, startTime, endTime, isConfirmed }) => (
                 <TimeWrapper
                   key={`all ${date} ${dayOfWeek} ${startTime} ${endTime}`}
@@ -193,7 +177,7 @@ const Result = () => {
                 <NobodyText>모두가 되는 시간이 없어요</NobodyText>
               </Nobody>
             </NobodyWrapper>
-            {candidateTimes.candidateTimes.map(
+            {candidateTimes.map(
               ({ date, dayOfWeek, startTime, endTime, participantNames }) => (
                 <Accordion
                   key={`part ${date} ${startTime} ${endTime}`}
@@ -210,7 +194,7 @@ const Result = () => {
         )}
 
         <>
-          {candidateTimes.candidateTimes.map(
+          {candidateTimes.map(
             ({ date, dayOfWeek, startTime, endTime, isConfirmed }) => {
               <TimeWrapper
                 key={`all ${date} ${dayOfWeek} ${startTime} ${endTime}`}

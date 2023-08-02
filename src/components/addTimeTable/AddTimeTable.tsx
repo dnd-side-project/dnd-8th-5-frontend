@@ -20,13 +20,11 @@ import addNextActive from '../../assets/icons/addNextActive.png';
 
 import { AddTimeTableTypes, TableSelectedTypes } from './AddTimeTable.types';
 
-import { API } from '../../utils/API';
 import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
 import { getAllTimeRange } from '../../utils/getAllTimeRange';
 import { getTimeRange } from '../../utils/getTimeRange';
 import { useGetAvailableTimesByOne } from '../../queries/availableTimes/useGetAvailableTimesByOne';
 import { usePutAvailableTimes } from '../../queries/availableTimes/usePutAvailableTimes';
-import { PutAvailableTimesType } from '../../types/addTime';
 
 const AddTimeTable = ({
   wrapperRef,
@@ -37,8 +35,8 @@ const AddTimeTable = ({
   selectedMethod,
   dates,
 }: AddTimeTableTypes) => {
-  const { roomUUID } = useParams() as { roomUUID: string };
   const navigate = useNavigate();
+  const { roomUUID } = useParams() as { roomUUID: string };
   const userName = localStorage.getItem('userName') || '';
 
   const [tablePage, setTablePage] = useState(0);
@@ -63,7 +61,7 @@ const AddTimeTable = ({
   } = useScroll();
 
   const { data } = useGetAvailableTimesByOne(roomUUID, userName);
-  const { mutate, isError, isSuccess } = usePutAvailableTimes();
+  const { mutate, isSuccess } = usePutAvailableTimes();
 
   useEffect(() => {
     if (data) {
