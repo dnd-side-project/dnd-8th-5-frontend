@@ -1,7 +1,14 @@
 import { instance } from '../config/instance';
+import { PutAvailableTimesParamsType } from '../../types/addTime';
 
-export const putAvailableTimes = async (roomUUID: string) => {
-  const { data } = await instance.get(`/api/room/${roomUUID}/available-time`);
+export const putAvailableTimes = async ({
+  roomUUID,
+  payload,
+}: PutAvailableTimesParamsType) => {
+  const { data } = await instance.put(
+    `/api/room/${roomUUID}/available-time`,
+    JSON.stringify(payload)
+  );
 
   return data;
 };

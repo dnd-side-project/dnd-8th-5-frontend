@@ -25,6 +25,8 @@ import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
 import { getAllTimeRange } from '../../utils/getAllTimeRange';
 import { getTimeRange } from '../../utils/getTimeRange';
 import { useGetAvailableTimesByOne } from '../../queries/availableTimes/useGetAvailableTimesByOne';
+import { usePutAvailableTimes } from '../../queries/availableTimes/usePutAvailableTimes';
+import { PutAvailableTimesType } from '../../types/addTime';
 
 const AddTimeTable = ({
   wrapperRef,
@@ -61,6 +63,7 @@ const AddTimeTable = ({
   } = useScroll();
 
   const { data } = useGetAvailableTimesByOne(roomUUID, userName);
+  const { mutate, isError, isSuccess } = usePutAvailableTimes();
 
   useEffect(() => {
     if (data) {
@@ -116,23 +119,6 @@ const AddTimeTable = ({
 
   const allTimeRange = getAllTimeRange(dates, timeRange);
 
-  const putAvailableTime = async (payload: {
-    name: string;
-    hasTime: boolean;
-    availableDateTimes: string[];
-  }) => {
-    const response = await API.put(
-      `/api/room/${roomUUID}/available-time`,
-      JSON.stringify(payload)
-    );
-
-    if (response.status === 200) {
-      goToCurrent();
-    } else {
-      alert('처리 중 오류가 발생했습니다!');
-    }
-  };
-
   const handleApplyClick = () => {
     if (selectedMethod === 'possible') {
       const payload = {
@@ -141,7 +127,7 @@ const AddTimeTable = ({
         availableDateTimes: Object.values(selected).flat(),
       };
 
-      putAvailableTime(payload);
+      mutate({ roomUUID, payload });
     }
 
     if (selectedMethod === 'impossible') {
@@ -156,9 +142,15 @@ const AddTimeTable = ({
         availableDateTimes: filteredTime,
       };
 
-      putAvailableTime(payload);
+      mutate({ roomUUID, payload });
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      goToCurrent();
+    }
+  }, [isSuccess]);
 
   return (
     <>

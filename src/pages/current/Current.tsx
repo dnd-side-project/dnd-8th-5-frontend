@@ -49,11 +49,12 @@ const Current = () => {
     { title, headCount, participants, deadLine, dates, startTime, endTime },
     setRoomInfo,
   ] = useState<RoomTypes>(initialRoomInfoData);
+
   const { data } = useGetRoomInfo(roomUUID);
 
   useEffect(() => {
     if (data) {
-      setRoomInfo(data.data);
+      setRoomInfo(data);
     }
   }, [data]);
 

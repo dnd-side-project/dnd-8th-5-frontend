@@ -38,7 +38,7 @@ const AddTime = () => {
 
   useEffect(() => {
     if (data) {
-      setRoomInfo(data.data);
+      setRoomInfo(data);
     }
   }, [data]);
 

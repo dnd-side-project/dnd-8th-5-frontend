@@ -2,7 +2,9 @@ import { instance } from '../config/instance';
 import { PostRoomTypes } from '../../types/roomInfo';
 
 export const getRoomInfo = async (roomUUID: string) => {
-  return await instance.get(`/api/room/${roomUUID}`);
+  const { data } = await instance.get(`/api/room/${roomUUID}`);
+
+  return data;
 };
 
 export const createRoom = async (payload: PostRoomTypes) => {
