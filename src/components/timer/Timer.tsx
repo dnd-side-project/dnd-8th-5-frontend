@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 
-import { TimerTypes } from '../../types/roomInfo';
 import { getCountdown } from '../../utils/getCountdown';
 import { Span, TextWrapper, Time, Wrapper } from './Timer.styles';
+
+export interface TimerTypes {
+  deadLine: string;
+}
 
 const Timer = ({ deadLine }: TimerTypes) => {
   const [isTimeExpired, setIsTimeExpired] = useState<boolean>(false);

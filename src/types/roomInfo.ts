@@ -1,7 +1,3 @@
-export interface TimerTypes {
-  deadLine: string;
-}
-
 export interface participant {
   participant: string;
 }
@@ -9,21 +5,6 @@ export interface participant {
 export interface currentParticipants {
   headCount: number | null;
   participants: string[];
-}
-
-export interface roomTitle {
-  title: string;
-}
-
-export interface room extends roomTitle, currentParticipants {
-  deadLine: string | null;
-  dates: string[];
-  startTime: string;
-  endTime: string;
-}
-
-export interface roomInfo {
-  room: room;
 }
 
 export interface RoomTypes {
@@ -34,4 +15,17 @@ export interface RoomTypes {
   dates: string[];
   startTime: string | null;
   endTime: string | null;
+}
+
+export interface PostRoomTypes {
+  title: string;
+  headCount: number | null;
+  dates: string[];
+  startTime: string | null;
+  endTime: string | null;
+  timer: {
+    day: number;
+    hour: number;
+    minute: number;
+  } | null;
 }

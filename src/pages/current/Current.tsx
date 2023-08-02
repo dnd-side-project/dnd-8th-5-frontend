@@ -39,17 +39,8 @@ const Current = () => {
   const { roomUUID } = useParams() as { roomUUID: string };
   const [, setSelectedMethod] = useRecoilState(selectedMethodState);
 
-  const {
-    data: {
-      title,
-      dates,
-      participants,
-      headCount,
-      deadLine,
-      startTime,
-      endTime,
-    },
-  } = useGetRoomInfo(roomUUID);
+  const { data } = useGetRoomInfo(roomUUID);
+
   const isTableView = startTime !== null && endTime !== null;
 
   const { state } = useLocation();

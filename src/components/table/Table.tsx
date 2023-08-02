@@ -11,11 +11,9 @@ import {
   Wrapper,
 } from './Table.styles';
 
-import { useEffect, useState } from 'react';
-import { AvailableDateTimeTypes } from '../../types/current';
-import { API } from '../../utils/API';
 import { useParams } from 'react-router-dom';
 import { getRange } from '../../utils/getRange';
+import { useGetAvailableTimesByGroup } from '../../queries/availableTimes/useGetAvailableTimesByGroup';
 
 interface TableTypes {
   dates: string[];
@@ -25,24 +23,16 @@ interface TableTypes {
 }
 
 const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
-  const { roomUUID } = useParams();
+  const { roomUUID } = useParams() as { roomUUID: string };
   const timeRange = getRange(parseInt(startTime), parseInt(endTime));
 
-  const [currentTableInfo, setCurrentTableInfo] = useState<
-    AvailableDateTimeTypes[]
-  >([]);
+  const {
+    data: { availableDateTimes },
+  }: any = useGetAvailableTimesByGroup(roomUUID);
 
-  useEffect(() => {
-    const getCurrentTableInfo = async () => {
-      const { data } = await API.get(
-        `/api/room/${roomUUID}/available-time/group`
-      );
-
-      setCurrentTableInfo(data.availableDateTimes);
-    };
-
-    getCurrentTableInfo();
-  }, []);
+  const getDateFormat = (date: string) => {
+    return `${date.slice(5, 7)}월 ${date.slice(8, 10)}일`;
+  };
 
   return (
     <Wrapper>
@@ -53,10 +43,9 @@ const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
             date.slice(0, 5) === 'blank' ? (
               <Date key={date} isBlank={true}></Date>
             ) : (
-              <Date key={date} isBlank={false}>{`${date.slice(
-                5,
-                7
-              )}월 ${date.slice(8, 10)}일`}</Date>
+              <Date key={date} isBlank={false}>
+                {getDateFormat(date)}
+              </Date>
             )
           )}
         </DateWrapper>
@@ -69,19 +58,21 @@ const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
           ))}
         </TimeWrapper>
 
-        {currentTableInfo.map(({ availableDate, availableTimeInfos }: any) => (
-          <SelectWrapper key={availableDate}>
-            {availableTimeInfos.map(
-              ({ time, count }: { time: number; count: number }) => (
-                <Select
-                  key={`${availableDate} ${time}`}
-                  count={count}
-                  total={participants.length}
-                />
-              )
-            )}
-          </SelectWrapper>
-        ))}
+        {availableDateTimes.map(
+          ({ availableDate, availableTimeInfos }: any) => (
+            <SelectWrapper key={availableDate}>
+              {availableTimeInfos.map(
+                ({ time, count }: { time: number; count: number }) => (
+                  <Select
+                    key={`${availableDate} ${time}`}
+                    count={count}
+                    total={participants.length}
+                  />
+                )
+              )}
+            </SelectWrapper>
+          )
+        )}
       </Bottom>
     </Wrapper>
   );

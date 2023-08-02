@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
@@ -12,31 +12,16 @@ import AddTimeTable from '../../components/addTimeTable/AddTimeTable';
 import AddCalendar from '../../components/addCalendar/AddCalendar';
 import Tooltip from '../../components/tooltip/Tooltip';
 
-import { RoomTypes } from '../../types/roomInfo';
 import { TableSelectedTypes } from './AddTime.types';
-import { API } from '../../utils/API';
+import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
 
 const AddTime = () => {
-  const { roomUUID } = useParams();
+  const { roomUUID } = useParams() as { roomUUID: string };
   const userName = localStorage.getItem('userName') || '';
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const [room, setRoom] = useState<RoomTypes>({
-    title: '',
-    deadLine: null,
-    headCount: null,
-    participants: [''],
-    dates: [''],
-    startTime: null,
-    endTime: null,
-  });
-
-  const { title, dates, startTime, endTime } = room;
-  const isTableView = startTime !== null && endTime !== null ? true : false;
-
-  const [selectedMethod, setSelectedMethod] =
-    useRecoilState(selectedMethodState);
+  const [selectedMethod] = useRecoilState(selectedMethodState);
 
   const [tableSelected, setTableSelected] = useState<TableSelectedTypes>({});
   const [calendarSelected, setCalendarSelected] = useState<string[]>([]);
@@ -44,16 +29,11 @@ const AddTime = () => {
   const [isTooltipShown, setIsTooltipShown] =
     useRecoilState<boolean>(isTooltipShownState);
 
-  useEffect(() => {
-    setSelectedMethod('possible');
+  const {
+    data: { title, dates, startTime, endTime },
+  }: any = useGetRoomInfo(roomUUID);
 
-    const getRoomInfo = async () => {
-      const { data } = await API.get(`/api/room/${roomUUID}`);
-      setRoom(data);
-    };
-
-    getRoomInfo();
-  }, []);
+  const isTableView = startTime !== null && endTime !== null ? true : false;
 
   return (
     <Wrapper ref={wrapperRef}>
