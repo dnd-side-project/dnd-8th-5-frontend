@@ -136,7 +136,6 @@ const Result = () => {
     } else return `${filteredParticipants[0].name} 외 ${selectedCount - 1}명`;
   };
 
-  console.log(candidateTimes.candidateTimes);
   return (
     <Wrapper>
       <Header pageName="result" title={title} />
