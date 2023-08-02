@@ -1,13 +1,11 @@
 import { Icon, IconWrapper, Title, Wrapper } from './Header.styles';
 
 import share from '../../assets/icons/share.svg';
-import emailDefault from '../../assets/icons/emailDefault.svg';
-import emailRegistered from '../../assets/icons/emailRegistered.svg';
+
 import headerMenu from '../../assets/icons/headerMenu.svg';
 import headerInfo from '../../assets/icons/headerInfo.svg';
 
 import { useRecoilState } from 'recoil';
-import { emailState } from '../../atoms/emailAtoms';
 import { isTooltipShownState } from '../../atoms/isTooltipShownAtoms';
 
 import { useParams } from 'react-router-dom';
@@ -19,7 +17,6 @@ import { useState } from 'react';
 const Header = ({ pageName, title }: { pageName: string; title: string }) => {
   const { roomUUID } = useParams();
 
-  const [isEmailRegistered] = useRecoilState(emailState);
   const [, setIsTooltipShown] = useRecoilState(isTooltipShownState);
 
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
@@ -47,14 +44,7 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
           />
         )}
 
-        {pageName === 'result' && (
-          <Icon
-            src={isEmailRegistered ? emailRegistered : emailDefault}
-            alt={isEmailRegistered ? 'email registered' : 'email default'}
-          />
-        )}
-
-        {pageName === 'current' && (
+        {(pageName === 'current' || pageName === 'result') && (
           <CopyToClipboard
             text={currentUrl}
             onCopy={() => alert('클립보드에 복사되었습니다.')}
