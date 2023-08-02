@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '../../constants/QUERY_KEYS';
-import { getAvailableTimesByOne } from '../../api/availableTimes/availableTimes';
+import { getAvailableTimesByOne } from '../../api/availableTimes';
 
 export const useGetAvailableTimesByOne = (
   roomUUID: string,

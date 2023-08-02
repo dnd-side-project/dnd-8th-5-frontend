@@ -1,5 +1,5 @@
-import { instance } from '../config/instance';
-import { PostRoomTypes } from '../../types/roomInfo';
+import { instance } from './instance';
+import { PostRoomTypes } from '../types/roomInfo';
 
 export const getRoomInfo = async (roomUUID: string) => {
   const { data } = await instance.get(`/api/room/${roomUUID}`);

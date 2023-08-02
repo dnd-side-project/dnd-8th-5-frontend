@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { createRoom } from '../../api/room/room';
+import { createRoom } from '../../api/room';
 import { PostRoomTypes } from '../../types/roomInfo';
 
 export const useCreateRoom = () => {

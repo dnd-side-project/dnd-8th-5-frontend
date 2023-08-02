@@ -1,4 +1,4 @@
-import { instance } from '../config/instance';
+import { instance } from './instance';
 
 export const getCandidateTimesInfo = async (
   roomUUID: string,
