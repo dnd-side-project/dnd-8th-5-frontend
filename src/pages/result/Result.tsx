@@ -9,6 +9,10 @@ import BottomSheet from '../../components/bottomSheet/BottomSheet';
 import SelectParticipants from '../../components/option/participantsOption/participantsOption';
 import SortTimes from '../../components/option/sortOption/SortTimes';
 
+import nobody from '../../assets/images/nobody.png';
+
+import { API } from '../../utils/API';
+import { RoomTypes } from '../../types/roomInfo';
 import {
   Body,
   Nobody,
@@ -21,11 +25,7 @@ import {
   TitleWrapper,
   Wrapper,
 } from './Result.styles';
-
-import nobody from '../../assets/images/nobody.png';
-
-import { API } from '../../utils/API';
-import { RoomTypes } from '../../types/roomInfo';
+import { ROUTES } from '../../constants/ROUTES';
 
 interface Participants {
   name: string;
@@ -139,7 +139,7 @@ const Result = () => {
 
   return (
     <Wrapper>
-      <Header pageName="result" title={title} />
+      <Header pageName={ROUTES.RESULT} title={title} />
       <Body>
         <TitleWrapper>
           <Title isNumber={false}>현재까지</Title>

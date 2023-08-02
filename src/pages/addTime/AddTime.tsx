@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
@@ -14,6 +14,9 @@ import Tooltip from '../../components/tooltip/Tooltip';
 
 import { TableSelectedTypes } from './AddTime.types';
 import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
+import { RoomTypes } from '../../types/roomInfo';
+import { initialRoomInfoData } from '../../assets/data/initialRoomInfoData';
+import { ROUTES } from '../../constants/ROUTES';
 
 const AddTime = () => {
   const { roomUUID } = useParams() as { roomUUID: string };
@@ -29,15 +32,21 @@ const AddTime = () => {
   const [isTooltipShown, setIsTooltipShown] =
     useRecoilState<boolean>(isTooltipShownState);
 
-  const {
-    data: { title, dates, startTime, endTime },
-  }: any = useGetRoomInfo(roomUUID);
+  const { data } = useGetRoomInfo(roomUUID);
+  const [{ title, dates, startTime, endTime }, setRoomInfo] =
+    useState<RoomTypes>(initialRoomInfoData);
+
+  useEffect(() => {
+    if (data) {
+      setRoomInfo(data.data);
+    }
+  }, [data]);
 
   const isTableView = startTime !== null && endTime !== null ? true : false;
 
   return (
     <Wrapper ref={wrapperRef}>
-      <Header pageName="addTime" title={title} />
+      <Header pageName={ROUTES.ADD_TIME} title={title} />
       <Body>
         <TitleWrapper>
           <Title>{`${userName} 님의 일정을`}</Title>

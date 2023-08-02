@@ -24,7 +24,7 @@ import {
 } from './RoomStart.styles';
 
 import { useRecoilState } from 'recoil';
-import { recoilRoomAtoms } from '../../atoms/recoilRoomAtoms';
+import { createRoomAtoms } from '../../atoms/createRoomAtoms';
 import { useNavigate } from 'react-router-dom';
 
 const Room = () => {
@@ -32,7 +32,7 @@ const Room = () => {
   const [peopleNumber, setPeopleNumber] = useState(0);
   const [isNotDecided, setIsNotDecided] = useState(false);
 
-  const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomAtoms);
+  const [recoilRoom, setRecoilRoom] = useRecoilState(createRoomAtoms);
 
   const navigate = useNavigate();
 
