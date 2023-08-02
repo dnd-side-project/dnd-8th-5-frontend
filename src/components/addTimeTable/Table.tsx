@@ -67,6 +67,19 @@ const Table = ({
     setSelected(newObj);
   };
 
+  const handleClickOneElement = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;
+
+    if (target.classList.contains('valid')) {
+      if (target.classList.contains('selected')) {
+        target.classList.remove('selected');
+      } else {
+        target.classList.add('selected');
+        addSelectedToObject();
+      }
+    }
+  };
+
   return (
     <Wrapper ref={contentRef}>
       <Top>
@@ -103,17 +116,14 @@ const Table = ({
                 onSelect={handleCellSelect}
                 onDragEnd={addSelectedToObject}
                 hitRate={0}
-                selectByClick={true}
                 selectFromInside={true}
                 continueSelect={true}
                 continueSelectWithoutDeselect={false}
-                toggleContinueSelect={'shift'}
-                toggleContinueSelectWithoutDeselect={[['ctrl'], ['meta']]}
                 ratio={0}
-              ></Selecto>
-
+              />
               {timeDetail.map((time) => (
                 <Select
+                  onClick={handleClickOneElement}
                   className={isValidDate ? 'valid' : 'invalid'}
                   key={`${date} ${time}:00`}
                   id={`${date} ${time}`}
