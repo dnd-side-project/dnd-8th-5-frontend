@@ -123,7 +123,7 @@ const Table = ({
               />
               {timeDetail.map((time) => (
                 <Select
-                  onClick={handleClickOneElement}
+                  onMouseUp={handleClickOneElement}
                   className={isValidDate ? 'valid' : 'invalid'}
                   key={`${date} ${time}:00`}
                   id={`${date} ${time}`}
