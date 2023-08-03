@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import {
   FormContainer,
   HeaderContainer,
@@ -16,6 +16,7 @@ import {
   BottomButtonContainer,
 } from './Login.styles';
 import useInputs from '../../hooks/useFormInput';
+import useInputScroll from '../../hooks/useInputScroll';
 import { useNavigate, useParams } from 'react-router-dom';
 import BottomButton from '../../components/bottomButton/BottomButton';
 import { API } from '../../utils/API';
@@ -38,6 +39,9 @@ const Login = () => {
     startTime: null,
     endTime: null,
   });
+
+  const inputNameRef = useRef<HTMLInputElement>(null);
+  const inputPasswordRef = useRef<HTMLInputElement>(null);
 
   const { form, onChange } = useInputs({
     name: '',
@@ -82,6 +86,9 @@ const Login = () => {
     }
   };
 
+  useInputScroll(inputNameRef);
+  useInputScroll(inputPasswordRef);
+
   return (
     <MainContainer>
       <FormContainer>
@@ -91,6 +98,7 @@ const Login = () => {
         <InputContnainer>
           <LoginComponent>
             <NameInput
+              ref={inputNameRef}
               type="text"
               name="name"
               placeholder="이름을 입력하세요"
@@ -100,6 +108,7 @@ const Login = () => {
               isPasswordError={isPasswordError}
             ></NameInput>
             <PasswordInput
+              ref={inputPasswordRef}
               type="password"
               pattern="[0-9]*"
               inputMode="numeric"
