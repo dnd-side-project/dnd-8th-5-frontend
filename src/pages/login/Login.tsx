@@ -43,6 +43,9 @@ const Login = () => {
   const inputNameRef = useRef<HTMLInputElement>(null);
   const inputPasswordRef = useRef<HTMLInputElement>(null);
 
+  useInputScroll(inputNameRef);
+  useInputScroll(inputPasswordRef);
+
   const { form, onChange } = useInputs({
     name: '',
     password: '',
@@ -85,9 +88,6 @@ const Login = () => {
       null;
     }
   };
-
-  useInputScroll(inputNameRef);
-  useInputScroll(inputPasswordRef);
 
   return (
     <MainContainer>
