@@ -18,8 +18,6 @@ import {
 } from './RoomCalendar.styles';
 import { useRecoilState } from 'recoil';
 import { createRoomAtoms } from '../../atoms/createRoomAtoms';
-import { Link } from 'react-router-dom';
-import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/ROUTES';
 
@@ -86,7 +84,7 @@ const RoomCalendar = () => {
       <BottomButton
         onClick={handleNextClick}
         text="다음"
-        isActivated={true}
+        isActivated={dates.length !== 0}
         background={false}
       />
     </MainContainer>
