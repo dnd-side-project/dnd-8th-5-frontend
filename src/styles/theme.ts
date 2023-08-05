@@ -89,6 +89,11 @@ const typography = {
     font-weight: 500;
     line-height: 130%;
   `,
+  medium06: css`
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 130%;
+  `,
 
   regular01: css`
     font-size: 16px;

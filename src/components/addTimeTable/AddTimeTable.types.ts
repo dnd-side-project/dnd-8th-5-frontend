@@ -26,6 +26,9 @@ export interface AddTimeTableTypes {
   dates: string[];
   selected: TableSelectedTypes;
   setSelected: React.Dispatch<React.SetStateAction<TableSelectedTypes>>;
+  setTableSelected: React.Dispatch<React.SetStateAction<TableSelectedTypes>>;
+  isResetButtonClick: boolean;
+  setIsResetButtonClick: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface TableType {
@@ -36,4 +39,6 @@ export interface TableType {
   tablePage: number;
   validDateChunks: Array<ChunkType[]>;
   times: number[];
+  isResetButtonClick: boolean;
+  setIsResetButtonClick: React.Dispatch<React.SetStateAction<boolean>>;
 }
