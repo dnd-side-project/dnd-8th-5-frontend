@@ -116,7 +116,7 @@ const AddTimeTable = ({
     document.body.style.overflow = '';
     (wrapperRef.current as HTMLDivElement).style.overflow = 'auto';
 
-    navigate(`/${ROUTES.CURRENT}/${roomUUID}`);
+    navigate(`${ROUTES.CURRENT}/${roomUUID}`);
   };
 
   const allTimeRange = getAllTimeRange(dates, timeRange);
