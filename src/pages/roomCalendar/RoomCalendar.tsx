@@ -21,6 +21,7 @@ import { createRoomAtoms } from '../../atoms/createRoomAtoms';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../constants/ROUTES';
 
 const RoomCalendar = () => {
   const [isCheckedBox, setIsCheckedBox] = useState(false);
@@ -47,7 +48,7 @@ const RoomCalendar = () => {
       };
     });
 
-    naviate('/roomTimer');
+    naviate(`${ROUTES.ROOM_TIMER}`);
   }, [recoilRoom, startTime, endTime, dates, isCheckedBox]);
 
   return (

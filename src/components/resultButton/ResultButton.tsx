@@ -2,6 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import home from '../../assets/icons/home.svg';
 import shareResult from '../../assets/icons/shareResult.svg';
 import resultBubble from '../../assets/images/resultBubble.png';
+import { ROUTES } from '../../constants/ROUTES';
 
 import {
   BottomButton,
@@ -18,7 +19,7 @@ const ResultButton = () => {
   const navigate = useNavigate();
 
   const goToCurrent = () => {
-    navigate(`/current/${roomUUID}`);
+    navigate(`${ROUTES.CURRENT}/${roomUUID}`);
   };
 
   const shareData = {

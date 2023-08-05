@@ -22,6 +22,7 @@ import { useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { roomState } from '../../atoms/roomAtoms';
 import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
+import { ROUTES } from '../../constants/ROUTES';
 
 const Invite = () => {
   const { roomUUID } = useParams() as { roomUUID: string };
@@ -63,15 +64,15 @@ const Invite = () => {
     const isValidUser = useAuth(roomUUID as string);
 
     if (isValidUser) {
-      navigate(`/add/${roomUUID}`);
+      navigate(`${ROUTES.ADD_TIME}/${roomUUID}`);
     } else {
       localStorage.clear();
-      navigate(`/login/${roomUUID}`);
+      navigate(`${ROUTES.LOGIN}/${roomUUID}`);
     }
   };
 
   const handleSubButtonClick = () => {
-    navigate(`/current/${roomUUID}`);
+    navigate(`${ROUTES.CURRENT}/${roomUUID}`);
   };
 
   return (

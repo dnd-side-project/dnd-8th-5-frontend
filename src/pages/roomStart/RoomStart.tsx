@@ -27,6 +27,7 @@ import { useRecoilState } from 'recoil';
 import { createRoomAtoms } from '../../atoms/createRoomAtoms';
 import { useNavigate } from 'react-router-dom';
 import useInputScroll from '../../hooks/useInputScroll';
+import { ROUTES } from '../../constants/ROUTES';
 
 const Room = () => {
   const [roomName, setRoomName] = useState('');
@@ -77,7 +78,7 @@ const Room = () => {
       };
     });
 
-    navigate('/roomCalendar');
+    navigate(`${ROUTES.ROOM_CALENDAR}`);
   }, [recoilRoom, roomName, peopleNumber, isNotDecided]);
 
   useInputScroll(inputRef);

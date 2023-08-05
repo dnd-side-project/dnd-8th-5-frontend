@@ -19,6 +19,8 @@ import BottomButton from '../bottomButton/BottomButton';
 import { useGetAvailableTimesByOne } from '../../queries/availableTimes/useGetAvailableTimesByOne';
 import { usePutAvailableTimes } from '../../queries/availableTimes/usePutAvailableTimes';
 
+import { ROUTES } from '../../constants/ROUTES';
+
 const AddCalendar = ({
   dates,
   selected,
@@ -82,7 +84,7 @@ const AddCalendar = ({
   }, [selectedMethod]);
 
   const goToCurrent = () => {
-    navigate(`/current/${roomUUID}`);
+    navigate(`${ROUTES.CURRENT}}/${roomUUID}`);
   };
 
   const handleApplyClick = () => {
