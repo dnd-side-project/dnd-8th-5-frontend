@@ -20,6 +20,7 @@ import { useRecoilState } from 'recoil';
 import { recoilRoomAtoms } from '../../atoms/recoilRoomAtoms';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
 
 const RoomCalendar = () => {
   const [isCheckedBox, setIsCheckedBox] = useState(false);
@@ -29,7 +30,9 @@ const RoomCalendar = () => {
 
   const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomAtoms);
 
-  const onSetRecoilState = useCallback(() => {
+  const naviate = useNavigate();
+
+  const handleNextClick = useCallback(async () => {
     if (isCheckedBox) {
       setStartTime('09:00');
       setEndTime('09:00');
@@ -43,6 +46,8 @@ const RoomCalendar = () => {
         ['endTime']: isCheckedBox ? null : endTime,
       };
     });
+
+    naviate('/roomTimer');
   }, [recoilRoom, startTime, endTime, dates, isCheckedBox]);
 
   return (
@@ -77,14 +82,12 @@ const RoomCalendar = () => {
           setValue={setIsCheckedBox}
         />
       </CheckBoxContainer>
-      <Link to="/roomTimer">
-        <BottomButton
-          onClick={onSetRecoilState}
-          text="다음"
-          isActivated={true}
-          background={false}
-        />
-      </Link>
+      <BottomButton
+        onClick={handleNextClick}
+        text="다음"
+        isActivated={true}
+        background={false}
+      />
     </MainContainer>
   );
 };
