@@ -126,14 +126,14 @@ const Login = () => {
             <TextWrapper>정보 저장</TextWrapper>
           </RightWrapper>
         </CheckBoxContainer>
-        {/* <Link to="/roomCalendar"> */}
-        <BottomButtonContainer
+        <BottomButton
           onClick={() => {
             canGoNext ? onClickNext() : null;
           }}
-        >
-          <BottomButton text={'로그인'} isActivated={canGoNext} />
-        </BottomButtonContainer>
+          text={'로그인'}
+          isActivated={canGoNext}
+          background={false}
+        />
       </FormContainer>
     </MainContainer>
   );

@@ -78,9 +78,12 @@ const RoomCalendar = () => {
         />
       </CheckBoxContainer>
       <Link to="/roomTimer">
-        <BottomButtonContainer onClick={onSetRecoilState}>
-          <BottomButton text="다음" isActivated={true} />
-        </BottomButtonContainer>
+        <BottomButton
+          onClick={onSetRecoilState}
+          text="다음"
+          isActivated={true}
+          background={false}
+        />
       </Link>
     </MainContainer>
   );

@@ -131,7 +131,11 @@ const Room = () => {
             canGoNext ? onSetRecoilState() : null;
           }}
         >
-          <BottomButton text={'다음'} isActivated={canGoNext} />
+          <BottomButton
+            text={'다음'}
+            isActivated={canGoNext}
+            background={false}
+          />
         </BottomButtonContainer>
       </FormContainer>
     </MainContainer>

@@ -228,6 +228,7 @@ const TimerPage = () => {
           isActivated={
             !allZero || isClickedRecommend.indexOf(true) >= 0 || isChecked
           }
+          background={false}
         />
       </BottomButtonContainer>
     </MainContainer>
