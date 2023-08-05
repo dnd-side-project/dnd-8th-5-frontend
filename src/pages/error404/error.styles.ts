@@ -9,6 +9,7 @@ export const MainContainer = styled.div`
   margin: 0 auto;
   background-image: url(${background});
   background-size: cover;
+  background-position: center;
 `;
 
 export const BottomButton = styled.div`
