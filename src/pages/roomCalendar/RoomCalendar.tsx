@@ -44,8 +44,6 @@ const RoomCalendar = () => {
     });
   }, [recoilRoom, startTime, endTime, dates, isCheckedBox]);
 
-  console.log('테서ㅡ트', dates);
-
   return (
     <MainContainer>
       <HeaderContainer>

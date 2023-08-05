@@ -28,6 +28,7 @@ import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
 import { usePostUserInfo } from '../../queries/auth/usePostUserInfo';
 
 import { initialRoomInfoData } from '../../assets/data/initialRoomInfoData';
+import { ROUTES } from '../../constants/ROUTES';
 
 const Login = () => {
   const { roomUUID } = useParams() as { roomUUID: string };
@@ -78,7 +79,7 @@ const Login = () => {
       }
 
       localStorage.setItem('userName', form.name);
-      navigate(`/add/${roomUUID}`);
+      navigate(`${ROUTES.ADD_TIME}/${roomUUID}`);
     } catch {
       setIsPasswordError(true);
       null;

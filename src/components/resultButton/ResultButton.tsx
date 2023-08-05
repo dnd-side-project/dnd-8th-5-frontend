@@ -12,19 +12,20 @@ import {
   ShareButton,
   Wrapper,
 } from './ResultButton.styles';
+import { ROUTES } from '../../constants/ROUTES';
 
 const ResultButton = () => {
   const { roomUUID } = useParams();
   const navigate = useNavigate();
 
   const goToCurrent = () => {
-    navigate(`/current/${roomUUID}`);
+    navigate(`${ROUTES.CURRENT}/${roomUUID}`);
   };
 
   const shareData = {
     title: '모두의 시간',
     text: '쉽고 빠른 약속시간 정하기, 모두의 시간',
-    url: `${window.location.origin}/invite/${roomUUID}`,
+    url: `${window.location.origin}${ROUTES.INVITE}/${roomUUID}`,
   };
 
   const handleShareClick = () => {

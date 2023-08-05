@@ -75,14 +75,14 @@ const Current = () => {
 
     if (isValidUser) {
       setSelectedMethod('possible');
-      navigate(`/add/${roomUUID}`);
+      navigate(`${ROUTES.ADD_TIME}/${roomUUID}`);
     } else {
-      navigate(`/login/${roomUUID}`);
+      navigate(`${ROUTES.LOGIN}/${roomUUID}`);
     }
   };
 
   const goToResult = () => {
-    navigate(`/result/${roomUUID}`);
+    navigate(`${ROUTES.RESULT}/${roomUUID}`);
   };
 
   return (

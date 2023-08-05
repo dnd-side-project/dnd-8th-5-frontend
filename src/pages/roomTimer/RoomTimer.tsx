@@ -61,10 +61,11 @@ const TimerPage = () => {
       if (isError) {
         confirm('오류가 발생했습니다.\n처음부터 다시 시도하세요');
         navigate('/');
+        console.log('isError');
       }
 
       if (isSuccess) {
-        navigate(`/${ROUTES.CURRENT}/${data.roomUuid}`);
+        navigate(`${ROUTES.CURRENT}/${data.roomUuid}`);
       }
     }
   }, [room, isError, isSuccess]);
