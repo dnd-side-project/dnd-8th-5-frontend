@@ -20,15 +20,13 @@ import {
 } from './BottomSheetShare.styles';
 import { useParams } from 'react-router-dom';
 
-const BottomSheetShare = ({ roomUuid }: { roomUuid: string | undefined }) => {
+const BottomSheetShare = () => {
   const [open, setOpen] = useState<boolean>(true);
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState<string>('');
   const { roomUUID } = useParams();
 
-  const currentUrl = window.location.origin + '/invite/' + roomUUID;
-
   useEffect(() => {
-    setUrl(currentUrl);
+    setUrl(`${window.location.origin}/invite/${roomUUID}`);
   }, []);
 
   const onDismiss = () => {

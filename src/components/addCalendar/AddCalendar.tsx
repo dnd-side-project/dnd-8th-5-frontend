@@ -16,7 +16,8 @@ import {
 } from './AddCalendar.styles';
 import BottomButton from '../bottomButton/BottomButton';
 
-import { API } from '../../utils/API';
+import { useGetAvailableTimesByOne } from '../../queries/availableTimes/useGetAvailableTimesByOne';
+import { usePutAvailableTimes } from '../../queries/availableTimes/usePutAvailableTimes';
 
 const AddCalendar = ({
   dates,
@@ -24,7 +25,7 @@ const AddCalendar = ({
   setSelected,
   selectedMethod,
 }: AddCalendarType) => {
-  const { roomUUID } = useParams();
+  const { roomUUID } = useParams() as { roomUUID: string };
   const navigate = useNavigate();
   const userName = localStorage.getItem('userName') || '';
 
@@ -67,16 +68,14 @@ const AddCalendar = ({
     }
   }, [date]);
 
-  useEffect(() => {
-    const getPreviousSelectedTimes = async () => {
-      const { data } = await API.get(
-        `/api/room/${roomUUID}/available-time?name=${userName}`
-      );
-      setSelected(data.availableDateTimes);
-    };
+  const { data } = useGetAvailableTimesByOne(roomUUID, userName);
+  const { mutate, isSuccess } = usePutAvailableTimes();
 
-    getPreviousSelectedTimes();
-  }, []);
+  useEffect(() => {
+    if (data) {
+      setSelected(data.availableDateTimes);
+    }
+  }, [data]);
 
   useEffect(() => {
     setSelected([]);
@@ -84,23 +83,6 @@ const AddCalendar = ({
 
   const goToCurrent = () => {
     navigate(`/current/${roomUUID}`);
-  };
-
-  const putAvailableTime = async (payload: {
-    name: string;
-    hasTime: boolean;
-    availableDateTimes: string[];
-  }) => {
-    const response = await API.put(
-      `/api/room/${roomUUID}/available-time`,
-      JSON.stringify(payload)
-    );
-
-    if (response.status === 200) {
-      goToCurrent();
-    } else {
-      alert('처리 중 오류가 발생했습니다!');
-    }
   };
 
   const handleApplyClick = () => {
@@ -111,7 +93,7 @@ const AddCalendar = ({
         availableDateTimes: [...selected],
       };
 
-      putAvailableTime(payload);
+      mutate({ roomUUID, payload });
     }
 
     if (selectedMethod === 'impossible') {
@@ -124,9 +106,15 @@ const AddCalendar = ({
         availableDateTimes: filteredTime,
       };
 
-      putAvailableTime(payload);
+      mutate({ roomUUID, payload });
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      goToCurrent();
+    }
+  }, [isSuccess]);
 
   return (
     <>
