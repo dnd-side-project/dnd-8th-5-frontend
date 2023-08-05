@@ -8,10 +8,10 @@ const useInputScroll = (ref: React.RefObject<HTMLInputElement>) => {
     };
   }, []);
 
-  const handleScroll = (e: { target: any }) => {
+  const handleScroll = (e: TouchEvent) => {
     if (
       document.activeElement == ref.current ||
-      ref.current?.contains(e.target)
+      ref.current?.contains(e.target as Node)
     ) {
       (document.activeElement as HTMLElement).blur();
     }
