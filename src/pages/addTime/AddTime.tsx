@@ -12,31 +12,19 @@ import AddTimeTable from '../../components/addTimeTable/AddTimeTable';
 import AddCalendar from '../../components/addCalendar/AddCalendar';
 import Tooltip from '../../components/tooltip/Tooltip';
 
-import { RoomTypes } from '../../types/roomInfo';
 import { TableSelectedTypes } from './AddTime.types';
-import { API } from '../../utils/API';
+import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
+import { RoomTypes } from '../../types/roomInfo';
+import { initialRoomInfoData } from '../../assets/data/initialRoomInfoData';
+import { ROUTES } from '../../constants/ROUTES';
 
 const AddTime = () => {
-  const { roomUUID } = useParams();
+  const { roomUUID } = useParams() as { roomUUID: string };
   const userName = localStorage.getItem('userName') || '';
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const [room, setRoom] = useState<RoomTypes>({
-    title: '',
-    deadLine: null,
-    headCount: null,
-    participants: [''],
-    dates: [''],
-    startTime: null,
-    endTime: null,
-  });
-
-  const { title, dates, startTime, endTime } = room;
-  const isTableView = startTime !== null && endTime !== null ? true : false;
-
-  const [selectedMethod, setSelectedMethod] =
-    useRecoilState(selectedMethodState);
+  const [selectedMethod] = useRecoilState(selectedMethodState);
   const [isResetButtonClick, setIsResetButtonClick] = useState<boolean>(false);
 
   const [tableSelected, setTableSelected] = useState<TableSelectedTypes>({});
@@ -45,20 +33,21 @@ const AddTime = () => {
   const [isTooltipShown, setIsTooltipShown] =
     useRecoilState<boolean>(isTooltipShownState);
 
+  const { data } = useGetRoomInfo(roomUUID);
+  const [{ title, dates, startTime, endTime }, setRoomInfo] =
+    useState<RoomTypes>(initialRoomInfoData);
+
   useEffect(() => {
-    setSelectedMethod('possible');
+    if (data) {
+      setRoomInfo(data);
+    }
+  }, [data]);
 
-    const getRoomInfo = async () => {
-      const { data } = await API.get(`/api/room/${roomUUID}`);
-      setRoom(data);
-    };
-
-    getRoomInfo();
-  }, []);
+  const isTableView = startTime !== null && endTime !== null ? true : false;
 
   return (
     <Wrapper ref={wrapperRef}>
-      <Header pageName="addTime" title={title} />
+      <Header pageName={ROUTES.ADD_TIME} title={title} />
       <Body>
         <TitleWrapper>
           <Title>{`${userName} 님의 일정을`}</Title>

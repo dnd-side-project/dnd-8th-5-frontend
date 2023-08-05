@@ -19,23 +19,23 @@ import {
 } from './Invite.styles';
 import calendar from '../../assets/images/calendar.png';
 import { useEffect } from 'react';
-import { API } from '../../utils/API';
 import { useAuth } from '../../hooks/useAuth';
 import { roomState } from '../../atoms/roomAtoms';
+import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
 
 const Invite = () => {
-  const { roomUUID } = useParams();
+  const { roomUUID } = useParams() as { roomUUID: string };
   const [room, setRoom] = useRecoilState(roomState);
 
   const navigate = useNavigate();
 
+  const { data } = useGetRoomInfo(roomUUID);
+
   useEffect(() => {
-    const getRoomInfo = async () => {
-      const { data } = await API.get(`/api/room/${roomUUID}`);
+    if (data) {
       setRoom(data);
-    };
-    getRoomInfo();
-  }, []);
+    }
+  }, [data]);
 
   const getParticipant = () => {
     const result: JSX.Element[] = [];
@@ -43,10 +43,16 @@ const Invite = () => {
 
     for (let i = 0; i < room.participants.length; i++) {
       if (i > 6) {
-        result.push(<Participant>+{overCount}</Participant>);
+        result.push(
+          <Participant key={room.participants[i]}>+{overCount}</Participant>
+        );
         break;
       } else {
-        result.push(<Participant>{room.participants[i]}</Participant>);
+        result.push(
+          <Participant key={room.participants[i]}>
+            {room.participants[i]}
+          </Participant>
+        );
       }
     }
 

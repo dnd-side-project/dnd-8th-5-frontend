@@ -9,6 +9,9 @@ import SelectParticipants from '../../components/option/participantsOption/parti
 import SortTimes from '../../components/option/sortOption/SortTimes';
 import Candidate from '../../components/candidate/Candidate';
 
+import nobody from '../../assets/images/nobody.png';
+
+import { RoomTypes } from '../../types/roomInfo';
 import {
   Body,
   Nobody,
@@ -20,19 +23,24 @@ import {
   TitleWrapper,
   Wrapper,
 } from './Result.styles';
-
-import nobody from '../../assets/images/nobody.png';
-
-import { API } from '../../utils/API';
-import { RoomTypes } from '../../types/roomInfo';
+import { ROUTES } from '../../constants/ROUTES';
+import { initialRoomInfoData } from '../../assets/data/initialRoomInfoData';
+import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
+import { useGetCandidateTimes } from '../../queries/result/useGetCandidateTimes';
+import { CandidateTimesType } from '../../types/result';
 
 interface Participants {
   name: string;
   isSelected: boolean;
 }
 
+interface QueryStringTypes {
+  name: string;
+  sort: string;
+}
+
 const Result = () => {
-  const { roomUUID } = useParams();
+  const { roomUUID } = useParams() as { roomUUID: string };
 
   const [isParticipantsOpened, setIsParticipantsOpened] = useState(false);
   const [filteredParticipants, setFilteredParticipants] = useState<
@@ -41,10 +49,7 @@ const Result = () => {
 
   const [isSortOpened, setIsSortOpened] = useState(false);
 
-  const [queryString, setQueryString] = useState<{
-    name: string;
-    sort: string;
-  }>({
+  const [queryString, setQueryString] = useState<QueryStringTypes>({
     name: '',
     sort: 'fast',
   });
@@ -57,40 +62,19 @@ const Result = () => {
     setIsSortOpened(!isSortOpened);
   };
 
-  const [room, setRoom] = useState<RoomTypes>({
-    title: '',
-    deadLine: '',
-    headCount: 0,
-    participants: [''],
-    dates: [''],
-    startTime: '',
-    endTime: '',
-  });
+  const [{ title, participants }, setRoom] =
+    useState<RoomTypes>(initialRoomInfoData);
+  const [candidateTimes, setCandidateTimes] = useState<CandidateTimesType[]>(
+    []
+  );
 
-  const [candidateTimes, setCandidateTimes] = useState({
-    candidateTimes: [
-      {
-        id: 0,
-        date: '',
-        dayOfWeek: '',
-        startTime: '',
-        endTime: '',
-        participantNames: [],
-        isConfirmed: false,
-      },
-    ],
-  });
+  const roomInfo = useGetRoomInfo(roomUUID);
 
   useEffect(() => {
-    const getRoomInfo = async () => {
-      const { data } = await API.get(`/api/room/${roomUUID}`);
-      setRoom(data);
-    };
-
-    getRoomInfo();
-  }, []);
-
-  const { title, participants } = room;
+    if (roomInfo.data) {
+      setRoom(roomInfo.data);
+    }
+  }, [roomInfo.data]);
 
   const [participantsList, setParticipantsList] = useState<Participants[]>([]);
 
@@ -114,16 +98,20 @@ const Result = () => {
     setQueryString({ ...queryString, name: qs.join('') });
   }, [participantsList]);
 
+  const { data, refetch } = useGetCandidateTimes(
+    roomUUID,
+    queryString.sort,
+    queryString.name
+  );
+
   useEffect(() => {
-    const getCandidateTimes = async () => {
-      const { data } = await API.get(
-        `/api/room/${roomUUID}/adjustment-result?sorted=${queryString.sort}&${queryString.name}`
-      );
+    if (data) {
+      setCandidateTimes(data.candidateTimes);
+    }
+  }, [data]);
 
-      setCandidateTimes(data);
-    };
-
-    getCandidateTimes();
+  useEffect(() => {
+    refetch();
   }, [queryString]);
 
   const getFilteredName = () => {
@@ -138,7 +126,7 @@ const Result = () => {
 
   return (
     <Wrapper>
-      <Header pageName="result" title={title} />
+      <Header pageName={ROUTES.RESULT} title={title} />
       <Body>
         <TitleWrapper>
           <Title isNumber={false}>현재까지</Title>
@@ -163,7 +151,7 @@ const Result = () => {
           />
         </SelectWrapper>
 
-        {candidateTimes.candidateTimes.length === 0 ? (
+        {candidateTimes.length === 0 ? (
           <NobodyWrapper>
             <Nobody>
               <NobodyRabbit src={nobody} alt="nobody" />
@@ -173,7 +161,7 @@ const Result = () => {
         ) : (
           <>
             {participants.length !==
-            candidateTimes.candidateTimes[0].participantNames.length ? (
+            candidateTimes[0].participantNames.length ? (
               <NobodyWrapper>
                 <Nobody>
                   <NobodyRabbit src={nobody} alt="nobody" />
@@ -182,7 +170,7 @@ const Result = () => {
               </NobodyWrapper>
             ) : null}
 
-            {candidateTimes.candidateTimes.map(
+            {candidateTimes.map(
               ({ date, dayOfWeek, startTime, endTime, participantNames }) => (
                 <Candidate
                   key={`part ${date} ${startTime} ${endTime}`}

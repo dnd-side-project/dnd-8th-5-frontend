@@ -13,10 +13,10 @@ import {
 
 import { useEffect, useState } from 'react';
 import { AvailableDateTimeTypes } from '../../types/current';
-import { API } from '../../utils/API';
 import { useParams } from 'react-router-dom';
 import { getTimeRange } from '../../utils/getTimeRange';
 import { getCurrentTableInfo } from '../../utils/getCurrentTableInfo';
+import { useGetAvailableTimesByGroup } from '../../queries/availableTimes/useGetAvailableTimesByGroup';
 
 interface TableTypes {
   dates: string[];
@@ -26,7 +26,7 @@ interface TableTypes {
 }
 
 const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
-  const { roomUUID } = useParams();
+  const { roomUUID } = useParams() as { roomUUID: string };
   const timeRange = getTimeRange(parseInt(startTime), parseInt(endTime));
 
   const [availableDateTimes, setAvailableDateTimes] = useState<
@@ -36,17 +36,13 @@ const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
     AvailableDateTimeTypes[]
   >([]);
 
+  const { data } = useGetAvailableTimesByGroup(roomUUID);
+
   useEffect(() => {
-    const getAvailableDateTimesInfo = async () => {
-      const { data } = await API.get(
-        `/api/room/${roomUUID}/available-time/group`
-      );
-
+    if (data) {
       setAvailableDateTimes(data.availableDateTimes);
-    };
-
-    getAvailableDateTimesInfo();
-  }, []);
+    }
+  }, [data]);
 
   useEffect(() => {
     setCurrentTableInfo(getCurrentTableInfo(availableDateTimes, timeRange));

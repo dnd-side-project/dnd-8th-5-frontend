@@ -19,11 +19,13 @@ import addNextActive from '../../assets/icons/addNextActive.png';
 
 import { AddTimeTableTypes, TableSelectedTypes } from './AddTimeTable.types';
 
-import { API } from '../../utils/API';
 import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
 import { getAllTimeRange } from '../../utils/getAllTimeRange';
 import { getTimeRange } from '../../utils/getTimeRange';
+import { useGetAvailableTimesByOne } from '../../queries/availableTimes/useGetAvailableTimesByOne';
+import { usePutAvailableTimes } from '../../queries/availableTimes/usePutAvailableTimes';
 import AddButton from '../addButton/AddButton';
+import { ROUTES } from '../../constants/ROUTES';
 
 const AddTimeTable = ({
   wrapperRef,
@@ -37,8 +39,8 @@ const AddTimeTable = ({
   isResetButtonClick,
   setIsResetButtonClick,
 }: AddTimeTableTypes) => {
-  const { roomUUID } = useParams();
   const navigate = useNavigate();
+  const { roomUUID } = useParams() as { roomUUID: string };
   const userName = localStorage.getItem('userName') || '';
 
   const [tablePage, setTablePage] = useState(0);
@@ -62,39 +64,14 @@ const AddTimeTable = ({
     handleDragStart,
   } = useScroll();
 
+  const { data } = useGetAvailableTimesByOne(roomUUID, userName);
+  const { mutate, isSuccess, isError } = usePutAvailableTimes();
+
   useEffect(() => {
-    const getPreviousSelectedTimes = async () => {
-      try {
-        const { data } = await API.get(
-          `/api/room/${roomUUID}/available-time?name=${userName}`
-        );
-
-        setPreviousSelectedTimes(data.availableDateTimes);
-      } catch {
-        alert('에러가 발생했습니다. 다시 시도해 주세요.');
-      }
-    };
-
-    getPreviousSelectedTimes();
-
-    const newObj: TableSelectedTypes = {};
-
-    previousSelectedTimes.forEach((time: string) => {
-      validDateChunks.map((chunk, index) => {
-        chunk.map(({ date }) => {
-          if (date === time.slice(0, 10)) {
-            if (newObj[index] === undefined) {
-              newObj[index] = [time];
-            } else {
-              newObj[index].push(time);
-            }
-          }
-        });
-      });
-    });
-
-    setSelected(newObj);
-  }, []);
+    if (data) {
+      setPreviousSelectedTimes(data.availableDateTimes);
+    }
+  }, [data]);
 
   useEffect(() => {
     if (wrapperRef.current) {
@@ -139,27 +116,10 @@ const AddTimeTable = ({
     document.body.style.overflow = '';
     (wrapperRef.current as HTMLDivElement).style.overflow = 'auto';
 
-    navigate(`/current/${roomUUID}`);
+    navigate(`/${ROUTES.CURRENT}/${roomUUID}`);
   };
 
   const allTimeRange = getAllTimeRange(dates, timeRange);
-
-  const putAvailableTime = async (payload: {
-    name: string;
-    hasTime: boolean;
-    availableDateTimes: string[];
-  }) => {
-    const response = await API.put(
-      `/api/room/${roomUUID}/available-time`,
-      JSON.stringify(payload)
-    );
-
-    if (response.status === 200) {
-      goToCurrent();
-    } else {
-      alert('처리 중 오류가 발생했습니다!');
-    }
-  };
 
   const handleApplyClick = () => {
     if (selectedMethod === 'possible') {
@@ -169,7 +129,7 @@ const AddTimeTable = ({
         availableDateTimes: Object.values(selected).flat(),
       };
 
-      putAvailableTime(payload);
+      mutate({ roomUUID, payload });
     }
 
     if (selectedMethod === 'impossible') {
@@ -184,9 +144,19 @@ const AddTimeTable = ({
         availableDateTimes: filteredTime,
       };
 
-      putAvailableTime(payload);
+      mutate({ roomUUID, payload });
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      goToCurrent();
+    }
+
+    if (isError) {
+      alert('처리 중 오류가 발생했습니다. 다시 시도해 주세요!');
+    }
+  }, [isSuccess, isError]);
 
   return (
     <>
@@ -229,12 +199,6 @@ const AddTimeTable = ({
         />
       </ScrollbarTrack>
 
-      {/* <BottomButton
-        onClick={handleApplyClick}
-        navigate={goToCurrent}
-        text="등록하기"
-        isActivated={true}
-      /> */}
       <AddButton
         setTableSelected={setTableSelected}
         handleApplyClick={handleApplyClick}
