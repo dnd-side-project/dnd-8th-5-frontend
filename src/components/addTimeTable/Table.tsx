@@ -24,6 +24,8 @@ const Table = ({
   tablePage,
   validDateChunks,
   times,
+  isResetButtonClick,
+  setIsResetButtonClick,
 }: TableType) => {
   const timeDetail = getTimeArray(times);
 
@@ -44,7 +46,8 @@ const Table = ({
 
   useEffect(() => {
     selectoRef.current.setSelectedTargets([]);
-  }, [selectedMethod]);
+    setIsResetButtonClick(false);
+  }, [selectedMethod, isResetButtonClick]);
 
   const handleCellSelect = (e: any) => {
     e.added.forEach((el: any) => {
@@ -65,6 +68,19 @@ const Table = ({
     newObj[tablePage] = newArr;
 
     setSelected(newObj);
+  };
+
+  const handleClickOneElement = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;
+
+    if (target.classList.contains('valid')) {
+      if (target.classList.contains('selected')) {
+        target.classList.remove('selected');
+      } else {
+        target.classList.add('selected');
+        addSelectedToObject();
+      }
+    }
   };
 
   return (
@@ -103,17 +119,14 @@ const Table = ({
                 onSelect={handleCellSelect}
                 onDragEnd={addSelectedToObject}
                 hitRate={0}
-                selectByClick={true}
                 selectFromInside={true}
                 continueSelect={true}
                 continueSelectWithoutDeselect={false}
-                toggleContinueSelect={'shift'}
-                toggleContinueSelectWithoutDeselect={[['ctrl'], ['meta']]}
                 ratio={0}
-              ></Selecto>
-
+              />
               {timeDetail.map((time) => (
                 <Select
+                  onMouseUp={handleClickOneElement}
                   className={isValidDate ? 'valid' : 'invalid'}
                   key={`${date} ${time}:00`}
                   id={`${date} ${time}`}

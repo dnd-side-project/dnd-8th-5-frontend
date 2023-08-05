@@ -31,7 +31,7 @@
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
     "react-scrollable-picker": "^1.0.2",
-    "react-selecto": "^1.22.2",
+    "react-selecto": "^1.26.0",
     "react-slick": "^0.29.0",
     "react-spring-bottom-sheet": "^3.4.1",
     "recoil": "^0.7.6",
