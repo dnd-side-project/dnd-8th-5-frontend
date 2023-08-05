@@ -6,7 +6,8 @@ export const useGetAvailableTimesByOne = (
   roomUUID: string,
   userName: string
 ) => {
-  return useQuery([QUERY_KEYS.AVAILABLE_TIME.GET_AVAILABLE_TIMES_BY_ONE], () =>
-    getAvailableTimesByOne(roomUUID, userName)
+  return useQuery(
+    [QUERY_KEYS.AVAILABLE_TIME.GET_AVAILABLE_TIMES_BY_ONE, roomUUID],
+    () => getAvailableTimesByOne(roomUUID, userName)
   );
 };

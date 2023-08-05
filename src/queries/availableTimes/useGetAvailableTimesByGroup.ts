@@ -4,7 +4,7 @@ import { getAvailableTimesByGroup } from '../../api/availableTimes';
 
 export const useGetAvailableTimesByGroup = (roomUUID: string) => {
   return useQuery(
-    [QUERY_KEYS.AVAILABLE_TIME.GET_AVAILABLE_TIMES_BY_GROUP],
+    [QUERY_KEYS.AVAILABLE_TIME.GET_AVAILABLE_TIMES_BY_GROUP, roomUUID],
     () => getAvailableTimesByGroup(roomUUID)
   );
 };

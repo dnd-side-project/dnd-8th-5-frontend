@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import {
   FormContainer,
   HeaderContainer,
@@ -16,6 +16,7 @@ import {
   BottomButtonContainer,
 } from './Login.styles';
 import useInputs from '../../hooks/useFormInput';
+import useInputScroll from '../../hooks/useInputScroll';
 import { useNavigate, useParams } from 'react-router-dom';
 import BottomButton from '../../components/bottomButton/BottomButton';
 
@@ -26,19 +27,19 @@ import { RoomTypes } from '../../types/roomInfo';
 import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
 import { usePostUserInfo } from '../../queries/auth/usePostUserInfo';
 
+import { initialRoomInfoData } from '../../assets/data/initialRoomInfoData';
+
 const Login = () => {
   const { roomUUID } = useParams() as { roomUUID: string };
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
-  const [room, setRoom] = useState<RoomTypes>({
-    title: '',
-    deadLine: null,
-    headCount: 0,
-    participants: [''],
-    dates: [''],
-    startTime: null,
-    endTime: null,
-  });
+  const [room, setRoom] = useState<RoomTypes>(initialRoomInfoData);
+
+  const inputNameRef = useRef<HTMLInputElement>(null);
+  const inputPasswordRef = useRef<HTMLInputElement>(null);
+
+  useInputScroll(inputNameRef);
+  useInputScroll(inputPasswordRef);
 
   const { form, onChange } = useInputs({
     name: '',
@@ -93,6 +94,7 @@ const Login = () => {
         <InputContnainer>
           <LoginComponent>
             <NameInput
+              ref={inputNameRef}
               type="text"
               name="name"
               placeholder="이름을 입력하세요"
@@ -102,6 +104,7 @@ const Login = () => {
               isPasswordError={isPasswordError}
             ></NameInput>
             <PasswordInput
+              ref={inputPasswordRef}
               type="password"
               pattern="[0-9]*"
               inputMode="numeric"

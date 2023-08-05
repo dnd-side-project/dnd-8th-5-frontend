@@ -11,7 +11,6 @@ import {
   TableWrapper,
 } from './AddTimeTable.styles';
 import Table from './Table';
-import BottomButton from '../bottomButton/BottomButton';
 
 import addPrevDisable from '../../assets/icons/addPrevDisable.png';
 import addNextDisable from '../../assets/icons/addNextDisable.png';
@@ -25,6 +24,8 @@ import { getAllTimeRange } from '../../utils/getAllTimeRange';
 import { getTimeRange } from '../../utils/getTimeRange';
 import { useGetAvailableTimesByOne } from '../../queries/availableTimes/useGetAvailableTimesByOne';
 import { usePutAvailableTimes } from '../../queries/availableTimes/usePutAvailableTimes';
+import AddButton from '../addButton/AddButton';
+import { ROUTES } from '../../constants/ROUTES';
 
 const AddTimeTable = ({
   wrapperRef,
@@ -34,6 +35,9 @@ const AddTimeTable = ({
   setSelected,
   selectedMethod,
   dates,
+  setTableSelected,
+  isResetButtonClick,
+  setIsResetButtonClick,
 }: AddTimeTableTypes) => {
   const navigate = useNavigate();
   const { roomUUID } = useParams() as { roomUUID: string };
@@ -61,7 +65,7 @@ const AddTimeTable = ({
   } = useScroll();
 
   const { data } = useGetAvailableTimesByOne(roomUUID, userName);
-  const { mutate, isSuccess } = usePutAvailableTimes();
+  const { mutate, isSuccess, isError } = usePutAvailableTimes();
 
   useEffect(() => {
     if (data) {
@@ -112,7 +116,7 @@ const AddTimeTable = ({
     document.body.style.overflow = '';
     (wrapperRef.current as HTMLDivElement).style.overflow = 'auto';
 
-    navigate(`/current/${roomUUID}`);
+    navigate(`/${ROUTES.CURRENT}/${roomUUID}`);
   };
 
   const allTimeRange = getAllTimeRange(dates, timeRange);
@@ -148,7 +152,11 @@ const AddTimeTable = ({
     if (isSuccess) {
       goToCurrent();
     }
-  }, [isSuccess]);
+
+    if (isError) {
+      alert('처리 중 오류가 발생했습니다. 다시 시도해 주세요!');
+    }
+  }, [isSuccess, isError]);
 
   return (
     <>
@@ -177,6 +185,8 @@ const AddTimeTable = ({
           tablePage={tablePage}
           selectedMethod={selectedMethod}
           validDateChunks={validDateChunks}
+          isResetButtonClick={isResetButtonClick}
+          setIsResetButtonClick={setIsResetButtonClick}
         />
       </TableWrapper>
       <ScrollbarTrack ref={trackRef}>
@@ -189,11 +199,10 @@ const AddTimeTable = ({
         />
       </ScrollbarTrack>
 
-      <BottomButton
-        onClick={handleApplyClick}
-        navigate={goToCurrent}
-        text="등록하기"
-        isActivated={true}
+      <AddButton
+        setTableSelected={setTableSelected}
+        handleApplyClick={handleApplyClick}
+        setIsResetButtonClick={setIsResetButtonClick}
       />
     </>
   );

@@ -7,7 +7,8 @@ export const useGetCandidateTimes = (
   sort: string,
   name: string
 ) => {
-  return useQuery([QUERY_KEYS.RESULT.GET_CANDIDATE_TIMES], () =>
-    getCandidateTimesInfo(roomUUID, sort, name)
+  return useQuery(
+    [QUERY_KEYS.RESULT.GET_CANDIDATE_TIMES, roomUUID, sort, name],
+    () => getCandidateTimesInfo(roomUUID, sort, name)
   );
 };

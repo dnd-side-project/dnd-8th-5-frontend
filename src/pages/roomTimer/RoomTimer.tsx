@@ -25,6 +25,7 @@ import {
   createRoomAtoms,
   createRoomInfoState,
 } from '../../atoms/createRoomAtoms';
+import { ROUTES } from '../../constants/ROUTES';
 
 const TimerPage = () => {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ const TimerPage = () => {
       }
 
       if (isSuccess) {
-        navigate(`/current/${data.roomUuid}`);
+        navigate(`/${ROUTES.CURRENT}/${data.roomUuid}`);
       }
     }
   }, [room, isError, isSuccess]);

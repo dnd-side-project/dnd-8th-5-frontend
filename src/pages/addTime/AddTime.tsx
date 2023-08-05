@@ -25,6 +25,7 @@ const AddTime = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const [selectedMethod] = useRecoilState(selectedMethodState);
+  const [isResetButtonClick, setIsResetButtonClick] = useState<boolean>(false);
 
   const [tableSelected, setTableSelected] = useState<TableSelectedTypes>({});
   const [calendarSelected, setCalendarSelected] = useState<string[]>([]);
@@ -69,7 +70,10 @@ const AddTime = () => {
               endTime={parseInt(endTime)}
               selected={tableSelected}
               setSelected={setTableSelected}
+              setTableSelected={setTableSelected}
               dates={dates}
+              isResetButtonClick={isResetButtonClick}
+              setIsResetButtonClick={setIsResetButtonClick}
             />
           ) : (
             <AddCalendar
