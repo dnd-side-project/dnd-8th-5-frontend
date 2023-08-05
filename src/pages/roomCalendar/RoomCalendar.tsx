@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Calendar from '../../components/calendar/Calendar';
 import RoomHeader from '../../components/roomHeader/RoomHeader';
 import line from '../../assets/images/line.png';
@@ -26,6 +26,8 @@ const RoomCalendar = () => {
   const [startTime, setStartTime] = useState('09:00');
   const [endTime, setEndTime] = useState('18:00');
   const [dates, setDates] = useState<string[]>([]);
+  const [month, setMonth] = useState<string>('');
+  const [weekLow, setWeekLow] = useState<number>(0);
 
   const [recoilRoom, setRecoilRoom] = useRecoilState(createRoomAtoms);
 
@@ -49,6 +51,15 @@ const RoomCalendar = () => {
     naviate(`${ROUTES.ROOM_TIMER}`);
   }, [recoilRoom, startTime, endTime, dates, isCheckedBox]);
 
+  useEffect(() => {
+    const element = document.querySelector(
+      '.rmdp-day-picker div'
+    ) as HTMLElement;
+    if (element) {
+      setWeekLow(element.children.length);
+    }
+  });
+
   return (
     <MainContainer>
       <HeaderContainer>
@@ -59,10 +70,9 @@ const RoomCalendar = () => {
         />
       </HeaderContainer>
 
-      <Calendar dates={dates} setDates={setDates} />
+      <Calendar dates={dates} setDates={setDates} setMonth={setMonth} />
 
-      <Line src={line} />
-      <TimePickerContainer>
+      <TimePickerContainer weekLow={weekLow}>
         <TimePickerWrapper>
           <TimePicker
             startTime={startTime}
@@ -74,7 +84,7 @@ const RoomCalendar = () => {
         <GreyBox />
         {isCheckedBox ? <DependingBox /> : null}
       </TimePickerContainer>
-      <CheckBoxContainer>
+      <CheckBoxContainer weekLow={weekLow}>
         <Checkbox
           text="시간 조율 없이 약속 날짜만 알고 싶어요"
           value={isCheckedBox}
