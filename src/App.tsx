@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { ROUTES } from './constants/ROUTES';
 
 import AddTime from './pages/addTime/AddTime';
 import Current from './pages/current/Current';
@@ -15,16 +16,15 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Start />} />
-      <Route path="/add/:roomUUID" element={<AddTime />} />
-      <Route path="/timer" element={<Timer />} />
-      <Route path="/roomTimer" element={<Timer />} />
-      <Route path="/roomStart" element={<RoomStart />} />
-      <Route path="/roomCalendar" element={<RoomCalendar />} />
-      <Route path="/invite/:roomUUID" element={<Invite />} />
-      <Route path="/current/:roomUUID" element={<Current />} />
-      <Route path="/login/:roomUUID" element={<Login />} />
-      <Route path="/result/:roomUUID" element={<Result />} />
-      <Route path="/error" element={<Error />} />
+      <Route path={`${ROUTES.ROOM_START}`} element={<RoomStart />} />
+      <Route path={`${ROUTES.ROOM_CALENDAR}`} element={<RoomCalendar />} />
+      <Route path={`${ROUTES.ROOM_TIMER}`} element={<Timer />} />
+      <Route path={`${ROUTES.INVITE}/:roomUUID`} element={<Invite />} />
+      <Route path={`${ROUTES.LOGIN}/:roomUUID`} element={<Login />} />
+      <Route path={`${ROUTES.CURRENT}/:roomUUID`} element={<Current />} />
+      <Route path={`${ROUTES.ADD_TIME}/:roomUUID`} element={<AddTime />} />
+      <Route path={`${ROUTES.RESULT}/:roomUUID`} element={<Result />} />
+      <Route path={`${ROUTES.ERROR}`} element={<Error />} />
       <Route path="*" element={<Error />} />
     </Routes>
   );

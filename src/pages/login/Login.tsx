@@ -42,7 +42,7 @@ const Login = () => {
   useInputScroll(inputNameRef);
   useInputScroll(inputPasswordRef);
 
-  const { form, onChange } = useInputs({
+  const { form, onChangeForm } = useInputs({
     name: '',
     password: '',
   });
@@ -56,7 +56,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const { data } = useGetRoomInfo(roomUUID);
-  const { mutate } = usePostUserInfo();
+  const { mutate, isSuccess, isError } = usePostUserInfo();
 
   useEffect(() => {
     if (data) {
@@ -64,15 +64,19 @@ const Login = () => {
     }
   }, [data]);
 
-  const onClickNext = async () => {
-    try {
-      if (Number.isNaN(Number(form.password))) {
-        alert('비밀번호는 숫자만 입력해주세요');
-        return;
-      }
+  const onClickNext = () => {
+    if (Number.isNaN(Number(form.password))) {
+      alert('비밀번호는 숫자만 입력해주세요');
+      return;
+    }
 
+    if (canGoNext) {
       mutate({ roomUUID, form });
+    }
+  };
 
+  useEffect(() => {
+    if (isSuccess) {
       if (saveUserInfo) {
         localStorage.setItem('name', form.name);
         localStorage.setItem('uuid', String(roomUUID));
@@ -80,11 +84,12 @@ const Login = () => {
 
       localStorage.setItem('userName', form.name);
       navigate(`${ROUTES.ADD_TIME}/${roomUUID}`);
-    } catch {
-      setIsPasswordError(true);
-      null;
     }
-  };
+
+    if (isError) {
+      setIsPasswordError(true);
+    }
+  }, [isSuccess, isError]);
 
   return (
     <MainContainer>
@@ -101,7 +106,7 @@ const Login = () => {
               placeholder="이름을 입력하세요"
               maxLength={4}
               value={form.name}
-              onChange={onChange}
+              onChange={onChangeForm}
               isPasswordError={isPasswordError}
             ></NameInput>
             <PasswordInput
@@ -113,7 +118,7 @@ const Login = () => {
               autoComplete="current-password"
               placeholder="비밀번호 4자리를 설정하세요"
               value={form.password}
-              onChange={onChange}
+              onChange={onChangeForm}
               maxLength={4}
               isPasswordError={isPasswordError}
             ></PasswordInput>

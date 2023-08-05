@@ -25,7 +25,7 @@ const ResultButton = () => {
   const shareData = {
     title: '모두의 시간',
     text: '쉽고 빠른 약속시간 정하기, 모두의 시간',
-    url: `${window.location.origin}/invite/${roomUUID}`,
+    url: `${window.location.origin}${ROUTES.INVITE}/${roomUUID}`,
   };
 
   const handleShareClick = () => {

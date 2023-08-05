@@ -3,7 +3,7 @@ import { PostAuthType } from '../types/auth';
 
 const useInputs = (initialForm: PostAuthType) => {
   const [form, setForm] = useState(initialForm);
-  const onChange = useCallback(
+  const onChangeForm = useCallback(
     (e: any) => {
       const { name, value } = e.target;
       setForm({ ...form, [name]: value });
@@ -11,7 +11,7 @@ const useInputs = (initialForm: PostAuthType) => {
     [form]
   );
   const reset = useCallback(() => setForm(initialForm), [initialForm]);
-  return { form, onChange, reset };
+  return { form, onChangeForm, reset };
 };
 
 export default useInputs;
