@@ -1,10 +1,4 @@
-import {
-  SetStateAction,
-  useCallback,
-  useState,
-  useRef,
-  useEffect,
-} from 'react';
+import { SetStateAction, useCallback, useState, useRef } from 'react';
 
 import RoomHeader from '../../components/roomHeader/RoomHeader';
 import CheckBox from '../../components/checkbox/CheckBox';

@@ -15,7 +15,6 @@ import Tooltip from '../../components/tooltip/Tooltip';
 import { RoomTypes } from '../../types/roomInfo';
 import { TableSelectedTypes } from './AddTime.types';
 import { API } from '../../utils/API';
-import { resetButtonState } from '../../atoms/resetButtonAtom';
 
 const AddTime = () => {
   const { roomUUID } = useParams();
@@ -38,8 +37,7 @@ const AddTime = () => {
 
   const [selectedMethod, setSelectedMethod] =
     useRecoilState(selectedMethodState);
-  const [isResetButtonClick, setIsResetButtonClick] =
-    useRecoilState(resetButtonState);
+  const [isResetButtonClick, setIsResetButtonClick] = useState<boolean>(false);
 
   const [tableSelected, setTableSelected] = useState<TableSelectedTypes>({});
   const [calendarSelected, setCalendarSelected] = useState<string[]>([]);

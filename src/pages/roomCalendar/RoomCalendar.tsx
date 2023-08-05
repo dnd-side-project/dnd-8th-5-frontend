@@ -19,7 +19,6 @@ import {
 import { useRecoilState } from 'recoil';
 import { recoilRoomAtoms } from '../../atoms/recoilRoomAtoms';
 import { Link } from 'react-router-dom';
-import dayjs from 'dayjs';
 
 const RoomCalendar = () => {
   const [isCheckedBox, setIsCheckedBox] = useState(false);
@@ -44,6 +43,8 @@ const RoomCalendar = () => {
       };
     });
   }, [recoilRoom, startTime, endTime, dates, isCheckedBox]);
+
+  console.log('테서ㅡ트', dates);
 
   return (
     <MainContainer>
@@ -79,7 +80,7 @@ const RoomCalendar = () => {
       </CheckBoxContainer>
       <Link to="/roomTimer">
         <BottomButtonContainer onClick={onSetRecoilState}>
-          <BottomButton text="다음" isActivated={true} />
+          <BottomButton text="다음" isActivated={dates.length !== 0} />
         </BottomButtonContainer>
       </Link>
     </MainContainer>
