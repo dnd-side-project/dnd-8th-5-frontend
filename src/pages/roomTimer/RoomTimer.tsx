@@ -4,11 +4,7 @@ import BottomButton from '../../components/bottomButton/BottomButton';
 import Checkbox from '../../components/checkbox/CheckBox';
 import RoomHeader from '../../components/roomHeader/RoomHeader';
 import Timer from '../../components/setTimer/SetTimer';
-import {
-  recoilRoomAtoms,
-  recoilRoomInfoState,
-} from '../../atoms/recoilRoomAtoms';
-import { recoilUuidAtoms } from '../../atoms/recoilUuidAtoms';
+
 import {
   BottomButtonContainer,
   BottomContainer,
@@ -24,9 +20,15 @@ import {
   TImerWrapper,
 } from './RoomTimer.styles';
 import { useNavigate } from 'react-router-dom';
-import { API } from '../../utils/API';
+import { useCreateRoom } from '../../queries/room/useCreateRoom';
+import {
+  createRoomAtoms,
+  createRoomInfoState,
+} from '../../atoms/createRoomAtoms';
+import { ROUTES } from '../../constants/ROUTES';
 
 const TimerPage = () => {
+  const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   const RecommendArray = ['10분', '30분', '1시간', '3시간', '6시간', '하루'];
   const [day, setDay] = useState(0);
@@ -41,42 +43,10 @@ const TimerPage = () => {
     false,
   ]);
 
-  const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomAtoms);
-  const recoilRoomInfoStates = useRecoilValue(recoilRoomInfoState);
-  const [, setRecoilUuid] = useRecoilState(recoilUuidAtoms);
+  const [room, setRoom] = useRecoilState(createRoomAtoms);
+  const recoilRoomInfoStates = useRecoilValue(createRoomInfoState);
 
-  const navigate = useNavigate();
-
-  interface recoilRoom {
-    headCount: number;
-    dates: [];
-    startTime: string;
-    endTime: string;
-    timer: {
-      day: number;
-      hour: number;
-      minute: number;
-    };
-    title: string;
-  }
-
-  const postRoomInfo = async () => {
-    try {
-      const response = await API.post(`/api/room`, recoilRoom);
-      navigate(`/current/${response.data.roomUuid}`, {
-        state: { isRoomCreator: true },
-      });
-      setRecoilUuid(response.data.roomUuid);
-    } catch {
-      {
-        const yesNo = confirm('오류가 발생했습니다.\n처음부터 다시 시도하세요');
-
-        if (yesNo) {
-          navigate('/');
-        }
-      }
-    }
-  };
+  const { mutate, data, isError, isSuccess } = useCreateRoom();
 
   useEffect(() => {
     if (
@@ -86,13 +56,22 @@ const TimerPage = () => {
       isClickedRecommend.indexOf(true) >= 0 ||
       isChecked
     ) {
-      postRoomInfo();
+      mutate(room);
+
+      if (isError) {
+        confirm('오류가 발생했습니다.\n처음부터 다시 시도하세요');
+        navigate('/');
+      }
+
+      if (isSuccess) {
+        navigate(`/${ROUTES.CURRENT}/${data.roomUuid}`);
+      }
     }
-  }, [recoilRoom]);
+  }, [room, isError, isSuccess]);
 
   useEffect(() => {
     setIsClickedRecommend((prev) =>
-      prev.map((element, index) => {
+      prev.map(() => {
         return false;
       })
     );
@@ -142,7 +121,7 @@ const TimerPage = () => {
       recommendMinute = 0;
     }
 
-    setRecoilRoom((prev) => {
+    setRoom((prev: any) => {
       return {
         ...prev,
         timer: isChecked
@@ -171,9 +150,9 @@ const TimerPage = () => {
     hour,
     minute,
     isChecked,
-    recoilRoom,
+    room,
     isClickedRecommend,
-    recoilRoom,
+    room,
     recoilRoomInfoStates,
   ]);
 

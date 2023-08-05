@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import {
   FormContainer,
   HeaderContainer,
@@ -16,28 +16,30 @@ import {
   BottomButtonContainer,
 } from './Login.styles';
 import useInputs from '../../hooks/useFormInput';
+import useInputScroll from '../../hooks/useInputScroll';
 import { useNavigate, useParams } from 'react-router-dom';
 import BottomButton from '../../components/bottomButton/BottomButton';
-import { API } from '../../utils/API';
 
 import uncheckedbox from '../../assets/icons/uncheckdBox.png';
 import checkedBox from '../../assets/icons/checkedBox.png';
 
 import { RoomTypes } from '../../types/roomInfo';
+import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
+import { usePostUserInfo } from '../../queries/auth/usePostUserInfo';
+
+import { initialRoomInfoData } from '../../assets/data/initialRoomInfoData';
 
 const Login = () => {
-  const { roomUUID } = useParams();
+  const { roomUUID } = useParams() as { roomUUID: string };
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
-  const [room, setRoom] = useState<RoomTypes>({
-    title: '',
-    deadLine: null,
-    headCount: 0,
-    participants: [''],
-    dates: [''],
-    startTime: null,
-    endTime: null,
-  });
+  const [room, setRoom] = useState<RoomTypes>(initialRoomInfoData);
+
+  const inputNameRef = useRef<HTMLInputElement>(null);
+  const inputPasswordRef = useRef<HTMLInputElement>(null);
+
+  useInputScroll(inputNameRef);
+  useInputScroll(inputPasswordRef);
 
   const { form, onChange } = useInputs({
     name: '',
@@ -52,14 +54,14 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  const { data } = useGetRoomInfo(roomUUID);
+  const { mutate } = usePostUserInfo();
+
   useEffect(() => {
-    const getRoomInfo = async () => {
-      const { data } = await API.get(`/api/room/${roomUUID}`);
+    if (data) {
       setRoom(data);
-    };
-    getRoomInfo();
-    setIsPasswordError(false);
-  }, []);
+    }
+  }, [data]);
 
   const onClickNext = async () => {
     try {
@@ -67,7 +69,8 @@ const Login = () => {
         alert('비밀번호는 숫자만 입력해주세요');
         return;
       }
-      await API.post(`/api/room/${roomUUID}/login`, form);
+
+      mutate({ roomUUID, form });
 
       if (saveUserInfo) {
         localStorage.setItem('name', form.name);
@@ -91,6 +94,7 @@ const Login = () => {
         <InputContnainer>
           <LoginComponent>
             <NameInput
+              ref={inputNameRef}
               type="text"
               name="name"
               placeholder="이름을 입력하세요"
@@ -100,6 +104,7 @@ const Login = () => {
               isPasswordError={isPasswordError}
             ></NameInput>
             <PasswordInput
+              ref={inputPasswordRef}
               type="password"
               pattern="[0-9]*"
               inputMode="numeric"

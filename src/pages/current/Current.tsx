@@ -21,64 +21,52 @@ import {
 } from './Current.styles';
 
 import { useEffect, useState } from 'react';
-import { API } from '../../utils/API';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import BottomSheetShare from '../../components/bottomSheetShare/BottomSheetShare';
 
 import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { roomState } from '../../atoms/roomAtoms';
 import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
 import { selectedMethodState } from '../../atoms/selectedMethodAtom';
-import { availableBottomSheetState } from '../../atoms/availableBottomSheet';
 import { getFourChunks } from '../../utils/getFourChunks';
 import { useAuth } from '../../hooks/useAuth';
+import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
+import { RoomTypes } from '../../types/roomInfo';
+
+import { initialRoomInfoData } from '../../assets/data/initialRoomInfoData';
+import { ROUTES } from '../../constants/ROUTES';
 
 const Current = () => {
-  const { roomUUID } = useParams();
-  const { state } = useLocation();
-
   const navigate = useNavigate();
-
-  const [room, setRoom] = useRecoilState(roomState);
-  const [recoilBottomSheet, setRecoilBottomSheet] = useRecoilState(
-    availableBottomSheetState
-  );
-
+  const location = useLocation();
+  const { roomUUID } = useParams() as { roomUUID: string };
   const [, setSelectedMethod] = useRecoilState(selectedMethodState);
-  const [isAvailableBottomSheet, setIsAvailableBottomSheet] =
+  const [isBottomSheetOpened, setIsBottomSheetOpened] =
     useState<boolean>(false);
 
+  const [
+    { title, headCount, participants, deadLine, dates, startTime, endTime },
+    setRoomInfo,
+  ] = useState<RoomTypes>(initialRoomInfoData);
+
+  const { data } = useGetRoomInfo(roomUUID);
+
   useEffect(() => {
-    if (state) {
-      const { isRoomCreator } = state;
-
-      if (recoilBottomSheet == true) {
-        setIsAvailableBottomSheet(false);
-      } else {
-        setRecoilBottomSheet(true);
-        setIsAvailableBottomSheet(isRoomCreator);
-      }
+    if (data) {
+      setRoomInfo(data);
     }
+  }, [data]);
 
-    const getRoomInfo = async () => {
-      const { data } = await API.get(`/api/room/${roomUUID}`);
-      setRoom(data);
-    };
-
-    getRoomInfo();
-  }, []);
-
-  const {
-    title,
-    dates,
-    participants,
-    headCount,
-    deadLine,
-    startTime,
-    endTime,
-  } = room;
+  useEffect(() => {
+    if (location.state) {
+      if (location.state.isRoomCreated) {
+        setIsBottomSheetOpened(true);
+      }
+    } else {
+      setIsBottomSheetOpened(false);
+    }
+  }, [location]);
 
   const isTableView = startTime !== null && endTime !== null;
 
@@ -99,7 +87,7 @@ const Current = () => {
 
   return (
     <Wrapper>
-      <Header pageName="current" title={title} />
+      <Header pageName={ROUTES.CURRENT} title={title} />
       <Body>
         {deadLine && <Timer deadLine={deadLine} />}
         <Title>실시간 참여 현황</Title>
@@ -110,9 +98,10 @@ const Current = () => {
         ) : null}
 
         <Participants>
-          {participants.map((participant: string) => (
-            <ParticipantsBlock key={participant} participant={participant} />
-          ))}
+          {participants &&
+            participants.map((participant: string) => (
+              <ParticipantsBlock key={participant} participant={participant} />
+            ))}
 
           {headCount &&
             (participants.length < headCount ? (
@@ -150,7 +139,7 @@ const Current = () => {
         />
       </BottomWrapper>
 
-      {isAvailableBottomSheet && <BottomSheetShare roomUuid={roomUUID} />}
+      {isBottomSheetOpened && <BottomSheetShare />}
     </Wrapper>
   );
 };

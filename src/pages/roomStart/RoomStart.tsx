@@ -1,4 +1,4 @@
-import { SetStateAction, useCallback, useState } from 'react';
+import { SetStateAction, useCallback, useState, useRef } from 'react';
 
 import RoomHeader from '../../components/roomHeader/RoomHeader';
 import CheckBox from '../../components/checkbox/CheckBox';
@@ -24,17 +24,20 @@ import {
 } from './RoomStart.styles';
 
 import { useRecoilState } from 'recoil';
-import { recoilRoomAtoms } from '../../atoms/recoilRoomAtoms';
+import { createRoomAtoms } from '../../atoms/createRoomAtoms';
 import { useNavigate } from 'react-router-dom';
+import useInputScroll from '../../hooks/useInputScroll';
 
 const Room = () => {
   const [roomName, setRoomName] = useState('');
   const [peopleNumber, setPeopleNumber] = useState(0);
   const [isNotDecided, setIsNotDecided] = useState(false);
 
-  const [recoilRoom, setRecoilRoom] = useRecoilState(recoilRoomAtoms);
+  const [recoilRoom, setRecoilRoom] = useRecoilState(createRoomAtoms);
 
   const navigate = useNavigate();
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const canGoNext =
     (!!roomName && peopleNumber > 0) || (isNotDecided && !!roomName);
@@ -77,6 +80,8 @@ const Room = () => {
     navigate('/roomCalendar');
   }, [recoilRoom, roomName, peopleNumber, isNotDecided]);
 
+  useInputScroll(inputRef);
+
   return (
     <MainContainer>
       <FormContainer>
@@ -92,6 +97,7 @@ const Room = () => {
           <InputWrapper>
             <InputTitle>약속 이름을 알려주세요</InputTitle>
             <Input
+              ref={inputRef}
               type="text"
               name="username"
               value={roomName}

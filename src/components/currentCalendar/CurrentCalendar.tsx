@@ -12,30 +12,26 @@ import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
 import theme from '../../styles/theme';
 import { AvailableDateTimeTypes } from '../../types/current';
 import { useParams } from 'react-router-dom';
-import { API } from '../../utils/API';
+import { useGetAvailableTimesByGroup } from '../../queries/availableTimes/useGetAvailableTimesByGroup';
 
 interface CurrentCalendarTypes {
   participants: string[];
 }
 
 const CurrentCalendar = ({ participants }: CurrentCalendarTypes) => {
-  const { roomUUID } = useParams();
+  const { roomUUID } = useParams() as { roomUUID: string };
 
   const [currentTableInfo, setCurrentTableInfo] = useState<
     AvailableDateTimeTypes[]
   >([]);
 
+  const { data } = useGetAvailableTimesByGroup(roomUUID);
+
   useEffect(() => {
-    const getCurrentTableInfo = async () => {
-      const { data } = await API.get(
-        `/api/room/${roomUUID}/available-time/group`
-      );
-
+    if (data) {
       setCurrentTableInfo(data.availableDateTimes);
-    };
-
-    getCurrentTableInfo();
-  }, []);
+    }
+  }, [data]);
 
   const availableDatesInfo = currentTableInfo.map((date: any) => ({
     date: date.availableDate,
