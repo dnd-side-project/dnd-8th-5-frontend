@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import theme from '../../styles/theme';
+import { GeneratePrimeOptionsArrayBuffer } from 'crypto';
 
-export const BottomButtonContainer = styled.div`
+export const BottomButtonContainer = styled.div<{ background: boolean }>`
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -10,8 +11,10 @@ export const BottomButtonContainer = styled.div`
   right: 0;
   margin: 0 auto;
   max-width: 412px;
-  background: ${theme.colors.gray01};
-  border-top: 2px solid ${theme.colors.gray02};
+  background: ${({ background }) => background && theme.colors.gray01};
+  border-top: ${({ background }) =>
+    background && `2px solid ${theme.colors.gray02}`};
+
   z-index: 100;
 `;
 

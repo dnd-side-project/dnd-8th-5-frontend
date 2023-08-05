@@ -1,5 +1,9 @@
+import { MouseEventHandler } from 'react';
+
 export interface BottomButtonType {
-  navigate: any;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  navigate?: any;
   text: string;
   isActivated: boolean;
+  background?: boolean;
 }

@@ -1,9 +1,14 @@
 import { Wrapper, BottomButtonContainer } from './BottomButton.styles';
-// import { BottomButtonType } from './BottomButton.types';
+import { BottomButtonType } from './BottomButton.types';
 
-const BottomButton = ({ onClick, text, isActivated }: any) => {
+const BottomButton = ({
+  onClick,
+  text,
+  isActivated,
+  background = true,
+}: BottomButtonType) => {
   return (
-    <BottomButtonContainer>
+    <BottomButtonContainer background={background}>
       <Wrapper onClick={onClick} isActivated={isActivated}>
         {text}
       </Wrapper>
