@@ -16,6 +16,7 @@ import { AvailableDateTimeTypes } from '../../types/current';
 import { API } from '../../utils/API';
 import { useParams } from 'react-router-dom';
 import { getTimeRange } from '../../utils/getTimeRange';
+import { getCurrentTableInfo } from '../../utils/getCurrentTableInfo';
 
 interface TableTypes {
   dates: string[];
@@ -28,21 +29,28 @@ const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
   const { roomUUID } = useParams();
   const timeRange = getTimeRange(parseInt(startTime), parseInt(endTime));
 
+  const [availableDateTimes, setAvailableDateTimes] = useState<
+    AvailableDateTimeTypes[]
+  >([]);
   const [currentTableInfo, setCurrentTableInfo] = useState<
     AvailableDateTimeTypes[]
   >([]);
 
   useEffect(() => {
-    const getCurrentTableInfo = async () => {
+    const getAvailableDateTimesInfo = async () => {
       const { data } = await API.get(
         `/api/room/${roomUUID}/available-time/group`
       );
 
-      setCurrentTableInfo(data.availableDateTimes);
+      setAvailableDateTimes(data.availableDateTimes);
     };
 
-    getCurrentTableInfo();
+    getAvailableDateTimesInfo();
   }, []);
+
+  useEffect(() => {
+    setCurrentTableInfo(getCurrentTableInfo(availableDateTimes, timeRange));
+  }, [availableDateTimes]);
 
   const convertDateFormat = (date: string) => {
     return `${date.slice(5, 7)}월 ${date.slice(8, 10)}일`;
