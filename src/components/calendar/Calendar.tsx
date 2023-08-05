@@ -50,6 +50,7 @@ const Calendar = ({ dates, setDates }: Calendar) => {
 
   const makeDatesRange = (dates: DateObject[] | Date[]) => {
     if (dates.length < 2) {
+      setDates([]);
       return;
     }
     const newDateArray = [];
