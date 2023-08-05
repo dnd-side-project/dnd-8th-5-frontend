@@ -8,17 +8,22 @@ import theme from './styles/theme';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+import useScrollToTop from './hooks/useScrollToTop';
+
 const rootElement = document.getElementById('root');
 if (!rootElement) throw new Error('Failed to find the root element');
 const root = ReactDOM.createRoot(rootElement);
 
 const queryClient = new QueryClient();
 
+const ScrollToTop = useScrollToTop;
+
 root.render(
   <ThemeProvider theme={theme}>
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
+          <ScrollToTop />
           <GlobalStyle />
           <App />
         </BrowserRouter>
