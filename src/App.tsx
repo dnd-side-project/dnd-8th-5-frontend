@@ -9,6 +9,7 @@ import Timer from './pages/roomTimer/RoomTimer';
 import Login from './pages/login/Login';
 import Result from './pages/result/Result';
 import Invite from './pages/invite/Invite';
+import Error from './pages/error404/error';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Route path="/current/:roomUUID" element={<Current />} />
       <Route path="/login/:roomUUID" element={<Login />} />
       <Route path="/result/:roomUUID" element={<Result />} />
+      <Route path="/error" element={<Error />} />
     </Routes>
   );
 }
