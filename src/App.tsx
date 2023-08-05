@@ -25,6 +25,7 @@ function App() {
       <Route path="/login/:roomUUID" element={<Login />} />
       <Route path="/result/:roomUUID" element={<Result />} />
       <Route path="/error" element={<Error />} />
+      <Route path="*" element={<Error />} />
     </Routes>
   );
 }
