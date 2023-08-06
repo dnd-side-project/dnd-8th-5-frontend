@@ -1,8 +1,10 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import theme from '../../styles/theme';
-import { GeneratePrimeOptionsArrayBuffer } from 'crypto';
 
-export const BottomButtonContainer = styled.div<{ background: boolean }>`
+export const BottomButtonContainer = styled.div<{
+  isBackgroundVisible: boolean;
+}>`
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -11,9 +13,12 @@ export const BottomButtonContainer = styled.div<{ background: boolean }>`
   right: 0;
   margin: 0 auto;
   max-width: 412px;
-  background: ${({ background }) => background && theme.colors.gray01};
-  border-top: ${({ background }) =>
-    background && `2px solid ${theme.colors.gray02}`};
+  ${({ isBackgroundVisible }) =>
+    isBackgroundVisible &&
+    css`
+      background: ${theme.colors.gray01};
+      border-top: 2px solid ${theme.colors.gray02};
+    `};
 
   z-index: 100;
 `;

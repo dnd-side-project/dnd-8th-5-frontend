@@ -143,7 +143,6 @@ const Login = () => {
           }}
           text={'로그인'}
           isActivated={canGoNext}
-          background={false}
         />
       </FormContainer>
     </MainContainer>

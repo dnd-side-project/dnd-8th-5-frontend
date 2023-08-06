@@ -140,7 +140,6 @@ const AddCalendar = ({
 
       <BottomButton
         onClick={handleApplyClick}
-        navigate={goToCurrent}
         text="등록하기"
         isActivated={true}
       />

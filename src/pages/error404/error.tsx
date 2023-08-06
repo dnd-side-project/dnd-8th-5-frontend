@@ -12,7 +12,7 @@ const ErrorPage = () => {
         }}
         isActivated={true}
         text={'홈으로 돌아가기'}
-        background={false}
+        isBackgroundVisible={false}
       />
     </MainContainer>
   );

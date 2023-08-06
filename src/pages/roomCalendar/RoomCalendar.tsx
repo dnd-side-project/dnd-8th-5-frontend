@@ -95,7 +95,6 @@ const RoomCalendar = () => {
         onClick={handleNextClick}
         text="다음"
         isActivated={dates.length !== 0}
-        background={false}
       />
     </MainContainer>
   );

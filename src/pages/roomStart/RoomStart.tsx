@@ -132,18 +132,13 @@ const Room = () => {
             value={isNotDecided}
           ></CheckBox>
         </ChceckContainer>
-
-        <BottomButtonContainer
+        <BottomButton
           onClick={() => {
             canGoNext ? onSetRecoilState() : null;
           }}
-        >
-          <BottomButton
-            text={'다음'}
-            isActivated={canGoNext}
-            background={false}
-          />
-        </BottomButtonContainer>
+          text={'다음'}
+          isActivated={canGoNext}
+        />
       </FormContainer>
     </MainContainer>
   );

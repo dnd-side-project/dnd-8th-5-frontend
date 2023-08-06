@@ -141,7 +141,6 @@ const Current = () => {
           onClick={goToResult}
           text="우선순위 보기"
           isActivated={true}
-          navigate={goToResult}
         />
       </BottomWrapper>
 
