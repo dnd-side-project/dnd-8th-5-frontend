@@ -138,9 +138,7 @@ const Login = () => {
           </RightWrapper>
         </CheckBoxContainer>
         <BottomButton
-          onClick={() => {
-            canGoNext ? onClickNext() : null;
-          }}
+          onClick={onClickNext}
           text={'로그인'}
           isActivated={canGoNext}
         />
