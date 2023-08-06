@@ -6,7 +6,7 @@ export const ROUTES = {
   INVITE: '/invite',
   LOGIN: '/login',
   CURRENT: '/current',
-  ADD_TIME: '/add',
+  ADD_TIME: '/addTime',
   RESULT: '/result',
   ERROR: '/error',
 };
