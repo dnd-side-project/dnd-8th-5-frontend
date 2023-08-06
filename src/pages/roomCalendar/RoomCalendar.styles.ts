@@ -34,9 +34,9 @@ export const Line = styled.img`
   padding-inline: 20px;
 `;
 
-export const TimePickerContainer = styled.div<{ weekLow: number }>`
+export const TimePickerContainer = styled.div<{ numCalendarLows: number }>`
   position: absolute;
-  top: ${({ weekLow }) => (weekLow === 6 ? '450px' : '500px')};
+  top: ${({ numCalendarLows }) => (numCalendarLows === 6 ? '450px' : '500px')};
   left: 20px;
   width: calc(100vw - 40px);
   max-width: 372px;
@@ -73,11 +73,11 @@ export const DependingBox = styled.div`
   background-color: rgba(256, 256, 256, 0.6);
 `;
 
-export const CheckBoxContainer = styled.div<{ weekLow: number }>`
+export const CheckBoxContainer = styled.div<{ numCalendarLows: number }>`
   position: absolute;
   width: 100%;
   height: 200px;
-  top: ${({ weekLow }) => (weekLow === 6 ? '575px' : '625px')};
+  top: ${({ numCalendarLows }) => (numCalendarLows === 6 ? '575px' : '625px')};
   padding: 20px;
   padding-bottom: 50px;
 `;

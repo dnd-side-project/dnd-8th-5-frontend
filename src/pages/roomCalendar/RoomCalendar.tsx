@@ -27,7 +27,7 @@ const RoomCalendar = () => {
   const [endTime, setEndTime] = useState('18:00');
   const [dates, setDates] = useState<string[]>([]);
   const [month, setMonth] = useState<string>('');
-  const [weekLow, setWeekLow] = useState<number>(0);
+  const [numCalendarLows, setNumCalendarLows] = useState<number>(0);
 
   const [recoilRoom, setRecoilRoom] = useRecoilState(createRoomAtoms);
 
@@ -56,7 +56,7 @@ const RoomCalendar = () => {
       '.rmdp-day-picker div'
     ) as HTMLElement;
     if (element) {
-      setWeekLow(element.children.length);
+      setNumCalendarLows(element.children.length);
     }
   });
 
@@ -72,7 +72,7 @@ const RoomCalendar = () => {
 
       <Calendar dates={dates} setDates={setDates} setMonth={setMonth} />
 
-      <TimePickerContainer weekLow={weekLow}>
+      <TimePickerContainer numCalendarLows={numCalendarLows}>
         <TimePickerWrapper>
           <TimePicker
             startTime={startTime}
@@ -84,7 +84,7 @@ const RoomCalendar = () => {
         <GreyBox />
         {isCheckedBox ? <DependingBox /> : null}
       </TimePickerContainer>
-      <CheckBoxContainer weekLow={weekLow}>
+      <CheckBoxContainer numCalendarLows={numCalendarLows}>
         <Checkbox
           text="시간 조율 없이 약속 날짜만 알고 싶어요"
           value={isCheckedBox}
