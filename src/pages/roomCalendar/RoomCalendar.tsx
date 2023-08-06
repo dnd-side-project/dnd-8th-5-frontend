@@ -34,6 +34,10 @@ const RoomCalendar = () => {
   const naviate = useNavigate();
 
   const handleNextClick = useCallback(async () => {
+    if (dates.length == 0) {
+      return;
+    }
+
     if (isCheckedBox) {
       setStartTime('09:00');
       setEndTime('09:00');
