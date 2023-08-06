@@ -11,13 +11,3 @@ export const MainContainer = styled.div`
   background-size: cover;
   background-position: center;
 `;
-
-export const BottomButton = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 90px;
-  background-color: ${(props) => props.theme.colors.gray01};
-  display: flex;
-`;
