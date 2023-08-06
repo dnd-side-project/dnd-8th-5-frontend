@@ -11,8 +11,11 @@ import Login from './pages/login/Login';
 import Result from './pages/result/Result';
 import Invite from './pages/invite/Invite';
 import Error from './pages/error404/error';
+import useScrollToTop from './hooks/useScrollToTop';
 
 function App() {
+  useScrollToTop();
+
   return (
     <Routes>
       <Route path="/" element={<Start />} />
