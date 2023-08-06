@@ -14,12 +14,9 @@ export const MainContainer = styled.div`
   margin: 0 auto;
   overflow-x: hidden;
   overflow-y: hidden;
-  /* ::-webkit-scrollbar {
-    display: none;
-  } */
 
   @media (max-height: 780px) {
-    height: calc(100vh + 50px);
+    height: calc(100vh + 110px);
   }
 `;
 
