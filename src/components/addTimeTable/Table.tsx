@@ -50,13 +50,15 @@ const Table = ({
   }, [selectedMethod, isResetButtonClick]);
 
   const handleCellSelect = (e: any) => {
-    e.added.forEach((el: any) => {
-      el.classList.add('selected');
-    });
+    if (e.inputEvent.type !== 'touchstart') {
+      e.added.forEach((el: any) => {
+        el.classList.add('selected');
+      });
 
-    e.removed.forEach((el: any) => {
-      el.classList.remove('selected');
-    });
+      e.removed.forEach((el: any) => {
+        el.classList.remove('selected');
+      });
+    }
   };
 
   const addSelectedToObject = () => {
@@ -70,15 +72,19 @@ const Table = ({
     setSelected(newObj);
   };
 
-  const handleClickOneElement = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleClickOneElement = (
+    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+  ) => {
     const target = e.target as HTMLDivElement;
 
-    if (target.classList.contains('valid')) {
-      if (target.classList.contains('selected')) {
-        target.classList.remove('selected');
-      } else {
-        target.classList.add('selected');
-        addSelectedToObject();
+    if (e.type === 'click') {
+      if (target.classList.contains('valid')) {
+        if (target.classList.contains('selected')) {
+          target.classList.remove('selected');
+        } else {
+          target.classList.add('selected');
+          addSelectedToObject();
+        }
       }
     }
   };
@@ -122,11 +128,13 @@ const Table = ({
                 selectFromInside={true}
                 continueSelect={true}
                 continueSelectWithoutDeselect={false}
+                selectByClick={false}
                 ratio={0}
               />
               {timeDetail.map((time) => (
                 <Select
-                  onMouseUp={handleClickOneElement}
+                  onClick={handleClickOneElement}
+                  onTouchStart={handleClickOneElement}
                   className={isValidDate ? 'valid' : 'invalid'}
                   key={`${date} ${time}:00`}
                   id={`${date} ${time}`}
