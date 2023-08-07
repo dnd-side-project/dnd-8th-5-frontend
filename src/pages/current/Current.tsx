@@ -103,10 +103,13 @@ const Current = () => {
               <ParticipantsBlock key={participant} participant={participant} />
             ))}
 
-          {headCount &&
-            (participants.length < headCount ? (
-              <ParticipantsBlock participant={'?'} />
-            ) : null)}
+          {headCount
+            ? participants.length < headCount && (
+                <ParticipantsBlock participant={'?'} />
+              )
+            : participants.length === 0 && (
+                <ParticipantsBlock participant={'?'} />
+              )}
         </Participants>
       </Body>
 
