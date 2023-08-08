@@ -1,5 +1,5 @@
 export interface BottomButtonType {
-  navigate: any;
+  onClick?: () => void;
   text: string;
   isActivated: boolean;
 }
