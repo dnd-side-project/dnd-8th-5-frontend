@@ -1,11 +1,11 @@
 import { MainContainer, IndexText, TitleText } from './RoomHeader.styles';
-interface RoomHeader {
+interface RoomHeaderTypes {
   index: string;
   title: string;
   bottomSheet: boolean;
 }
 
-const RoomHeader = ({ index, title, bottomSheet }: RoomHeader) => {
+const RoomHeader = ({ index, title, bottomSheet }: RoomHeaderTypes) => {
   return (
     <MainContainer>
       <IndexText>{index}</IndexText>
