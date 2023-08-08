@@ -34,6 +34,11 @@ const Table = ({
 
   useEffect(() => {
     if (selected[tablePage]) {
+      const selectedElements = document.querySelectorAll('.selected');
+      selectedElements.forEach((element) => {
+        element.classList.remove('selected');
+      });
+
       selected[tablePage].forEach((id) => {
         const element = document.getElementById(id);
         element?.classList.add('selected');
