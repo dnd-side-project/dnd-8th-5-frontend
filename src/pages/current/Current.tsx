@@ -125,7 +125,7 @@ const Current = () => {
       <Border />
 
       <Body>
-        <Title>실시간 조율 현황</Title>
+        <Title>실시간 등록 현황</Title>
         {isTableView ? (
           <TableWrapper>
             <Table
