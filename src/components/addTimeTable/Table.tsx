@@ -15,6 +15,7 @@ import {
 } from './Table.styles';
 import { TableType } from './AddTimeTable.types';
 import Selecto from 'react-selecto';
+import { getTableDateFormat } from '../../utils/getTableDateFormat';
 
 const Table = ({
   contentRef,
@@ -33,6 +34,11 @@ const Table = ({
 
   useEffect(() => {
     if (selected[tablePage]) {
+      const selectedElements = document.querySelectorAll('.selected');
+      selectedElements.forEach((element) => {
+        element.classList.remove('selected');
+      });
+
       selected[tablePage].forEach((id) => {
         const element = document.getElementById(id);
         element?.classList.add('selected');
@@ -99,10 +105,9 @@ const Table = ({
               date.slice(0, 5) === 'blank' ? (
                 <Date key={date} isValidDate={isValidDate} />
               ) : (
-                <Date key={date} isValidDate={isValidDate}>{`${date.slice(
-                  5,
-                  7
-                )}월${date.slice(8, 10)}일`}</Date>
+                <Date key={date} isValidDate={isValidDate}>
+                  {getTableDateFormat(date)}
+                </Date>
               )
           )}
         </DateWrapper>
@@ -137,7 +142,7 @@ const Table = ({
                   onTouchStart={handleClickOneElement}
                   className={isValidDate ? 'valid' : 'invalid'}
                   key={`${date} ${time}:00`}
-                  id={`${date} ${time}`}
+                  id={`${date.slice(0, 10)} ${time}`}
                   selectedMethod={selectedMethod}
                   isValidDate={isValidDate}
                 />

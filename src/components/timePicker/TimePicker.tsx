@@ -7,13 +7,11 @@ import {
 } from './TimePicker.styles';
 
 interface Current {
-  startTime: string;
-  endTime: string;
   setStartTime: React.Dispatch<React.SetStateAction<string>>;
   setEndTime: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Current = ({ startTime, endTime, setStartTime, setEndTime }: Current) => {
+const Current = ({ setStartTime, setEndTime }: Current) => {
   const START_TIME_ARRAY = [
     '09:00',
     '10:00',
@@ -100,23 +98,15 @@ const Current = ({ startTime, endTime, setStartTime, setEndTime }: Current) => {
   return (
     <MainContainer>
       <StyledSlider {...settings('start')}>
-        {START_TIME_ARRAY.map((time: string) => {
-          return (
-            <div key={time}>
-              <TimeText>{time}</TimeText>
-            </div>
-          );
-        })}
+        {START_TIME_ARRAY.map((time: string) => (
+          <TimeText key={time}>{time}</TimeText>
+        ))}
       </StyledSlider>
       <TextContainer>부터</TextContainer>
       <StyledSlider {...settings('end')}>
-        {END_TIME_ARRAY.map((time: string) => {
-          return (
-            <div key={time}>
-              <TimeText>{time}</TimeText>
-            </div>
-          );
-        })}
+        {END_TIME_ARRAY.map((time: string) => (
+          <TimeText key={time}>{time}</TimeText>
+        ))}
       </StyledSlider>
       <TextContainer>까지</TextContainer>
     </MainContainer>

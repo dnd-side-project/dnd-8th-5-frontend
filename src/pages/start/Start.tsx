@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { BottomButton, MainContainer } from './start.styles';
+import { BottomButton, MainContainer } from './Start.styles';
 
 const StartPage = () => {
   return (

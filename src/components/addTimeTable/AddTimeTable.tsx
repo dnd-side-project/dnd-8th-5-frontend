@@ -44,9 +44,6 @@ const AddTimeTable = ({
   const userName = localStorage.getItem('userName') || '';
 
   const [tablePage, setTablePage] = useState(0);
-  const [previousSelectedTimes, setPreviousSelectedTimes] = useState<string[]>(
-    []
-  );
 
   const validDateChunks = getAddTimeTableInfo(dates);
   const timeRange = getTimeRange(startTime, endTime);
@@ -69,7 +66,23 @@ const AddTimeTable = ({
 
   useEffect(() => {
     if (data) {
-      setPreviousSelectedTimes(data.availableDateTimes);
+      const newObj: TableSelectedTypes = {};
+
+      data.availableDateTimes.forEach((time: string) => {
+        validDateChunks.map((chunk, index) => {
+          chunk.map((date) => {
+            if (date.date.slice(0, 10) === time.slice(0, 10)) {
+              if (newObj[index] === undefined) {
+                newObj[index] = [time];
+              } else {
+                newObj[index].push(time);
+              }
+            }
+          });
+        });
+      });
+
+      setSelected(newObj);
     }
   }, [data]);
 
@@ -79,26 +92,6 @@ const AddTimeTable = ({
       wrapperRef.current.style.overflow = 'hidden';
     }
   }, []);
-
-  useEffect(() => {
-    const newObj: TableSelectedTypes = {};
-
-    previousSelectedTimes.forEach((time) => {
-      validDateChunks.map((chunk, index) => {
-        chunk.map((date) => {
-          if (date.date === time.slice(0, 10)) {
-            if (newObj[index] === undefined) {
-              newObj[index] = [time];
-            } else {
-              newObj[index].push(time);
-            }
-          }
-        });
-      });
-    });
-
-    setSelected(newObj);
-  }, [previousSelectedTimes]);
 
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {

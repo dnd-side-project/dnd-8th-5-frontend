@@ -15,12 +15,8 @@ export const getAddTimeTableInfo = (dates: string[]) => {
     extra = 1;
   }
 
-  // let newDates: string[] = dates.map((date) =>
-  //   dayjs(date).locale('ko').format('YYYY-MM-DD dddd').toString()
-  // );
-
   let newDates: string[] = dates.map((date) =>
-    dayjs(date).format('YYYY-MM-DD').toString()
+    dayjs(date).locale('ko').format('YYYY-MM-DD dddd').toString()
   );
 
   for (let i = 0; i < extra; i++) {

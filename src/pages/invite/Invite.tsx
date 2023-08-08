@@ -94,10 +94,10 @@ const Invite = () => {
         </LowerBoxWrapper>
       </BoxWrapper>
 
-      <BottomButton onClick={() => handleStartButtonClick()}>
-        입장하기
+      <BottomButton onClick={handleStartButtonClick}>
+        일정 등록하기
       </BottomButton>
-      <BottomSubButton onClick={() => handleSubButtonClick()}>
+      <BottomSubButton onClick={handleSubButtonClick}>
         등록 현황 보러가기
       </BottomSubButton>
     </MainContainer>
