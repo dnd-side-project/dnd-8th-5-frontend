@@ -17,7 +17,7 @@ export const BottomButtonContainer = styled.div`
 
 export const Wrapper = styled.button<{ isActivated: boolean }>`
   width: calc(100% - 40px);
-  max-width: 375px;
+  max-width: 412px;
   height: 52px;
   margin: 0 auto;
 
