@@ -36,6 +36,7 @@ import { RoomTypes } from '../../types/roomInfo';
 
 import { initialRoomInfoData } from '../../assets/data/initialRoomInfoData';
 import { ROUTES } from '../../constants/ROUTES';
+import dayjs from 'dayjs';
 
 const Current = () => {
   const navigate = useNavigate();
@@ -85,6 +86,14 @@ const Current = () => {
     navigate(`${ROUTES.RESULT}/${roomUUID}`);
   };
 
+  const getFormattedDateArray = (dates: string[]) => {
+    const newDates = dates.map((date) =>
+      dayjs(date).locale('ko').format('YYYY-MM-DD dddd').toString()
+    );
+
+    return newDates;
+  };
+
   return (
     <Wrapper>
       <Header pageName={ROUTES.CURRENT} title={title} />
@@ -120,7 +129,11 @@ const Current = () => {
         {isTableView ? (
           <TableWrapper>
             <Table
-              dates={dates.length < 4 ? getFourChunks(dates) : dates}
+              dates={
+                dates.length < 4
+                  ? getFourChunks(getFormattedDateArray(dates))
+                  : getFormattedDateArray(dates)
+              }
               startTime={startTime}
               endTime={endTime}
               participants={participants}
