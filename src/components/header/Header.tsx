@@ -31,16 +31,15 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
           <Icon src={headerMenu} alt="menu" onClick={handleMenuClick} />
         )}
 
-        {pageName === ROUTES.ADD_TIME ||
-          (pageName === ROUTES.RESULT && (
-            <Icon
-              src={headerInfo}
-              alt="share"
-              onClick={() => setIsTooltipShown(true)}
-            />
-          ))}
+        {pageName === ROUTES.ADD_TIME && (
+          <Icon
+            src={headerInfo}
+            alt="share"
+            onClick={() => setIsTooltipShown(true)}
+          />
+        )}
 
-        {pageName === ROUTES.CURRENT && (
+        {(pageName === ROUTES.CURRENT || pageName === ROUTES.RESULT) && (
           <CopyToClipboard
             text={`${window.location.origin}/invite/${roomUUID}`}
             onCopy={() => alert('클립보드에 복사되었습니다.')}
