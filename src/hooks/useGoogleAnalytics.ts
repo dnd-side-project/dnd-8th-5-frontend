@@ -6,9 +6,13 @@ const useGoogleAnalytics = () => {
   const location = useLocation();
   const [isInitialized, setIsInitialized] = useState<boolean>(false);
 
+  const TRACKING_ID = process.env.REACT_APP_GA_TRACKING_ID;
+
   useEffect(() => {
-    ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID as string);
-    setIsInitialized(true);
+    if (TRACKING_ID) {
+      ReactGA.initialize(TRACKING_ID);
+      setIsInitialized(true);
+    }
   }, []);
 
   useEffect(() => {
