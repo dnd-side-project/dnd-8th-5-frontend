@@ -10,8 +10,11 @@ import Timer from './pages/roomTimer/RoomTimer';
 import Login from './pages/login/Login';
 import Result from './pages/result/Result';
 import Invite from './pages/invite/Invite';
+import useGoogleAnalytics from './hooks/useGoogleAnalytics';
 
 function App() {
+  useGoogleAnalytics();
+
   return (
     <Routes>
       <Route path="/" element={<Start />} />
