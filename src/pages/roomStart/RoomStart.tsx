@@ -5,8 +5,11 @@ import BottomButton from '../../components/bottomButton/BottomButton';
 
 import plus from '../../assets/icons/plus.png';
 import minus from '../../assets/icons/minus.png';
+import roomStart from '../../assets/images/roomStart.webp';
+
 import {
   MainContainer,
+  Logo,
   FormContainer,
   Header,
   TitleInputContnainer,
@@ -106,6 +109,7 @@ const Room = () => {
 
   return (
     <MainContainer>
+      <Logo src={roomStart} alt="room start logo" />
       <FormContainer>
         <Header>어떤 약속인가요?</Header>
 

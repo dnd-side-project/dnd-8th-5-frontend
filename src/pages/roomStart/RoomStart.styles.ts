@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import theme from '../../styles/theme';
-import roomStartBack from '../../assets/images/roomStartBack.webp';
 import { css } from '@emotion/react';
 
 export const MainContainer = styled.div`
@@ -9,12 +8,16 @@ export const MainContainer = styled.div`
   position: relative;
   left: 0;
   right: 0;
-  height: calc(100vh + 90px);
-  background-image: url(${roomStartBack});
-  background-size: cover;
+  height: calc(100vh);
+  background: ${theme.colors.purple05};
   margin: 0 auto;
   overflow-x: hidden;
   overflow-y: hidden;
+`;
+
+export const Logo = styled.img`
+  width: 100%;
+  position: relative;
 `;
 
 export const FormContainer = styled.div`
