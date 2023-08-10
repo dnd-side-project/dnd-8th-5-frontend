@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
 import {
   Blank,
   Bottom,
@@ -11,13 +14,12 @@ import {
   Wrapper,
 } from './Table.styles';
 
-import { useEffect, useState } from 'react';
-import { AvailableDateTimeTypes } from '../../types/current';
-import { useParams } from 'react-router-dom';
-import { getTimeRange } from '../../utils/getTimeRange';
-import { getCurrentTableInfo } from '../../utils/getCurrentTableInfo';
-import { useGetAvailableTimesByGroup } from '../../queries/availableTimes/useGetAvailableTimesByGroup';
-import { getTableDateFormat } from '../../utils/getTableDateFormat';
+import { AvailableDateTimeTypes } from '@/types/current';
+
+import { getTimeRange } from '@/utils/getTimeRange';
+import { getTableDateFormat } from '@/utils/getTableDateFormat';
+import { getCurrentTableInfo } from '@/utils/getCurrentTableInfo';
+import { useGetAvailableTimesByGroup } from '@/queries/availableTimes/useGetAvailableTimesByGroup';
 
 interface TableTypes {
   dates: string[];

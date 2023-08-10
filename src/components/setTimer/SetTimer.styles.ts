@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Slider from 'react-slick';
-import theme from '../../styles/theme';
+import theme from '@/styles/theme';
 
 export const MainContainer = styled.div`
   position: relative;

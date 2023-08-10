@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import RoomHeader from '../roomHeader/RoomHeader';
-import clipBoard from '../../assets/icons/clipBoard.png';
+import clipBoard from '@/assets/icons/clipBoard.png';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import headerRabbit from '../../assets/images/headerRabbit.png';
+import headerRabbit from '@/assets/images/headerRabbit.png';
 
 import {
   BottomSheetComponent,

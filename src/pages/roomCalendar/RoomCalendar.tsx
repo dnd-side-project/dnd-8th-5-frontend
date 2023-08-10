@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
-import Calendar from '../../components/calendar/Calendar';
-import RoomHeader from '../../components/roomHeader/RoomHeader';
-import line from '../../assets/images/line.png';
-import TimePicker from '../../components/timePicker/TimePicker';
-import Checkbox from '../../components/checkbox/CheckBox';
-import BottomButton from '../../components/bottomButton/BottomButton';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+
+import { createRoomAtoms } from '@/atoms/createRoomAtoms';
+
 import {
   CheckBoxContainer,
   DependingBox,
@@ -15,9 +14,13 @@ import {
   TimePickerContainer,
   TimePickerWrapper,
 } from './RoomCalendar.styles';
-import { useRecoilState } from 'recoil';
-import { createRoomAtoms } from '../../atoms/createRoomAtoms';
-import { useNavigate } from 'react-router-dom';
+import line from '@/assets/images/line.png';
+
+import Checkbox from '@components/checkbox/CheckBox';
+import Calendar from '@components/calendar/Calendar';
+import RoomHeader from '@components/roomHeader/RoomHeader';
+import TimePicker from '@components/timePicker/TimePicker';
+import BottomButton from '@components/bottomButton/BottomButton';
 
 const RoomCalendar = () => {
   const navigate = useNavigate();

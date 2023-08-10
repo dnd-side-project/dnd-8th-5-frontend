@@ -1,7 +1,4 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import home from '../../assets/icons/home.svg';
-import shareResult from '../../assets/icons/shareResult.svg';
-import resultBubble from '../../assets/images/resultBubble.png';
 
 import {
   BottomButton,
@@ -12,7 +9,11 @@ import {
   ShareButton,
   Wrapper,
 } from './ResultButton.styles';
-import { ROUTES } from '../../constants/ROUTES';
+import home from '@/assets/icons/home.svg';
+import shareResult from '@/assets/icons/shareResult.svg';
+import resultBubble from '@/assets/images/resultBubble.png';
+
+import { ROUTES } from '@/constants/ROUTES';
 
 const ResultButton = () => {
   const { roomUUID } = useParams();

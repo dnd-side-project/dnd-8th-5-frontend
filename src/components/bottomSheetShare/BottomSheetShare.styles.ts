@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { BottomSheet } from 'react-spring-bottom-sheet';
-import theme from '../../styles/theme';
+import theme from '@/styles/theme';
 
 export const BottomSheetComponent = styled(BottomSheet)`
   [data-rsbs-overlay] {

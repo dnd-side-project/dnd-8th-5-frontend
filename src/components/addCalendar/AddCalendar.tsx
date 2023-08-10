@@ -3,12 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import _ from 'lodash';
 import dayjs from 'dayjs';
 
-import calendarNextMonth from '../../assets/icons/calendarNextMonth.svg';
-import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
+import calendarNextMonth from '@/assets/icons/calendarNextMonth.svg';
+import calendarPrevMonth from '@/assets/icons/calendarPrevMonth.svg';
 
-import { useGetAvailableTimesByOne } from '../../queries/availableTimes/useGetAvailableTimesByOne';
-import { usePutAvailableTimes } from '../../queries/availableTimes/usePutAvailableTimes';
-import { ROUTES } from '../../constants/ROUTES';
+import { useGetAvailableTimesByOne } from '@/queries/availableTimes/useGetAvailableTimesByOne';
+import { usePutAvailableTimes } from '@/queries/availableTimes/usePutAvailableTimes';
+import { ROUTES } from '@/constants/ROUTES';
 
 import {
   Wrapper,

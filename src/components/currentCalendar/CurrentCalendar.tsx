@@ -1,18 +1,18 @@
-import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 import {
   NextMonthIcon,
   PrevMonthIcon,
   StyledCalendar,
 } from './CurrentCalendar.styles';
-import calendarNextMonth from '../../assets/icons/calendarNextMonth.svg';
-import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
+import theme from '@/styles/theme';
+import calendarNextMonth from '@/assets/icons/calendarNextMonth.svg';
+import calendarPrevMonth from '@/assets/icons/calendarPrevMonth.svg';
 
-import theme from '../../styles/theme';
-import { AvailableDateTimeTypes } from '../../types/current';
-import { useParams } from 'react-router-dom';
-import { useGetAvailableTimesByGroup } from '../../queries/availableTimes/useGetAvailableTimesByGroup';
+import { AvailableDateTimeTypes } from '@/types/current';
+import { useGetAvailableTimesByGroup } from '@/queries/availableTimes/useGetAvailableTimesByGroup';
 
 interface CurrentCalendarTypes {
   participants: string[];

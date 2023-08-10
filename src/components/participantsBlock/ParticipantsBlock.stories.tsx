@@ -1,6 +1,6 @@
 import ParticipantsBlock from './ParticipantsBlock';
 import { Story } from '@storybook/react';
-import { participant } from '../../types/roomInfo';
+import { participant } from '@/types/roomInfo';
 
 export default {
   title: '조율 현황/Participants Block',

@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { RoomTypes } from '../types/roomInfo';
+import { RoomTypes } from '@/types/roomInfo';
 
 export const roomState = atom<RoomTypes>({
   key: 'roomState',

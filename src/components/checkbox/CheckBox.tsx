@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
-import uncheckdBox from '../../assets/icons/uncheckdBox.png';
-import checkedBox from '../../assets/icons/checkedBox.png';
+import uncheckdBox from '@/assets/icons/uncheckdBox.png';
+import checkedBox from '@/assets/icons/checkedBox.png';
 import { MainContainer, TextWrapper, Icon } from './CheckBox.styles';
 
 interface Checkbox {

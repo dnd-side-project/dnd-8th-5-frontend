@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import theme from '../../styles/theme';
-import { slideUpAnimation } from '../../utils/slideAnimation';
+import theme from '@/styles/theme';
+import { slideUpAnimation } from '@/utils/slideAnimation';
 
 export const Overlay = styled.div`
   width: 100vw;

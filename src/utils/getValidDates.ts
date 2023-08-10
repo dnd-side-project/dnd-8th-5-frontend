@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { roomState } from '../atoms/roomAtoms';
+import { roomState } from '@/atoms/roomAtoms';
 
 interface ValidDate {
   date: string;

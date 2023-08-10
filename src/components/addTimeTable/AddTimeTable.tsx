@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useScroll } from '../../hooks/useScroll';
+import { useScroll } from '@/hooks/useScroll';
 import _ from 'lodash';
 
 import {

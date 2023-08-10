@@ -1,6 +1,6 @@
 import ProgressBar from './ProgressBar';
 import { Story } from '@storybook/react';
-import { currentParticipants } from '../../types/roomInfo';
+import { currentParticipants } from '@/types/roomInfo';
 
 export default {
   title: '조율 현황/Progress Bar',

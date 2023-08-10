@@ -1,11 +1,11 @@
-import Header from '../../components/header/Header';
-import ParticipantsBlock from '../../components/participantsBlock/ParticipantsBlock';
-import ProgressBar from '../../components/progressBar/ProgressBar';
-import Table from '../../components/table/Table';
-import BottomButton from '../../components/bottomButton/BottomButton';
-import Timer from '../../components/timer/Timer';
+import Timer from '@components/timer/Timer';
+import Table from '@components/table/Table';
+import Header from '@components/header/Header';
+import ProgressBar from '@components/progressBar/ProgressBar';
+import BottomButton from '@components/bottomButton/BottomButton';
+import ParticipantsBlock from '@components/participantsBlock/ParticipantsBlock';
 
-import edit from '../../assets/icons/edit.svg';
+import edit from '@/assets/icons/edit.svg';
 
 import {
   Body,

@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useParams } from 'react-router-dom';
-import { isTooltipShownState } from '../../atoms/isTooltipShownAtoms';
+import { isTooltipShownState } from '@/atoms/isTooltipShownAtoms';
 
 import Menu from '../menu/Menu';
-import { ROUTES } from '../../constants/ROUTES';
-import share from '../../assets/icons/share.svg';
-import headerMenu from '../../assets/icons/headerMenu.svg';
-import headerInfo from '../../assets/icons/headerInfo.svg';
+import { ROUTES } from '@/constants/ROUTES';
+import share from '@/assets/icons/share.svg';
+import headerMenu from '@/assets/icons/headerMenu.svg';
+import headerInfo from '@/assets/icons/headerInfo.svg';
 import { Icon, IconWrapper, Title, Wrapper } from './Header.styles';
 
 import CopyToClipboard from 'react-copy-to-clipboard';

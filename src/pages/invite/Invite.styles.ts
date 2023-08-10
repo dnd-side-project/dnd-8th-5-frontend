@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import theme from '../../styles/theme';
-import inviteBack from '../../assets/images/inviteBack.webp';
+import theme from '@/styles/theme';
+import inviteBack from '@/assets/images/inviteBack.webp';
 
 export const MainContainer = styled.div`
   width: 100%;

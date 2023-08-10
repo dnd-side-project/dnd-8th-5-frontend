@@ -1,9 +1,8 @@
 import { MouseEvent, Dispatch, SetStateAction } from 'react';
 
-import { Check, List, ListWrapper } from './SortTimes.styles';
-
-import sortCheck from '../../../assets/icons/sortCheck.svg';
 import { Wrapper } from '../index.styles';
+import { Check, List, ListWrapper } from './SortTimes.styles';
+import sortCheck from '@/assets/icons/sortCheck.svg';
 
 interface QueryString {
   name: string;
