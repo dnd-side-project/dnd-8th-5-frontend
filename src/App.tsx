@@ -10,10 +10,13 @@ import Timer from './pages/roomTimer/RoomTimer';
 import Login from './pages/login/Login';
 import Result from './pages/result/Result';
 import Invite from './pages/invite/Invite';
+import Error from './pages/404/404';
+import useScrollToTop from './hooks/useScrollToTop';
 import useGoogleAnalytics from './hooks/useGoogleAnalytics';
 
 function App() {
   useGoogleAnalytics();
+  useScrollToTop();
 
   return (
     <Routes>
@@ -26,6 +29,8 @@ function App() {
       <Route path={`${ROUTES.CURRENT}/:roomUUID`} element={<Current />} />
       <Route path={`${ROUTES.ADD_TIME}/:roomUUID`} element={<AddTime />} />
       <Route path={`${ROUTES.RESULT}/:roomUUID`} element={<Result />} />
+      <Route path={`${ROUTES.ERROR}`} element={<Error />} />
+      <Route path="*" element={<Error />} />
     </Routes>
   );
 }

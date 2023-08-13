@@ -18,6 +18,7 @@ import {
 import { useRecoilState } from 'recoil';
 import { createRoomAtoms } from '../../atoms/createRoomAtoms';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../constants/ROUTES';
 
 const RoomCalendar = () => {
   const navigate = useNavigate();
@@ -27,6 +28,8 @@ const RoomCalendar = () => {
   const [startTime, setStartTime] = useState<string>('09:00');
   const [endTime, setEndTime] = useState<string>('18:00');
   const [dates, setDates] = useState<string[]>([]);
+  const [month, setMonth] = useState<string>('');
+  const [numCalendarLows, setNumCalendarLows] = useState<number>(0);
 
   const [, setRecoilRoom] = useRecoilState(createRoomAtoms);
 
@@ -44,7 +47,7 @@ const RoomCalendar = () => {
     }));
 
     if (isActivated) {
-      navigate('/roomTimer');
+      navigate(`${ROUTES.ROOM_TIMER}`);
     }
   };
 
@@ -56,6 +59,15 @@ const RoomCalendar = () => {
     }
   }, [dates, startTime, endTime]);
 
+  useEffect(() => {
+    const element = document.querySelector(
+      '.rmdp-day-picker div'
+    ) as HTMLElement;
+    if (element) {
+      setNumCalendarLows(element.children.length);
+    }
+  });
+
   return (
     <MainContainer>
       <HeaderContainer>
@@ -66,24 +78,22 @@ const RoomCalendar = () => {
         />
       </HeaderContainer>
 
-      <Calendar dates={dates} setDates={setDates} />
+      <Calendar dates={dates} setDates={setDates} setMonth={setMonth} />
 
-      <Line src={line} />
-      <TimePickerContainer>
+      <TimePickerContainer numCalendarLows={numCalendarLows}>
         <TimePickerWrapper>
           <TimePicker setStartTime={setStartTime} setEndTime={setEndTime} />
         </TimePickerWrapper>
         <GreyBox />
         {isCheckedBox ? <DependingBox /> : null}
       </TimePickerContainer>
-      <CheckBoxContainer>
+      <CheckBoxContainer numCalendarLows={numCalendarLows}>
         <Checkbox
           text="시간 조율 없이 약속 날짜만 알고 싶어요"
           value={isCheckedBox}
           setValue={setIsCheckedBox}
         />
       </CheckBoxContainer>
-
       <BottomButton
         text="다음"
         isActivated={isActivated}

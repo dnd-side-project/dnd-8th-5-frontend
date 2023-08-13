@@ -137,9 +137,11 @@ const Login = () => {
             <TextWrapper>정보 저장</TextWrapper>
           </RightWrapper>
         </CheckBoxContainer>
-        <BottomButtonContainer onClick={onClickNext}>
-          <BottomButton text={'로그인'} isActivated={canGoNext} />
-        </BottomButtonContainer>
+        <BottomButton
+          onClick={onClickNext}
+          text={'로그인'}
+          isActivated={canGoNext}
+        />
       </FormContainer>
     </MainContainer>
   );

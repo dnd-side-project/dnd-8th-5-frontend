@@ -8,4 +8,5 @@ export const ROUTES = {
   CURRENT: '/current',
   ADD_TIME: '/addTime',
   RESULT: '/result',
+  ERROR: '/error',
 };
