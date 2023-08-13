@@ -1,6 +1,6 @@
-import menuFavicon from '../../assets/icons/menuFavicon.png';
-import menuPlus from '../../assets/icons/menuPlus.svg';
-import menuExit from '../../assets/images/menuExit.png';
+import menuFavicon from '@/assets/icons/menuFavicon.png';
+import menuPlus from '@/assets/icons/menuPlus.svg';
+import menuExit from '@/assets/images/menuExit.png';
 
 import { useNavigate } from 'react-router-dom';
 import {

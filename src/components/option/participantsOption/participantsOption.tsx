@@ -8,6 +8,7 @@ import {
   RefreshIcon,
 } from './participantsOption.styles';
 import { Wrapper } from '../index.styles';
+import refresh from '@/assets/icons/refresh.svg';
 
 import {
   Participants,
@@ -15,7 +16,6 @@ import {
 } from './participantsOption.types';
 
 import Participant from './Pariticipant';
-import refresh from '../../../assets/icons/refresh.svg';
 
 const ParticipantsOption = ({
   setIsParticipantOpened,

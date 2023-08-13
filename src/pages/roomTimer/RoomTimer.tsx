@@ -1,9 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import BottomButton from '../../components/bottomButton/BottomButton';
-import Checkbox from '../../components/checkbox/CheckBox';
-import RoomHeader from '../../components/roomHeader/RoomHeader';
-import Timer from '../../components/setTimer/SetTimer';
+import { useNavigate } from 'react-router-dom';
+import { createRoomAtoms, createRoomInfoState } from '@/atoms/createRoomAtoms';
 
 import {
   BottomButtonContainer,
@@ -19,13 +17,13 @@ import {
   TimerContainr,
   TImerWrapper,
 } from './RoomTimer.styles';
-import { useNavigate } from 'react-router-dom';
-import { useCreateRoom } from '../../queries/room/useCreateRoom';
-import {
-  createRoomAtoms,
-  createRoomInfoState,
-} from '../../atoms/createRoomAtoms';
-import { ROUTES } from '../../constants/ROUTES';
+import Timer from '@/components/setTimer/SetTimer';
+import Checkbox from '@components/checkbox/CheckBox';
+import RoomHeader from '@components/roomHeader/RoomHeader';
+import BottomButton from '@components/bottomButton/BottomButton';
+
+import { ROUTES } from '@/constants/ROUTES';
+import { useCreateRoom } from '@/queries/room/useCreateRoom';
 
 const TimerPage = () => {
   const navigate = useNavigate();

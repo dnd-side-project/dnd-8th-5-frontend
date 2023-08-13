@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import {
   FormContainer,
   HeaderContainer,
@@ -15,20 +17,19 @@ import {
   TextWrapper,
   BottomButtonContainer,
 } from './Login.styles';
-import useInputs from '../../hooks/useFormInput';
-import useInputScroll from '../../hooks/useInputScroll';
-import { useNavigate, useParams } from 'react-router-dom';
-import BottomButton from '../../components/bottomButton/BottomButton';
+import BottomButton from '@components/bottomButton/BottomButton';
 
-import uncheckedbox from '../../assets/icons/uncheckdBox.png';
-import checkedBox from '../../assets/icons/checkedBox.png';
+import useInputs from '@/hooks/useFormInput';
+import useInputScroll from '@/hooks/useInputScroll';
 
-import { RoomTypes } from '../../types/roomInfo';
-import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
-import { usePostUserInfo } from '../../queries/auth/usePostUserInfo';
+import { ROUTES } from '@/constants/ROUTES';
+import checkedBox from '@/assets/icons/checkedBox.png';
+import uncheckedbox from '@/assets/icons/uncheckdBox.png';
+import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 
-import { initialRoomInfoData } from '../../assets/data/initialRoomInfoData';
-import { ROUTES } from '../../constants/ROUTES';
+import { RoomTypes } from '@/types/roomInfo';
+import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
+import { usePostUserInfo } from '@/queries/auth/usePostUserInfo';
 
 const Login = () => {
   const { roomUUID } = useParams() as { roomUUID: string };

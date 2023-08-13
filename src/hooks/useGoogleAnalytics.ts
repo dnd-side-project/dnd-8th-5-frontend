@@ -6,7 +6,7 @@ const useGoogleAnalytics = () => {
   const location = useLocation();
   const [isInitialized, setIsInitialized] = useState<boolean>(false);
 
-  const TRACKING_ID = process.env.REACT_APP_GA_TRACKING_ID;
+  const TRACKING_ID = import.meta.env.VITE_GA_TRACKING_ID;
 
   useEffect(() => {
     if (TRACKING_ID) {

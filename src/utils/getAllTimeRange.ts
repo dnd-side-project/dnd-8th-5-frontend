@@ -4,7 +4,8 @@ import { getValidDates } from './getValidDates';
 
 export const getAllTimeRange = (dates: string[], times: number[]) => {
   const validDates = getValidDates(
-    getDateRange(dates[0], dates[dates.length - 1])
+    getDateRange(dates[0], dates[dates.length - 1]),
+    dates
   );
 
   const timeDetail = getTimeArray(times);

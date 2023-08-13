@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { QUERY_KEYS } from '../../constants/QUERY_KEYS';
-import { getCandidateTimesInfo } from '../../api/result';
+import { getCandidateTimesInfo } from '@/api/result';
+import { QUERY_KEYS } from '@/constants/QUERY_KEYS';
 
 export const useGetCandidateTimes = (
   roomUUID: string,

@@ -1,11 +1,11 @@
 import { SetStateAction, useCallback, useState, useRef } from 'react';
 
-import CheckBox from '../../components/checkbox/CheckBox';
-import BottomButton from '../../components/bottomButton/BottomButton';
+import CheckBox from '@components/checkbox/CheckBox';
+import BottomButton from '@components/bottomButton/BottomButton';
 
-import plus from '../../assets/icons/plus.png';
-import minus from '../../assets/icons/minus.png';
-import roomStart from '../../assets/images/roomStart.webp';
+import plus from '@/assets/icons/plus.png';
+import minus from '@/assets/icons/minus.png';
+import roomStart from '@/assets/images/roomStart.webp';
 
 import {
   MainContainer,

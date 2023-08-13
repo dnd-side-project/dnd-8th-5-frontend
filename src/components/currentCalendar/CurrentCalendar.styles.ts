@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Calendar } from 'react-calendar';
-import theme from '../../styles/theme';
+import theme from '@/styles/theme';
 
 export const StyledCalendar = styled(Calendar)`
   width: 336px;

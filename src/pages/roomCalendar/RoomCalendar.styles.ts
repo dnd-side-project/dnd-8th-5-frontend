@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import theme from '../../styles/theme';
+import theme from '@/styles/theme';
 
 export const MainContainer = styled.div`
   position: relative;
@@ -26,12 +26,6 @@ export const HeaderContainer = styled.div`
   width: 100%;
   height: 116px;
   left: 20px;
-`;
-
-export const Line = styled.img`
-  top: 482px;
-  width: 100%;
-  padding-inline: 20px;
 `;
 
 export const TimePickerContainer = styled.div<{ numCalendarLows: number }>`

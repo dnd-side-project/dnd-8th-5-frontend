@@ -1,11 +1,18 @@
-import Header from '../../components/header/Header';
-import ParticipantsBlock from '../../components/participantsBlock/ParticipantsBlock';
-import ProgressBar from '../../components/progressBar/ProgressBar';
-import Table from '../../components/table/Table';
-import BottomButton from '../../components/bottomButton/BottomButton';
-import Timer from '../../components/timer/Timer';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import dayjs from 'dayjs';
 
-import edit from '../../assets/icons/edit.svg';
+import { useRecoilState } from 'recoil';
+import { selectedMethodState } from '@/atoms/selectedMethodAtom';
+
+import Timer from '@components/timer/Timer';
+import Table from '@components/table/Table';
+import Header from '@components/header/Header';
+import ProgressBar from '@components/progressBar/ProgressBar';
+import BottomButton from '@components/bottomButton/BottomButton';
+import CurrentCalendar from '@components/currentCalendar/CurrentCalendar';
+import ParticipantsBlock from '@components/participantsBlock/ParticipantsBlock';
+import BottomSheetShare from '@components/bottomSheetShare/BottomSheetShare';
 
 import {
   Body,
@@ -19,24 +26,15 @@ import {
   Title,
   Wrapper,
 } from './Current.styles';
+import edit from '@/assets/icons/edit.svg';
+import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { ROUTES } from '@/constants/ROUTES';
+import { getFourChunks } from '@/utils/getFourChunks';
+import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 
-import BottomSheetShare from '../../components/bottomSheetShare/BottomSheetShare';
-
-import { useLocation } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import CurrentCalendar from '../../components/currentCalendar/CurrentCalendar';
-import { selectedMethodState } from '../../atoms/selectedMethodAtom';
-import { getFourChunks } from '../../utils/getFourChunks';
-import { useAuth } from '../../hooks/useAuth';
-import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
-import { RoomTypes } from '../../types/roomInfo';
-
-import { initialRoomInfoData } from '../../assets/data/initialRoomInfoData';
-import { ROUTES } from '../../constants/ROUTES';
-import dayjs from 'dayjs';
+import { RoomTypes } from '@/types/roomInfo';
 
 const Current = () => {
   const navigate = useNavigate();

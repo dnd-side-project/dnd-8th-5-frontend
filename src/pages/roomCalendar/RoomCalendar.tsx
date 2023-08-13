@@ -1,23 +1,24 @@
-import { useCallback, useEffect, useState } from 'react';
-import Calendar from '../../components/calendar/Calendar';
-import RoomHeader from '../../components/roomHeader/RoomHeader';
-import line from '../../assets/images/line.png';
-import TimePicker from '../../components/timePicker/TimePicker';
-import Checkbox from '../../components/checkbox/CheckBox';
-import BottomButton from '../../components/bottomButton/BottomButton';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+
+import { createRoomAtoms } from '@/atoms/createRoomAtoms';
+
 import {
   CheckBoxContainer,
   DependingBox,
-  Line,
   GreyBox,
   HeaderContainer,
   MainContainer,
   TimePickerContainer,
   TimePickerWrapper,
 } from './RoomCalendar.styles';
-import { useRecoilState } from 'recoil';
-import { createRoomAtoms } from '../../atoms/createRoomAtoms';
-import { useNavigate } from 'react-router-dom';
+
+import Checkbox from '@components/checkbox/CheckBox';
+import Calendar from '@components/calendar/Calendar';
+import RoomHeader from '@components/roomHeader/RoomHeader';
+import TimePicker from '@components/timePicker/TimePicker';
+import BottomButton from '@components/bottomButton/BottomButton';
 import { ROUTES } from '../../constants/ROUTES';
 
 const RoomCalendar = () => {
@@ -28,7 +29,7 @@ const RoomCalendar = () => {
   const [startTime, setStartTime] = useState<string>('09:00');
   const [endTime, setEndTime] = useState<string>('18:00');
   const [dates, setDates] = useState<string[]>([]);
-  const [month, setMonth] = useState<string>('');
+  const [, setMonth] = useState<string>('');
   const [numCalendarLows, setNumCalendarLows] = useState<number>(0);
 
   const [, setRecoilRoom] = useRecoilState(createRoomAtoms);

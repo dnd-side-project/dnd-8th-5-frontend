@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import theme from '../../styles/theme';
-import { participant } from '../../types/roomInfo';
+import theme from '@/styles/theme';
+import { participant } from '@/types/roomInfo';
 
 export const Wrapper = styled.div<participant>`
   display: flex;

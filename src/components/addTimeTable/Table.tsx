@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
+import Selecto from 'react-selecto';
 
-import { getTimeArray } from '../../utils/getTimeArray';
+import { getTimeArray } from '@/utils/getTimeArray';
+import { getTableDateFormat } from '@/utils/getTableDateFormat';
 import {
   Blank,
   Bottom,
@@ -14,8 +16,6 @@ import {
   Wrapper,
 } from './Table.styles';
 import { TableType } from './AddTimeTable.types';
-import Selecto from 'react-selecto';
-import { getTableDateFormat } from '../../utils/getTableDateFormat';
 
 const Table = ({
   contentRef,

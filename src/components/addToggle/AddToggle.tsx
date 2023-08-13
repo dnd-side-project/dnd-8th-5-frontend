@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { selectedMethodState } from '../../atoms/selectedMethodAtom';
+import { selectedMethodState } from '@/atoms/selectedMethodAtom';
 
 import {
   ActiveButton,

@@ -1,4 +1,4 @@
-import reset from '../../assets/icons/reset.svg';
+import reset from '@/assets/icons/reset.svg';
 
 import {
   BottomButton,

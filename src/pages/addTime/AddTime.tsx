@@ -2,21 +2,22 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
-import { selectedMethodState } from '../../atoms/selectedMethodAtom';
-import { isTooltipShownState } from '../../atoms/isTooltipShownAtoms';
+import { selectedMethodState } from '@/atoms/selectedMethodAtom';
+import { isTooltipShownState } from '@/atoms/isTooltipShownAtoms';
 
+import Header from '@components/header/Header';
+import Tooltip from '@components/tooltip/Tooltip';
+import AddToggle from '@components/addToggle/AddToggle';
+import AddTimeTable from '@components/addTimeTable/AddTimeTable';
+import AddCalendar from '@components/addCalendar/AddCalendar';
 import { Body, Main, Title, TitleWrapper, Wrapper } from './AddTime.styles';
-import Header from '../../components/header/Header';
-import AddToggle from '../../components/addToggle/AddToggle';
-import AddTimeTable from '../../components/addTimeTable/AddTimeTable';
-import AddCalendar from '../../components/addCalendar/AddCalendar';
-import Tooltip from '../../components/tooltip/Tooltip';
+import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 
 import { TableSelectedTypes } from './AddTime.types';
-import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
-import { RoomTypes } from '../../types/roomInfo';
-import { initialRoomInfoData } from '../../assets/data/initialRoomInfoData';
-import { ROUTES } from '../../constants/ROUTES';
+import { RoomTypes } from '@/types/roomInfo';
+
+import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
+import { ROUTES } from '@/constants/ROUTES';
 
 const AddTime = () => {
   const { roomUUID } = useParams() as { roomUUID: string };

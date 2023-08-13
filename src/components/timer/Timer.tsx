@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 
-import { getCountdown } from '../../utils/getCountdown';
+import { getCountdown } from '@/utils/getCountdown';
 import { Span, TextWrapper, Time, Wrapper } from './Timer.styles';
 
 export interface TimerTypes {

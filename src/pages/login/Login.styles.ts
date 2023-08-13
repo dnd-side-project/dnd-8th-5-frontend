@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import theme from '../../styles/theme';
-import loginBack from '../../assets/images/loginBack.webp';
+import theme from '@/styles/theme';
+import loginBack from '@/assets/images/loginBack.webp';
 
 export const LoginComponent = styled.div`
   display: flex;

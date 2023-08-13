@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { PostAuthType } from '../types/auth';
+import { PostAuthType } from '@/types/auth';
 
 const useInputs = (initialForm: PostAuthType) => {
   const [form, setForm] = useState(initialForm);

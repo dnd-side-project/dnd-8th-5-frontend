@@ -1,5 +1,5 @@
 import { MouseEventHandler } from 'react';
-import unfold from '../../assets/icons/unfold.svg';
+import unfold from '@/assets/icons/unfold.svg';
 import { Content, Unfold, Wrapper } from './SelectBox.styles';
 
 const SelectBox = ({

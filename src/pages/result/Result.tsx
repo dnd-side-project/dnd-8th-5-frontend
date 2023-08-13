@@ -1,17 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import Header from '../../components/header/Header';
-import SelectBox from '../../components/selectBox/SelectBox';
-import ResultButton from '../../components/resultButton/ResultButton';
-import BottomSheet from '../../components/bottomSheet/BottomSheet';
-import SelectParticipants from '../../components/option/participantsOption/participantsOption';
-import SortTimes from '../../components/option/sortOption/SortTimes';
-import Candidate from '../../components/candidate/Candidate';
-
-import nobody from '../../assets/images/nobody.png';
-
-import { RoomTypes } from '../../types/roomInfo';
 import {
   Body,
   Nobody,
@@ -23,11 +12,24 @@ import {
   TitleWrapper,
   Wrapper,
 } from './Result.styles';
-import { ROUTES } from '../../constants/ROUTES';
-import { initialRoomInfoData } from '../../assets/data/initialRoomInfoData';
-import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
-import { useGetCandidateTimes } from '../../queries/result/useGetCandidateTimes';
-import { CandidateTimesType } from '../../types/result';
+
+import nobody from '@/assets/images/nobody.png';
+import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
+
+import Header from '@components/header/Header';
+import SelectBox from '@components/selectBox/SelectBox';
+import ResultButton from '@components/resultButton/ResultButton';
+import BottomSheet from '@components/bottomSheet/BottomSheet';
+import SortTimes from '@components/option/sortOption/SortTimes';
+import Candidate from '@components/candidate/Candidate';
+import SelectParticipants from '@components/option/participantsOption/participantsOption';
+
+import { RoomTypes } from '@/types/roomInfo';
+import { CandidateTimesType } from '@/types/result';
+
+import { ROUTES } from '@/constants/ROUTES';
+import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
+import { useGetCandidateTimes } from '@/queries/result/useGetCandidateTimes';
 
 interface Participants {
   name: string;

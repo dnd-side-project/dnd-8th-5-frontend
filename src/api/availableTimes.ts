@@ -1,5 +1,5 @@
 import { instance } from './instance';
-import { PutAvailableTimesParamsType } from '../types/addTime';
+import { PutAvailableTimesParamsType } from '@/types/addTime';
 
 export const putAvailableTimes = async ({
   roomUUID,

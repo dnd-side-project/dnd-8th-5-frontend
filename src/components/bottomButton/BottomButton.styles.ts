@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import theme from '../../styles/theme';
+import theme from '@/styles/theme';
 
 export const BottomButtonContainer = styled.div<{
   isBackgroundVisible: boolean;
