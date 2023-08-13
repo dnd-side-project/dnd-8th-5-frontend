@@ -49,13 +49,19 @@ const Current = () => {
     setRoomInfo,
   ] = useState<RoomTypes>(initialRoomInfoData);
 
-  const { data } = useGetRoomInfo(roomUUID);
+  const { data, isError } = useGetRoomInfo(roomUUID);
 
   useEffect(() => {
     if (data) {
       setRoomInfo(data);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (isError) {
+      navigate(`${ROUTES.ERROR}`);
+    }
+  }, [isError]);
 
   useEffect(() => {
     if (location.state) {

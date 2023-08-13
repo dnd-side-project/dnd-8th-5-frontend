@@ -13,6 +13,10 @@ export const MainContainer = styled.div`
   margin: 0 auto;
   overflow-x: hidden;
   overflow-y: hidden;
+
+  @media (max-height: 667px) {
+    height: calc(100vh + 90px);
+  }
 `;
 
 export const Logo = styled.img`

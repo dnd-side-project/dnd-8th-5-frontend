@@ -10,9 +10,10 @@ import Toggle from '../toggle/Toggle';
 interface Calendar {
   dates: string[];
   setDates: React.Dispatch<React.SetStateAction<string[]>>;
+  setMonth: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Calendar = ({ dates, setDates }: Calendar) => {
+const Calendar = ({ dates, setDates, setMonth }: Calendar) => {
   const [isRange, setIsRange] = useState<boolean>(true);
   const [value, setValue] = useState();
 
@@ -50,6 +51,7 @@ const Calendar = ({ dates, setDates }: Calendar) => {
 
   const makeDatesRange = (dates: DateObject[] | Date[]) => {
     if (dates.length < 2) {
+      setDates([]);
       return;
     }
     const newDateArray = [];
@@ -119,6 +121,9 @@ const Calendar = ({ dates, setDates }: Calendar) => {
         value={value}
         onChange={(dataObjects) => {
           handleChangeDate(dataObjects);
+        }}
+        onMonthChange={(dataObjects) => {
+          setMonth(Object(dataObjects).month.name);
         }}
         locale={ko}
         multiple={true}

@@ -58,8 +58,7 @@ const TimerPage = () => {
 
       if (isError) {
         confirm('오류가 발생했습니다.\n처음부터 다시 시도하세요');
-        navigate('/');
-        console.log('isError');
+        navigate(`${ROUTES.LANDING}`);
       }
 
       if (isSuccess) {
@@ -200,14 +199,13 @@ const TimerPage = () => {
           />
         </CheckboxWrapper>
       </BottomContainer>
-      <BottomButtonContainer onClick={handleClickCompleteButton}>
-        <BottomButton
-          text="완료하기"
-          isActivated={
-            !allZero || isClickedRecommend.indexOf(true) >= 0 || isChecked
-          }
-        />
-      </BottomButtonContainer>
+      <BottomButton
+        onClick={handleClickCompleteButton}
+        text="완료하기"
+        isActivated={
+          !allZero || isClickedRecommend.indexOf(true) >= 0 || isChecked
+        }
+      />
     </MainContainer>
   );
 };
