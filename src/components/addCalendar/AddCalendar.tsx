@@ -6,7 +6,9 @@ import dayjs from 'dayjs';
 import calendarNextMonth from '../../assets/icons/calendarNextMonth.svg';
 import calendarPrevMonth from '../../assets/icons/calendarPrevMonth.svg';
 
-import { AddCalendarType } from './AddCalendar.types';
+import { useGetAvailableTimesByOne } from '../../queries/availableTimes/useGetAvailableTimesByOne';
+import { usePutAvailableTimes } from '../../queries/availableTimes/usePutAvailableTimes';
+import { ROUTES } from '../../constants/ROUTES';
 
 import {
   Wrapper,
@@ -16,9 +18,7 @@ import {
 } from './AddCalendar.styles';
 import BottomButton from '../bottomButton/BottomButton';
 
-import { useGetAvailableTimesByOne } from '../../queries/availableTimes/useGetAvailableTimesByOne';
-import { usePutAvailableTimes } from '../../queries/availableTimes/usePutAvailableTimes';
-import { ROUTES } from '../../constants/ROUTES';
+import { AddCalendarType } from './AddCalendar.types';
 
 const AddCalendar = ({
   dates,

@@ -12,8 +12,10 @@ import Result from './pages/result/Result';
 import Invite from './pages/invite/Invite';
 import Error from './pages/404/404';
 import useScrollToTop from './hooks/useScrollToTop';
+import useGoogleAnalytics from './hooks/useGoogleAnalytics';
 
 function App() {
+  useGoogleAnalytics();
   useScrollToTop();
 
   return (

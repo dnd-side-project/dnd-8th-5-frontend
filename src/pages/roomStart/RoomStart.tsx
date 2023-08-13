@@ -1,15 +1,17 @@
 import { SetStateAction, useCallback, useState, useRef } from 'react';
 
-import RoomHeader from '../../components/roomHeader/RoomHeader';
 import CheckBox from '../../components/checkbox/CheckBox';
 import BottomButton from '../../components/bottomButton/BottomButton';
 
 import plus from '../../assets/icons/plus.png';
 import minus from '../../assets/icons/minus.png';
+import roomStart from '../../assets/images/roomStart.webp';
+
 import {
   MainContainer,
+  Logo,
   FormContainer,
-  HeaderContainer,
+  Header,
   TitleInputContnainer,
   InputWrapper,
   InputTitle,
@@ -21,6 +23,8 @@ import {
   PeopleNumber,
   ChceckContainer,
   BottomButtonContainer,
+  Tag,
+  TagWrapper,
 } from './RoomStart.styles';
 
 import { useRecoilState } from 'recoil';
@@ -28,11 +32,19 @@ import { createRoomAtoms } from '../../atoms/createRoomAtoms';
 import { useNavigate } from 'react-router-dom';
 import useInputScroll from '../../hooks/useInputScroll';
 import { ROUTES } from '../../constants/ROUTES';
+import { createRoomTagsData } from '../../assets/data/createRoomTagsData';
+
+interface TagType {
+  id: string;
+  title: string;
+  isSelected: boolean;
+}
 
 const Room = () => {
   const [roomName, setRoomName] = useState('');
   const [peopleNumber, setPeopleNumber] = useState(0);
   const [isNotDecided, setIsNotDecided] = useState(false);
+  const [tags, setTags] = useState<TagType[]>(createRoomTagsData);
 
   const [recoilRoom, setRecoilRoom] = useRecoilState(createRoomAtoms);
 
@@ -83,16 +95,36 @@ const Room = () => {
 
   useInputScroll(inputRef);
 
+  const handleTagClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLButtonElement;
+
+    setTags((prev) =>
+      prev.map((tag) =>
+        tag.id === target.id
+          ? { ...tag, isSelected: true }
+          : { ...tag, isSelected: false }
+      )
+    );
+  };
+
   return (
     <MainContainer>
+      <Logo src={roomStart} alt="room start logo" />
       <FormContainer>
-        <HeaderContainer>
-          <RoomHeader
-            index=""
-            title="약속 정보를 입력해주세요"
-            bottomSheet={false}
-          />
-        </HeaderContainer>
+        <Header>어떤 약속인가요?</Header>
+
+        <TagWrapper>
+          {tags.map(({ id, title, isSelected }: TagType) => (
+            <Tag
+              id={id}
+              key={title}
+              isSelected={isSelected}
+              onClick={handleTagClick}
+            >
+              {title}
+            </Tag>
+          ))}
+        </TagWrapper>
 
         <TitleInputContnainer>
           <InputWrapper>

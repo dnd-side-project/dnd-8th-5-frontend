@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import theme from '../../styles/theme';
-import roomStartBack from '../../assets/images/roomStartBack.webp';
+import { css } from '@emotion/react';
 
 export const MainContainer = styled.div`
   width: 100%;
@@ -9,8 +9,7 @@ export const MainContainer = styled.div`
   left: 0;
   right: 0;
   height: calc(100vh);
-  background-image: url(${roomStartBack});
-  background-size: cover;
+  background: ${theme.colors.purple05};
   margin: 0 auto;
   overflow-x: hidden;
   overflow-y: hidden;
@@ -20,9 +19,14 @@ export const MainContainer = styled.div`
   }
 `;
 
+export const Logo = styled.img`
+  width: 100%;
+  position: relative;
+`;
+
 export const FormContainer = styled.div`
   width: 100%;
-  height: 425px;
+  height: 505px;
   position: absolute;
   bottom: 0px;
   background-color: white;
@@ -34,16 +38,52 @@ export const FormContainer = styled.div`
   margin: 0 auto;
 `;
 
-export const HeaderContainer = styled.div`
+export const Header = styled.div`
   position: absolute;
-  top: 25px;
+  top: 32px;
+  width: 100%;
+  height: 31px;
+  display: flex;
+  align-items: center;
   margin-left: 20px;
-  margin-right: 20px;
+  ${theme.typography.semibold01};
+`;
+
+export const TagWrapper = styled.div`
+  position: absolute;
+  top: 72px;
+  width: 100%;
+  margin-left: 20px;
+  display: flex;
+  column-gap: 6px;
+`;
+
+export const Tag = styled.button<{ isSelected: boolean }>`
+  width: 73px;
+  height: 30px;
+  border-radius: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ${theme.typography.medium04};
+
+  ${({ isSelected }) =>
+    isSelected
+      ? css`
+          color: ${theme.colors.purple06};
+          background: ${theme.colors.purple02};
+        `
+      : css`
+          color: ${theme.colors.gray04};
+          background: ${theme.colors.gray02};
+        `}
 `;
 
 export const TitleInputContnainer = styled.div`
   position: absolute;
-  top: 87px;
+  top: 135px;
   width: 100%;
   height: 79px;
 `;
@@ -54,8 +94,7 @@ export const NumberSelectContnainer = styled.div`
   height: 79px;
   display: flex;
   flex-direction: column;
-  top: 190px;
-  /* background-color: red; */
+  top: 233px;
   padding-left: 20px;
   padding-right: 20px;
 
@@ -139,7 +178,7 @@ export const NextButton = styled.button``;
 export const ChceckContainer = styled.div`
   position: absolute;
   width: 100%;
-  top: 279px;
+  top: 322px;
   padding-left: 20px;
   padding-right: 20px;
 `;

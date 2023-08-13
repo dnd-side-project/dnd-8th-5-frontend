@@ -15,6 +15,7 @@ import {
 } from './Table.styles';
 import { TableType } from './AddTimeTable.types';
 import Selecto from 'react-selecto';
+import { getTableDateFormat } from '../../utils/getTableDateFormat';
 
 const Table = ({
   contentRef,
@@ -33,6 +34,11 @@ const Table = ({
 
   useEffect(() => {
     if (selected[tablePage]) {
+      const selectedElements = document.querySelectorAll('.selected');
+      selectedElements.forEach((element) => {
+        element.classList.remove('selected');
+      });
+
       selected[tablePage].forEach((id) => {
         const element = document.getElementById(id);
         element?.classList.add('selected');
@@ -50,13 +56,15 @@ const Table = ({
   }, [selectedMethod, isResetButtonClick]);
 
   const handleCellSelect = (e: any) => {
-    e.added.forEach((el: any) => {
-      el.classList.add('selected');
-    });
+    if (e.inputEvent.type !== 'touchstart') {
+      e.added.forEach((el: any) => {
+        el.classList.add('selected');
+      });
 
-    e.removed.forEach((el: any) => {
-      el.classList.remove('selected');
-    });
+      e.removed.forEach((el: any) => {
+        el.classList.remove('selected');
+      });
+    }
   };
 
   const addSelectedToObject = () => {
@@ -70,15 +78,19 @@ const Table = ({
     setSelected(newObj);
   };
 
-  const handleClickOneElement = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleClickOneElement = (
+    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+  ) => {
     const target = e.target as HTMLDivElement;
 
-    if (target.classList.contains('valid')) {
-      if (target.classList.contains('selected')) {
-        target.classList.remove('selected');
-      } else {
-        target.classList.add('selected');
-        addSelectedToObject();
+    if (e.type === 'click') {
+      if (target.classList.contains('valid')) {
+        if (target.classList.contains('selected')) {
+          target.classList.remove('selected');
+        } else {
+          target.classList.add('selected');
+          addSelectedToObject();
+        }
       }
     }
   };
@@ -93,10 +105,9 @@ const Table = ({
               date.slice(0, 5) === 'blank' ? (
                 <Date key={date} isValidDate={isValidDate} />
               ) : (
-                <Date key={date} isValidDate={isValidDate}>{`${date.slice(
-                  5,
-                  7
-                )}월${date.slice(8, 10)}일`}</Date>
+                <Date key={date} isValidDate={isValidDate}>
+                  {getTableDateFormat(date)}
+                </Date>
               )
           )}
         </DateWrapper>
@@ -122,14 +133,16 @@ const Table = ({
                 selectFromInside={true}
                 continueSelect={true}
                 continueSelectWithoutDeselect={false}
+                selectByClick={false}
                 ratio={0}
               />
               {timeDetail.map((time) => (
                 <Select
-                  onMouseUp={handleClickOneElement}
+                  onClick={handleClickOneElement}
+                  onTouchStart={handleClickOneElement}
                   className={isValidDate ? 'valid' : 'invalid'}
                   key={`${date} ${time}:00`}
-                  id={`${date} ${time}`}
+                  id={`${date.slice(0, 10)} ${time}`}
                   selectedMethod={selectedMethod}
                   isValidDate={isValidDate}
                 />

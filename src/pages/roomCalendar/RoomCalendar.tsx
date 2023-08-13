@@ -6,7 +6,6 @@ import TimePicker from '../../components/timePicker/TimePicker';
 import Checkbox from '../../components/checkbox/CheckBox';
 import BottomButton from '../../components/bottomButton/BottomButton';
 import {
-  BottomButtonContainer,
   CheckBoxContainer,
   DependingBox,
   Line,
@@ -22,38 +21,43 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/ROUTES';
 
 const RoomCalendar = () => {
-  const [isCheckedBox, setIsCheckedBox] = useState(false);
-  const [startTime, setStartTime] = useState('09:00');
-  const [endTime, setEndTime] = useState('18:00');
+  const navigate = useNavigate();
+
+  const [isCheckedBox, setIsCheckedBox] = useState<boolean>(false);
+  const [isActivated, setIsActivated] = useState<boolean>(false);
+  const [startTime, setStartTime] = useState<string>('09:00');
+  const [endTime, setEndTime] = useState<string>('18:00');
   const [dates, setDates] = useState<string[]>([]);
   const [month, setMonth] = useState<string>('');
   const [numCalendarLows, setNumCalendarLows] = useState<number>(0);
 
-  const [recoilRoom, setRecoilRoom] = useRecoilState(createRoomAtoms);
+  const [, setRecoilRoom] = useRecoilState(createRoomAtoms);
 
-  const naviate = useNavigate();
-
-  const handleNextClick = useCallback(async () => {
-    if (dates.length == 0) {
-      return;
-    }
-
+  const handleBottomButtonClick = () => {
     if (isCheckedBox) {
       setStartTime('09:00');
       setEndTime('09:00');
     }
 
-    setRecoilRoom((prev) => {
-      return {
-        ...prev,
-        ['dates']: dates,
-        ['startTime']: isCheckedBox ? null : startTime,
-        ['endTime']: isCheckedBox ? null : endTime,
-      };
-    });
+    setRecoilRoom((prev) => ({
+      ...prev,
+      dates: dates,
+      startTime: isCheckedBox ? null : startTime,
+      endTime: isCheckedBox ? null : endTime,
+    }));
 
-    naviate(`${ROUTES.ROOM_TIMER}`);
-  }, [recoilRoom, startTime, endTime, dates, isCheckedBox]);
+    if (isActivated) {
+      navigate(`${ROUTES.ROOM_TIMER}`);
+    }
+  };
+
+  useEffect(() => {
+    if (dates.length !== 0 && startTime !== endTime) {
+      setIsActivated(true);
+    } else {
+      setIsActivated(false);
+    }
+  }, [dates, startTime, endTime]);
 
   useEffect(() => {
     const element = document.querySelector(
@@ -78,12 +82,7 @@ const RoomCalendar = () => {
 
       <TimePickerContainer numCalendarLows={numCalendarLows}>
         <TimePickerWrapper>
-          <TimePicker
-            startTime={startTime}
-            endTime={endTime}
-            setStartTime={setStartTime}
-            setEndTime={setEndTime}
-          />
+          <TimePicker setStartTime={setStartTime} setEndTime={setEndTime} />
         </TimePickerWrapper>
         <GreyBox />
         {isCheckedBox ? <DependingBox /> : null}
@@ -96,9 +95,9 @@ const RoomCalendar = () => {
         />
       </CheckBoxContainer>
       <BottomButton
-        onClick={handleNextClick}
         text="다음"
-        isActivated={dates.length !== 0}
+        isActivated={isActivated}
+        onClick={handleBottomButtonClick}
       />
     </MainContainer>
   );
