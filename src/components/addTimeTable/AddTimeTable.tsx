@@ -59,6 +59,7 @@ const AddTimeTable = ({
     trackRef,
     thumbRef,
     offsetY,
+    setOffsetY,
     handleMouseDown,
     handleTouchStart,
     handleDragStart,
@@ -96,16 +97,27 @@ const AddTimeTable = ({
     }
   }, []);
 
+  const handleScrollToTop = () => {
+    const contentWrapper = contentWrapperRef.current as HTMLDivElement;
+    contentWrapper.scrollTo({ top: 0 });
+
+    setOffsetY(0);
+  };
+
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {
       setTablePage(tablePage - 1);
     }
+
+    handleScrollToTop();
   };
 
   const handleNextButtonClick = () => {
     if (tablePage !== validDateChunks.length - 1) {
       setTablePage(tablePage + 1);
     }
+
+    handleScrollToTop();
   };
 
   const goToCurrent = () => {

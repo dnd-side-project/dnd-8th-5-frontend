@@ -88,6 +88,7 @@ export const useScroll = () => {
     trackRef,
     thumbRef,
     offsetY,
+    setOffsetY,
     handleMouseDown,
     handleTouchStart,
     handleDragStart,
