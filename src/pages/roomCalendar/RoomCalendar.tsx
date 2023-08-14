@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
-import { createRoomAtoms } from '@/atoms/createRoomAtoms';
+import { createRoomAtom } from '@/atoms/createRoomAtom';
 
 import {
   CheckBoxContainer,
@@ -32,7 +32,7 @@ const RoomCalendar = () => {
   const [, setMonth] = useState<string>('');
   const [numCalendarLows, setNumCalendarLows] = useState<number>(0);
 
-  const [, setRecoilRoom] = useRecoilState(createRoomAtoms);
+  const [, setRecoilRoom] = useRecoilState(createRoomAtom);
 
   const handleBottomButtonClick = () => {
     if (isCheckedBox) {

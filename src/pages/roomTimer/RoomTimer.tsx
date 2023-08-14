@@ -1,10 +1,10 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
-import { createRoomAtoms, createRoomInfoState } from '@/atoms/createRoomAtoms';
+import { createRoomAtom, createRoomInfoState } from '@/atoms/createRoomAtom';
+import { shareLinkBottomSheetState } from '@/atoms/shareLinkBottomSheetAtom';
 
 import {
-  BottomButtonContainer,
   BottomContainer,
   BottomHeaderText,
   BottomHeaderWrapper,
@@ -41,8 +41,11 @@ const TimerPage = () => {
     false,
   ]);
 
-  const [room, setRoom] = useRecoilState(createRoomAtoms);
+  const [room, setRoom] = useRecoilState(createRoomAtom);
   const recoilRoomInfoStates = useRecoilValue(createRoomInfoState);
+  const [, setIsShareLinkBottomSheetOpened] = useRecoilState(
+    shareLinkBottomSheetState
+  );
 
   const { mutate, data, isError, isSuccess } = useCreateRoom();
 
@@ -57,12 +60,13 @@ const TimerPage = () => {
       mutate(room);
 
       if (isError) {
-        confirm('오류가 발생했습니다.\n처음부터 다시 시도하세요');
+        confirm('오류가 발생했습니다.\n처음부터 다시 시도해 주세요.');
         navigate(`${ROUTES.LANDING}`);
       }
 
       if (isSuccess) {
         navigate(`${ROUTES.CURRENT}/${data.roomUuid}`);
+        setIsShareLinkBottomSheetOpened(true);
       }
     }
   }, [room, isError, isSuccess]);

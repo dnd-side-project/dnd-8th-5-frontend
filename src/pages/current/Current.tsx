@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 
 import { useRecoilState } from 'recoil';
@@ -12,7 +12,7 @@ import ProgressBar from '@components/progressBar/ProgressBar';
 import BottomButton from '@components/bottomButton/BottomButton';
 import CurrentCalendar from '@components/currentCalendar/CurrentCalendar';
 import ParticipantsBlock from '@components/participantsBlock/ParticipantsBlock';
-import BottomSheetShare from '@components/bottomSheetShare/BottomSheetShare';
+import LinkShareBottomSheet from '@/components/LinkShareBottomSheet/LinkShareBottomSheet';
 
 import {
   Body,
@@ -35,14 +35,15 @@ import { getFourChunks } from '@/utils/getFourChunks';
 import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 
 import { RoomTypes } from '@/types/roomInfo';
+import { shareLinkBottomSheetState } from '@/atoms/shareLinkBottomSheetAtom';
 
 const Current = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { roomUUID } = useParams() as { roomUUID: string };
   const [, setSelectedMethod] = useRecoilState(selectedMethodState);
-  const [isBottomSheetOpened, setIsBottomSheetOpened] =
-    useState<boolean>(false);
+  const [isShareLinkBottomSheetOpened] = useRecoilState(
+    shareLinkBottomSheetState
+  );
 
   const [
     { title, headCount, participants, deadLine, dates, startTime, endTime },
@@ -62,16 +63,6 @@ const Current = () => {
       navigate(`${ROUTES.ERROR}`);
     }
   }, [isError]);
-
-  useEffect(() => {
-    if (location.state) {
-      if (location.state.isRoomCreated) {
-        setIsBottomSheetOpened(true);
-      }
-    } else {
-      setIsBottomSheetOpened(false);
-    }
-  }, [location]);
 
   const isTableView = startTime !== null && endTime !== null;
 
@@ -158,7 +149,7 @@ const Current = () => {
         />
       </BottomWrapper>
 
-      {isBottomSheetOpened && <BottomSheetShare />}
+      {isShareLinkBottomSheetOpened && <LinkShareBottomSheet />}
     </Wrapper>
   );
 };

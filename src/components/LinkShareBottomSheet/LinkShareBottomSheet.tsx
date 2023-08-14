@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import RoomHeader from '../roomHeader/RoomHeader';
-import clipBoard from '@/assets/icons/clipBoard.png';
+import { useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import headerRabbit from '@/assets/images/headerRabbit.png';
+import { shareLinkBottomSheetState } from '@/atoms/shareLinkBottomSheetAtom';
 
 import {
   BottomSheetComponent,
@@ -17,20 +18,25 @@ import {
   ShareButtonWrapper,
   RateButtonWrapper,
   ShareButton,
-} from './BottomSheetShare.styles';
-import { useParams } from 'react-router-dom';
+} from './LinkShareBottomSheet.styles';
+import RoomHeader from '../roomHeader/RoomHeader';
+import clipBoard from '@/assets/icons/clipBoard.png';
+import headerRabbit from '@/assets/images/headerRabbit.png';
 
-const BottomSheetShare = () => {
-  const [open, setOpen] = useState<boolean>(true);
-  const [url, setUrl] = useState<string>('');
+const LinkShareBottomSheet = () => {
   const { roomUUID } = useParams();
+
+  const [isShareLinkBottomSheetOpened, setIsShareLinkBottomSheetOpened] =
+    useRecoilState(shareLinkBottomSheetState);
+
+  const [url, setUrl] = useState<string>('');
 
   useEffect(() => {
     setUrl(`${window.location.origin}/invite/${roomUUID}`);
   }, []);
 
   const onDismiss = () => {
-    setOpen(false);
+    setIsShareLinkBottomSheetOpened(false);
   };
 
   const onShareUrl = () => {
@@ -45,7 +51,7 @@ const BottomSheetShare = () => {
 
   return (
     <BottomSheetComponent
-      open={open}
+      open={isShareLinkBottomSheetOpened}
       blocking={true}
       onDismiss={onDismiss}
       snapPoints={({ footerHeight }) => footerHeight}
@@ -77,7 +83,7 @@ const BottomSheetShare = () => {
         </ShareButtonWrapper>
         <RateButtonWrapper
           onClick={() => {
-            setOpen(false);
+            setIsShareLinkBottomSheetOpened(false);
           }}
         >
           나중에 할게요
@@ -87,4 +93,4 @@ const BottomSheetShare = () => {
   );
 };
 
-export default BottomSheetShare;
+export default LinkShareBottomSheet;

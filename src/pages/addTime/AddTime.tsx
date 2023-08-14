@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { selectedMethodState } from '@/atoms/selectedMethodAtom';
-import { isTooltipShownState } from '@/atoms/isTooltipShownAtoms';
+import { tooltipState } from '@/atoms/tooltipAtom';
 
 import Header from '@components/header/Header';
 import Tooltip from '@components/tooltip/Tooltip';
@@ -32,7 +32,7 @@ const AddTime = () => {
   const [calendarSelected, setCalendarSelected] = useState<string[]>([]);
 
   const [isTooltipShown, setIsTooltipShown] =
-    useRecoilState<boolean>(isTooltipShownState);
+    useRecoilState<boolean>(tooltipState);
 
   const { data } = useGetRoomInfo(roomUUID);
   const [{ title, dates, startTime, endTime }, setRoomInfo] =

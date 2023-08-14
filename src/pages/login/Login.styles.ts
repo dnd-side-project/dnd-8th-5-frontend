@@ -129,5 +129,3 @@ export const PasswordError = styled.div`
   color: #ed7c55;
   padding-left: 40px;
 `;
-
-export const BottomButtonContainer = styled.div``;

@@ -22,13 +22,12 @@ import {
   CountButton,
   PeopleNumber,
   ChceckContainer,
-  BottomButtonContainer,
   Tag,
   TagWrapper,
 } from './RoomStart.styles';
 
 import { useRecoilState } from 'recoil';
-import { createRoomAtoms } from '../../atoms/createRoomAtoms';
+import { createRoomAtom } from '../../atoms/createRoomAtom';
 import { useNavigate } from 'react-router-dom';
 import useInputScroll from '../../hooks/useInputScroll';
 import { ROUTES } from '../../constants/ROUTES';
@@ -46,7 +45,7 @@ const Room = () => {
   const [isNotDecided, setIsNotDecided] = useState(false);
   const [tags, setTags] = useState<TagType[]>(createRoomTagsData);
 
-  const [recoilRoom, setRecoilRoom] = useRecoilState(createRoomAtoms);
+  const [recoilRoom, setRecoilRoom] = useRecoilState(createRoomAtom);
 
   const navigate = useNavigate();
 

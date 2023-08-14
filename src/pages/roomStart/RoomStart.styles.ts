@@ -190,8 +190,3 @@ export const CheckListText = styled.text`
 export const CheckCircle = styled.img`
   width: 15px;
 `;
-
-export const BottomButtonContainer = styled.div`
-  position: absolute;
-  z-index: 5;
-`;
