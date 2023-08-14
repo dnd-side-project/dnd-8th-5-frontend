@@ -52,7 +52,7 @@ export const Body = styled.div`
   padding: 17px 20px 0 20px;
 `;
 
-export const Title = styled.span`
+export const Title = styled.div`
   color: ${theme.colors.gray07};
   ${theme.typography.semibold03};
 `;
