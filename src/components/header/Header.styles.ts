@@ -31,7 +31,7 @@ export const Title = styled.div`
 export const IconWrapper = styled.div<{ pageName: string }>`
   width: 100%;
   height: 100%;
-  padding: 0 20px;
+  padding: 0 28px;
 
   z-index: 3;
 
