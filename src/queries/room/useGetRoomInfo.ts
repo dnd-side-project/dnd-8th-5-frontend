@@ -8,6 +8,7 @@ export const useGetRoomInfo = (roomUUID: string) => {
     () => getRoomInfo(roomUUID),
     {
       retry: false,
+      refetchOnWindowFocus: false,
     }
   );
 };
