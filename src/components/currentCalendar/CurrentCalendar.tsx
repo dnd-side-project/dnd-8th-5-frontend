@@ -33,10 +33,12 @@ const CurrentCalendar = ({ participants }: CurrentCalendarTypes) => {
     }
   }, [data]);
 
-  const availableDatesInfo = currentTableInfo.map((date: any) => ({
-    date: date.availableDate,
-    opacity: date.availableTimeInfos[0].count / participants.length,
-  }));
+  const availableDatesInfo = currentTableInfo.map(
+    (date: AvailableDateTimeTypes) => ({
+      date: date.availableDate,
+      opacity: date.availableTimeInfos[0].count / participants.length,
+    })
+  );
 
   const addTileClassName = ({ date }: { date: Date }) => {
     if (
@@ -58,11 +60,12 @@ const CurrentCalendar = ({ participants }: CurrentCalendarTypes) => {
           `.availableDate${date}`
         ) as HTMLElement;
 
-        if (element != null) {
+        if (element) {
           if (opacity) {
             element.style.backgroundColor = `rgba(106, 123, 255, ${opacity})`;
             element.style.color = `${theme.colors.gray01}`;
           } else {
+            element.style.backgroundColor = `${theme.colors.gray01}`;
             element.style.color = `${theme.colors.purple06}`;
           }
         }
