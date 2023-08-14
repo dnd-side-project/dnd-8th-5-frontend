@@ -47,7 +47,7 @@ const ShareLinkBottomSheet = () => {
             <CopyIcon
               src={copy}
               alt="copy link"
-              onClick={() => handleCopyToClipBoard(inviteURL)}
+              onClick={() => handleCopyToClipBoard()}
             />
           </LinkWrapper>
           <ShareButton onClick={handleUseShareAPI}>지금 공유할게요</ShareButton>

@@ -12,7 +12,7 @@ import { ROUTES } from '@/constants/ROUTES';
 import useShareLink from '@/hooks/useShareLink';
 
 const Header = ({ pageName, title }: { pageName: string; title: string }) => {
-  const { inviteURL, handleCopyToClipBoard } = useShareLink();
+  const { handleCopyToClipBoard } = useShareLink();
 
   const [, setIsTooltipShown] = useRecoilState(tooltipState);
 
@@ -38,7 +38,7 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
             <Icon
               src={share}
               alt="share"
-              onClick={() => handleCopyToClipBoard(inviteURL)}
+              onClick={() => handleCopyToClipBoard()}
             />
           </>
         )}

@@ -16,9 +16,9 @@ const useShareLink = () => {
     }
   };
 
-  const handleCopyToClipBoard = async (link: string) => {
+  const handleCopyToClipBoard = async () => {
     try {
-      await navigator.clipboard.writeText(link);
+      await navigator.clipboard.writeText(inviteURL);
       alert('클립보드에 복사되었습니다.');
     } catch {
       alert('링크 복사에 실패했습니다.\n다시 시도해 주세요.');
