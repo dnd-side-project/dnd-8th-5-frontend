@@ -22,9 +22,9 @@ const Candidate = ({
       return `${date.slice(5, 7)}월 ${date.slice(
         8,
         10
-      )} (${dayOfWeek}) ${startTime} ~ ${endTime}`;
+      )}일 (${dayOfWeek}) ${startTime} ~ ${endTime}`;
     } else {
-      return `${date.slice(5, 7)}월 ${date.slice(8, 10)} (${dayOfWeek}) `;
+      return `${date.slice(5, 7)}월 ${date.slice(8, 10)}일 (${dayOfWeek}) `;
     }
   };
 
