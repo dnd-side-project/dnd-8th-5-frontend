@@ -34,7 +34,7 @@ import { ROUTES } from '../../constants/ROUTES';
 import { createRoomTagsData } from '../../assets/data/createRoomTagsData';
 
 interface TagType {
-  className: string;
+  id: string;
   title: string;
   isSelected: boolean;
 }
@@ -99,7 +99,7 @@ const Room = () => {
 
     setTags((prev) =>
       prev.map((tag) =>
-        target.classList.contains(tag.className)
+        tag.id === target.id
           ? { ...tag, isSelected: true }
           : { ...tag, isSelected: false }
       )
@@ -113,9 +113,9 @@ const Room = () => {
         <Header>어떤 약속인가요?</Header>
 
         <TagWrapper>
-          {tags.map(({ className, title, isSelected }: TagType) => (
+          {tags.map(({ id, title, isSelected }: TagType) => (
             <Tag
-              className={className}
+              id={id}
               key={title}
               isSelected={isSelected}
               onClick={handleTagClick}
