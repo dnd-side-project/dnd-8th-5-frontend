@@ -35,7 +35,7 @@ export const StyledCalendar = styled(Calendar)`
 
   .react-calendar .availableDate {
     color: white;
-    /* background-color: rgba(106, 123, 255, 0.5); */
+    background-color: rgba(106, 123, 255, 0.5);
   }
 
   .react-calendar button:enabled:hover {
