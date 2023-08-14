@@ -89,8 +89,9 @@ const Table = ({
           target.classList.remove('selected');
         } else {
           target.classList.add('selected');
-          addSelectedToObject();
         }
+
+        addSelectedToObject();
       }
     }
   };

@@ -15,7 +15,6 @@ import {
   RightWrapper,
   ImgWrapper,
   TextWrapper,
-  BottomButtonContainer,
 } from './Login.styles';
 import BottomButton from '@components/bottomButton/BottomButton';
 

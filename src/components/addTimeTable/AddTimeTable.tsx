@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { useScroll } from '@/hooks/useScroll';
 import _ from 'lodash';
 
@@ -11,21 +12,22 @@ import {
   TableWrapper,
 } from './AddTimeTable.styles';
 import Table from './Table';
-
-import addPrevDisable from '../../assets/icons/addPrevDisable.png';
-import addNextDisable from '../../assets/icons/addNextDisable.png';
-import addPrevActive from '../../assets/icons/addPrevActive.png';
-import addNextActive from '../../assets/icons/addNextActive.png';
-
+import AddButton from '../addButton/AddButton';
 import { AddTimeTableTypes, TableSelectedTypes } from './AddTimeTable.types';
 
-import { getAddTimeTableInfo } from '../../utils/getAddTimeTableInfo';
-import { getAllTimeRange } from '../../utils/getAllTimeRange';
-import { getTimeRange } from '../../utils/getTimeRange';
-import { useGetAvailableTimesByOne } from '../../queries/availableTimes/useGetAvailableTimesByOne';
-import { usePutAvailableTimes } from '../../queries/availableTimes/usePutAvailableTimes';
-import AddButton from '../addButton/AddButton';
-import { ROUTES } from '../../constants/ROUTES';
+import addPrevDisable from '@/assets/icons/addPrevDisable.png';
+import addNextDisable from '@/assets/icons/addNextDisable.png';
+import addPrevActive from '@/assets/icons/addPrevActive.png';
+import addNextActive from '@/assets/icons/addNextActive.png';
+
+import { getTimeRange } from '@/utils/getTimeRange';
+import { getAllTimeRange } from '@/utils/getAllTimeRange';
+import { getAddTimeTableInfo } from '@/utils/getAddTimeTableInfo';
+import { usePutAvailableTimes } from '@/queries/availableTimes/usePutAvailableTimes';
+import { useGetAvailableTimesByOne } from '@/queries/availableTimes/useGetAvailableTimesByOne';
+
+import { ROUTES } from '@/constants/ROUTES';
+import { selectedMethodState } from '@/atoms/selectedMethodAtom';
 
 const AddTimeTable = ({
   wrapperRef,
@@ -33,7 +35,6 @@ const AddTimeTable = ({
   endTime,
   selected,
   setSelected,
-  selectedMethod,
   dates,
   setTableSelected,
   isResetButtonClick,
@@ -44,6 +45,8 @@ const AddTimeTable = ({
   const userName = localStorage.getItem('userName') || '';
 
   const [tablePage, setTablePage] = useState(0);
+  const [selectedMethod, setSelectedMethod] =
+    useRecoilState(selectedMethodState);
 
   const validDateChunks = getAddTimeTableInfo(dates);
   const timeRange = getTimeRange(startTime, endTime);
@@ -56,6 +59,7 @@ const AddTimeTable = ({
     trackRef,
     thumbRef,
     offsetY,
+    setOffsetY,
     handleMouseDown,
     handleTouchStart,
     handleDragStart,
@@ -93,16 +97,27 @@ const AddTimeTable = ({
     }
   }, []);
 
+  const handleScrollToTop = () => {
+    const contentWrapper = contentWrapperRef.current as HTMLDivElement;
+    contentWrapper.scrollTo({ top: 0 });
+
+    setOffsetY(0);
+  };
+
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {
       setTablePage(tablePage - 1);
     }
+
+    handleScrollToTop();
   };
 
   const handleNextButtonClick = () => {
     if (tablePage !== validDateChunks.length - 1) {
       setTablePage(tablePage + 1);
     }
+
+    handleScrollToTop();
   };
 
   const goToCurrent = () => {
@@ -144,6 +159,7 @@ const AddTimeTable = ({
   useEffect(() => {
     if (isSuccess) {
       goToCurrent();
+      setSelectedMethod('possible');
     }
 
     if (isError) {

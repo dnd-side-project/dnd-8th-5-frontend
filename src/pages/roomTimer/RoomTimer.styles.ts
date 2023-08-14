@@ -115,8 +115,3 @@ export const CheckboxWrapper = styled.div`
   width: 100%;
   padding-inline: 20px;
 `;
-
-export const BottomButtonContainer = styled.div`
-  position: absolute;
-  z-index: 100;
-`;

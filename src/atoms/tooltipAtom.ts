@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const isTooltipShownState = atom<boolean>({
+export const tooltipState = atom<boolean>({
   key: 'isTooltipShown',
   default: true,
 });

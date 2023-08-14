@@ -1,7 +1,3 @@
-import { useRecoilState } from 'recoil';
-import { roomState } from '@/atoms/roomAtoms';
-import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
-
 interface ValidDate {
   date: string;
   isValidDate: boolean;

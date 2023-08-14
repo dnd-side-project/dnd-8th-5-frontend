@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useParams } from 'react-router-dom';
-import { isTooltipShownState } from '@/atoms/isTooltipShownAtoms';
+import { tooltipState } from '@/atoms/tooltipAtom';
 
 import Menu from '../menu/Menu';
 import { ROUTES } from '@/constants/ROUTES';
@@ -16,7 +16,7 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
   const { roomUUID } = useParams();
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
 
-  const [, setIsTooltipShown] = useRecoilState(isTooltipShownState);
+  const [, setIsTooltipShown] = useRecoilState(tooltipState);
 
   const handleMenuClick = () => {
     setIsMenuOpened(true);
