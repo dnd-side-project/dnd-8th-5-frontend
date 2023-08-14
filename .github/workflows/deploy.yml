@@ -15,7 +15,8 @@ jobs:
 
       - name: ⚙️ Setup env
         run: |
-          echo "REACT_APP_API_PATH=${{secrets.REACT_APP_API_PATH}}" >> .env
+          echo "VITE_API_PATH=${{secrets.VITE_API_PATH}}" >> .env
+          echo "VITE_GA_TRACKING_ID=${{secrets.VITE_GA_TRACKING_ID}}" >> .env
           echo "PUBLIC_URL=${{secrets.PUBLIC_URL}}" >> .env
 
       - name: 🔐 AWS Credential
