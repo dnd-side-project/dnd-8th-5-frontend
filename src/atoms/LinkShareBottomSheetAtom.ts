@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const shareLinkBottomSheetState = atom<boolean>({
+export const LinkShareBottomSheetState = atom<boolean>({
   key: 'shareLinkBottomSheet',
   default: false,
 });

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { shareLinkBottomSheetState } from '@/atoms/shareLinkBottomSheetAtom';
+import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
 
 import {
   BottomSheetComponent,
@@ -23,11 +23,11 @@ import RoomHeader from '../roomHeader/RoomHeader';
 import clipBoard from '@/assets/icons/clipBoard.png';
 import headerRabbit from '@/assets/images/headerRabbit.png';
 
-const LinkShareBottomSheet = () => {
+const ShareLinkBottomSheet = () => {
   const { roomUUID } = useParams();
 
-  const [isShareLinkBottomSheetOpened, setIsShareLinkBottomSheetOpened] =
-    useRecoilState(shareLinkBottomSheetState);
+  const [isLinkShareBottomSheetOpened, setIsLinkShareBottomSheetOpened] =
+    useRecoilState(LinkShareBottomSheetState);
 
   const [url, setUrl] = useState<string>('');
 
@@ -36,7 +36,7 @@ const LinkShareBottomSheet = () => {
   }, []);
 
   const onDismiss = () => {
-    setIsShareLinkBottomSheetOpened(false);
+    setIsLinkShareBottomSheetOpened(false);
   };
 
   const onShareUrl = () => {
@@ -51,7 +51,7 @@ const LinkShareBottomSheet = () => {
 
   return (
     <BottomSheetComponent
-      open={isShareLinkBottomSheetOpened}
+      open={isLinkShareBottomSheetOpened}
       blocking={true}
       onDismiss={onDismiss}
       snapPoints={({ footerHeight }) => footerHeight}
@@ -83,7 +83,7 @@ const LinkShareBottomSheet = () => {
         </ShareButtonWrapper>
         <RateButtonWrapper
           onClick={() => {
-            setIsShareLinkBottomSheetOpened(false);
+            setIsLinkShareBottomSheetOpened(false);
           }}
         >
           나중에 할게요
@@ -93,4 +93,4 @@ const LinkShareBottomSheet = () => {
   );
 };
 
-export default LinkShareBottomSheet;
+export default ShareLinkBottomSheet;

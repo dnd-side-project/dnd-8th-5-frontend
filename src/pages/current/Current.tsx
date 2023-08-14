@@ -35,14 +35,14 @@ import { getFourChunks } from '@/utils/getFourChunks';
 import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 
 import { RoomTypes } from '@/types/roomInfo';
-import { shareLinkBottomSheetState } from '@/atoms/shareLinkBottomSheetAtom';
+import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
 
 const Current = () => {
   const navigate = useNavigate();
   const { roomUUID } = useParams() as { roomUUID: string };
   const [, setSelectedMethod] = useRecoilState(selectedMethodState);
   const [isShareLinkBottomSheetOpened] = useRecoilState(
-    shareLinkBottomSheetState
+    LinkShareBottomSheetState
   );
 
   const [

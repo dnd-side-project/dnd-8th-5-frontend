@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { createRoomAtom, createRoomInfoState } from '@/atoms/createRoomAtom';
-import { shareLinkBottomSheetState } from '@/atoms/shareLinkBottomSheetAtom';
+import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
 
 import {
   BottomContainer,
@@ -43,8 +43,8 @@ const TimerPage = () => {
 
   const [room, setRoom] = useRecoilState(createRoomAtom);
   const recoilRoomInfoStates = useRecoilValue(createRoomInfoState);
-  const [, setIsShareLinkBottomSheetOpened] = useRecoilState(
-    shareLinkBottomSheetState
+  const [, setIsLinkShareBottomSheetOpened] = useRecoilState(
+    LinkShareBottomSheetState
   );
 
   const { mutate, data, isError, isSuccess } = useCreateRoom();
@@ -66,7 +66,7 @@ const TimerPage = () => {
 
       if (isSuccess) {
         navigate(`${ROUTES.CURRENT}/${data.roomUuid}`);
-        setIsShareLinkBottomSheetOpened(true);
+        setIsLinkShareBottomSheetOpened(true);
       }
     }
   }, [room, isError, isSuccess]);
@@ -75,6 +75,7 @@ const TimerPage = () => {
     setIsClickedRecommend((prev) =>
       prev.map(() => {
         return false;
+        LinkShareBottomSheetState;
       })
     );
   }, [isChecked]);
