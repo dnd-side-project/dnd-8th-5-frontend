@@ -1,7 +1,5 @@
-import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
-import { ROUTES } from '@/constants/ROUTES';
 
 import {
   CopyIcon,
@@ -18,10 +16,11 @@ import {
 } from './LinkShareBottomSheet.styles';
 import copy from '@/assets/icons/copy.svg';
 import linkShareBottomSheetRabbit from '@/assets/images/linkShareBottomSheetRabbit.webp';
+import useShareLink from '@/hooks/useShareLink';
 
 const ShareLinkBottomSheet = () => {
-  const { roomUUID } = useParams();
-  const inviteURL = `${window.location.origin}${ROUTES.INVITE}/${roomUUID}`;
+  const { inviteURL, handleUseShareAPI, handleCopyToClipBoard } =
+    useShareLink();
 
   const [, setIsLinkShareBottomSheetOpened] = useRecoilState(
     LinkShareBottomSheetState
@@ -29,26 +28,6 @@ const ShareLinkBottomSheet = () => {
 
   const closeBottomSheet = () => {
     setIsLinkShareBottomSheetOpened(false);
-  };
-
-  const handleShareClick = () => {
-    const shareData = {
-      title: '모두의 시간',
-      url: inviteURL,
-    };
-
-    if (navigator.share) {
-      navigator.share(shareData);
-    }
-  };
-
-  const handleCopyToClipBoard = async (link: string) => {
-    try {
-      await navigator.clipboard.writeText(link);
-      alert('클립보드에 복사되었습니다.');
-    } catch {
-      alert('링크 복사에 실패했습니다.\n다시 시도해 주세요.');
-    }
   };
 
   return (
@@ -71,7 +50,7 @@ const ShareLinkBottomSheet = () => {
               onClick={() => handleCopyToClipBoard(inviteURL)}
             />
           </LinkWrapper>
-          <ShareButton onClick={handleShareClick}>지금 공유할게요</ShareButton>
+          <ShareButton onClick={handleUseShareAPI}>지금 공유할게요</ShareButton>
           <LaterButtonWrapper>
             <LaterButton onClick={closeBottomSheet}>나중에 할게요</LaterButton>
           </LaterButtonWrapper>

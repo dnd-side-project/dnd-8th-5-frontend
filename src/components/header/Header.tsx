@@ -1,23 +1,22 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { useParams } from 'react-router-dom';
 import { tooltipState } from '@/atoms/tooltipAtom';
 
 import Menu from '../menu/Menu';
-import { ROUTES } from '@/constants/ROUTES';
 import share from '@/assets/icons/share.svg';
 import headerMenu from '@/assets/icons/headerMenu.svg';
 import headerInfo from '@/assets/icons/headerInfo.svg';
 import { Icon, IconWrapper, Title, Wrapper } from './Header.styles';
 
-import CopyToClipboard from 'react-copy-to-clipboard';
+import { ROUTES } from '@/constants/ROUTES';
+import useShareLink from '@/hooks/useShareLink';
 
 const Header = ({ pageName, title }: { pageName: string; title: string }) => {
-  const { roomUUID } = useParams();
-  const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
+  const { inviteURL, handleCopyToClipBoard } = useShareLink();
 
   const [, setIsTooltipShown] = useRecoilState(tooltipState);
 
+  const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
   const handleMenuClick = () => {
     setIsMenuOpened(true);
   };
@@ -27,25 +26,21 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
       <Title>{title.slice(0, 16)}</Title>
 
       <IconWrapper pageName={pageName}>
-        {pageName !== ROUTES.ADD_TIME && (
-          <Icon src={headerMenu} alt="menu" onClick={handleMenuClick} />
-        )}
-
-        {pageName === ROUTES.ADD_TIME && (
+        {pageName === ROUTES.ADD_TIME ? (
           <Icon
             src={headerInfo}
             alt="share"
             onClick={() => setIsTooltipShown(true)}
           />
-        )}
-
-        {(pageName === ROUTES.CURRENT || pageName === ROUTES.RESULT) && (
-          <CopyToClipboard
-            text={`${window.location.origin}/invite/${roomUUID}`}
-            onCopy={() => alert('클립보드에 복사되었습니다.')}
-          >
-            <Icon src={share} alt="share" />
-          </CopyToClipboard>
+        ) : (
+          <>
+            <Icon src={headerMenu} alt="menu" onClick={handleMenuClick} />
+            <Icon
+              src={share}
+              alt="share"
+              onClick={() => handleCopyToClipBoard(inviteURL)}
+            />
+          </>
         )}
       </IconWrapper>
 
