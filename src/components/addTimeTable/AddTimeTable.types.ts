@@ -20,7 +20,6 @@ export interface PayloadTypes {
 
 export interface AddTimeTableTypes {
   wrapperRef: React.RefObject<HTMLDivElement>;
-  selectedMethod: string;
   startTime: number;
   endTime: number;
   dates: string[];

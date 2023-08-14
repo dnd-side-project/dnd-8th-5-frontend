@@ -66,7 +66,6 @@ const AddTime = () => {
           {startTime !== null && endTime !== null ? (
             <AddTimeTable
               wrapperRef={wrapperRef}
-              selectedMethod={selectedMethod}
               startTime={parseInt(startTime)}
               endTime={parseInt(endTime)}
               selected={tableSelected}
