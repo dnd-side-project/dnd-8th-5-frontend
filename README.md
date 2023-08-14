@@ -28,11 +28,11 @@
 
 # 🧑🏻‍💻 FE 팀원 정보
 
-|         <img src="https://avatars.githubusercontent.com/u/79887293?v=4" width=150px>          |      <img src="https://avatars.githubusercontent.com/u/81014501?v=4" width=150px>      |
-| :-------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------: |
-|                           [김주현](https://github.com/corinthionia)                           |                          [노현](https://github.com/YesHyeon)                           |
-|                    [corinthionia@gmail.com](mailto:corinthionia@gmail.com)                    |                   [shgus1224@naver.com](mailto:shgus1224@naver.com)                    |
-| 조율 현황 페이지 개발<br/>일정 등록 페이지 개발<br/>우선순위 확인 페이지 개발<br/>서비스 배포 | 방 생성 페이지 개발<br/>로그인 페이지 개발<br/>링크공유 기능 구현<br/>로그인 기능 구현 |
+|                      <img src="https://avatars.githubusercontent.com/u/79887293?v=4" width=150px>                       |      <img src="https://avatars.githubusercontent.com/u/81014501?v=4" width=150px>      |
+| :---------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------: |
+|                                        [김주현](https://github.com/corinthionia)                                        |                          [노현](https://github.com/YesHyeon)                           |
+|                                 [corinthionia@gmail.com](mailto:corinthionia@gmail.com)                                 |                   [shgus1224@naver.com](mailto:shgus1224@naver.com)                    |
+| 조율 현황 페이지 개발<br/>일정 등록 페이지 개발<br/>우선순위 확인 페이지 개발<br/>서비스 배포<br/>Google Analytics 설정 | 방 생성 페이지 개발<br/>로그인 페이지 개발<br/>링크공유 기능 구현<br/>로그인 기능 구현 |
 
 <br/>
 
