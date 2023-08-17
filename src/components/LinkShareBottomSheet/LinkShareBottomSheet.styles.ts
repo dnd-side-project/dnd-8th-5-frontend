@@ -91,6 +91,7 @@ export const LinkText = styled.div`
 export const CopyIcon = styled.img`
   width: 24px;
   height: 24px;
+  cursor: pointer;
 `;
 
 export const ShareButton = styled.button`
@@ -106,6 +107,8 @@ export const ShareButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  cursor: pointer;
 `;
 
 export const LaterButtonWrapper = styled.div`
@@ -119,4 +122,6 @@ export const LaterButtonWrapper = styled.div`
 export const LaterButton = styled.span`
   ${theme.typography.regular01};
   color: ${theme.colors.gray04};
+
+  cursor: pointer;
 `;
