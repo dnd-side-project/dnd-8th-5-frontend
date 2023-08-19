@@ -27,14 +27,14 @@ const ShareLinkBottomSheet = () => {
     LinkShareBottomSheetState
   );
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+  }, []);
+
   const closeBottomSheet = () => {
     setIsLinkShareBottomSheetOpened(false);
     document.body.style.overflow = 'unset';
   };
-
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-  }, []);
 
   return (
     <>
