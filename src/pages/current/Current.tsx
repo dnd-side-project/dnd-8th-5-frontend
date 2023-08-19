@@ -12,7 +12,7 @@ import ProgressBar from '@components/progressBar/ProgressBar';
 import BottomButton from '@components/bottomButton/BottomButton';
 import CurrentCalendar from '@components/currentCalendar/CurrentCalendar';
 import ParticipantsBlock from '@components/participantsBlock/ParticipantsBlock';
-import LinkShareBottomSheet from '@/components/LinkShareBottomSheet/LinkShareBottomSheet';
+import LinkShareBottomSheet from '@/components/linkShareBottomSheet/LinkShareBottomSheet';
 
 import {
   Body,

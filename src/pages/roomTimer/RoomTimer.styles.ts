@@ -90,6 +90,7 @@ export const RecommendWrapper = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   z-index: 2;
+  cursor: pointer;
 `;
 
 export const RecommendBox = styled.div<{ value: boolean; isChecked: boolean }>`

@@ -14,25 +14,16 @@ import shareResult from '@/assets/icons/shareResult.svg';
 import resultBubble from '@/assets/images/resultBubble.png';
 
 import { ROUTES } from '@/constants/ROUTES';
+import useShareLink from '@/hooks/useShareLink';
 
 const ResultButton = () => {
   const { roomUUID } = useParams();
   const navigate = useNavigate();
 
+  const { handleUseShareAPI } = useShareLink();
+
   const goToCurrent = () => {
     navigate(`${ROUTES.CURRENT}/${roomUUID}`);
-  };
-
-  const shareData = {
-    title: '모두의 시간',
-    text: '쉽고 빠른 약속시간 정하기, 모두의 시간',
-    url: `${window.location.origin}${ROUTES.INVITE}/${roomUUID}`,
-  };
-
-  const handleShareClick = () => {
-    if (navigator.share) {
-      navigator.share(shareData);
-    }
   };
 
   return (
@@ -46,7 +37,7 @@ const ResultButton = () => {
             onClick={goToCurrent}
           />
         </CurrentButtonWrapper>
-        <BottomButton onClick={handleShareClick}>
+        <BottomButton onClick={handleUseShareAPI}>
           결과 공유하기
           <ShareButton src={shareResult} alt="share" />
         </BottomButton>
