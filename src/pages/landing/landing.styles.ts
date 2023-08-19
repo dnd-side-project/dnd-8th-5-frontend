@@ -19,8 +19,8 @@ export const StartWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding-top: 94px;
-  height: 880px;
+  padding-top: 130px;
+  height: 100vh;
 
   .logo-header {
     ${theme.typography.semibold02}
@@ -57,7 +57,7 @@ export const ScrollWrapper = styled.div`
   }
 `;
 
-export const FirstWrapper = styled.div`
+export const IntroWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -102,10 +102,11 @@ export const FirstWrapper = styled.div`
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 120px;
+  margin-top: 100px;
+  gap: 90px;
 `;
 
-export const SecondWrapper = styled.div`
+export const FirstWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -120,7 +121,7 @@ export const SecondWrapper = styled.div`
   }
 `;
 
-export const ThirdWrapper = styled.div`
+export const SecondWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -132,7 +133,7 @@ export const ThirdWrapper = styled.div`
   }
 `;
 
-export const FourthWrapper = styled.div`
+export const ThirdWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -144,7 +145,7 @@ export const FourthWrapper = styled.div`
   }
 `;
 
-export const FifthWrapper = styled.div`
+export const FourthWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -152,6 +153,14 @@ export const FifthWrapper = styled.div`
 
   img {
     width: calc(100% - 144px);
+  }
+`;
+
+export const LastWrapper = styled.div`
+  margin-top: 221px;
+  text {
+    color: ${theme.colors.gray01};
+    ${theme.typography.semibold02}
   }
 `;
 

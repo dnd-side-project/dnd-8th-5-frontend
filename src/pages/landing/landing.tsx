@@ -3,13 +3,14 @@ import {
   StartWrapper,
   ScrollWrapper,
   MainContainer,
+  IntroWrapper,
+  ContentWrapper,
   FirstWrapper,
   SecondWrapper,
   TitleWrapper,
   ThirdWrapper,
   FourthWrapper,
-  FifthWrapper,
-  ContentWrapper,
+  LastWrapper,
 } from './landing.styles';
 import LogoImg from '@/assets/images/logo.webp';
 import ScrollArrow from '@/assets/icons/scrollArrow.webp';
@@ -34,7 +35,7 @@ const Landing = () => {
           스크롤해보세요
         </ScrollWrapper>
       </StartWrapper>
-      <FirstWrapper>
+      <IntroWrapper>
         <text>
           {`3인 이상 약속을 잡을 때,
         일정 조율하기 어렵지 않으셨나요?`}
@@ -46,9 +47,9 @@ const Landing = () => {
           </div>
           <text>도와드릴게요!</text>
         </div>
-      </FirstWrapper>
+      </IntroWrapper>
       <ContentWrapper>
-        <SecondWrapper>
+        <FirstWrapper>
           <TitleWrapper>
             <div className="title-header">약속 시간 만들기</div>
             <div className="title">{`간단하게 약속 모임을
