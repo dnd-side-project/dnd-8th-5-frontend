@@ -1,12 +1,13 @@
-# ⏰ 모두의 시간
+# ⏰ 쉽고 빠른 약속 정하기, 모두의 시간
 
-**쉽고 빠른 약속 정하기, 모두의 시간**
 <br/>
 
 [**모두의 시간**](https://modutime.site)은 누구나 부담없이 약속 시간을 정하는 과정을 리드하고,  
 다른 사용자들이 쉽고 빠르게 참여할 수 있도록 도와주는 서비스입니다.
 
-**사이트 주소: https://modutime.site**
+<br/>
+
+**모두의 시간 이용해 보기 🚀 https://modutime.site**
 <br/>
 <br/>
 
@@ -14,26 +15,6 @@
 
 <br/>
 <br/>
-
-# 🛠️ 기술 스택
-
-- Vite
-- React, TypeScript
-- Recoil, React Query
-- Emotion, Storybook
-- AWS S3, AWS CloudFront, Vercel
-
-<br/>
-<br/>
-
-# 🧑🏻‍💻 FE 팀원 정보
-
-|                      <img src="https://avatars.githubusercontent.com/u/79887293?v=4" width=150px>                       |      <img src="https://avatars.githubusercontent.com/u/81014501?v=4" width=150px>      |
-| :---------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------: |
-|                                        [김주현](https://github.com/corinthionia)                                        |                          [노현](https://github.com/YesHyeon)                           |
-|                                 [corinthionia@gmail.com](mailto:corinthionia@gmail.com)                                 |                   [shgus1224@naver.com](mailto:shgus1224@naver.com)                    |
-| 조율 현황 페이지 개발<br/>일정 등록 페이지 개발<br/>우선순위 확인 페이지 개발<br/>Google Analytics 설정<br/>서비스 배포 | 방 생성 페이지 개발<br/>로그인 페이지 개발<br/>링크공유 기능 구현<br/>로그인 기능 구현 |
-
 <br/>
 
 # 📱 기능 상세
@@ -62,4 +43,25 @@
 ![](https://velog.velcdn.com/images/corinthionia/post/2788ee60-2bc3-4f50-8020-8a96629f4b28/image.png)
 
 <br/>
+<br/>
+
+# 🛠️ 기술 스택
+
+- Vite
+- React, TypeScript
+- Recoil, Tanstack-Query
+- Emotion, Storybook
+- AWS S3, AWS CloudFront, Vercel
+
+<br/>
+<br/>
+
+# 🧑🏻‍💻 FE 팀원 정보
+
+|                      <img src="https://avatars.githubusercontent.com/u/79887293?v=4" width=150px>                       |      <img src="https://avatars.githubusercontent.com/u/81014501?v=4" width=150px>      |
+| :---------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------: |
+|                                        [김주현](https://github.com/corinthionia)                                        |                          [노현](https://github.com/YesHyeon)                           |
+|                                 [corinthionia@gmail.com](mailto:corinthionia@gmail.com)                                 |                   [shgus1224@naver.com](mailto:shgus1224@naver.com)                    |
+| 조율 현황 페이지 개발<br/>일정 등록 페이지 개발<br/>우선순위 확인 페이지 개발<br/>Google Analytics 설정<br/>서비스 배포 | 방 생성 페이지 개발<br/>로그인 페이지 개발<br/>링크공유 기능 구현<br/>로그인 기능 구현 |
+
 <br/>
