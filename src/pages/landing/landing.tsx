@@ -6,6 +6,7 @@ import {
   FirstWrapper,
   SecondWrapper,
   TitleWrapper,
+  ThirdWrapper,
 } from './landing.styles';
 import LogoImg from '@/assets/images/logo.webp';
 import ScrollArrow from '@/assets/icons/scrollArrow.webp';
@@ -14,6 +15,7 @@ import Rabbit from '@/assets/images/rabbit.webp';
 import BottomButton from '@/components/bottomButton/BottomButton';
 import landing2 from '@/assets/images/landing2.webp';
 import landing3 from '@/assets/images/landing3.webp';
+import landing4 from '@/assets/images/landing4.webp';
 
 const Landing = () => {
   return (
@@ -45,10 +47,18 @@ const Landing = () => {
           <div className="title-header">약속 시간 만들기</div>
           <div className="title">{`간단하게 약속 모임을
         만들어보세요!`}</div>
-          <img src={landing2} />
-          <img src={landing3} />
         </TitleWrapper>
+        <img src={landing2} />
+        <img src={landing3} />
       </SecondWrapper>
+      <ThirdWrapper>
+        <TitleWrapper>
+          <div className="title-header">시간 입력하기</div>
+          <div className="title">{`되는 시간/안되는 시간 토글로
+          일정을 등록해보세요`}</div>
+        </TitleWrapper>
+        <img src={landing4} />
+      </ThirdWrapper>
       <Link to="/roomStart">
         <BottomButton
           text="시작하기"

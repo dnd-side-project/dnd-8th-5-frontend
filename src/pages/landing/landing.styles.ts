@@ -85,12 +85,12 @@ export const FirstWrapper = styled.div`
   }
 
   .logo {
-    margin-top: 100px;
     width: 199px;
     margin-inline: 10px;
   }
 
   .section {
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
 
@@ -103,16 +103,29 @@ export const FirstWrapper = styled.div`
 export const SecondWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   font-size: 22px;
   padding-top: 240px;
 
-  gap: 40px;
-
   white-space: pre-line;
 
   img {
-    width: calc(100vw - 142px);
+    width: calc(100% - 142px);
+  }
+`;
+
+export const ThirdWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 633px;
+  margin-top: 135px;
+  font-size: 22px;
+
+  img {
+    width: calc(100% - 41px);
   }
 `;
 
@@ -123,6 +136,8 @@ export const TitleWrapper = styled.div`
   align-items: center;
   gap: 8px;
   text-align: center;
+  white-space: pre-line;
+  padding-bottom: 25px;
 
   .title-header {
     color: ${theme.colors.purple06};
