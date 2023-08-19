@@ -67,7 +67,6 @@ export const FirstWrapper = styled.div`
 
   align-items: center;
   ${theme.typography.semibold04}
-  font-size: 22px;
 
   gap: 40px;
 
@@ -100,6 +99,12 @@ export const FirstWrapper = styled.div`
   }
 `;
 
+export const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+`;
+
 export const SecondWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -120,12 +125,33 @@ export const ThirdWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 633px;
-  margin-top: 135px;
   font-size: 22px;
 
   img {
     width: calc(100% - 41px);
+  }
+`;
+
+export const FourthWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  font-size: 22px;
+
+  img {
+    width: calc(100% - 140px);
+  }
+`;
+
+export const FifthWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  img {
+    width: calc(100% - 144px);
   }
 `;
 
@@ -137,7 +163,7 @@ export const TitleWrapper = styled.div`
   gap: 8px;
   text-align: center;
   white-space: pre-line;
-  padding-bottom: 25px;
+  padding-bottom: 35px;
 
   .title-header {
     color: ${theme.colors.purple06};
