@@ -20,7 +20,7 @@ export const StartWrapper = styled.div`
   align-items: center;
   width: 100%;
   padding-top: 130px;
-  height: 100vh;
+  height: 920px;
 
   .logo-header {
     ${theme.typography.semibold02}
@@ -61,7 +61,7 @@ export const IntroWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 690px;
+  height: 550px;
   font-size: 22px;
   color: ${theme.colors.gray01};
 
@@ -99,29 +99,17 @@ export const IntroWrapper = styled.div`
   }
 `;
 
-export const ContentWrapper = styled.div`
+export const ContentsWrapper = styled.body`
   display: flex;
   flex-direction: column;
   margin-top: 100px;
   gap: 90px;
-`;
-
-export const FirstWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  font-size: 22px;
   padding-top: 240px;
 
   white-space: pre-line;
-
-  img {
-    width: calc(100% - 142px);
-  }
 `;
 
-export const SecondWrapper = styled.div`
+export const ContentWrapper = styled.div<{ index: number }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -129,35 +117,19 @@ export const SecondWrapper = styled.div`
   font-size: 22px;
 
   img {
-    width: calc(100% - 41px);
-  }
-`;
-
-export const ThirdWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  font-size: 22px;
-
-  img {
-    width: calc(100% - 140px);
-  }
-`;
-
-export const FourthWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-
-  img {
-    width: calc(100% - 144px);
+    width: ${(props) =>
+      props.index == 1
+        ? 'calc(100% - 142px)'
+        : props.index == 2
+        ? 'calc(100% - 41px)'
+        : props.index == 3
+        ? 'calc(100% - 140px)'
+        : 'calc(100% - 144px)'};
   }
 `;
 
 export const LastWrapper = styled.div`
-  margin-top: 210px;
+  margin-top: 180px;
   white-space: pre-line;
   text-align: center;
   text {
@@ -174,7 +146,7 @@ export const TitleWrapper = styled.div`
   gap: 8px;
   text-align: center;
   white-space: pre-line;
-  padding-bottom: 35px;
+  padding-bottom: 45px;
 
   .title-header {
     color: ${theme.colors.purple06};

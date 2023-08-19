@@ -4,13 +4,10 @@ import {
   ScrollWrapper,
   MainContainer,
   IntroWrapper,
-  ContentWrapper,
-  FirstWrapper,
-  SecondWrapper,
+  ContentsWrapper,
   TitleWrapper,
-  ThirdWrapper,
-  FourthWrapper,
   LastWrapper,
+  ContentWrapper,
 } from './landing.styles';
 import LogoImg from '@/assets/images/logo.webp';
 import ScrollArrow from '@/assets/icons/scrollArrow.webp';
@@ -22,6 +19,33 @@ import landing3 from '@/assets/images/landing3.webp';
 import landing4 from '@/assets/images/landing4.webp';
 import landing5 from '@/assets/images/landing5.webp';
 import landing6 from '@/assets/images/landing6.webp';
+
+const contents = [
+  {
+    id: 1,
+    titleHeader: '약속 시간 만들기',
+    title: '간단하게 약속 모임을\n만들어보세요',
+    images: [landing2, landing3],
+  },
+  {
+    id: 2,
+    titleHeader: '시간 입력하기',
+    title: '되는 시간/안되는 시간 토글로\n일정을 등록해보세요',
+    images: [landing4],
+  },
+  {
+    id: 3,
+    titleHeader: '실시간 확인하기',
+    title: '일정등록 타이머와 함께\n실시간 참여율을 확인할 수 있어요',
+    images: [landing5],
+  },
+  {
+    id: 4,
+    titleHeader: '우선순위 확인하기',
+    title: '조율 결과를\n한눈에 확인해볼까요?',
+    images: [landing6],
+  },
+];
 
 const Landing = () => {
   return (
@@ -48,41 +72,21 @@ const Landing = () => {
           <text>도와드릴게요!</text>
         </div>
       </IntroWrapper>
-      <ContentWrapper>
-        <FirstWrapper>
-          <TitleWrapper>
-            <div className="title-header">약속 시간 만들기</div>
-            <div className="title">{`간단하게 약속 모임을
-        만들어보세요!`}</div>
-          </TitleWrapper>
-          <img src={landing2} />
-          <img src={landing3} />
-        </FirstWrapper>
-        <SecondWrapper>
-          <TitleWrapper>
-            <div className="title-header">시간 입력하기</div>
-            <div className="title">{`되는 시간/안되는 시간 토글로
-          일정을 등록해보세요`}</div>
-          </TitleWrapper>
-          <img src={landing4} />
-        </SecondWrapper>
-        <ThirdWrapper>
-          <TitleWrapper>
-            <div className="title-header">실시간 확인하기</div>
-            <div className="title">{`일정등록 타이머와 함께
-          실시간 참여율을 확인할 수 있어요`}</div>
-          </TitleWrapper>
-          <img src={landing5} />
-        </ThirdWrapper>
-        <FourthWrapper>
-          <TitleWrapper>
-            <div className="title-header">우선순위 확인하기</div>
-            <div className="title">{`조율 결과를
-          한눈에 확인해볼까요?`}</div>
-          </TitleWrapper>
-          <img src={landing6} />
-        </FourthWrapper>
-      </ContentWrapper>
+      <ContentsWrapper>
+        {contents.map((item) => {
+          return (
+            <ContentWrapper index={item.id} key={item.id}>
+              <TitleWrapper>
+                <div className="title-header">{item.titleHeader}</div>
+                <div className="title">{item.title}</div>
+              </TitleWrapper>
+              {item.images.map((image) => {
+                return <img src={image} />;
+              })}
+            </ContentWrapper>
+          );
+        })}
+      </ContentsWrapper>
       <LastWrapper>
         <text>
           {`간편하고 빠르게 약속시간을 정하고 싶다면
