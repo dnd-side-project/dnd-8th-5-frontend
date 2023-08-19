@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import {
   Body,
   Content,
@@ -15,13 +14,8 @@ const BottomSheet = ({
   title,
   children,
 }: BottomSheetType) => {
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-  }, []);
-
   const closeModal = () => {
     setIsBottomSheetOpened(false);
-    document.body.style.overflow = 'unset';
   };
 
   return (
