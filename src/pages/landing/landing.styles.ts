@@ -1,17 +1,22 @@
 import styled from '@emotion/styled';
 import theme from '../../styles/theme';
 import landingBack from '@/assets/images/landingBack.webp';
+import { flotingAnimation } from '@/utils/flotingAnimation';
 
 export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 412px;
-  height: 6000px; /* 뷰포트 높이에 맞춤 */
+  height: 6000px;
   margin: 0 auto;
   background-image: url(${landingBack});
   background-size: cover;
   background-color: ${theme.colors.purple05};
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  overflow-x: hidden;
 `;
 
 export const StartWrapper = styled.div`
@@ -19,8 +24,13 @@ export const StartWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding-top: 130px;
-  height: 920px;
+  padding-top: 150px;
+
+  @media screen and (max-width: 375px) {
+    padding-top: 80px;
+  }
+
+  height: 900px;
 
   .logo-header {
     ${theme.typography.semibold02}
@@ -37,16 +47,17 @@ export const StartWrapper = styled.div`
   }
 
   .rabbit {
-    width: 280px;
-    height: 294px;
+    width: 250px;
   }
 `;
 
 export const ScrollWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top: 95px;
+  padding-top: 55px;
   gap: 6px;
+  position: absolute;
+  bottom: 100px;
 
   color: ${theme.colors.gray01};
   ${theme.typography.semibold04}
@@ -55,6 +66,8 @@ export const ScrollWrapper = styled.div`
     width: 17px;
     height: 19px;
   }
+
+  animation: ${flotingAnimation} 2s 5;
 `;
 
 export const IntroWrapper = styled.div`
@@ -64,6 +77,9 @@ export const IntroWrapper = styled.div`
   height: 550px;
   font-size: 22px;
   color: ${theme.colors.gray01};
+  opacity: 0;
+  transition: all 2s;
+  transform: translateY(150px);
 
   align-items: center;
   ${theme.typography.semibold04}
@@ -80,7 +96,7 @@ export const IntroWrapper = styled.div`
   }
 
   .chat {
-    width: 407px;
+    width: calc(100% - 42px);
   }
 
   .logo {
@@ -102,9 +118,12 @@ export const IntroWrapper = styled.div`
 export const ContentsWrapper = styled.body`
   display: flex;
   flex-direction: column;
-  margin-top: 100px;
-  gap: 90px;
-  padding-top: 240px;
+  gap: 100px;
+  padding-top: 340px;
+
+  @media screen and (max-width: 375px) {
+    gap: 170px;
+  }
 
   white-space: pre-line;
 `;
@@ -115,6 +134,9 @@ export const ContentWrapper = styled.div<{ index: number }>`
   align-items: center;
   width: 100%;
   font-size: 22px;
+  opacity: 0;
+  transition: all 2s;
+  transform: translateY(150px);
 
   img {
     width: ${(props) =>
@@ -132,6 +154,10 @@ export const LastWrapper = styled.div`
   margin-top: 180px;
   white-space: pre-line;
   text-align: center;
+  opacity: 0;
+  transition: all 2s;
+  transform: translateY(50px);
+
   text {
     color: ${theme.colors.gray01};
     ${theme.typography.semibold02}
