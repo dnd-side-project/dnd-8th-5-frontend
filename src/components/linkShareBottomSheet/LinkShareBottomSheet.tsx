@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
 
@@ -28,7 +29,12 @@ const ShareLinkBottomSheet = () => {
 
   const closeBottomSheet = () => {
     setIsLinkShareBottomSheetOpened(false);
+    document.body.style.overflow = 'unset';
   };
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+  }, []);
 
   return (
     <>
