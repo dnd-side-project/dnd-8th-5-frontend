@@ -157,7 +157,9 @@ export const FourthWrapper = styled.div`
 `;
 
 export const LastWrapper = styled.div`
-  margin-top: 221px;
+  margin-top: 210px;
+  white-space: pre-line;
+  text-align: center;
   text {
     color: ${theme.colors.gray01};
     ${theme.typography.semibold02}
