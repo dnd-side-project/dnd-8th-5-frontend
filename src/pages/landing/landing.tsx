@@ -9,9 +9,11 @@ import {
 } from './landing.styles';
 import LogoImg from '@/assets/images/logo.webp';
 import ScrollArrow from '@/assets/icons/scrollArrow.webp';
-import LadingFirst from '@/assets/images/landing1.webp';
+import landing1 from '@/assets/images/landing1.webp';
 import Rabbit from '@/assets/images/rabbit.webp';
 import BottomButton from '@/components/bottomButton/BottomButton';
+import landing2 from '@/assets/images/landing2.webp';
+import landing3 from '@/assets/images/landing3.webp';
 
 const Landing = () => {
   return (
@@ -30,7 +32,7 @@ const Landing = () => {
           {`3인 이상 약속을 잡을 때,
         일정 조율하기 어렵지 않으셨나요?`}
         </text>
-        <img className="chat" src={LadingFirst} />
+        <img className="chat" src={landing1} />
         <div className="section">
           <div className="section-logo">
             <img className="logo" src={LogoImg} />이
@@ -43,6 +45,8 @@ const Landing = () => {
           <div className="title-header">약속 시간 만들기</div>
           <div className="title">{`간단하게 약속 모임을
         만들어보세요!`}</div>
+          <img src={landing2} />
+          <img src={landing3} />
         </TitleWrapper>
       </SecondWrapper>
       <Link to="/roomStart">
