@@ -15,7 +15,7 @@ import {
   RightWrapper,
   ImgWrapper,
   TextWrapper,
-} from './Login.styles';
+} from './index.styles';
 import BottomButton from '@components/bottomButton/BottomButton';
 
 import useInputs from '@/hooks/useFormInput';

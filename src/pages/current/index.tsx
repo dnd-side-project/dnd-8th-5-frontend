@@ -25,7 +25,7 @@ import {
   TableWrapper,
   Title,
   Wrapper,
-} from './Current.styles';
+} from './index.styles';
 import edit from '@/assets/icons/edit.svg';
 import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 

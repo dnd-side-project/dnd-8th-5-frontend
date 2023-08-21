@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { BottomButton, MainContainer } from './Start.styles';
-import { ROUTES } from '../../constants/ROUTES';
+import { BottomButton, MainContainer } from './index.styles';
+import { ROUTES } from '@/constants/ROUTES';
 
 const StartPage = () => {
   return (

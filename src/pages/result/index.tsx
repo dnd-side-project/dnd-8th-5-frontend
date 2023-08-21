@@ -11,7 +11,7 @@ import {
   Title,
   TitleWrapper,
   Wrapper,
-} from './Result.styles';
+} from './index.styles';
 
 import nobody from '@/assets/images/nobody.png';
 import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';

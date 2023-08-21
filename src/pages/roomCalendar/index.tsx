@@ -12,7 +12,7 @@ import {
   MainContainer,
   TimePickerContainer,
   TimePickerWrapper,
-} from './RoomCalendar.styles';
+} from './index.styles';
 
 import Checkbox from '@components/checkbox/CheckBox';
 import Calendar from '@components/calendar/Calendar';

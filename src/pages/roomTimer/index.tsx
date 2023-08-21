@@ -16,7 +16,7 @@ import {
   RecommendWrapper,
   TimerContainr,
   TImerWrapper,
-} from './RoomTimer.styles';
+} from './index.styles';
 import Timer from '@/components/setTimer/SetTimer';
 import Checkbox from '@components/checkbox/CheckBox';
 import RoomHeader from '@components/roomHeader/RoomHeader';

@@ -24,7 +24,7 @@ import {
   ChceckContainer,
   Tag,
   TagWrapper,
-} from './RoomStart.styles';
+} from './index.styles';
 
 import { useRecoilState } from 'recoil';
 import { createRoomAtom } from '../../atoms/createRoomAtom';

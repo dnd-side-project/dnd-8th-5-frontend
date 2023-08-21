@@ -16,7 +16,7 @@ import {
   ParticipantsWraaper,
   Participant,
   BottomSubButton,
-} from './Invite.styles';
+} from './index.styles';
 import calendar from '../../assets/images/calendar.png';
 import { useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
