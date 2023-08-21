@@ -10,10 +10,10 @@ import Tooltip from '@components/tooltip/Tooltip';
 import AddToggle from '@components/addToggle/AddToggle';
 import AddTimeTable from '@components/addTimeTable/AddTimeTable';
 import AddCalendar from '@components/addCalendar/AddCalendar';
-import { Body, Main, Title, TitleWrapper, Wrapper } from './AddTime.styles';
+import { Body, Main, Title, TitleWrapper, Wrapper } from './index.styles';
 import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 
-import { TableSelectedTypes } from './AddTime.types';
+import { TableSelectedTypes } from './index.types';
 import { RoomTypes } from '@/types/roomInfo';
 
 import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';

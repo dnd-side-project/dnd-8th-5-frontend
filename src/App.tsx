@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { ROUTES } from './constants/ROUTES';
 
-import AddTime from './pages/addTime/AddTime';
+import AddTime from './pages/addTime';
 import Current from './pages/current/Current';
 import RoomCalendar from './pages/roomCalendar/RoomCalendar';
 import RoomStart from './pages/roomStart/RoomStart';
