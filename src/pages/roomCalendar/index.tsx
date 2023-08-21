@@ -14,11 +14,11 @@ import {
   TimePickerWrapper,
 } from './index.styles';
 
-import Checkbox from '@/components/createRoom/checkbox/CheckBox';
-import Calendar from '@/components/createRoom/calendar/Calendar';
-import RoomHeader from '@/components/createRoom/roomHeader/RoomHeader';
-import TimePicker from '@/components/createRoom/timePicker/TimePicker';
-import BottomButton from '@/components/commons/bottomButton/BottomButton';
+import Checkbox from '@/components/createRoom/checkbox';
+import Calendar from '@/components/createRoom/calendar';
+import RoomHeader from '@/components/createRoom/roomHeader';
+import TimePicker from '@/components/createRoom/timePicker';
+import BottomButton from '@/components/commons/bottomButton';
 import { ROUTES } from '../../constants/ROUTES';
 
 const RoomCalendar = () => {

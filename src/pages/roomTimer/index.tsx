@@ -17,10 +17,10 @@ import {
   TimerContainr,
   TImerWrapper,
 } from './index.styles';
-import Timer from '@/components/setTimer/SetTimer';
-import Checkbox from '@/components/createRoom/checkbox/CheckBox';
-import RoomHeader from '@/components/createRoom/roomHeader/RoomHeader';
-import BottomButton from '@/components/commons/bottomButton/BottomButton';
+import Timer from '@/components/createRoom/setTimer';
+import Checkbox from '@/components/createRoom/checkbox';
+import RoomHeader from '@/components/createRoom/roomHeader';
+import BottomButton from '@/components/commons/bottomButton';
 
 import { ROUTES } from '@/constants/ROUTES';
 import { useCreateRoom } from '@/queries/room/useCreateRoom';

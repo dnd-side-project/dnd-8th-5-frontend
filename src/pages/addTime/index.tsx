@@ -5,11 +5,11 @@ import { useRecoilState } from 'recoil';
 import { selectedMethodState } from '@/atoms/selectedMethodAtom';
 import { tooltipState } from '@/atoms/tooltipAtom';
 
-import Header from '@/components/commons/header/Header';
-import Tooltip from '@/components/addTime/tooltip/Tooltip';
-import AddToggle from '@/components/addTime/addToggle/AddToggle';
-import AddTimeTable from '@/components/addTime/addTimeTable/AddTimeTable';
-import AddCalendar from '@/components/addTime/addCalendar/AddCalendar';
+import Header from '@/components/commons/header';
+import Tooltip from '@/components/addTime/tooltip';
+import AddToggle from '@/components/addTime/addToggle';
+import AddTimeTable from '@/components/addTime/addTimeTable';
+import AddCalendar from '@/components/addTime/addCalendar';
 import { Body, Main, Title, TitleWrapper, Wrapper } from './index.styles';
 import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 

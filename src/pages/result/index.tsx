@@ -16,13 +16,13 @@ import {
 import nobody from '@/assets/images/nobody.png';
 import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 
-import Header from '@/components/commons/header/Header';
-import SelectBox from '@/components/result/selectBox/SelectBox';
-import ResultButton from '@/components/result/resultButton/ResultButton';
-import BottomSheet from '@/components/result/bottomSheet/BottomSheet';
-import SortTimes from '@/components/result/option/sortOption/SortTimes';
-import Candidate from '@/components/result/candidate/Candidate';
-import SelectParticipants from '@/components/result/option/participantsOption/participantsOption';
+import Header from '@/components/commons/header';
+import SelectBox from '@/components/result/selectBox';
+import ResultButton from '@/components/result/resultButton';
+import BottomSheet from '@/components/result/bottomSheet';
+import SortTimes from '@/components/result/option/sortOption';
+import Candidate from '@/components/result/candidate';
+import SelectParticipants from '@/components/result/option/participantsOption';
 
 import { RoomTypes } from '@/types/roomInfo';
 import { CandidateTimesType } from '@/types/result';
