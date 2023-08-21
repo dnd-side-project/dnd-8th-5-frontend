@@ -1,7 +1,7 @@
-import { MainContainer } from './404.styles';
+import { MainContainer } from './index.styles';
 import BottomButton from '../../components/bottomButton/BottomButton';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../constants/ROUTES';
+import { ROUTES } from '@/constants/ROUTES';
 
 const ErrorPage = () => {
   const navigate = useNavigate();

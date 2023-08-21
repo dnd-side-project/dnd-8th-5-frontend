@@ -10,7 +10,7 @@ import Timer from './pages/roomTimer/RoomTimer';
 import Login from './pages/login/Login';
 import Result from './pages/result/Result';
 import Invite from './pages/invite/Invite';
-import Error from './pages/404/404';
+import Error from './pages/404';
 import useScrollToTop from './hooks/useScrollToTop';
 import useGoogleAnalytics from './hooks/useGoogleAnalytics';
 
