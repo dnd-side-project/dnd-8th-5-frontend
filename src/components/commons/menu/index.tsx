@@ -16,7 +16,7 @@ import {
   Top,
   Wrapper,
 } from './index.styles';
-import { ROUTES } from '../../../constants/ROUTES';
+import { ROUTES } from '@/constants/ROUTES';
 
 interface MenuTypes {
   setIsMenuOpened: React.Dispatch<React.SetStateAction<boolean>>;

@@ -1,4 +1,6 @@
 import { SetStateAction, useCallback, useState, useRef } from 'react';
+import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 
 import CheckBox from '@/components/createRoom/checkbox';
 import BottomButton from '@/components/commons/bottomButton';
@@ -6,6 +8,7 @@ import BottomButton from '@/components/commons/bottomButton';
 import plus from '@/assets/icons/plus.png';
 import minus from '@/assets/icons/minus.png';
 import roomStart from '@/assets/images/roomStart.webp';
+import { createRoomTagsData } from '@/assets/data/createRoomTagsData';
 
 import {
   MainContainer,
@@ -26,12 +29,9 @@ import {
   TagWrapper,
 } from './index.styles';
 
-import { useRecoilState } from 'recoil';
-import { createRoomAtom } from '../../atoms/createRoomAtom';
-import { useNavigate } from 'react-router-dom';
-import useInputScroll from '../../hooks/useInputScroll';
-import { ROUTES } from '../../constants/ROUTES';
-import { createRoomTagsData } from '../../assets/data/createRoomTagsData';
+import { createRoomAtom } from '@/atoms/createRoomAtom';
+import useInputScroll from '@/hooks/useInputScroll';
+import { ROUTES } from '@/constants/ROUTES';
 
 interface TagType {
   id: string;

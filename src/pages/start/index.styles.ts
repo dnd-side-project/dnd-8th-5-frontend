@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import theme from '../../styles/theme';
-import background from '../../assets/images/startBack.webp';
+import theme from '@/styles/theme';
+import background from '@/assets/images/startBack.webp';
 
 export const MainContainer = styled.div`
   width: 100%;

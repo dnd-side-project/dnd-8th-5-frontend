@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import background from '../../assets/images/errorBack.webp';
+import background from '@/assets/images/errorBack.webp';
 
 export const MainContainer = styled.div`
   width: 100%;

@@ -1,4 +1,4 @@
-import './timePicker.css';
+import './index.css';
 import {
   MainContainer,
   StyledSlider,

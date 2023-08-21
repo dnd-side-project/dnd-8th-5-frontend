@@ -19,7 +19,7 @@ import Calendar from '@/components/createRoom/calendar';
 import RoomHeader from '@/components/createRoom/roomHeader';
 import TimePicker from '@/components/createRoom/timePicker';
 import BottomButton from '@/components/commons/bottomButton';
-import { ROUTES } from '../../constants/ROUTES';
+import { ROUTES } from '@/constants/ROUTES';
 
 const RoomCalendar = () => {
   const navigate = useNavigate();

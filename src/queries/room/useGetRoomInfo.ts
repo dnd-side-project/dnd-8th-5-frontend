@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getRoomInfo } from '../../api/room';
-import { QUERY_KEYS } from '../../constants/QUERY_KEYS';
+import { getRoomInfo } from '@/api/room';
+import { QUERY_KEYS } from '@/constants/QUERY_KEYS';
 
 export const useGetRoomInfo = (roomUUID: string) => {
   return useQuery(

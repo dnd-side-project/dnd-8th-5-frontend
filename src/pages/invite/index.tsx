@@ -17,12 +17,12 @@ import {
   Participant,
   BottomSubButton,
 } from './index.styles';
-import calendar from '../../assets/images/calendar.png';
+import calendar from '@/assets/images/calendar.png';
 import { useEffect } from 'react';
-import { useAuth } from '../../hooks/useAuth';
-import { roomState } from '../../atoms/roomAtom';
-import { useGetRoomInfo } from '../../queries/room/useGetRoomInfo';
-import { ROUTES } from '../../constants/ROUTES';
+import { useAuth } from '@/hooks/useAuth';
+import { roomState } from '@/atoms/roomAtom';
+import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
+import { ROUTES } from '@/constants/ROUTES';
 
 const Invite = () => {
   const { roomUUID } = useParams() as { roomUUID: string };

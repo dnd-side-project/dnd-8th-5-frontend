@@ -16,7 +16,7 @@ import {
   PrevMonthIcon,
   StyledCalendar,
 } from './index.styles';
-import BottomButton from '../../commons/bottomButton';
+import BottomButton from '@/components/commons/bottomButton';
 
 import { AddCalendarType } from './index.types';
 
