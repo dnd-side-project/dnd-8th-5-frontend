@@ -5,14 +5,14 @@ import dayjs from 'dayjs';
 import { useRecoilState } from 'recoil';
 import { selectedMethodState } from '@/atoms/selectedMethodAtom';
 
-import Timer from '@components/timer/Timer';
-import Table from '@components/table/Table';
-import Header from '@components/header/Header';
-import ProgressBar from '@components/progressBar/ProgressBar';
-import BottomButton from '@components/bottomButton/BottomButton';
-import CurrentCalendar from '@components/currentCalendar/CurrentCalendar';
-import ParticipantsBlock from '@components/participantsBlock/ParticipantsBlock';
-import LinkShareBottomSheet from '@/components/linkShareBottomSheet/LinkShareBottomSheet';
+import Timer from '@/components/current/timer/Timer';
+import Table from '@/components/current/table/Table';
+import Header from '@/components/commons/header/Header';
+import ProgressBar from '@/components/current/progressBar/ProgressBar';
+import BottomButton from '@/components/commons/bottomButton/BottomButton';
+import CurrentCalendar from '@/components/current/currentCalendar/CurrentCalendar';
+import ParticipantsBlock from '@/components/current/participantsBlock/ParticipantsBlock';
+import LinkShareBottomSheet from '@/components/current/linkShareBottomSheet/LinkShareBottomSheet';
 
 import {
   Body,

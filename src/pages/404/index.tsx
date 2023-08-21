@@ -1,5 +1,5 @@
 import { MainContainer } from './index.styles';
-import BottomButton from '../../components/bottomButton/BottomButton';
+import BottomButton from '../../components/commons/bottomButton/BottomButton';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants/ROUTES';
 

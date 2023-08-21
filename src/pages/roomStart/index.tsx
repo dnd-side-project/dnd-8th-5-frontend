@@ -1,7 +1,7 @@
 import { SetStateAction, useCallback, useState, useRef } from 'react';
 
-import CheckBox from '@components/checkbox/CheckBox';
-import BottomButton from '@components/bottomButton/BottomButton';
+import CheckBox from '@/components/createRoom/checkbox/CheckBox';
+import BottomButton from '@/components/commons/bottomButton/BottomButton';
 
 import plus from '@/assets/icons/plus.png';
 import minus from '@/assets/icons/minus.png';

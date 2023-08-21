@@ -18,9 +18,9 @@ import {
   TImerWrapper,
 } from './index.styles';
 import Timer from '@/components/setTimer/SetTimer';
-import Checkbox from '@components/checkbox/CheckBox';
-import RoomHeader from '@components/roomHeader/RoomHeader';
-import BottomButton from '@components/bottomButton/BottomButton';
+import Checkbox from '@/components/createRoom/checkbox/CheckBox';
+import RoomHeader from '@/components/createRoom/roomHeader/RoomHeader';
+import BottomButton from '@/components/commons/bottomButton/BottomButton';
 
 import { ROUTES } from '@/constants/ROUTES';
 import { useCreateRoom } from '@/queries/room/useCreateRoom';

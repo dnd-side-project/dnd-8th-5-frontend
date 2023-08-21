@@ -16,7 +16,7 @@ import {
   ImgWrapper,
   TextWrapper,
 } from './index.styles';
-import BottomButton from '@components/bottomButton/BottomButton';
+import BottomButton from '@/components/commons/bottomButton/BottomButton';
 
 import useInputs from '@/hooks/useFormInput';
 import useInputScroll from '@/hooks/useInputScroll';
