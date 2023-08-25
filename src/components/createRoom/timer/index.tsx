@@ -13,7 +13,7 @@ interface SetTimer {
   setMinute: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const SetTimer = ({ setDay, setHour, setMinute }: SetTimer) => {
+const Timer = ({ setDay, setHour, setMinute }: SetTimer) => {
   const DAY_ARRAY = getRange(0, 6);
   const HOUR_ARRAY = getRange(0, 24);
   const MINUTE_ARRAY = getRange(0, 6, 10);
@@ -92,4 +92,4 @@ const SetTimer = ({ setDay, setHour, setMinute }: SetTimer) => {
   );
 };
 
-export default SetTimer;
+export default Timer;

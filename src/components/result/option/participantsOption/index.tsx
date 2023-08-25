@@ -12,9 +12,9 @@ import refresh from '@/assets/icons/refresh.svg';
 
 import { Participants, ParticipantsOptionTypes } from './index.types';
 
-import Participant from '../participant';
+import Participant from '../participantBlock';
 
-const ParticipantsOption = ({
+const ParticipantOption = ({
   setIsParticipantOpened,
   participantsList,
   setParticipantsList,
@@ -108,4 +108,4 @@ const ParticipantsOption = ({
   );
 };
 
-export default ParticipantsOption;
+export default ParticipantOption;

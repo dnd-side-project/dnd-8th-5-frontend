@@ -19,7 +19,7 @@ interface AddButtonTypes {
   setIsResetButtonClick: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AddButton = ({
+const Button = ({
   setTableSelected,
   handleApplyClick,
   setIsResetButtonClick,
@@ -49,4 +49,4 @@ const AddButton = ({
   );
 };
 
-export default AddButton;
+export default Button;

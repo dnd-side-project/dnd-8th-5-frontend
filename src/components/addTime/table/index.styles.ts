@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import theme from '@/styles/theme';
-import { SelectType } from '../addTimeTable/index.types';
+import { SelectType } from '../tableArea/index.types';
 
 export const Wrapper = styled.div`
   width: 231px;

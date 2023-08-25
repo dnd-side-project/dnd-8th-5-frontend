@@ -16,7 +16,7 @@ import resultBubble from '@/assets/images/resultBubble.png';
 import { ROUTES } from '@/constants/ROUTES';
 import useShareLink from '@/hooks/useShareLink';
 
-const ResultButton = () => {
+const Button = () => {
   const { roomUUID } = useParams();
   const navigate = useNavigate();
 
@@ -46,4 +46,4 @@ const ResultButton = () => {
   );
 };
 
-export default ResultButton;
+export default Button;

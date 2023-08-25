@@ -14,7 +14,7 @@ interface SortTimesTypes {
   setIsSortOpened: Dispatch<SetStateAction<boolean>>;
 }
 
-const SortTimes = ({
+const SortOption = ({
   queryString,
   setQueryString,
   setIsSortOpened,
@@ -48,4 +48,4 @@ const SortTimes = ({
   );
 };
 
-export default SortTimes;
+export default SortOption;

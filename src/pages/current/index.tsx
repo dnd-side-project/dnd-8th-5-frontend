@@ -10,9 +10,9 @@ import Table from '@/components/current/table';
 import Header from '@/components/commons/header';
 import ProgressBar from '@/components/current/progressBar';
 import BottomButton from '@/components/commons/bottomButton';
-import CurrentCalendar from '@/components/current/currentCalendar';
-import ParticipantsBlock from '@/components/current/participantsBlock';
-import LinkShareBottomSheet from '@/components/current/linkShareBottomSheet';
+import CurrentCalendar from '@/components/current/calendar';
+import ParticipantsBlock from '@/components/current/participantBlock';
+import LinkShareBottomSheet from '@/components/current/shareLinkBottomSheet';
 
 import {
   Body,

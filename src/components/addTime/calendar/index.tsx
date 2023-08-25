@@ -20,7 +20,7 @@ import BottomButton from '@/components/commons/bottomButton';
 
 import { AddCalendarType } from './index.types';
 
-const AddCalendar = ({
+const Calendar = ({
   dates,
   selected,
   setSelected,
@@ -147,4 +147,4 @@ const AddCalendar = ({
   );
 };
 
-export default AddCalendar;
+export default Calendar;

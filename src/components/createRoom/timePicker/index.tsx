@@ -11,7 +11,7 @@ interface Current {
   setEndTime: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Current = ({ setStartTime, setEndTime }: Current) => {
+const TimePicker = ({ setStartTime, setEndTime }: Current) => {
   const START_TIME_ARRAY = [
     '09:00',
     '10:00',
@@ -113,4 +113,4 @@ const Current = ({ setStartTime, setEndTime }: Current) => {
   );
 };
 
-export default Current;
+export default TimePicker;

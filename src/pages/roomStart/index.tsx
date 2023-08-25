@@ -39,7 +39,7 @@ interface TagType {
   isSelected: boolean;
 }
 
-const Room = () => {
+const RoomStart = () => {
   const [roomName, setRoomName] = useState('');
   const [peopleNumber, setPeopleNumber] = useState(0);
   const [isNotDecided, setIsNotDecided] = useState(false);
@@ -175,4 +175,4 @@ const Room = () => {
   );
 };
 
-export default Room;
+export default RoomStart;

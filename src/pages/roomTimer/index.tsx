@@ -17,15 +17,15 @@ import {
   TimerContainr,
   TImerWrapper,
 } from './index.styles';
-import Timer from '@/components/createRoom/setTimer';
+import Timer from '@/components/createRoom/timer';
 import Checkbox from '@/components/createRoom/checkbox';
-import RoomHeader from '@/components/createRoom/roomHeader';
+import RoomHeader from '@/components/createRoom/header';
 import BottomButton from '@/components/commons/bottomButton';
 
 import { ROUTES } from '@/constants/ROUTES';
 import { useCreateRoom } from '@/queries/room/useCreateRoom';
 
-const TimerPage = () => {
+const RoomTimer = () => {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   const RecommendArray = ['10분', '30분', '1시간', '3시간', '6시간', '하루'];
@@ -215,4 +215,4 @@ const TimerPage = () => {
   );
 };
 
-export default TimerPage;
+export default RoomTimer;

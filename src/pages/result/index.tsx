@@ -18,7 +18,7 @@ import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 
 import Header from '@/components/commons/header';
 import SelectBox from '@/components/result/selectBox';
-import ResultButton from '@/components/result/resultButton';
+import ResultButton from '@/components/result/button';
 import BottomSheet from '@/components/result/bottomSheet';
 import SortTimes from '@/components/result/option/sortOption';
 import Candidate from '@/components/result/candidate';

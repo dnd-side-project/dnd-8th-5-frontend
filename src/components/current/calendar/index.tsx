@@ -14,7 +14,7 @@ interface CurrentCalendarTypes {
   participants: string[];
 }
 
-const CurrentCalendar = ({ participants }: CurrentCalendarTypes) => {
+const Calendar = ({ participants }: CurrentCalendarTypes) => {
   const { roomUUID } = useParams() as { roomUUID: string };
 
   const [currentTableInfo, setCurrentTableInfo] = useState<
@@ -91,4 +91,4 @@ const CurrentCalendar = ({ participants }: CurrentCalendarTypes) => {
   );
 };
 
-export default CurrentCalendar;
+export default Calendar;

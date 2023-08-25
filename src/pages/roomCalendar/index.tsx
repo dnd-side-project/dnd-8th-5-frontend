@@ -16,7 +16,7 @@ import {
 
 import Checkbox from '@/components/createRoom/checkbox';
 import Calendar from '@/components/createRoom/calendar';
-import RoomHeader from '@/components/createRoom/roomHeader';
+import RoomHeader from '@/components/createRoom/header';
 import TimePicker from '@/components/createRoom/timePicker';
 import BottomButton from '@/components/commons/bottomButton';
 import { ROUTES } from '@/constants/ROUTES';

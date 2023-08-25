@@ -17,7 +17,7 @@ interface AddToggleTypes {
   setTableSelected: React.Dispatch<React.SetStateAction<TableSelectedTypes>>;
   setSelected: React.Dispatch<React.SetStateAction<string[]>>;
 }
-const AddToggle = ({
+const Toggle = ({
   isTableView,
   setTableSelected,
   setSelected,
@@ -80,4 +80,4 @@ const AddToggle = ({
   );
 };
 
-export default AddToggle;
+export default Toggle;

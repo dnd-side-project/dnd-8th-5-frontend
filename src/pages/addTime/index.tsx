@@ -7,9 +7,9 @@ import { tooltipState } from '@/atoms/tooltipAtom';
 
 import Header from '@/components/commons/header';
 import Tooltip from '@/components/addTime/tooltip';
-import AddToggle from '@/components/addTime/addToggle';
-import AddTimeTable from '@/components/addTime/addTimeTable';
-import AddCalendar from '@/components/addTime/addCalendar';
+import AddToggle from '@/components/addTime/toggle';
+import AddTimeTable from '@/components/addTime/tableArea';
+import AddCalendar from '@/components/addTime/calendar';
 import { Body, Main, Title, TitleWrapper, Wrapper } from './index.styles';
 import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 

@@ -15,7 +15,7 @@ import {
   Top,
   Wrapper,
 } from './index.styles';
-import { TableType } from '../addTimeTable/index.types';
+import { TableType } from '../tableArea/index.types';
 
 const Table = ({
   contentRef,

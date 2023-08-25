@@ -5,7 +5,7 @@ interface RoomHeaderTypes {
   bottomSheet: boolean;
 }
 
-const RoomHeader = ({ index, title, bottomSheet }: RoomHeaderTypes) => {
+const Header = ({ index, title, bottomSheet }: RoomHeaderTypes) => {
   return (
     <MainContainer>
       <IndexText>{index}</IndexText>
@@ -14,4 +14,4 @@ const RoomHeader = ({ index, title, bottomSheet }: RoomHeaderTypes) => {
   );
 };
 
-export default RoomHeader;
+export default Header;

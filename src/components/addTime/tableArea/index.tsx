@@ -12,7 +12,7 @@ import {
   TableWrapper,
 } from './index.styles';
 import Table from '../table';
-import AddButton from '../addButton';
+import AddButton from '../button';
 import { AddTimeTableTypes, TableSelectedTypes } from './index.types';
 
 import addPrevDisable from '@/assets/icons/addPrevDisable.png';
@@ -29,7 +29,7 @@ import { useGetAvailableTimesByOne } from '@/queries/availableTimes/useGetAvaila
 import { ROUTES } from '@/constants/ROUTES';
 import { selectedMethodState } from '@/atoms/selectedMethodAtom';
 
-const AddTimeTable = ({
+const TableArea = ({
   wrapperRef,
   startTime,
   endTime,
@@ -217,4 +217,4 @@ const AddTimeTable = ({
   );
 };
 
-export default AddTimeTable;
+export default TableArea;
