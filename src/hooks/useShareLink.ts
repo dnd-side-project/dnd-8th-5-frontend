@@ -13,6 +13,8 @@ const useShareLink = () => {
 
     if (navigator.share) {
       navigator.share(shareData);
+    } else {
+      handleCopyToClipBoard();
     }
   };
 
