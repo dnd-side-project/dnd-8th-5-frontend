@@ -1,16 +1,16 @@
 import { Route, Routes } from 'react-router-dom';
 import { ROUTES } from './constants/ROUTES';
 
-import AddTime from './pages/addTime/AddTime';
-import Current from './pages/current/Current';
-import RoomCalendar from './pages/roomCalendar/RoomCalendar';
-import RoomStart from './pages/roomStart/RoomStart';
-import Start from './pages/start/Start';
-import Timer from './pages/roomTimer/RoomTimer';
-import Login from './pages/login/Login';
-import Result from './pages/result/Result';
-import Invite from './pages/invite/Invite';
-import Error from './pages/404/404';
+import AddTime from './pages/addTime';
+import Current from './pages/current';
+import RoomCalendar from './pages/roomCalendar';
+import RoomStart from './pages/roomStart';
+import Start from './pages/start';
+import Timer from './pages/roomTimer';
+import Login from './pages/login';
+import Result from './pages/result';
+import Invite from './pages/invite';
+import Error from './pages/404';
 import useScrollToTop from './hooks/useScrollToTop';
 import useGoogleAnalytics from './hooks/useGoogleAnalytics';
 
