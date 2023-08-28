@@ -1,12 +1,11 @@
-import { entriesIn } from 'lodash';
-import { useRef, useEffect, useState, useCallback, RefObject } from 'react';
+import { useEffect, RefObject } from 'react';
 
 export const useComponentOnScreen = (refs: RefObject<HTMLDivElement>[]) => {
   const handleScroll = (entries: any[]) => {
-    entries.forEach((박스) => {
-      if (박스.isIntersecting) {
-        박스.target.style.opacity = 1;
-        박스.target.style.transform = 'translateZ(0)';
+    entries.forEach((item) => {
+      if (item.isIntersecting) {
+        item.target.style.opacity = 1;
+        item.target.style.transform = 'translateZ(0)';
       }
     });
   };
