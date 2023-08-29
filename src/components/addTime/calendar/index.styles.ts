@@ -137,8 +137,7 @@ export const StyledCalendar = styled(Calendar)<{ selectedMethod: string }>`
 
   /* 오늘 날짜 */
   .react-calendar__tile--now {
-    color: #59ce8f;
-    background: #e6f8ee;
+    background: none;
   }
 `;
 
