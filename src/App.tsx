@@ -5,7 +5,6 @@ import AddTime from './pages/addTime';
 import Current from './pages/current';
 import RoomCalendar from './pages/roomCalendar';
 import RoomStart from './pages/roomStart';
-import Start from './pages/start';
 import Timer from './pages/roomTimer';
 import Login from './pages/login';
 import Result from './pages/result';
