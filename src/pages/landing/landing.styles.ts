@@ -12,6 +12,7 @@ export const MainContainer = styled.div`
   margin: 0 auto;
   background-image: url(${landingBack});
   background-size: cover;
+  background-position: center;
   background-color: ${theme.colors.purple05};
   &::-webkit-scrollbar {
     display: none;
@@ -88,7 +89,7 @@ export const IntroWrapper = styled.div`
 
   white-space: pre-line;
 
-  text {
+  .title {
     text-align: center;
     color: ${theme.colors.gray01};
     ${theme.typography.semibold04};
@@ -108,17 +109,18 @@ export const IntroWrapper = styled.div`
     margin-top: 50px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 
-    text {
+    .section-text {
       font-size: 28px;
     }
   }
 `;
 
-export const ContentsWrapper = styled.body`
+export const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 70px;
   padding-top: 340px;
 
   @media screen and (max-width: 375px) {
@@ -158,7 +160,7 @@ export const LastWrapper = styled.div`
   transition: all 2s;
   transform: translateY(50px);
 
-  text {
+  .title {
     color: ${theme.colors.gray01};
     ${theme.typography.semibold02}
   }

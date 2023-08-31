@@ -14,13 +14,15 @@ import Error from './pages/404';
 import useScrollToTop from './hooks/useScrollToTop';
 import useGoogleAnalytics from './hooks/useGoogleAnalytics';
 
+import Landing from './pages/landing/landing';
+
 function App() {
   useGoogleAnalytics();
   useScrollToTop();
 
   return (
     <Routes>
-      <Route path="/" element={<Start />} />
+      <Route path="/" element={<Landing />} />
       <Route path={`${ROUTES.ROOM_START}`} element={<RoomStart />} />
       <Route path={`${ROUTES.ROOM_CALENDAR}`} element={<RoomCalendar />} />
       <Route path={`${ROUTES.ROOM_TIMER}`} element={<Timer />} />

@@ -13,7 +13,7 @@ import {
 import LogoImg from '@/assets/images/logo.webp';
 import ScrollArrow from '@/assets/icons/scrollArrow.webp';
 import Rabbit from '@/assets/images/rabbit.webp';
-import BottomButton from '@/components/bottomButton/BottomButton';
+import BottomButton from '@/components/commons/bottomButton';
 import landing1 from '@/assets/images/landing1.webp';
 import landing2 from '@/assets/images/landing2.webp';
 import landing3 from '@/assets/images/landing3.webp';
@@ -21,11 +21,9 @@ import landing4 from '@/assets/images/landing4.webp';
 import landing5 from '@/assets/images/landing5.webp';
 import landing6 from '@/assets/images/landing6.webp';
 
-import { useLandingScroll } from '@/hooks/useLandingScroll';
 import { useComponentOnScreen } from '@/hooks/useComponentOnScreen';
 
 const Landing = () => {
-  // const { y } = useLandingScroll();
   const introRef = useRef<HTMLDivElement>(null);
   const firstRef = useRef<HTMLDivElement>(null);
   const secondRef = useRef<HTMLDivElement>(null);
@@ -42,7 +40,7 @@ const Landing = () => {
     lastRef,
   ]);
 
-  const contents = [
+  const CONTENTS = [
     {
       id: 1,
       titleHeader: '약속 시간 만들기',
@@ -76,7 +74,7 @@ const Landing = () => {
   return (
     <MainContainer>
       <StartWrapper>
-        <text className="logo-header">쉽고 빠른 약속 정하기</text>
+        <div className="logo-header">쉽고 빠른 약속 정하기</div>
         <img className="logo" src={LogoImg} />
         <img className="rabbit" src={Rabbit} />
         <ScrollWrapper>
@@ -85,20 +83,20 @@ const Landing = () => {
         </ScrollWrapper>
       </StartWrapper>
       <IntroWrapper ref={introRef}>
-        <text>
+        <div className="title">
           {`3인 이상 약속을 잡을 때,
         일정 조율하기 어렵지 않으셨나요?`}
-        </text>
+        </div>
         <img className="chat" src={landing1} />
         <div className="section">
           <div className="section-logo">
             <img className="logo" src={LogoImg} />이
           </div>
-          <text>도와드릴게요!</text>
+          <div className="section-text">도와드릴게요!</div>
         </div>
       </IntroWrapper>
       <ContentsWrapper>
-        {contents.map((item) => {
+        {CONTENTS.map((item) => {
           return (
             <ContentWrapper index={item.id} key={item.id} ref={item.ref}>
               <TitleWrapper>
@@ -106,17 +104,17 @@ const Landing = () => {
                 <div className="title">{item.title}</div>
               </TitleWrapper>
               {item.images.map((image) => {
-                return <img src={image} />;
+                return <img src={image} key={image} />;
               })}
             </ContentWrapper>
           );
         })}
       </ContentsWrapper>
       <LastWrapper ref={lastRef}>
-        <text>
+        <div className="title">
           {`간편하고 빠르게 약속시간을 정하고 싶다면
           모두의 시간과 함께 해보세요!`}
-        </text>
+        </div>
       </LastWrapper>
       <Link to="/roomStart">
         <BottomButton
