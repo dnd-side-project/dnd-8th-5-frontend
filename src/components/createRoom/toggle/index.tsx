@@ -18,9 +18,9 @@ const Toggle = ({ text, toggle, setData }: ToggleProps) => {
 
   return (
     <ToggleBtn onClick={clickedToggle} toggle={isToggle}>
-      <ToggleText>{text[0]}</ToggleText>
       <ToggleText>{text[1]}</ToggleText>
-      <Circle toggle={isToggle}>{isToggle ? text[0] : text[1]}</Circle>
+      <ToggleText>{text[0]}</ToggleText>
+      <Circle toggle={!isToggle}>{isToggle ? text[0] : text[1]}</Circle>
     </ToggleBtn>
   );
 };

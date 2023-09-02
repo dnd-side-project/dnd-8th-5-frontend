@@ -14,7 +14,7 @@ interface Calendar {
 }
 
 const Calendar = ({ dates, setDates, setMonth }: Calendar) => {
-  const [isRange, setIsRange] = useState<boolean>(true);
+  const [isRange, setIsRange] = useState<boolean>(false);
   const [value, setValue] = useState();
 
   const ko = {
