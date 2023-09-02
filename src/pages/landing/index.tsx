@@ -9,7 +9,7 @@ import {
   TitleWrapper,
   LastWrapper,
   ContentWrapper,
-} from './landing.styles';
+} from './index.styles';
 import LogoImg from '@/assets/images/logo.webp';
 import ScrollArrow from '@/assets/icons/scrollArrow.webp';
 import Rabbit from '@/assets/images/rabbit.webp';

@@ -13,7 +13,7 @@ import Error from './pages/404';
 import useScrollToTop from './hooks/useScrollToTop';
 import useGoogleAnalytics from './hooks/useGoogleAnalytics';
 
-import Landing from './pages/landing/landing';
+import Landing from './pages/landing';
 
 function App() {
   useGoogleAnalytics();
