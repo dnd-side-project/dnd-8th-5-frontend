@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
+
 import {
   StartWrapper,
   ScrollWrapper,
@@ -10,18 +11,18 @@ import {
   LastWrapper,
   ContentWrapper,
 } from './index.styles';
-import LogoImg from '@/assets/images/logo.webp';
-import ScrollArrow from '@/assets/icons/scrollArrow.webp';
-import Rabbit from '@/assets/images/rabbit.webp';
 import BottomButton from '@/components/commons/bottomButton';
+import { useComponentOnScreen } from '@/hooks/useComponentOnScreen';
+
+import Rabbit from '@/assets/images/rabbit.webp';
+import Logo from '@/assets/images/logo.webp';
+import ScrollArrow from '@/assets/icons/scrollArrow.webp';
 import landing1 from '@/assets/images/landing1.webp';
 import landing2 from '@/assets/images/landing2.webp';
 import landing3 from '@/assets/images/landing3.webp';
 import landing4 from '@/assets/images/landing4.webp';
 import landing5 from '@/assets/images/landing5.webp';
 import landing6 from '@/assets/images/landing6.webp';
-
-import { useComponentOnScreen } from '@/hooks/useComponentOnScreen';
 
 const Landing = () => {
   const introRef = useRef<HTMLDivElement>(null);
@@ -30,7 +31,6 @@ const Landing = () => {
   const thirdRef = useRef<HTMLDivElement>(null);
   const fourthRef = useRef<HTMLDivElement>(null);
   const lastRef = useRef<HTMLDivElement>(null);
-
   useComponentOnScreen([
     introRef,
     firstRef,
@@ -75,7 +75,7 @@ const Landing = () => {
     <MainContainer>
       <StartWrapper>
         <div className="logo-header">쉽고 빠른 약속 정하기</div>
-        <img className="logo" src={LogoImg} />
+        <img className="logo" src={Logo} />
         <img className="rabbit" src={Rabbit} />
         <ScrollWrapper>
           <img className="arrow" src={ScrollArrow} />
@@ -90,7 +90,7 @@ const Landing = () => {
         <img className="chat" src={landing1} />
         <div className="section">
           <div className="section-logo">
-            <img className="logo" src={LogoImg} />이
+            <img className="logo" src={Logo} />이
           </div>
           <div className="section-text">도와드릴게요!</div>
         </div>
