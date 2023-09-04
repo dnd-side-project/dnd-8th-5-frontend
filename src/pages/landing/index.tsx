@@ -7,6 +7,7 @@ import BottomButton from '@/components/commons/bottomButton';
 import { useComponentOnScreen } from '@/hooks/useComponentOnScreen';
 
 import Rabbit from '@/assets/images/rabbit.webp';
+import SubLogo from '@/assets/images/subLogo.webp';
 import Logo from '@/assets/images/logo.webp';
 import ScrollArrow from '@/assets/icons/scrollArrow.webp';
 import landing1 from '@/assets/images/landing1.webp';
@@ -67,7 +68,7 @@ const Landing = () => {
   return (
     <S.MainContainer>
       <S.StartWrapper>
-        <div className="logo-header">쉽고 빠른 약속 정하기</div>
+        <img className="logo-header" src={SubLogo} />
         <img className="logo" src={Logo} />
         <img className="rabbit" src={Rabbit} />
         <S.ScrollWrapper>

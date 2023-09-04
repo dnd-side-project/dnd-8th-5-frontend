@@ -8,16 +8,17 @@ export const MainContainer = styled.div`
   flex-direction: column;
   width: 100%;
   max-width: 412px;
-  height: 6000px;
+  height: 5948px;
   margin: 0 auto;
   background-image: url(${landingBack});
-  background-size: cover;
+  background-size: auto;
   background-position: center;
   background-color: ${theme.colors.purple05};
   &::-webkit-scrollbar {
     display: none;
   }
   overflow-x: hidden;
+  overflow-y: hidden;
 `;
 
 export const StartWrapper = styled.div`
@@ -28,21 +29,18 @@ export const StartWrapper = styled.div`
   padding-top: 150px;
 
   @media screen and (max-width: 375px) {
-    padding-top: 80px;
+    padding-top: 100px;
   }
 
-  height: 900px;
+  height: 880px;
 
   .logo-header {
-    ${theme.typography.semibold02}
-    background: linear-gradient(180deg, #e3e7ff 0%, #f8f8ff 100%);
-    color: transparent;
-    -webkit-background-clip: text;
-    padding-bottom: 12px;
+    width: calc(100% - 230px);
+    padding-bottom: 13px;
   }
 
   .logo {
-    width: 250px;
+    width: calc(100% - 152px);
     height: 42px;
     margin-bottom: 58px;
   }
@@ -75,7 +73,7 @@ export const IntroWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 550px;
+  height: 700px;
   font-size: 22px;
   color: ${theme.colors.gray01};
   opacity: 0;
@@ -110,6 +108,7 @@ export const IntroWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
 
     .section-text {
       font-size: 28px;
@@ -120,11 +119,11 @@ export const IntroWrapper = styled.div`
 export const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 70px;
-  padding-top: 340px;
+  gap: 160px;
+  padding-top: 250px;
 
   @media screen and (max-width: 375px) {
-    gap: 170px;
+    gap: 200px;
   }
 
   white-space: pre-line;
@@ -142,13 +141,30 @@ export const ContentWrapper = styled.div<{ index: number }>`
 
   img {
     width: ${(props) =>
-      props.index == 1
-        ? 'calc(100% - 142px)'
-        : props.index == 2
-        ? 'calc(100% - 41px)'
-        : props.index == 3
-        ? 'calc(100% - 140px)'
-        : 'calc(100% - 144px)'};
+      props.index == 2 ? 'calc(100% - 70px)' : 'calc(100% - 170px)'};
+  }
+
+  &:nth-of-type(4) {
+    gap: 1px;
+    margin-top: -70px;
+  }
+
+  @media screen and (max-width: 375px) {
+    img {
+      width: ${(props) =>
+        props.index == 2 ? 'calc(100% - 40px)' : 'calc(100% - 140px)'};
+    }
+  }
+
+  @media screen and (max-width: 390px) {
+    &:nth-of-type(4) {
+      margin-top: -100px;
+    }
+
+    img {
+      width: ${(props) =>
+        props.index == 2 ? 'calc(100% - 40px)' : 'calc(100% - 150px)'};
+    }
   }
 `;
 
