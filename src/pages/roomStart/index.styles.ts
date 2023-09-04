@@ -183,7 +183,7 @@ export const ChceckContainer = styled.div`
   padding-right: 20px;
 `;
 
-export const CheckListText = styled.text`
+export const CheckListText = styled.div`
   font-family: Pretendard;
 `;
 

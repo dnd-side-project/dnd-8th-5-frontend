@@ -5,7 +5,6 @@ import AddTime from './pages/addTime';
 import Current from './pages/current';
 import RoomCalendar from './pages/roomCalendar';
 import RoomStart from './pages/roomStart';
-import Start from './pages/start';
 import Timer from './pages/roomTimer';
 import Login from './pages/login';
 import Result from './pages/result';
@@ -14,13 +13,15 @@ import Error from './pages/404';
 import useScrollToTop from './hooks/useScrollToTop';
 import useGoogleAnalytics from './hooks/useGoogleAnalytics';
 
+import Landing from './pages/landing';
+
 function App() {
   useGoogleAnalytics();
   useScrollToTop();
 
   return (
     <Routes>
-      <Route path="/" element={<Start />} />
+      <Route path="/" element={<Landing />} />
       <Route path={`${ROUTES.ROOM_START}`} element={<RoomStart />} />
       <Route path={`${ROUTES.ROOM_CALENDAR}`} element={<RoomCalendar />} />
       <Route path={`${ROUTES.ROOM_TIMER}`} element={<Timer />} />
