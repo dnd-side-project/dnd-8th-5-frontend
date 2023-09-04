@@ -11,7 +11,7 @@ export const MainContainer = styled.div`
   height: 5948px;
   margin: 0 auto;
   background-image: url(${landingBack});
-  background-size: auto;
+  background-size: 412px 5948px;
   background-position: center;
   background-color: ${theme.colors.purple05};
   &::-webkit-scrollbar {
