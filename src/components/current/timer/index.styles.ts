@@ -16,20 +16,21 @@ export const Wrapper = styled.div`
   justify-content: center;
 `;
 
-export const TextWrapper = styled.div<{ isTimerExpired: boolean }>`
-  width: 291px;
+export const TextWrapper = styled.div`
+  width: 100%;
+  padding: 0 22px;
 
   display: flex;
   align-items: center;
-  justify-content: ${({ isTimerExpired }) =>
-    isTimerExpired ? 'center' : 'space-between'};
+  justify-content: space-between;
 `;
 
 export const Span = styled.span`
-  ${theme.typography.regular01};
+  ${theme.typography.regular02};
 `;
 
 export const Time = styled.span`
-  color: ${theme.colors.orange03};
   ${theme.typography.semibold03};
+  font-feature-settings: 'tnum';
+  font-variant-numeric: tabular-nums;
 `;
