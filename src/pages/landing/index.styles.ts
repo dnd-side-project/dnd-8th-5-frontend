@@ -92,10 +92,14 @@ export const IntroWrapper = styled.div`
     color: ${theme.colors.gray01};
     ${theme.typography.semibold04};
     font-size: 22px;
+    transition: 1s;
+    transform: translateY(10px);
   }
 
   .chat {
     width: calc(100% - 42px);
+    transition: 3s;
+    transform: translateY(200px);
   }
 
   .logo {
@@ -109,6 +113,9 @@ export const IntroWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    transition: 5s;
+    transform: translateY(300px);
+    opacity: 0;
 
     .section-text {
       font-size: 28px;
