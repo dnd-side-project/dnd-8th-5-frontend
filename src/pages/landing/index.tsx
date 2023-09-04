@@ -1,16 +1,8 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-import {
-  StartWrapper,
-  ScrollWrapper,
-  MainContainer,
-  IntroWrapper,
-  ContentsWrapper,
-  TitleWrapper,
-  LastWrapper,
-  ContentWrapper,
-} from './index.styles';
+import * as S from './index.styles';
+
 import BottomButton from '@/components/commons/bottomButton';
 import { useComponentOnScreen } from '@/hooks/useComponentOnScreen';
 
@@ -31,6 +23,7 @@ const Landing = () => {
   const thirdRef = useRef<HTMLDivElement>(null);
   const fourthRef = useRef<HTMLDivElement>(null);
   const lastRef = useRef<HTMLDivElement>(null);
+
   useComponentOnScreen([
     introRef,
     firstRef,
@@ -72,17 +65,17 @@ const Landing = () => {
   ];
 
   return (
-    <MainContainer>
-      <StartWrapper>
+    <S.MainContainer>
+      <S.StartWrapper>
         <div className="logo-header">쉽고 빠른 약속 정하기</div>
         <img className="logo" src={Logo} />
         <img className="rabbit" src={Rabbit} />
-        <ScrollWrapper>
+        <S.ScrollWrapper>
           <img className="arrow" src={ScrollArrow} />
           스크롤해보세요
-        </ScrollWrapper>
-      </StartWrapper>
-      <IntroWrapper ref={introRef}>
+        </S.ScrollWrapper>
+      </S.StartWrapper>
+      <S.IntroWrapper ref={introRef}>
         <div className="title">
           {`3인 이상 약속을 잡을 때,
         일정 조율하기 어렵지 않으셨나요?`}
@@ -94,28 +87,28 @@ const Landing = () => {
           </div>
           <div className="section-text">도와드릴게요!</div>
         </div>
-      </IntroWrapper>
-      <ContentsWrapper>
+      </S.IntroWrapper>
+      <S.ContentsWrapper>
         {CONTENTS.map((item) => {
           return (
-            <ContentWrapper index={item.id} key={item.id} ref={item.ref}>
-              <TitleWrapper>
+            <S.ContentWrapper index={item.id} key={item.id} ref={item.ref}>
+              <S.TitleWrapper>
                 <div className="title-header">{item.titleHeader}</div>
                 <div className="title">{item.title}</div>
-              </TitleWrapper>
+              </S.TitleWrapper>
               {item.images.map((image) => {
                 return <img src={image} key={image} />;
               })}
-            </ContentWrapper>
+            </S.ContentWrapper>
           );
         })}
-      </ContentsWrapper>
-      <LastWrapper ref={lastRef}>
+      </S.ContentsWrapper>
+      <S.LastWrapper ref={lastRef}>
         <div className="title">
           {`간편하고 빠르게 약속시간을 정하고 싶다면
           모두의 시간과 함께 해보세요!`}
         </div>
-      </LastWrapper>
+      </S.LastWrapper>
       <Link to="/roomStart">
         <BottomButton
           text="시작하기"
@@ -123,7 +116,7 @@ const Landing = () => {
           isActivated={true}
         />
       </Link>
-    </MainContainer>
+    </S.MainContainer>
   );
 };
 
