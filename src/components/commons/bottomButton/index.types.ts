@@ -5,4 +5,5 @@ export interface BottomButtonType {
   text: string;
   isActivated: boolean;
   isBackgroundVisible?: boolean;
+  isLanding?: boolean;
 }

@@ -23,9 +23,12 @@ export const BottomButtonContainer = styled.div<{
   z-index: 100;
 `;
 
-export const Wrapper = styled.button<{ isActivated: boolean }>`
+export const Wrapper = styled.button<{
+  isActivated: boolean;
+  isLanding: boolean;
+}>`
   width: calc(100% - 40px);
-  max-width: 412px;
+  max-width: ${({ isLanding }) => (isLanding ? '375px' : '412px')};
   height: 52px;
   margin: 0 auto;
 

@@ -6,10 +6,15 @@ const BottomButton = ({
   text,
   isActivated,
   isBackgroundVisible = true,
+  isLanding = false,
 }: BottomButtonType) => {
   return (
     <BottomButtonContainer isBackgroundVisible={isBackgroundVisible}>
-      <Wrapper onClick={onClick} isActivated={isActivated}>
+      <Wrapper
+        onClick={onClick}
+        isActivated={isActivated}
+        isLanding={isLanding}
+      >
         {text}
       </Wrapper>
     </BottomButtonContainer>

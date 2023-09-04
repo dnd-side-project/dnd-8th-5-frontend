@@ -114,6 +114,7 @@ const Landing = () => {
           text="시작하기"
           isBackgroundVisible={false}
           isActivated={true}
+          isLanding={true}
         />
       </Link>
     </S.MainContainer>
