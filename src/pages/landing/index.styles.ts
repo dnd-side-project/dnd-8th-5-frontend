@@ -26,10 +26,10 @@ export const StartWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding-top: 150px;
+  padding-top: 125px;
 
   @media screen and (max-width: 375px) {
-    padding-top: 100px;
+    padding-top: 90px;
   }
 
   height: 880px;
