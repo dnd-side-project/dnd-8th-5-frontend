@@ -19,14 +19,12 @@ export const Overlay = styled.div`
 export const Wrapper = styled.div`
   width: 100%;
   max-width: 412px;
-  height: 279px;
   border-radius: 12px 12px 0 0;
   background: ${theme.colors.gray01};
 
   position: fixed;
   z-index: 4;
   bottom: 0;
-
   animation: ${slideUpAnimation} 0.5s;
 `;
 
@@ -48,7 +46,6 @@ export const HeaderBar = styled.div`
 
 export const Body = styled.div`
   width: 100%;
-  height: 257px;
   padding: 17px 20px 0 20px;
 `;
 
@@ -61,5 +58,4 @@ export const Content = styled.div`
   width: 100%;
   margin-top: 24px;
   position: relative;
-  height: 197px;
 `;
