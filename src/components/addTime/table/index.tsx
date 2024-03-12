@@ -125,6 +125,7 @@ const Table = ({
           ({ date, isValidDate }: { date: string; isValidDate: boolean }) => (
             <SelectWrapper key={date} className="container">
               <Selecto
+                className="mpr-designer-selection"
                 ref={selectoRef}
                 dragContainer={'.container'}
                 selectableTargets={['.valid']}

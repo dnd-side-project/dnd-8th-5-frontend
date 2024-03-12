@@ -83,6 +83,11 @@ export const Time = styled.div`
 export const SelectWrapper = styled.div`
   width: 70px;
 
+  .mpr-designer-selection {
+    border: none !important;
+    background: none !important;
+  }
+
   & + & {
     width: 71px;
     border-left: 1px solid ${theme.colors.addTableBorder};
