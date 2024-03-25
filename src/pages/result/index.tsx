@@ -66,9 +66,6 @@ const Result = () => {
 
   const [{ title, participants }, setRoom] =
     useState<RoomTypes>(initialRoomInfoData);
-  const [candidateTimes, setCandidateTimes] = useState<CandidateTimesType[]>(
-    []
-  );
 
   const roomInfo = useGetRoomInfo(roomUUID);
 
@@ -105,12 +102,6 @@ const Result = () => {
     queryString.sort,
     queryString.name
   );
-
-  useEffect(() => {
-    if (data) {
-      setCandidateTimes(data.candidateTimes);
-    }
-  }, [data]);
 
   useEffect(() => {
     refetch();
@@ -153,7 +144,7 @@ const Result = () => {
           />
         </SelectWrapper>
 
-        {candidateTimes.length === 0 ? (
+        {data?.candidateTimes.length === 0 ? (
           <NobodyWrapper>
             <Nobody>
               <NobodyRabbit src={nobody} alt="nobody" />
@@ -163,7 +154,7 @@ const Result = () => {
         ) : (
           <>
             {participants.length !==
-            candidateTimes[0].participantNames.length ? (
+            data?.candidateTimes[0].participantNames.length ? (
               <NobodyWrapper>
                 <Nobody>
                   <NobodyRabbit src={nobody} alt="nobody" />
@@ -172,8 +163,14 @@ const Result = () => {
               </NobodyWrapper>
             ) : null}
 
-            {candidateTimes.map(
-              ({ date, dayOfWeek, startTime, endTime, participantNames }) => (
+            {data?.candidateTimes.map(
+              ({
+                date,
+                dayOfWeek,
+                startTime,
+                endTime,
+                participantNames,
+              }: CandidateTimesType) => (
                 <Candidate
                   key={`part ${date} ${startTime} ${endTime}`}
                   date={date}

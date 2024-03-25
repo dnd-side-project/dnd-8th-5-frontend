@@ -24,9 +24,7 @@ import useInputScroll from '@/hooks/useInputScroll';
 import { ROUTES } from '@/constants/ROUTES';
 import checkedBox from '@/assets/icons/checkedBox.png';
 import uncheckedbox from '@/assets/icons/uncheckdBox.png';
-import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 
-import { RoomTypes } from '@/types/roomInfo';
 import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 import { usePostUserInfo } from '@/queries/auth/usePostUserInfo';
 
@@ -34,7 +32,6 @@ const Login = () => {
   const { roomUUID } = useParams() as { roomUUID: string };
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
-  const [room, setRoom] = useState<RoomTypes>(initialRoomInfoData);
 
   const inputNameRef = useRef<HTMLInputElement>(null);
   const inputPasswordRef = useRef<HTMLInputElement>(null);
@@ -57,12 +54,6 @@ const Login = () => {
 
   const { data } = useGetRoomInfo(roomUUID);
   const { mutate, isSuccess, isError } = usePostUserInfo();
-
-  useEffect(() => {
-    if (data) {
-      setRoom(data);
-    }
-  }, [data]);
 
   const onClickNext = () => {
     if (Number.isNaN(Number(form.password))) {
@@ -95,7 +86,7 @@ const Login = () => {
     <MainContainer>
       <FormContainer>
         <HeaderContainer>
-          <HeaderText>{room.title}</HeaderText>
+          <HeaderText>{data.title}</HeaderText>
         </HeaderContainer>
         <InputContnainer>
           <LoginComponent>

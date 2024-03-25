@@ -75,7 +75,6 @@ const RoomTimer = () => {
     setIsClickedRecommend((prev) =>
       prev.map(() => {
         return false;
-        LinkShareBottomSheetState;
       })
     );
   }, [isChecked]);
