@@ -20,15 +20,18 @@ export const useScroll = () => {
 
     const onMouseMove = (e: MouseEvent) => {
       const newTop = e.clientY - shiftY - track.getBoundingClientRect().top;
-      const bottomEdge = track.offsetHeight - thumb.offsetHeight;
 
-      const updatedOffsetY = Math.min(Math.max(0, newTop), bottomEdge);
+      // track에서 thumb의 위치
+      // 0일 경우 thumb는 track의 최상단에 위치
+      const diff = track.offsetHeight - thumb.offsetHeight;
+
+      const updatedOffsetY = Math.min(Math.max(0, newTop), diff);
       setOffsetY(updatedOffsetY);
     };
 
     const onMouseUp = () => {
-      document.removeEventListener('mouseup', onMouseUp);
       document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
     };
 
     document.addEventListener('mousemove', onMouseMove);
@@ -46,15 +49,15 @@ export const useScroll = () => {
     const onTouchMove = (e: TouchEvent) => {
       const newTop =
         e.touches[0].clientY - shiftY - track.getBoundingClientRect().top;
-      const bottomEdge = track.offsetHeight - thumb.offsetHeight;
+      const diff = track.offsetHeight - thumb.offsetHeight;
 
-      const updatedOffsetY = Math.min(Math.max(0, newTop), bottomEdge);
+      const updatedOffsetY = Math.min(Math.max(0, newTop), diff);
       setOffsetY(updatedOffsetY);
     };
 
     const onTouchEnd = () => {
-      document.removeEventListener('touchend', onTouchEnd);
       document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
     };
 
     document.addEventListener('touchmove', onTouchMove);

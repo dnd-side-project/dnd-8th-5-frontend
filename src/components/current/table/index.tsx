@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
@@ -13,8 +12,6 @@ import {
   Top,
   Wrapper,
 } from './index.styles';
-
-import { AvailableDateTimeTypes } from '@/types/current';
 
 import { getTimeRange } from '@/utils/getTimeRange';
 import { getTableDateFormat } from '@/utils/getTableDateFormat';
@@ -32,19 +29,7 @@ const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
   const { roomUUID } = useParams() as { roomUUID: string };
   const timeRange = getTimeRange(parseInt(startTime), parseInt(endTime));
 
-  const [currentTableInfo, setCurrentTableInfo] = useState<
-    AvailableDateTimeTypes[]
-  >([]);
-
   const { data } = useGetAvailableTimesByGroup(roomUUID);
-
-  useEffect(() => {
-    if (data) {
-      setCurrentTableInfo(
-        getCurrentTableInfo(data.availableDateTimes, timeRange)
-      );
-    }
-  }, [data]);
 
   return (
     <Wrapper>
@@ -70,19 +55,22 @@ const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
           ))}
         </TimeWrapper>
 
-        {currentTableInfo.map(({ availableDate, availableTimeInfos }: any) => (
-          <SelectWrapper key={availableDate}>
-            {availableTimeInfos.map(
-              ({ time, count }: { time: number; count: number }) => (
-                <Select
-                  key={`${availableDate} ${time}`}
-                  count={count}
-                  total={participants.length}
-                />
-              )
-            )}
-          </SelectWrapper>
-        ))}
+        {data &&
+          getCurrentTableInfo(data.availableDateTimes, timeRange).map(
+            ({ availableDate, availableTimeInfos }: any) => (
+              <SelectWrapper key={availableDate}>
+                {availableTimeInfos.map(
+                  ({ time, count }: { time: number; count: number }) => (
+                    <Select
+                      key={`${availableDate} ${time}`}
+                      count={count}
+                      total={participants.length}
+                    />
+                  )
+                )}
+              </SelectWrapper>
+            )
+          )}
       </Bottom>
     </Wrapper>
   );

@@ -16,6 +16,7 @@ export const getCurrentTableInfo = (
     })
   );
 
+  // 최소 column 개수: 4
   if (availableDateTimes.length < 4) {
     const remainder = 4 - (availableDateTimes.length % 4);
     const timeArray = getTimeArray(timeRange);

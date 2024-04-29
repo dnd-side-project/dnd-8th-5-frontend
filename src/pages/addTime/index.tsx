@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
@@ -11,10 +11,8 @@ import AddToggle from '@/components/addTime/toggle';
 import AddTimeTable from '@/components/addTime/tableArea';
 import AddCalendar from '@/components/addTime/calendar';
 import { Body, Main, Title, TitleWrapper, Wrapper } from './index.styles';
-import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 
 import { TableSelectedTypes } from './index.types';
-import { RoomTypes } from '@/types/roomInfo';
 
 import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 import { ROUTES } from '@/constants/ROUTES';
@@ -34,15 +32,9 @@ const AddTime = () => {
   const [isTooltipShown, setIsTooltipShown] =
     useRecoilState<boolean>(tooltipState);
 
-  const { data } = useGetRoomInfo(roomUUID);
-  const [{ title, dates, startTime, endTime }, setRoomInfo] =
-    useState<RoomTypes>(initialRoomInfoData);
-
-  useEffect(() => {
-    if (data) {
-      setRoomInfo(data);
-    }
-  }, [data]);
+  const {
+    data: { title, dates, startTime, endTime },
+  } = useGetRoomInfo(roomUUID);
 
   const isTableView = startTime !== null && endTime !== null ? true : false;
 
@@ -63,7 +55,7 @@ const AddTime = () => {
           <Title>시간으로 선택해 주세요</Title>
         </TitleWrapper>
         <Main>
-          {startTime !== null && endTime !== null ? (
+          {isTableView ? (
             <AddTimeTable
               wrapperRef={wrapperRef}
               startTime={parseInt(startTime)}

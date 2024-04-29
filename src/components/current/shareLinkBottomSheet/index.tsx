@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
 
 import {
@@ -23,7 +23,7 @@ const ShareLinkBottomSheet = () => {
   const { inviteURL, handleUseShareAPI, handleCopyToClipBoard } =
     useShareLink();
 
-  const [, setIsLinkShareBottomSheetOpened] = useRecoilState(
+  const setIsLinkShareBottomSheetOpened = useSetRecoilState(
     LinkShareBottomSheetState
   );
 

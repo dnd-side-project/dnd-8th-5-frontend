@@ -32,8 +32,12 @@ const Calendar = ({
 
   const [date, setDate] = useState<Date>(new Date());
 
+  // date: 현재 캘린더에 보이는 날짜들 (react-calendar)
+  // return: class name (string)
   const addTileClassName = ({ date }: { date: Date }) => {
+    // 일정 등록이 가능한 날짜인 경우
     if (dates.indexOf(dayjs(date).format('YYYY-MM-DD')) !== -1) {
+      // 선택된 날짜인 경우
       if (selected.indexOf(dayjs(date).format('YYYY-MM-DD 00:00')) !== -1) {
         return `selected valid availableDate${dayjs(date).format(
           'YYYY-MM-DD'
@@ -47,17 +51,12 @@ const Calendar = ({
   };
 
   useEffect(() => {
-    const index = selected.indexOf(`${dayjs(date).format('YYYY-MM-DD')} 00:00`);
-
     const element = document.querySelector(
       `.availableDate${dayjs(date).format('YYYY-MM-DD')}`
     ) as HTMLElement;
 
     if (element) {
-      if (index === -1) {
-        element.classList.add('selected');
-        setSelected([...selected, `${dayjs(date).format('YYYY-MM-DD')} 00:00`]);
-      } else {
+      if (selected.includes(`${dayjs(date).format('YYYY-MM-DD')} 00:00`)) {
         element.classList.remove('selected');
         setSelected(
           selected.filter(
@@ -65,6 +64,9 @@ const Calendar = ({
               availableDate !== `${dayjs(date).format('YYYY-MM-DD')} 00:00`
           )
         );
+      } else {
+        element.classList.add('selected');
+        setSelected([...selected, `${dayjs(date).format('YYYY-MM-DD')} 00:00`]);
       }
     }
   }, [date]);

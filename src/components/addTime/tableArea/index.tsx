@@ -72,14 +72,14 @@ const TableArea = ({
     if (data) {
       const newObj: TableSelectedTypes = {};
 
-      data.availableDateTimes.forEach((time: string) => {
-        validDateChunks.map((chunk, index) => {
-          chunk.map((date) => {
-            if (date.date.slice(0, 10) === time.slice(0, 10)) {
-              if (newObj[index] === undefined) {
-                newObj[index] = [time];
+      data.availableDateTimes.forEach((date: string) => {
+        validDateChunks.map((chunk, tablePage) => {
+          chunk.map((item) => {
+            if (item.date.slice(0, 10) === date.slice(0, 10)) {
+              if (newObj[tablePage]) {
+                newObj[tablePage].push(date);
               } else {
-                newObj[index].push(time);
+                newObj[tablePage] = [date];
               }
             }
           });

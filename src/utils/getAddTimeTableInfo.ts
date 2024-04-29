@@ -23,18 +23,16 @@ export const getAddTimeTableInfo = (dates: string[]) => {
     newDates = [...newDates, `blank${i}`];
   }
 
-  const validDates: ValidDate[][] = [
-    newDates.map((date: string) =>
-      date.slice(0, 5) === 'blank'
-        ? { date: date, isValidDate: false }
-        : { date: date, isValidDate: true }
-    ),
-  ];
+  const validDates: ValidDate[] = newDates.map((date: string) =>
+    date.slice(0, 5) === 'blank'
+      ? { date: date, isValidDate: false }
+      : { date: date, isValidDate: true }
+  );
 
   let dateChunks: Array<ValidDate[]> = [];
 
-  for (let i = 0; i < validDates[0].length; i += 3) {
-    dateChunks = [...dateChunks, validDates[0].slice(i, i + 3)];
+  for (let i = 0; i < validDates.length; i += 3) {
+    dateChunks = [...dateChunks, validDates.slice(i, i + 3)];
   }
 
   return dateChunks;

@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { DateObject, getAllDatesInRange } from 'react-multi-date-picker';
 import {
   CalendarComponent,
@@ -9,8 +15,8 @@ import Toggle from '../toggle';
 
 interface Calendar {
   dates: string[];
-  setDates: React.Dispatch<React.SetStateAction<string[]>>;
-  setMonth: React.Dispatch<React.SetStateAction<string>>;
+  setDates: Dispatch<SetStateAction<string[]>>;
+  setMonth: Dispatch<SetStateAction<string>>;
 }
 
 const Calendar = ({ dates, setDates, setMonth }: Calendar) => {

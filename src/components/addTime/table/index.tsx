@@ -17,6 +17,11 @@ import {
 } from './index.styles';
 import { TableType } from '../tableArea/index.types';
 
+interface ValidDateType {
+  date: string;
+  isValidDate: boolean;
+}
+
 const Table = ({
   contentRef,
   selected,
@@ -28,12 +33,12 @@ const Table = ({
   isResetButtonClick,
   setIsResetButtonClick,
 }: TableType) => {
-  const timeDetail = getTimeArray(times);
-
   const selectoRef = useRef<any>(null);
+  const timeDetail = getTimeArray(times);
 
   useEffect(() => {
     if (selected[tablePage]) {
+      // 등록했던 일정을 수정할 경우 className 제거하는 과정 필요
       const selectedElements = document.querySelectorAll('.selected');
       selectedElements.forEach((element) => {
         element.classList.remove('selected');
@@ -44,40 +49,48 @@ const Table = ({
         element?.classList.add('selected');
       });
 
+      // 페이지 진입 시 이전에 선택했던 칸에 선택 표시
       selectoRef.current.setSelectedTargets(
         selected[tablePage].map((id) => document.getElementById(id))
       );
     }
   }, [tablePage, selected]);
 
+  // 시간 선택 방법을 토글하면 선택한 항목 초기화
   useEffect(() => {
     selectoRef.current.setSelectedTargets([]);
     setIsResetButtonClick(false);
   }, [selectedMethod, isResetButtonClick]);
 
+  // Selecto 컴포넌트에 전달할 onSelect 핸들러
   const handleCellSelect = (e: any) => {
     if (e.inputEvent.type !== 'touchstart') {
-      e.added.forEach((el: any) => {
+      e.added.forEach((el: HTMLElement) => {
         el.classList.add('selected');
       });
 
-      e.removed.forEach((el: any) => {
+      e.removed.forEach((el: HTMLElement) => {
         el.classList.remove('selected');
       });
     }
   };
 
   const addSelectedToObject = () => {
+    // 현재 table page에서 선택된 시간
     const newArr: string[] = Array.from(
       document.querySelectorAll('.selected')
     ).map((node: Element) => node.id);
 
+    // key: table page
+    // value: 각 table page에서 선택된 시간 배열
     const newObj = { ...selected };
+
     newObj[tablePage] = newArr;
 
     setSelected(newObj);
   };
 
+  // 한 칸씩 클릭해서 선택할 경우
   const handleClickOneElement = (
     e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
   ) => {
@@ -102,7 +115,7 @@ const Table = ({
         <Blank />
         <DateWrapper>
           {validDateChunks[tablePage].map(
-            ({ date, isValidDate }: { date: string; isValidDate: boolean }) =>
+            ({ date, isValidDate }: ValidDateType) =>
               date.slice(0, 5) === 'blank' ? (
                 <Date key={date} isValidDate={isValidDate} />
               ) : (
@@ -122,7 +135,7 @@ const Table = ({
         </TimeWrapper>
 
         {validDateChunks[tablePage]?.map(
-          ({ date, isValidDate }: { date: string; isValidDate: boolean }) => (
+          ({ date, isValidDate }: ValidDateType) => (
             <SelectWrapper key={date} className="container">
               <Selecto
                 className="mpr-designer-selection"
