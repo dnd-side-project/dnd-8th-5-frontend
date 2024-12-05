@@ -153,8 +153,8 @@ const Result = () => {
           </NobodyWrapper>
         ) : (
           <>
-            {participants.length !==
-            data?.candidateTimes[0].participantNames.length ? (
+            {data?.candidateTimes[0].unavailableParticipantNames.length !==
+            0 ? (
               <NobodyWrapper>
                 <Nobody>
                   <NobodyRabbit src={nobody} alt="nobody" />
@@ -163,25 +163,54 @@ const Result = () => {
               </NobodyWrapper>
             ) : null}
 
-            {data?.candidateTimes.map(
-              ({
-                date,
-                dayOfWeek,
-                startTime,
-                endTime,
-                participantNames,
-              }: CandidateTimesType) => (
-                <Candidate
-                  key={`part ${date} ${startTime} ${endTime}`}
-                  date={date}
-                  dayOfWeek={dayOfWeek}
-                  startTime={startTime}
-                  endTime={endTime}
-                  participantNames={participantNames}
-                  count={participants.length}
-                />
-              )
-            )}
+            {data?.candidateTimes
+              .slice(0, 1)
+              .map(
+                ({
+                  date,
+                  dayOfWeek,
+                  startTime,
+                  endTime,
+                  availableParticipantNames,
+                  unavailableParticipantNames,
+                }: CandidateTimesType) => (
+                  <Candidate
+                    key={`part ${date} ${startTime} ${endTime}`}
+                    date={date}
+                    dayOfWeek={dayOfWeek}
+                    startTime={startTime}
+                    endTime={endTime}
+                    availableParticipantNames={availableParticipantNames}
+                    unavailableParticipantNames={unavailableParticipantNames}
+                    count={participants.length}
+                    defaultOpen={true}
+                  />
+                )
+              )}
+
+            {data?.candidateTimes
+              .slice(1)
+              .map(
+                ({
+                  date,
+                  dayOfWeek,
+                  startTime,
+                  endTime,
+                  availableParticipantNames,
+                  unavailableParticipantNames,
+                }: CandidateTimesType) => (
+                  <Candidate
+                    key={`part ${date} ${startTime} ${endTime}`}
+                    date={date}
+                    dayOfWeek={dayOfWeek}
+                    startTime={startTime}
+                    endTime={endTime}
+                    availableParticipantNames={availableParticipantNames}
+                    unavailableParticipantNames={unavailableParticipantNames}
+                    count={participants.length}
+                  />
+                )
+              )}
           </>
         )}
       </Body>

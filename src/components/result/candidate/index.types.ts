@@ -3,6 +3,8 @@ export interface CandidateTypes {
   dayOfWeek: string;
   startTime: string;
   endTime: string;
-  participantNames: string[];
+  availableParticipantNames: string[];
+  unavailableParticipantNames: string[];
   count: number | null;
+  defaultOpen?: boolean;
 }

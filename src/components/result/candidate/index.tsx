@@ -1,12 +1,5 @@
-import {
-  Content,
-  ListItem,
-  Participant,
-  People,
-  ProportionWrapper,
-  TimeWrapper,
-  Wrapper,
-} from './index.styles';
+import Accordion from '@/components/commons/accordion';
+import { Wrapper } from './index.styles';
 import { CandidateTypes } from './index.types';
 
 const Candidate = ({
@@ -14,8 +7,9 @@ const Candidate = ({
   dayOfWeek,
   startTime,
   endTime,
-  participantNames,
-  count,
+  availableParticipantNames,
+  unavailableParticipantNames,
+  defaultOpen = false,
 }: CandidateTypes) => {
   const convertDateFormat = () => {
     if (startTime && endTime) {
@@ -30,21 +24,15 @@ const Candidate = ({
 
   return (
     <Wrapper>
-      <Content>
-        {count !== null && (
-          <ProportionWrapper>
-            <People isParticipant={false}>{count}명 중</People>
-            <People isParticipant={true}> {participantNames.length}명</People>
-          </ProportionWrapper>
-        )}
-        <TimeWrapper>{convertDateFormat()}</TimeWrapper>
-      </Content>
-
-      <ListItem>
-        {participantNames.map((name: string) => (
-          <Participant key={name}>{name}</Participant>
-        ))}
-      </ListItem>
+      <Accordion
+        title={convertDateFormat()}
+        availableParticipantNames={availableParticipantNames}
+        unavailableParticipantNames={unavailableParticipantNames}
+        totalCount={
+          availableParticipantNames.length + unavailableParticipantNames.length
+        }
+        defaultOpen={defaultOpen}
+      />
     </Wrapper>
   );
 };

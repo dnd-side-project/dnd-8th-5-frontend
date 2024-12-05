@@ -45,29 +45,3 @@ export const TimeWrapper = styled.div`
   color: ${theme.colors.gray06};
   ${theme.typography.semibold03};
 `;
-
-export const ListItem = styled.div`
-  width: 100%;
-  margin-top: 14px;
-
-  display: flex;
-  flex-flow: wrap;
-
-  row-gap: 4px;
-  column-gap: 4px;
-`;
-
-export const Participant = styled.div`
-  min-width: 44px;
-
-  border-radius: 3px;
-  padding: 4px 5px;
-
-  ${theme.typography.medium05};
-  color: ${theme.colors.gray05};
-  background: ${theme.colors.gray01};
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
