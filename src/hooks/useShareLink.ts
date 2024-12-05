@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 const useShareLink = () => {
   const { roomUUID } = useParams();
-  const inviteURL = `${window.location.origin}${ROUTES.INVITE}/${roomUUID}`;
+  const inviteURL = `${window.location.origin}${ROUTES.INVITE}/${roomUUID}?utm_source=user&utm_campaign=user_invite`;
 
   const handleUseShareAPI = () => {
     const shareData = {
