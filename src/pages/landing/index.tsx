@@ -84,7 +84,7 @@ const Landing = () => {
         <img className="chat" src={landing1} />
         <div className="section">
           <div className="section-logo">
-            <img className="logo" src={Logo} />이
+            <img className="logo" src={Logo} />
           </div>
           <div className="section-text">도와드릴게요!</div>
         </div>

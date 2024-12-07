@@ -92,6 +92,7 @@ export const IntroWrapper = styled.div`
     color: ${theme.colors.gray01};
     ${theme.typography.semibold04};
     font-size: 22px;
+    font-weight: 500;
     transition: 1s;
     transform: translateY(10px);
   }
@@ -118,7 +119,8 @@ export const IntroWrapper = styled.div`
     opacity: 0;
 
     .section-text {
-      font-size: 28px;
+      font-size: 20px;
+      font-weight: 500;
     }
   }
 `;
@@ -185,7 +187,7 @@ export const LastWrapper = styled.div`
 
   .title {
     color: ${theme.colors.gray01};
-    ${theme.typography.semibold02}
+    ${theme.typography.medium01};
   }
 `;
 

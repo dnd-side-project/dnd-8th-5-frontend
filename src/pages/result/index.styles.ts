@@ -44,7 +44,7 @@ export const SelectWrapper = styled.div`
 
 export const NobodyWrapper = styled.div`
   width: 100%;
-  height: 161px;
+  padding: 28px 0;
   margin-top: 14px;
 
   border-radius: 7px;
@@ -57,22 +57,18 @@ export const NobodyWrapper = styled.div`
 `;
 
 export const Nobody = styled.div`
-  width: 188px;
-  height: 105px;
-
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
 `;
 
 export const NobodyRabbit = styled.img`
-  width: 50px;
-  height: 68px;
+  width: 37px;
+  height: 49px;
   object-fit: scale-down;
 `;
 
 export const NobodyText = styled.span`
   color: ${theme.colors.gray04};
-  ${theme.typography.semibold03};
+  ${theme.typography.medium02};
 `;

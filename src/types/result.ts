@@ -4,6 +4,7 @@ export interface CandidateTimesType {
   dayOfWeek: string;
   startTime: string;
   endTime: string;
-  participantNames: string[];
+  availableParticipantNames: string[];
+  unavailableParticipantNames: string[];
   isConfirmed: boolean;
 }
