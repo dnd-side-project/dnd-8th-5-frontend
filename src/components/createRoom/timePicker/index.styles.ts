@@ -30,7 +30,7 @@ export const TextContainer = styled.div`
   height: 135px;
   display: flex;
   flex-direction: row;
-  ${theme.typography.medium01x}
+  ${theme.typography.medium01}
   align-items: center;
   justify-content: left;
   padding: 2px;
@@ -43,7 +43,7 @@ export const StyledSlider = styled(Slider)`
     justify-items: center;
     align-items: center;
     text-align: right;
-    ${theme.typography.medium01x}
+    ${theme.typography.medium01}
     height: 40px;
   }
 

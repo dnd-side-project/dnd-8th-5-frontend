@@ -151,7 +151,7 @@ export const Input = styled.input`
 `;
 
 export const PeopleNumber = styled.div`
-  ${theme.typography.medium01x};
+  ${theme.typography.medium01};
   color: ${theme.colors.gray06};
   display: flex;
   justify-content: center;
