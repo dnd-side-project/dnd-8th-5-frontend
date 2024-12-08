@@ -59,7 +59,10 @@ const Accordion = ({
 
   return (
     <Wrapper>
-      <Group onClick={handleClickAccordion}>
+      <Group
+        onClick={handleClickAccordion}
+        className={isCollapsed ? 'collapsed' : 'expanded'}
+      >
         <GroupInfo>{title}</GroupInfo>
         {!!totalCount && (
           <AccordionIcon

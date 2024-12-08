@@ -163,54 +163,28 @@ const Result = () => {
               </NobodyWrapper>
             ) : null}
 
-            {data?.candidateTimes
-              .slice(0, 1)
-              .map(
-                ({
-                  date,
-                  dayOfWeek,
-                  startTime,
-                  endTime,
-                  availableParticipantNames,
-                  unavailableParticipantNames,
-                }: CandidateTimesType) => (
-                  <Candidate
-                    key={`part ${date} ${startTime} ${endTime}`}
-                    date={date}
-                    dayOfWeek={dayOfWeek}
-                    startTime={startTime}
-                    endTime={endTime}
-                    availableParticipantNames={availableParticipantNames}
-                    unavailableParticipantNames={unavailableParticipantNames}
-                    count={participants.length}
-                    defaultOpen={true}
-                  />
-                )
-              )}
-
-            {data?.candidateTimes
-              .slice(1)
-              .map(
-                ({
-                  date,
-                  dayOfWeek,
-                  startTime,
-                  endTime,
-                  availableParticipantNames,
-                  unavailableParticipantNames,
-                }: CandidateTimesType) => (
-                  <Candidate
-                    key={`part ${date} ${startTime} ${endTime}`}
-                    date={date}
-                    dayOfWeek={dayOfWeek}
-                    startTime={startTime}
-                    endTime={endTime}
-                    availableParticipantNames={availableParticipantNames}
-                    unavailableParticipantNames={unavailableParticipantNames}
-                    count={participants.length}
-                  />
-                )
-              )}
+            {data?.candidateTimes.map(
+              ({
+                date,
+                dayOfWeek,
+                startTime,
+                endTime,
+                availableParticipantNames,
+                unavailableParticipantNames,
+              }: CandidateTimesType) => (
+                <Candidate
+                  key={`part ${date} ${startTime} ${endTime}`}
+                  date={date}
+                  dayOfWeek={dayOfWeek}
+                  startTime={startTime}
+                  endTime={endTime}
+                  availableParticipantNames={availableParticipantNames}
+                  unavailableParticipantNames={unavailableParticipantNames}
+                  count={participants.length}
+                  defaultOpen={true}
+                />
+              )
+            )}
           </>
         )}
       </Body>
