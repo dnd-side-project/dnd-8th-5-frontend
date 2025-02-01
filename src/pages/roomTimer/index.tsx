@@ -49,7 +49,7 @@ const RoomTimer = () => {
 
   const { mutate, data, isError, isSuccess } = useCreateRoom();
 
-  useEffect(() => {
+  const handleCreateRoom = useCallback(() => {
     if (
       day ||
       minute ||
@@ -58,18 +58,20 @@ const RoomTimer = () => {
       isChecked
     ) {
       mutate(room);
-
-      if (isError) {
-        confirm('오류가 발생했습니다.\n처음부터 다시 시도해 주세요.');
-        navigate(`${ROUTES.LANDING}`);
-      }
-
-      if (isSuccess) {
-        navigate(`${ROUTES.CURRENT}/${data.roomUuid}`);
-        setIsLinkShareBottomSheetOpened(true);
-      }
     }
-  }, [room, isError, isSuccess]);
+  }, [day, minute, hour, isClickedRecommend, isChecked, mutate, room]);
+
+  useEffect(() => {
+    if (isError) {
+      confirm('오류가 발생했습니다.\n처음부터 다시 시도해 주세요.');
+      navigate(`${ROUTES.LANDING}`);
+    }
+
+    if (isSuccess && data) {
+      navigate(`${ROUTES.CURRENT}/${data.roomUuid}`);
+      setIsLinkShareBottomSheetOpened(true);
+    }
+  }, [isError, isSuccess, data]);
 
   useEffect(() => {
     setIsClickedRecommend((prev) =>
@@ -123,39 +125,24 @@ const RoomTimer = () => {
       recommendMinute = 0;
     }
 
-    setRoom((prev: any) => {
+    setRoom((prev) => {
       return {
         ...prev,
-        timer: isChecked
-          ? null
-          : {
-              day: isChecked
-                ? null
-                : isClickedRecommend.indexOf(true) >= 0
-                ? recommendDay
-                : day,
-              hour: isChecked
-                ? null
-                : isClickedRecommend.indexOf(true) >= 0
-                ? recommendHour
-                : hour,
-              minute: isChecked
-                ? null
-                : isClickedRecommend.indexOf(true) >= 0
-                ? recommendMinute
-                : minute,
-            },
+        ['timeLimit']: isChecked
+          ? 0
+          : recommendDay * 24 * 60 + recommendHour * 60 + recommendMinute,
       };
     });
+
+    handleCreateRoom();
   }, [
     day,
     hour,
     minute,
-    isChecked,
-    room,
     isClickedRecommend,
-    room,
-    recoilRoomInfoStates,
+    isChecked,
+    setRoom,
+    handleCreateRoom,
   ]);
 
   return (
