@@ -10,12 +10,15 @@ import theme from './styles/theme';
 import { RecoilRoot } from 'recoil';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { initSentry } from './libs/sentry';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) throw new Error('Failed to find the root element');
 const root = ReactDOM.createRoot(rootElement);
 
 const queryClient = new QueryClient();
+
+initSentry();
 
 root.render(
   <ThemeProvider theme={theme}>

@@ -18,6 +18,10 @@ jobs:
           echo "VITE_API_PATH=${{secrets.VITE_API_PATH}}" >> .env
           echo "VITE_GA_TRACKING_ID=${{secrets.VITE_GA_TRACKING_ID}}" >> .env
           echo "PUBLIC_URL=${{secrets.PUBLIC_URL}}" >> .env
+          echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .env
+          echo "SENTRY_ORG=${{ secrets.SENTRY_ORG }}" >> .env
+          echo "SENTRY_PROJECT=${{ secrets.SENTRY_PROJECT }}" >> .env
+          echo "RELEASE_VERSION=$(git rev-parse --short HEAD)" >> .env
 
       - name: 🔐 AWS Credential
         uses: aws-actions/configure-aws-credentials@v2
@@ -32,8 +36,25 @@ jobs:
 
       - name: 🏗️ Build project
         run: |
+          export SENTRY_RELEASE=$(git rev-parse --short HEAD)
           export CI=false
           yarn build
+
+      - name: 🛠️ Install Sentry CLI
+        run: |
+          curl -sL https://sentry.io/get-cli/ | bash
+
+      - name: 🔍 Upload source maps to Sentry
+        run: |
+          sentry-cli releases new "$SENTRY_RELEASE"
+          sentry-cli releases set-commits --auto "$SENTRY_RELEASE"
+          sentry-cli releases files "$SENTRY_RELEASE" upload-sourcemaps ./dist --rewrite
+          sentry-cli releases finalize "$SENTRY_RELEASE"
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_RELEASE: $(git rev-parse --short HEAD)
 
       - name: 🚀 Deploy to S3
         run: aws s3 sync dist/ s3://modutime-frontend --acl public-read
