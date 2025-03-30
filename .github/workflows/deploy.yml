@@ -20,6 +20,7 @@ jobs:
           echo "VITE_API_PATH=${{secrets.VITE_API_PATH}}" >> .env
           echo "VITE_GA_TRACKING_ID=${{secrets.VITE_GA_TRACKING_ID}}" >> .env
           echo "PUBLIC_URL=${{secrets.PUBLIC_URL}}" >> .env
+          echo "VITE_SENTRY_DSN=${{secrets.VITE_SENTRY_DSN}}" >> .env
           echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .env
           echo "SENTRY_ORG=${{ secrets.SENTRY_ORG }}" >> .env
           echo "SENTRY_PROJECT=${{ secrets.SENTRY_PROJECT }}" >> .env
@@ -42,24 +43,14 @@ jobs:
           export CI=false
           yarn build
 
-      - name: Create Sentry release
+      - name: ⚠️ Create Sentry release
         uses: getsentry/action-release@v3
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
-          environment: production
-
-      - name: Create Sentry release
-        uses: getsentry/action-release@v3
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-        with:
-          environment: production
-          sourcemaps: './dist'
+          sourcemaps: './dist/**/*.js.map'
 
       - name: 🚀 Deploy to S3
         run: aws s3 sync dist/ s3://modutime-frontend --acl public-read
