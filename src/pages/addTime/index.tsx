@@ -20,6 +20,7 @@ import { ROUTES } from '@/constants/ROUTES';
 const AddTime = () => {
   const { roomUUID } = useParams() as { roomUUID: string };
   const userName = localStorage.getItem('userName') || '';
+  const { data: room } = useGetRoomInfo(roomUUID);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -32,18 +33,16 @@ const AddTime = () => {
   const [isTooltipShown, setIsTooltipShown] =
     useRecoilState<boolean>(tooltipState);
 
-  const {
-    data: { title, dates, startTime, endTime },
-  } = useGetRoomInfo(roomUUID);
+  const isTableView =
+    room?.startTime !== null && room?.endTime !== null ? true : false;
 
-  const isTableView = startTime !== null && endTime !== null ? true : false;
-
+  if (!room) return;
   return (
     <Wrapper ref={wrapperRef}>
-      <Header pageName={ROUTES.ADD_TIME} title={title} />
+      <Header pageName={ROUTES.ADD_TIME} title={room?.title ?? ''} />
       <Body>
         <TitleWrapper>
-          <Title>{`${userName} 님의 일정을`}</Title>
+          <Title>{`${userName ?? ''} 님의 일정을`}</Title>
         </TitleWrapper>
 
         <TitleWrapper>
@@ -58,18 +57,19 @@ const AddTime = () => {
           {isTableView ? (
             <AddTimeTable
               wrapperRef={wrapperRef}
-              startTime={parseInt(startTime)}
-              endTime={parseInt(endTime)}
+              startTime={parseInt(room.startTime)}
+              endTime={parseInt(room.endTime)}
               selected={tableSelected}
               setSelected={setTableSelected}
               setTableSelected={setTableSelected}
-              dates={dates}
+              dates={room.dates}
               isResetButtonClick={isResetButtonClick}
               setIsResetButtonClick={setIsResetButtonClick}
             />
           ) : (
             <AddCalendar
-              dates={dates}
+              activeStartDate={new Date(room?.dates?.[0])}
+              dates={room.dates}
               selected={calendarSelected}
               setSelected={setCalendarSelected}
               selectedMethod={selectedMethod}

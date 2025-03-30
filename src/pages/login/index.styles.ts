@@ -36,7 +36,7 @@ export const MainContainer = styled.div`
   margin: 0 auto;
 `;
 
-export const FormContainer = styled.div`
+export const FormContainer = styled.form`
   width: 100%;
   max-width: 412px;
   height: 405px;

@@ -22,6 +22,7 @@ const Calendar = ({ participants }: CurrentCalendarTypes) => {
   >([]);
 
   const { data } = useGetAvailableTimesByGroup(roomUUID);
+  console.log(data);
 
   useEffect(() => {
     if (data) {
