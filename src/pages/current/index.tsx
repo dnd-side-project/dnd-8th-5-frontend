@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 import { useRecoilState } from 'recoil';
 import { selectedMethodState } from '@/atoms/selectedMethodAtom';
-import * as Sentry from '@Sentry/react';
+import * as Sentry from '@sentry/react';
 
 import Timer from '@/components/current/timer';
 import Table from '@/components/current/table';

@@ -36,7 +36,7 @@ const AddTime = () => {
   const isTableView =
     room?.startTime !== null && room?.endTime !== null ? true : false;
 
-  if (!room) return;
+  if (!room) return null;
   return (
     <Wrapper ref={wrapperRef}>
       <Header pageName={ROUTES.ADD_TIME} title={room?.title ?? ''} />

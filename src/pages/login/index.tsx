@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, useRef, FormEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import * as Sentry from '@Sentry/react';
+import * as Sentry from '@sentry/react';
 
 import {
   FormContainer,

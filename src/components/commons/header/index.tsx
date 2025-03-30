@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { tooltipState } from '@/atoms/tooltipAtom';
+import * as Sentry from '@sentry/react';
 
 import Menu from '../menu';
 import share from '@/assets/icons/share.svg';
@@ -30,7 +31,10 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
           <Icon
             src={headerInfo}
             alt="share"
-            onClick={() => setIsTooltipShown(true)}
+            onClick={() => {
+              Sentry.captureMessage(`Info Icon Clicked`);
+              setIsTooltipShown(true);
+            }}
           />
         ) : (
           <>

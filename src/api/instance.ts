@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as Sentry from '@Sentry/react';
+import * as Sentry from '@sentry/react';
 
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_API_PATH,
