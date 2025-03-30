@@ -68,7 +68,9 @@ const AddTime = () => {
             />
           ) : (
             <AddCalendar
-              activeStartDate={new Date(room?.dates?.[0])}
+              activeStartDate={
+                room?.dates?.[0] ? new Date(room.dates[0]) : new Date()
+              }
               dates={room.dates}
               selected={calendarSelected}
               setSelected={setCalendarSelected}

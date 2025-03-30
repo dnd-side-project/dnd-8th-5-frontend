@@ -89,6 +89,7 @@ const Current = () => {
     return newDates;
   };
 
+  if (!data) return null;
   return (
     <Wrapper>
       <Header pageName={ROUTES.CURRENT} title={title} />
@@ -136,7 +137,9 @@ const Current = () => {
           </TableWrapper>
         ) : (
           <CurrentCalendar
-            activeStartDate={new Date(dates?.[0])}
+            activeStartDate={
+              data.dates?.[0] ? new Date(data.dates[0]) : new Date()
+            }
             participants={participants}
           />
         )}
