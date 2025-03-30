@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import theme from '@/styles/theme';
 
 export const MainContainer = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -17,62 +16,52 @@ export const Logo = styled.img`
   object-fit: cover;
 `;
 
-export const FormContainer = styled.form`
+export const FormContainer = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
+  max-width: 412px;
+  padding: 32px 20px 40px 20px;
+  background: white;
+`;
+
+export const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
-  flex: 1;
-  background-color: white;
-  border-radius: 10px 10px 0 0;
-  padding: 32px 20px 124px 20px;
+  width: 100%;
+  margin: 24px 0 0 0;
+  gap: 8px;
+  ${theme.typography.medium02}
+  &::placeholder {
+    color: ${theme.colors.gray04};
+  }
 `;
 
 export const HeaderText = styled.div`
-  ${theme.typography.semibold01}
-  margin: 0 0 16px 0;
+  font-size: 24px;
+  font-weight: 500;
+  font-family: 'Pretendard';
 `;
 
-export const LoginComponent = styled.div`
-  width: 100%;
+export const InputWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
 `;
 
-export const NameInput = styled.input<{ isPasswordError: boolean }>`
+export const Input = styled.input<{ isError?: boolean }>`
   width: 100%;
   height: 50px;
-  border: 1px solid ${theme.colors.gray04};
-  border-radius: 5px;
-  padding: 0 10px;
+  padding: 10px;
+  border-radius: 6px;
   outline: none;
-  &::placeholder {
-    color: ${theme.colors.gray03};
-  }
-  &:focus {
-    border: 1px solid ${theme.colors.purple04};
-  }
-`;
-
-export const Input = styled.input`
-  width: 100%;
-  height: 50px;
-  padding: 0 10px;
-  :focus {
-    outline: none;
-    border: 1px solid ${theme.colors.purple05};
-  }
-`;
-
-export const PasswordInput = styled.input<{ isPasswordError: boolean }>`
-  width: 100%;
-  height: 50px;
   border: 1px solid
-    ${(props) => (props.isPasswordError ? '#ED7C55' : theme.colors.gray04)};
-  border-radius: 5px;
-  padding: 15px;
-  margin-bottom: 10px;
-  outline: none;
+    ${({ isError = false }) =>
+      isError ? theme.colors.orange02 : theme.colors.gray04};
+
   &::placeholder {
     color: ${theme.colors.gray03};
   }
@@ -81,26 +70,62 @@ export const PasswordInput = styled.input<{ isPasswordError: boolean }>`
   }
 `;
 
-export const CheckBoxContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+export const ErrorMessage = styled.span`
+  position: absolute;
+  bottom: -22px;
+  left: 0;
   ${theme.typography.medium04}
-  width: 100%;
+  color: ${theme.colors.orange02};
 `;
 
-export const RightWrapper = styled.div`
+export const LoginButton = styled.button`
+  width: 100%;
+  height: 52px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0 0 0;
+  border-radius: 6px;
+  color: white;
+  background: ${theme.colors.purple06};
+  ${theme.typography.medium02}
   cursor: pointer;
 `;
 
-export const ImgWrapper = styled.div``;
-
-export const TextWrapper = styled.div`
-  padding-left: 6px;
+export const BorderWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 24px 0;
+  span {
+    flex-shrink: 0;
+    ${theme.typography.medium05}
+    color: ${theme.colors.gray05};
+  }
 `;
 
-export const PasswordError = styled.div`
-  ${theme.typography.medium04}
-  color: #ed7c55;
-  padding-left: 40px;
+export const Border = styled.div`
+  display: flex;
+  flex: 1;
+  height: 1px;
+  background: ${theme.colors.gray03};
+`;
+
+export const KakaoLoginButton = styled.button`
+  position: relative;
+  width: 100%;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: #fee502;
+  color: ${theme.colors.gray08};
+  ${theme.typography.medium02};
+
+  img {
+    position: absolute;
+    left: 18px;
+  }
 `;
