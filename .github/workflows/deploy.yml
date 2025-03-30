@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: 🔔 Check out source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -39,21 +39,27 @@ jobs:
       - name: 🏗️ Build project
         run: |
           export SENTRY_RELEASE=$(git rev-parse --short HEAD)
-          if [ -z "$SENTRY_RELEASE" ]; then
-            SENTRY_RELEASE="default-release"
-          fi
-          echo "SENTRY_RELEASE: $SENTRY_RELEASE"
+          export CI=false
+          yarn build
 
-      - name: 🔍 Upload source maps to Sentry
-        run: |
-          sentry-cli releases new "$SENTRY_RELEASE"
-          sentry-cli releases set-commits --auto --ignore-missing "$SENTRY_RELEASE"
-          sentry-cli releases files "$SENTRY_RELEASE" upload-sourcemaps ./dist --rewrite
-          sentry-cli releases finalize "$SENTRY_RELEASE"
+      - name: Create Sentry release
+        uses: getsentry/action-release@v3
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        with:
+          environment: production
+
+      - name: Create Sentry release
+        uses: getsentry/action-release@v3
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        with:
+          environment: production
+          sourcemaps: './dist'
 
       - name: 🚀 Deploy to S3
         run: aws s3 sync dist/ s3://modutime-frontend --acl public-read
