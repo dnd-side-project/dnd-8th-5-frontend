@@ -39,12 +39,10 @@ jobs:
       - name: 🏗️ Build project
         run: |
           export SENTRY_RELEASE=$(git rev-parse --short HEAD)
-          export CI=false
-          yarn build
-
-      - name: 🛠️ Install Sentry CLI
-        run: |
-          curl -sL https://sentry.io/get-cli/ | bash
+          if [ -z "$SENTRY_RELEASE" ]; then
+            SENTRY_RELEASE="default-release"
+          fi
+          echo "SENTRY_RELEASE: $SENTRY_RELEASE"
 
       - name: 🔍 Upload source maps to Sentry
         run: |
