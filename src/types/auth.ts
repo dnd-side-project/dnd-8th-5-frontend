@@ -7,3 +7,10 @@ export interface PostAuthParamsType {
   roomUUID: string;
   form: PostAuthType;
 }
+
+export interface GetUserMeResponse {
+  name: string;
+  email: string;
+  profileImage: string;
+  thumbnailImage: string;
+}
