@@ -9,12 +9,13 @@ import calendarPrevMonth from '@/assets/icons/calendarPrevMonth.svg';
 
 import { AvailableDateTimeTypes } from '@/types/current';
 import { useGetAvailableTimesByGroup } from '@/queries/availableTimes/useGetAvailableTimesByGroup';
+import { CalendarProps } from 'react-calendar';
 
-interface CurrentCalendarTypes {
+interface CurrentCalendarTypes extends CalendarProps {
   participants: string[];
 }
 
-const Calendar = ({ participants }: CurrentCalendarTypes) => {
+const Calendar = ({ participants, ...rest }: CurrentCalendarTypes) => {
   const { roomUUID } = useParams() as { roomUUID: string };
 
   const [currentTableInfo, setCurrentTableInfo] = useState<
@@ -22,7 +23,6 @@ const Calendar = ({ participants }: CurrentCalendarTypes) => {
   >([]);
 
   const { data } = useGetAvailableTimesByGroup(roomUUID);
-  console.log(data);
 
   useEffect(() => {
     if (data) {
@@ -88,6 +88,7 @@ const Calendar = ({ participants }: CurrentCalendarTypes) => {
       calendarType="US"
       formatDay={(_, date) => dayjs(date).format('D')}
       formatMonthYear={(_, date) => dayjs(date).format('M월')}
+      {...rest}
     />
   );
 };

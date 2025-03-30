@@ -135,7 +135,10 @@ const Current = () => {
             />
           </TableWrapper>
         ) : (
-          <CurrentCalendar participants={participants} />
+          <CurrentCalendar
+            activeStartDate={new Date(dates?.[0])}
+            participants={participants}
+          />
         )}
       </Body>
       <BottomWrapper>
