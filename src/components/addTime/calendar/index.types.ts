@@ -1,4 +1,6 @@
-export interface AddCalendarType {
+import { CalendarProps } from 'react-calendar';
+
+export interface AddCalendarType extends CalendarProps {
   dates: string[];
   selected: string[];
   setSelected: React.Dispatch<React.SetStateAction<string[]>>;

@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef, FormEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import * as Sentry from '@sentry/react';
 
 import {
   FormContainer,
@@ -30,6 +31,8 @@ import { usePostUserInfo } from '@/queries/auth/usePostUserInfo';
 
 const Login = () => {
   const { roomUUID } = useParams() as { roomUUID: string };
+  const { data: room } = useGetRoomInfo(roomUUID);
+
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
 
@@ -52,13 +55,19 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const { data } = useGetRoomInfo(roomUUID);
   const { mutate, isSuccess, isError } = usePostUserInfo();
 
-  const onClickNext = () => {
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     if (Number.isNaN(Number(form.password))) {
       alert('비밀번호는 숫자만 입력해주세요');
+      Sentry.captureException(`Password is not a number`);
       return;
+    }
+
+    if (saveUserInfo) {
+      Sentry.captureMessage(`Save user info`);
     }
 
     if (canGoNext) {
@@ -71,26 +80,30 @@ const Login = () => {
       if (saveUserInfo) {
         localStorage.setItem('name', form.name);
         localStorage.setItem('uuid', String(roomUUID));
+        Sentry.captureMessage(`Login Success - Saved user info`);
       }
 
+      Sentry.captureMessage(`Login success`);
       localStorage.setItem('userName', form.name);
-      navigate(`${ROUTES.ADD_TIME}/${roomUUID}`);
+      navigate(`${ROUTES.ADD_TIME}/${roomUUID}`, { replace: true });
     }
 
     if (isError) {
       setIsPasswordError(true);
+      Sentry.captureMessage(`Password error`);
     }
   }, [isSuccess, isError]);
 
   return (
     <MainContainer>
-      <FormContainer>
+      <FormContainer onSubmit={handleFormSubmit}>
         <HeaderContainer>
-          <HeaderText>{data.title}</HeaderText>
+          <HeaderText>{room?.title}</HeaderText>
         </HeaderContainer>
         <InputContnainer>
           <LoginComponent>
             <NameInput
+              autoComplete="off"
               ref={inputNameRef}
               type="text"
               name="name"
@@ -99,20 +112,20 @@ const Login = () => {
               value={form.name}
               onChange={onChangeForm}
               isPasswordError={isPasswordError}
-            ></NameInput>
+            />
             <PasswordInput
+              autoComplete="off"
               ref={inputPasswordRef}
               type="password"
               pattern="[0-9]*"
               inputMode="numeric"
               name="password"
-              autoComplete="current-password"
               placeholder="비밀번호 4자리를 설정하세요"
               value={form.password}
               onChange={onChangeForm}
               maxLength={4}
               isPasswordError={isPasswordError}
-            ></PasswordInput>
+            />
           </LoginComponent>
         </InputContnainer>
         <CheckBoxContainer>
@@ -121,7 +134,10 @@ const Login = () => {
           ) : (
             <div />
           )}
-          <RightWrapper onClick={onClickSaveUserInfo}>
+          <RightWrapper
+            id="save-user-info-button"
+            onClick={onClickSaveUserInfo}
+          >
             <ImgWrapper>
               <img src={saveUserInfo ? checkedBox : uncheckedbox} />
             </ImgWrapper>
@@ -129,7 +145,8 @@ const Login = () => {
           </RightWrapper>
         </CheckBoxContainer>
         <BottomButton
-          onClick={onClickNext}
+          id="login-button"
+          type="submit"
           text={'로그인'}
           isActivated={canGoNext}
         />

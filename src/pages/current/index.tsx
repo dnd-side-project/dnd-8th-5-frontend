@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 
 import { useRecoilState } from 'recoil';
 import { selectedMethodState } from '@/atoms/selectedMethodAtom';
+import * as Sentry from '@sentry/react';
 
 import Timer from '@/components/current/timer';
 import Table from '@/components/current/table';
@@ -70,6 +71,7 @@ const Current = () => {
     const isValidUser = useAuth(roomUUID as string);
 
     if (isValidUser) {
+      Sentry.captureMessage(`Login Success - Saved user info`);
       setSelectedMethod('possible');
       navigate(`${ROUTES.ADD_TIME}/${roomUUID}`);
     } else {
@@ -89,6 +91,7 @@ const Current = () => {
     return newDates;
   };
 
+  if (!data) return null;
   return (
     <Wrapper>
       <Header pageName={ROUTES.CURRENT} title={title} />
@@ -135,7 +138,12 @@ const Current = () => {
             />
           </TableWrapper>
         ) : (
-          <CurrentCalendar participants={participants} />
+          <CurrentCalendar
+            activeStartDate={
+              data.dates?.[0] ? new Date(data.dates[0]) : new Date()
+            }
+            participants={participants}
+          />
         )}
       </Body>
       <BottomWrapper>

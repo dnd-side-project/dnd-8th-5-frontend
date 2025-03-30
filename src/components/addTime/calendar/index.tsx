@@ -25,6 +25,7 @@ const Calendar = ({
   selected,
   setSelected,
   selectedMethod,
+  ...rest
 }: AddCalendarType) => {
   const { roomUUID } = useParams() as { roomUUID: string };
   const navigate = useNavigate();
@@ -137,6 +138,7 @@ const Calendar = ({
           formatDay={(_, date) => dayjs(date).format('D')}
           formatMonthYear={(_, date) => dayjs(date).format('M월')}
           selectedMethod={selectedMethod}
+          {...rest}
         />
       </Wrapper>
 
