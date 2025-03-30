@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState, useRef, FormEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import * as Sentry from '@Sentry/react';
 
 import {
   FormContainer,
@@ -61,7 +62,12 @@ const Login = () => {
 
     if (Number.isNaN(Number(form.password))) {
       alert('비밀번호는 숫자만 입력해주세요');
+      Sentry.captureMessage(`Password is not a number`);
       return;
+    }
+
+    if (saveUserInfo) {
+      Sentry.captureMessage(`Save user info`);
     }
 
     if (canGoNext) {
@@ -74,6 +80,7 @@ const Login = () => {
       if (saveUserInfo) {
         localStorage.setItem('name', form.name);
         localStorage.setItem('uuid', String(roomUUID));
+        Sentry.captureMessage(`Login success`);
       }
 
       localStorage.setItem('userName', form.name);
@@ -82,6 +89,7 @@ const Login = () => {
 
     if (isError) {
       setIsPasswordError(true);
+      Sentry.captureMessage(`Password error`);
     }
   }, [isSuccess, isError]);
 
@@ -125,14 +133,22 @@ const Login = () => {
           ) : (
             <div />
           )}
-          <RightWrapper onClick={onClickSaveUserInfo}>
+          <RightWrapper
+            id="save-user-info-button"
+            onClick={onClickSaveUserInfo}
+          >
             <ImgWrapper>
               <img src={saveUserInfo ? checkedBox : uncheckedbox} />
             </ImgWrapper>
             <TextWrapper>정보 저장</TextWrapper>
           </RightWrapper>
         </CheckBoxContainer>
-        <BottomButton type="submit" text={'로그인'} isActivated={canGoNext} />
+        <BottomButton
+          id="login-button"
+          type="submit"
+          text={'로그인'}
+          isActivated={canGoNext}
+        />
       </FormContainer>
     </MainContainer>
   );
