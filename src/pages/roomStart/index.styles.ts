@@ -5,6 +5,8 @@ import { css } from '@emotion/react';
 export const MainContainer = styled.div`
   position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   max-width: 412px;
   height: 100%;
   display: flex;

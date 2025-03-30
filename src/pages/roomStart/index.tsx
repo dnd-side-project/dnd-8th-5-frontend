@@ -7,7 +7,7 @@ import BottomButton from '@/components/commons/bottomButton';
 
 import plus from '@/assets/icons/plus.png';
 import minus from '@/assets/icons/minus.png';
-import roomStart from '@/assets/images/roomStart.webp';
+import roomStart from '@/assets/images/room_info_bg.png';
 import { createRoomTagsData } from '@/assets/data/createRoomTagsData';
 
 import {
