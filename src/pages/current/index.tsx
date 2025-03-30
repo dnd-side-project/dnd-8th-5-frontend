@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 
 import { useRecoilState } from 'recoil';
 import { selectedMethodState } from '@/atoms/selectedMethodAtom';
+import * as Sentry from '@Sentry/react';
 
 import Timer from '@/components/current/timer';
 import Table from '@/components/current/table';
@@ -70,6 +71,7 @@ const Current = () => {
     const isValidUser = useAuth(roomUUID as string);
 
     if (isValidUser) {
+      Sentry.captureMessage(`Login Success - Saved user info`);
       setSelectedMethod('possible');
       navigate(`${ROUTES.ADD_TIME}/${roomUUID}`);
     } else {

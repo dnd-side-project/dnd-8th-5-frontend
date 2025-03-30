@@ -80,9 +80,10 @@ const Login = () => {
       if (saveUserInfo) {
         localStorage.setItem('name', form.name);
         localStorage.setItem('uuid', String(roomUUID));
-        Sentry.captureMessage(`Login success`);
+        Sentry.captureMessage(`Login Success - Saved user info`);
       }
 
+      Sentry.captureMessage(`Login success`);
       localStorage.setItem('userName', form.name);
       navigate(`${ROUTES.ADD_TIME}/${roomUUID}`, { replace: true });
     }
