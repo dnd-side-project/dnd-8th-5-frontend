@@ -137,7 +137,13 @@ const Login = () => {
             <Border />
           </BorderWrapper>
 
-          <KakaoLoginButton>
+          <KakaoLoginButton
+            onClick={() =>
+              (window.location.href = `${
+                import.meta.env.VITE_API_PATH
+              }/oauth2/authorization/kakao`)
+            }
+          >
             <img src={kakao} alt="카카오 로고" />
             카카오 로그인
           </KakaoLoginButton>

@@ -10,6 +10,7 @@ import Timer from './pages/roomTimer';
 import Login from './pages/login';
 import Result from './pages/result';
 import Invite from './pages/invite';
+import KakaoAuth from './pages/kakao-auth';
 import Error from './pages/404';
 import useScrollToTop from './hooks/useScrollToTop';
 import useGoogleAnalytics from './hooks/useGoogleAnalytics';
@@ -27,6 +28,7 @@ function App() {
         <Route path={`${ROUTES.ROOM_TIMER}`} element={<Timer />} />
         <Route path={`${ROUTES.INVITE}/:roomUUID`} element={<Invite />} />
         <Route path={`${ROUTES.LOGIN}/:roomUUID`} element={<Login />} />
+        <Route path={`${ROUTES.AUTH}`} element={<KakaoAuth />} />
         <Route path={`${ROUTES.CURRENT}/:roomUUID`} element={<Current />} />
         <Route path={`${ROUTES.ADD_TIME}/:roomUUID`} element={<AddTime />} />
         <Route path={`${ROUTES.RESULT}/:roomUUID`} element={<Result />} />
