@@ -62,7 +62,7 @@ const Login = () => {
 
     if (Number.isNaN(Number(form.password))) {
       alert('비밀번호는 숫자만 입력해주세요');
-      Sentry.captureMessage(`Password is not a number`);
+      Sentry.captureException(`Password is not a number`);
       return;
     }
 

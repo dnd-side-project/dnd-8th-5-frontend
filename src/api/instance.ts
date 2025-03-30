@@ -12,7 +12,7 @@ export const instance = axios.create({
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    Sentry.captureMessage(
+    Sentry.captureException(
       `Error: ${error.message} - ${error.response?.status} - ${JSON.stringify(
         error.response?.data
       )}`
