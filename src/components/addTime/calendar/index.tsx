@@ -29,7 +29,7 @@ const Calendar = ({
 }: AddCalendarType) => {
   const { roomUUID } = useParams() as { roomUUID: string };
   const navigate = useNavigate();
-  const userName = localStorage.getItem('userName') || '';
+  const userName = localStorage.getItem(roomUUID) || '';
 
   const [date, setDate] = useState<Date>(new Date());
 
