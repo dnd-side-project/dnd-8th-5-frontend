@@ -38,6 +38,7 @@ import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 import { RoomTypes } from '@/types/roomInfo';
 import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
 import { useScrollDetection } from '@/hooks/useScrollDirection';
+import { Layout } from '@/components/commons/layout';
 
 const Current = () => {
   const navigate = useNavigate();
@@ -95,84 +96,87 @@ const Current = () => {
 
   if (!data) return null;
   return (
-    <Wrapper ref={scrollRef}>
-      <Header pageName={ROUTES.CURRENT} title={title} />
+    <Layout>
+      <Wrapper ref={scrollRef}>
+        <Header pageName={ROUTES.CURRENT} title={title} />
 
-      <Body>
-        <Section>
-          {deadLine && <Timer deadLine={deadLine} />}
-          <Title>실시간 참여 현황</Title>
-          <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
+        <Body>
+          <Section>
+            {deadLine && <Timer deadLine={deadLine} />}
+            <Title>실시간 참여 현황</Title>
+            <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
 
-          {headCount ? (
-            <ProgressBar headCount={headCount} participants={participants} />
-          ) : null}
+            {headCount ? (
+              <ProgressBar headCount={headCount} participants={participants} />
+            ) : null}
 
-          <Participants>
-            {participants &&
-              participants.map((participant: string) => (
-                <ParticipantsBlock
-                  key={participant}
-                  participant={participant}
+            <Participants>
+              {participants &&
+                participants.map((participant: string) => (
+                  <ParticipantsBlock
+                    key={participant}
+                    participant={participant}
+                  />
+                ))}
+
+              {headCount
+                ? participants.length < headCount && (
+                    <ParticipantsBlock participant={'?'} />
+                  )
+                : participants.length === 0 && (
+                    <ParticipantsBlock participant={'?'} />
+                  )}
+            </Participants>
+          </Section>
+
+          <Border />
+
+          <Section>
+            <Title>실시간 등록 현황</Title>
+            {isTableView ? (
+              <TableWrapper>
+                <Table
+                  dates={
+                    dates.length < 4
+                      ? getFourChunks(getFormattedDateArray(dates))
+                      : getFormattedDateArray(dates)
+                  }
+                  startTime={startTime}
+                  endTime={endTime}
+                  participants={participants}
                 />
-              ))}
-
-            {headCount
-              ? participants.length < headCount && (
-                  <ParticipantsBlock participant={'?'} />
-                )
-              : participants.length === 0 && (
-                  <ParticipantsBlock participant={'?'} />
-                )}
-          </Participants>
-        </Section>
-
-        <Border />
-
-        <Section>
-          <Title>실시간 등록 현황</Title>
-          {isTableView ? (
-            <TableWrapper>
-              <Table
-                dates={
-                  dates.length < 4
-                    ? getFourChunks(getFormattedDateArray(dates))
-                    : getFormattedDateArray(dates)
+              </TableWrapper>
+            ) : (
+              <CurrentCalendar
+                defaultActiveStartDate={
+                  data.dates?.[0] ? new Date(data.dates[0]) : new Date()
                 }
-                startTime={startTime}
-                endTime={endTime}
                 participants={participants}
               />
-            </TableWrapper>
-          ) : (
-            <CurrentCalendar
-              defaultActiveStartDate={
-                data.dates?.[0] ? new Date(data.dates[0]) : new Date()
-              }
-              participants={participants}
-            />
-          )}
-        </Section>
-      </Body>
+            )}
+          </Section>
+        </Body>
 
-      <BottomWrapper>
-        <EditButton
-          onClick={handleEditButtonClick}
-          isScrollUp={isScrollUp}
-          isScrollDown={isScrollDown}
-        >
-          <img src={plus} alt="일정 등록하기 버튼" />
-          <span>등록하기</span>
-        </EditButton>
+        <BottomWrapper>
+          <EditButton
+            onClick={handleEditButtonClick}
+            isScrollUp={isScrollUp}
+            isScrollDown={isScrollDown}
+          >
+            <img src={plus} alt="일정 등록하기 버튼" />
+            <span>등록하기</span>
+          </EditButton>
+        </BottomWrapper>
+
         <BottomButton
           onClick={goToResult}
           text="우선순위 보기"
           isActivated={true}
         />
-      </BottomWrapper>
 
-      {isShareLinkBottomSheetOpened && <LinkShareBottomSheet />}
-    </Wrapper>
+        {isShareLinkBottomSheetOpened && <LinkShareBottomSheet />}
+      </Wrapper>
+    </Layout>
   );
 };
 

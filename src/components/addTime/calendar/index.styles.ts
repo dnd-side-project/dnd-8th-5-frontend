@@ -100,7 +100,7 @@ export const StyledCalendar = styled(Calendar)<{ selectedMethod: string }>`
     cursor: default;
 
     &.valid {
-      color: ${theme.colors.purple06};
+      color: ${theme.colors.purple07};
       cursor: pointer;
     }
 
@@ -131,13 +131,14 @@ export const StyledCalendar = styled(Calendar)<{ selectedMethod: string }>`
 
     width: 44px;
     height: 44px;
-    color: ${theme.colors.gray04};
+    color: ${theme.colors.gray03};
     ${theme.typography.regular01};
   }
 
   /* 오늘 날짜 */
   .react-calendar__tile--now {
-    background: none;
+    background: ${theme.colors.green01};
+    color: ${theme.colors.green02};
   }
 `;
 

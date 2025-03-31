@@ -2,17 +2,8 @@ import styled from '@emotion/styled';
 import theme from '@/styles/theme';
 
 export const Wrapper = styled.div`
-  display: block;
-  position: fixed;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-
   width: 100%;
-  max-width: 412px;
-  height: 100%;
-
-  overflow: auto;
+  padding: 48px 0 0 0;
 
   -ms-overflow-style: none;
   scrollbar-width: none;

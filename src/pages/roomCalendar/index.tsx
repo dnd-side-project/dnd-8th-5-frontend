@@ -20,6 +20,7 @@ import RoomHeader from '@/components/createRoom/header';
 import TimePicker from '@/components/createRoom/timePicker';
 import BottomButton from '@/components/commons/bottomButton';
 import { ROUTES } from '@/constants/ROUTES';
+import { Layout } from '@/components/commons/layout';
 
 const RoomCalendar = () => {
   const navigate = useNavigate();
@@ -70,37 +71,39 @@ const RoomCalendar = () => {
   });
 
   return (
-    <MainContainer>
-      <HeaderContainer>
-        <RoomHeader
-          index={'1/2'}
-          title={'날짜와 시간대를 정해볼까요?'}
-          bottomSheet={false}
-        />
-      </HeaderContainer>
+    <Layout>
+      <MainContainer>
+        <HeaderContainer>
+          <RoomHeader
+            index={'1/2'}
+            title={'날짜와 시간대를 정해 볼까요?'}
+            bottomSheet={false}
+          />
+        </HeaderContainer>
 
-      <Calendar dates={dates} setDates={setDates} setMonth={setMonth} />
+        <Calendar dates={dates} setDates={setDates} setMonth={setMonth} />
 
-      <TimePickerContainer numCalendarLows={numCalendarLows}>
-        <TimePickerWrapper>
-          <TimePicker setStartTime={setStartTime} setEndTime={setEndTime} />
-        </TimePickerWrapper>
-        <GreyBox />
-        {isCheckedBox ? <DependingBox /> : null}
-      </TimePickerContainer>
-      <CheckBoxContainer numCalendarLows={numCalendarLows}>
-        <Checkbox
-          text="시간 조율 없이 약속 날짜만 알고 싶어요"
-          value={isCheckedBox}
-          setValue={setIsCheckedBox}
+        <TimePickerContainer numCalendarLows={numCalendarLows}>
+          <TimePickerWrapper>
+            <TimePicker setStartTime={setStartTime} setEndTime={setEndTime} />
+          </TimePickerWrapper>
+          <GreyBox />
+          {isCheckedBox ? <DependingBox /> : null}
+        </TimePickerContainer>
+        <CheckBoxContainer numCalendarLows={numCalendarLows}>
+          <Checkbox
+            text="시간 조율 없이 약속 날짜만 알고 싶어요"
+            value={isCheckedBox}
+            setValue={setIsCheckedBox}
+          />
+        </CheckBoxContainer>
+        <BottomButton
+          text="다음"
+          isActivated={isActivated}
+          onClick={handleBottomButtonClick}
         />
-      </CheckBoxContainer>
-      <BottomButton
-        text="다음"
-        isActivated={isActivated}
-        onClick={handleBottomButtonClick}
-      />
-    </MainContainer>
+      </MainContainer>
+    </Layout>
   );
 };
 

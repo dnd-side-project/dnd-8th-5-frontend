@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useState, useRef, FormEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import loginBg from '@/assets/images/loginBack.webp';
 import * as Sentry from '@sentry/react';
 
 import {
   FormContainer,
-  HeaderContainer,
   HeaderText,
-  InputContnainer,
   LoginComponent,
   MainContainer,
   NameInput,
@@ -16,6 +15,7 @@ import {
   RightWrapper,
   ImgWrapper,
   TextWrapper,
+  Logo,
 } from './index.styles';
 import BottomButton from '@/components/commons/bottomButton';
 
@@ -28,6 +28,7 @@ import uncheckedbox from '@/assets/icons/uncheckdBox.png';
 
 import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 import { usePostUserInfo } from '@/queries/auth/usePostUserInfo';
+import { Layout } from '@/components/commons/layout';
 
 const Login = () => {
   const { roomUUID } = useParams() as { roomUUID: string };
@@ -95,12 +96,11 @@ const Login = () => {
   }, [isSuccess, isError]);
 
   return (
-    <MainContainer>
-      <FormContainer onSubmit={handleFormSubmit}>
-        <HeaderContainer>
+    <Layout>
+      <MainContainer>
+        <Logo src={loginBg} />
+        <FormContainer onSubmit={handleFormSubmit}>
           <HeaderText>{room?.title}</HeaderText>
-        </HeaderContainer>
-        <InputContnainer>
           <LoginComponent>
             <NameInput
               autoComplete="off"
@@ -127,31 +127,31 @@ const Login = () => {
               isPasswordError={isPasswordError}
             />
           </LoginComponent>
-        </InputContnainer>
-        <CheckBoxContainer>
-          {isPasswordError ? (
-            <PasswordError>비밀번호가 일치하지 않아요</PasswordError>
-          ) : (
-            <div />
-          )}
-          <RightWrapper
-            id="save-user-info-button"
-            onClick={onClickSaveUserInfo}
-          >
-            <ImgWrapper>
-              <img src={saveUserInfo ? checkedBox : uncheckedbox} />
-            </ImgWrapper>
-            <TextWrapper>정보 저장</TextWrapper>
-          </RightWrapper>
-        </CheckBoxContainer>
-        <BottomButton
-          id="login-button"
-          type="submit"
-          text={'로그인'}
-          isActivated={canGoNext}
-        />
-      </FormContainer>
-    </MainContainer>
+          <CheckBoxContainer>
+            {isPasswordError ? (
+              <PasswordError>비밀번호가 일치하지 않아요</PasswordError>
+            ) : (
+              <div />
+            )}
+            <RightWrapper
+              id="save-user-info-button"
+              onClick={onClickSaveUserInfo}
+            >
+              <ImgWrapper>
+                <img src={saveUserInfo ? checkedBox : uncheckedbox} />
+              </ImgWrapper>
+              <TextWrapper>정보 저장</TextWrapper>
+            </RightWrapper>
+          </CheckBoxContainer>
+          <BottomButton
+            id="login-button"
+            type="submit"
+            text={'로그인'}
+            isActivated={canGoNext}
+          />
+        </FormContainer>
+      </MainContainer>
+    </Layout>
   );
 };
 

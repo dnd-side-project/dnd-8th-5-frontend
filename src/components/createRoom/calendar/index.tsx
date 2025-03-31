@@ -20,7 +20,7 @@ interface Calendar {
 }
 
 const Calendar = ({ dates, setDates, setMonth }: Calendar) => {
-  const [isRange, setIsRange] = useState<boolean>(false);
+  const [isRange, setIsRange] = useState<boolean>(true);
   const [value, setValue] = useState();
 
   const ko = {
@@ -123,6 +123,7 @@ const Calendar = ({ dates, setDates, setMonth }: Calendar) => {
           setData={setIsRange}
         />
       </ToggleWrapper>
+
       <CalendarComponent
         value={value}
         onChange={(dataObjects) => {

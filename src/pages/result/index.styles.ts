@@ -3,24 +3,19 @@ import theme from '@/styles/theme';
 
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: 412px;
-  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   padding: 48px 0 0 0;
+  overflow: auto;
 `;
 
 export const Body = styled.div`
   width: 100%;
   padding: 0 20px;
   margin-top: 30px;
-  overflow: scroll;
-
   padding-bottom: 117px;
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 export const TitleWrapper = styled.div`

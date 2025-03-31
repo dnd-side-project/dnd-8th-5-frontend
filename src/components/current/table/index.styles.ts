@@ -10,14 +10,14 @@ export const Wrapper = styled.div`
   ${theme.typography.medium02};
 
   border-radius: 5.5px;
-  border: 1px solid ${theme.colors.currentTableBorder};
+  border: 1px solid ${theme.colors.purple00};
 `;
 
 export const Top = styled.div`
   display: flex;
 
   height: 36px;
-  border-bottom: 1px solid ${theme.colors.currentTableBorder};
+  border-bottom: 1px solid ${theme.colors.purple00};
 
   overflow: hidden;
 `;
@@ -32,8 +32,8 @@ export const Blank = styled.div`
   width: 22px;
   height: 36px;
 
-  border-right: 1px solid ${theme.colors.currentTableBorder};
-  border-bottom: 1px solid ${theme.colors.currentTableBorder};
+  border-right: 1px solid ${theme.colors.purple00};
+  border-bottom: 1px solid ${theme.colors.purple00};
 `;
 
 export const DateWrapper = styled.div`
@@ -57,7 +57,7 @@ export const Date = styled.div<{ isBlank: boolean }>`
   background: ${({ isBlank }) =>
     isBlank ? theme.colors.gray02 : theme.colors.gray01};
 
-  border-left: 1px solid ${theme.colors.currentTableBorder};
+  border-left: 1px solid ${theme.colors.purple00};
 
   &:first-of-type {
     border-left: none;
@@ -66,7 +66,7 @@ export const Date = styled.div<{ isBlank: boolean }>`
 
 export const TimeWrapper = styled.div`
   width: 22px;
-  border-right: 1px solid ${theme.colors.currentTableBorder};
+  border-right: 1px solid ${theme.colors.purple00};
 `;
 
 export const Time = styled.div`
@@ -81,7 +81,7 @@ export const Time = styled.div`
   ${theme.typography.regular02};
 
   & + & {
-    border-top: 1px solid ${theme.colors.currentTableBorder};
+    border-top: 1px solid ${theme.colors.purple00};
   }
 `;
 
@@ -89,7 +89,7 @@ export const SelectWrapper = styled.div`
   width: 88px;
 
   & + & {
-    border-left: 1px solid ${theme.colors.currentTableBorder};
+    border-left: 1px solid ${theme.colors.purple00};
   }
 `;
 
@@ -106,11 +106,11 @@ export const Select = styled.div<{ count: number; total: number }>`
       : `rgba( 106, 123, 255,  ${count / total})`};
 
   &:nth-of-type(odd) {
-    border-bottom: 1px dashed ${theme.colors.currentTableBorder};
+    border-bottom: 1px dashed ${theme.colors.purple00};
   }
 
   &:nth-of-type(even) {
-    border-bottom: 1px solid ${theme.colors.currentTableBorder};
+    border-bottom: 1px solid ${theme.colors.purple00};
   }
 
   &:first-of-type {
