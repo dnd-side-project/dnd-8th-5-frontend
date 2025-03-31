@@ -139,7 +139,7 @@ const Current = () => {
           </TableWrapper>
         ) : (
           <CurrentCalendar
-            activeStartDate={
+            defaultActiveStartDate={
               data.dates?.[0] ? new Date(data.dates[0]) : new Date()
             }
             participants={participants}

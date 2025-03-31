@@ -53,7 +53,7 @@ const RoomCalendar = () => {
   };
 
   useEffect(() => {
-    if (dates.length !== 0 && startTime !== endTime) {
+    if ((isCheckedBox || startTime !== endTime) && dates.length > 0) {
       setIsActivated(true);
     } else {
       setIsActivated(false);
