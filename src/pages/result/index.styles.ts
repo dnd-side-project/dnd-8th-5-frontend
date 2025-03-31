@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   width: 100%;
   max-width: 412px;
   margin: 0 auto;
+  padding: 48px 0 0 0;
 `;
 
 export const Body = styled.div`

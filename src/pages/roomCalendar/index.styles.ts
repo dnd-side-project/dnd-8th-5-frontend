@@ -74,4 +74,5 @@ export const CheckBoxContainer = styled.div<{ numCalendarLows: number }>`
   top: ${({ numCalendarLows }) => (numCalendarLows === 6 ? '575px' : '625px')};
   padding: 20px;
   padding-bottom: 50px;
+  cursor: pointer;
 `;

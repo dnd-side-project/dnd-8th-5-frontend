@@ -14,25 +14,28 @@ import useScrollToTop from './hooks/useScrollToTop';
 import useGoogleAnalytics from './hooks/useGoogleAnalytics';
 
 import Landing from './pages/landing';
+import { Layout } from './components/commons/layout';
 
 function App() {
   useGoogleAnalytics();
   useScrollToTop();
 
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path={`${ROUTES.ROOM_START}`} element={<RoomStart />} />
-      <Route path={`${ROUTES.ROOM_CALENDAR}`} element={<RoomCalendar />} />
-      <Route path={`${ROUTES.ROOM_TIMER}`} element={<Timer />} />
-      <Route path={`${ROUTES.INVITE}/:roomUUID`} element={<Invite />} />
-      <Route path={`${ROUTES.LOGIN}/:roomUUID`} element={<Login />} />
-      <Route path={`${ROUTES.CURRENT}/:roomUUID`} element={<Current />} />
-      <Route path={`${ROUTES.ADD_TIME}/:roomUUID`} element={<AddTime />} />
-      <Route path={`${ROUTES.RESULT}/:roomUUID`} element={<Result />} />
-      <Route path={`${ROUTES.ERROR}`} element={<Error />} />
-      <Route path="*" element={<Error />} />
-    </Routes>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path={`${ROUTES.ROOM_START}`} element={<RoomStart />} />
+        <Route path={`${ROUTES.ROOM_CALENDAR}`} element={<RoomCalendar />} />
+        <Route path={`${ROUTES.ROOM_TIMER}`} element={<Timer />} />
+        <Route path={`${ROUTES.INVITE}/:roomUUID`} element={<Invite />} />
+        <Route path={`${ROUTES.LOGIN}/:roomUUID`} element={<Login />} />
+        <Route path={`${ROUTES.CURRENT}/:roomUUID`} element={<Current />} />
+        <Route path={`${ROUTES.ADD_TIME}/:roomUUID`} element={<AddTime />} />
+        <Route path={`${ROUTES.RESULT}/:roomUUID`} element={<Result />} />
+        <Route path={`${ROUTES.ERROR}`} element={<Error />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </Layout>
   );
 }
 

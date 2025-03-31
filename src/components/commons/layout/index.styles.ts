@@ -1,0 +1,10 @@
+import styled from '@emotion/styled';
+
+export const Wrapper = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 412px;
+  height: 100dvh;
+  margin: 0 auto;
+  overflow: hidden;
+`;

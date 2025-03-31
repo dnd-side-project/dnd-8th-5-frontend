@@ -17,17 +17,17 @@ import LinkShareBottomSheet from '@/components/current/shareLinkBottomSheet';
 
 import {
   Body,
+  Section,
   Border,
   BottomWrapper,
-  Edit,
-  EditIcon,
+  EditButton,
   Participants,
   Subtitle,
   TableWrapper,
   Title,
   Wrapper,
 } from './index.styles';
-import edit from '@/assets/icons/edit.svg';
+import plus from '@/assets/icons/current_plus.svg';
 import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 
 import { useAuth } from '@/hooks/useAuth';
@@ -37,6 +37,7 @@ import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 
 import { RoomTypes } from '@/types/roomInfo';
 import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
+import { useScrollDetection } from '@/hooks/useScrollDirection';
 
 const Current = () => {
   const navigate = useNavigate();
@@ -45,6 +46,7 @@ const Current = () => {
   const [isShareLinkBottomSheetOpened] = useRecoilState(
     LinkShareBottomSheetState
   );
+  const { scrollRef, isScrollUp, isScrollDown } = useScrollDetection();
 
   const [
     { title, headCount, participants, deadLine, dates, startTime, endTime },
@@ -93,63 +95,75 @@ const Current = () => {
 
   if (!data) return null;
   return (
-    <Wrapper>
+    <Wrapper ref={scrollRef}>
       <Header pageName={ROUTES.CURRENT} title={title} />
-      <Body>
-        {deadLine && <Timer deadLine={deadLine} />}
-        <Title>실시간 참여 현황</Title>
-        <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
-
-        {headCount ? (
-          <ProgressBar headCount={headCount} participants={participants} />
-        ) : null}
-
-        <Participants>
-          {participants &&
-            participants.map((participant: string) => (
-              <ParticipantsBlock key={participant} participant={participant} />
-            ))}
-
-          {headCount
-            ? participants.length < headCount && (
-                <ParticipantsBlock participant={'?'} />
-              )
-            : participants.length === 0 && (
-                <ParticipantsBlock participant={'?'} />
-              )}
-        </Participants>
-      </Body>
-
-      <Border />
 
       <Body>
-        <Title>실시간 등록 현황</Title>
-        {isTableView ? (
-          <TableWrapper>
-            <Table
-              dates={
-                dates.length < 4
-                  ? getFourChunks(getFormattedDateArray(dates))
-                  : getFormattedDateArray(dates)
+        <Section>
+          {deadLine && <Timer deadLine={deadLine} />}
+          <Title>실시간 참여 현황</Title>
+          <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
+
+          {headCount ? (
+            <ProgressBar headCount={headCount} participants={participants} />
+          ) : null}
+
+          <Participants>
+            {participants &&
+              participants.map((participant: string) => (
+                <ParticipantsBlock
+                  key={participant}
+                  participant={participant}
+                />
+              ))}
+
+            {headCount
+              ? participants.length < headCount && (
+                  <ParticipantsBlock participant={'?'} />
+                )
+              : participants.length === 0 && (
+                  <ParticipantsBlock participant={'?'} />
+                )}
+          </Participants>
+        </Section>
+
+        <Border />
+
+        <Section>
+          <Title>실시간 등록 현황</Title>
+          {isTableView ? (
+            <TableWrapper>
+              <Table
+                dates={
+                  dates.length < 4
+                    ? getFourChunks(getFormattedDateArray(dates))
+                    : getFormattedDateArray(dates)
+                }
+                startTime={startTime}
+                endTime={endTime}
+                participants={participants}
+              />
+            </TableWrapper>
+          ) : (
+            <CurrentCalendar
+              defaultActiveStartDate={
+                data.dates?.[0] ? new Date(data.dates[0]) : new Date()
               }
-              startTime={startTime}
-              endTime={endTime}
               participants={participants}
             />
-          </TableWrapper>
-        ) : (
-          <CurrentCalendar
-            defaultActiveStartDate={
-              data.dates?.[0] ? new Date(data.dates[0]) : new Date()
-            }
-            participants={participants}
-          />
-        )}
+          )}
+        </Section>
       </Body>
+
       <BottomWrapper>
-        <Edit onClick={handleEditButtonClick}>
-          <EditIcon src={edit} alt="edit" />
-        </Edit>
+        <EditButton
+          onClick={handleEditButtonClick}
+          isScrollUp={isScrollUp}
+          isScrollDown={isScrollDown}
+        >
+          <img src={plus} alt="일정 등록하기 버튼" />
+          <span>등록하기</span>
+        </EditButton>
         <BottomButton
           onClick={goToResult}
           text="우선순위 보기"
