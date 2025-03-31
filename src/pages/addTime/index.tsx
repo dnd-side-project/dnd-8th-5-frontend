@@ -68,7 +68,7 @@ const AddTime = () => {
             />
           ) : (
             <AddCalendar
-              activeStartDate={
+              defaultActiveStartDate={
                 room?.dates?.[0] ? new Date(room.dates[0]) : new Date()
               }
               dates={room.dates}
