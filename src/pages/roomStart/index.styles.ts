@@ -136,6 +136,7 @@ export const CountButton = styled.button`
   width: 25%;
   border-radius: 5px;
   background-color: white;
+  touch-action: manipulation;
 `;
 
 export const NextButton = styled.button``;

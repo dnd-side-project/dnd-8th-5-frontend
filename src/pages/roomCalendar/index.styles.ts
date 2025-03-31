@@ -9,7 +9,8 @@ export const MainContainer = styled.div`
   background-color: ${theme.colors.gray01};
   margin: 0 auto;
   padding: 0 0 90px 0;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
 
 export const HeaderContainer = styled.div`

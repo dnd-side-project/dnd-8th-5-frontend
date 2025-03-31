@@ -7,7 +7,7 @@ export const Overlay = styled.div`
   height: 100vh;
 
   position: fixed;
-  z-index: 120;
+  z-index: 60;
   top: 0;
   left: 0;
   right: 0;
@@ -23,7 +23,7 @@ export const Side = styled.div`
   border-radius: 0 20px 20px 0;
 
   position: fixed;
-  z-index: 121;
+  z-index: 70;
   top: 0;
   left: 0;
   bottom: 0;
