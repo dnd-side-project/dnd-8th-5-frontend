@@ -16,6 +16,7 @@ import { TableSelectedTypes } from './index.types';
 
 import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 import { ROUTES } from '@/constants/ROUTES';
+import { Layout } from '@/components/commons/layout';
 
 const AddTime = () => {
   const { roomUUID } = useParams() as { roomUUID: string };
@@ -38,55 +39,57 @@ const AddTime = () => {
 
   if (!room) return null;
   return (
-    <Wrapper ref={wrapperRef}>
-      <Header pageName={ROUTES.ADD_TIME} title={room?.title ?? ''} />
-      <Body>
-        <TitleWrapper>
-          <Title>{`${userName ?? ''} 님의 일정을`}</Title>
-        </TitleWrapper>
+    <Layout>
+      <Wrapper ref={wrapperRef}>
+        <Header pageName={ROUTES.ADD_TIME} title={room?.title ?? ''} />
+        <Body>
+          <TitleWrapper>
+            <Title>{`${userName ?? ''} 님의 일정을`}</Title>
+          </TitleWrapper>
 
-        <TitleWrapper>
-          <AddToggle
-            isTableView={isTableView}
-            setTableSelected={setTableSelected}
-            setSelected={setCalendarSelected}
-          />
-          <Title>시간으로 선택해 주세요</Title>
-        </TitleWrapper>
-        <Main>
-          {isTableView ? (
-            <AddTimeTable
-              wrapperRef={wrapperRef}
-              startTime={parseInt(room.startTime)}
-              endTime={parseInt(room.endTime)}
-              selected={tableSelected}
-              setSelected={setTableSelected}
+          <TitleWrapper>
+            <AddToggle
+              isTableView={isTableView}
               setTableSelected={setTableSelected}
-              dates={room.dates}
-              isResetButtonClick={isResetButtonClick}
-              setIsResetButtonClick={setIsResetButtonClick}
-            />
-          ) : (
-            <AddCalendar
-              defaultActiveStartDate={
-                room?.dates?.[0] ? new Date(room.dates[0]) : new Date()
-              }
-              dates={room.dates}
-              selected={calendarSelected}
               setSelected={setCalendarSelected}
-              selectedMethod={selectedMethod}
             />
-          )}
-        </Main>
-      </Body>
+            <Title>시간으로 선택해 주세요</Title>
+          </TitleWrapper>
+          <Main>
+            {isTableView ? (
+              <AddTimeTable
+                wrapperRef={wrapperRef}
+                startTime={parseInt(room.startTime)}
+                endTime={parseInt(room.endTime)}
+                selected={tableSelected}
+                setSelected={setTableSelected}
+                setTableSelected={setTableSelected}
+                dates={room.dates}
+                isResetButtonClick={isResetButtonClick}
+                setIsResetButtonClick={setIsResetButtonClick}
+              />
+            ) : (
+              <AddCalendar
+                defaultActiveStartDate={
+                  room?.dates?.[0] ? new Date(room.dates[0]) : new Date()
+                }
+                dates={room.dates}
+                selected={calendarSelected}
+                setSelected={setCalendarSelected}
+                selectedMethod={selectedMethod}
+              />
+            )}
+          </Main>
+        </Body>
 
-      {isTableView && isTooltipShown && (
-        <Tooltip
-          isTooltipShown={isTooltipShown}
-          setIsTooltipShown={setIsTooltipShown}
-        />
-      )}
-    </Wrapper>
+        {isTableView && isTooltipShown && (
+          <Tooltip
+            isTooltipShown={isTooltipShown}
+            setIsTooltipShown={setIsTooltipShown}
+          />
+        )}
+      </Wrapper>
+    </Layout>
   );
 };
 

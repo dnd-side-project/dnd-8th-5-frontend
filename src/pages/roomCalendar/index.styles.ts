@@ -4,20 +4,12 @@ import theme from '@/styles/theme';
 export const MainContainer = styled.div`
   position: relative;
   display: flex;
-
   width: 100%;
-  height: calc(100vh + 90px);
-  max-width: 412px;
-  left: 0;
-  right: 0;
+  height: 100%;
   background-color: ${theme.colors.gray01};
   margin: 0 auto;
-  overflow-x: hidden;
-  overflow-y: hidden;
-
-  @media (max-height: 780px) {
-    height: calc(100vh + 110px);
-  }
+  padding: 0 0 90px 0;
+  overflow: auto;
 `;
 
 export const HeaderContainer = styled.div`
@@ -74,4 +66,5 @@ export const CheckBoxContainer = styled.div<{ numCalendarLows: number }>`
   top: ${({ numCalendarLows }) => (numCalendarLows === 6 ? '575px' : '625px')};
   padding: 20px;
   padding-bottom: 50px;
+  cursor: pointer;
 `;

@@ -3,14 +3,10 @@ import theme from '@/styles/theme';
 
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: 412px;
-
+  height: 100%;
+  overflow-y: auto;
   margin: 0 auto;
-  /* padding-bottom: 168px;  // 캘린더 */
-  padding-bottom: 108px; // 표
-
-  overflow-y: scroll;
-
+  padding: 48px 0 0px 0;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -21,11 +17,16 @@ export const Wrapper = styled.div`
 export const Body = styled.div`
   width: 100%;
   margin: 0 auto;
-  padding-right: 20px;
-  padding-left: 20px;
-
+  padding: 0 0 90px 0;
   display: flex;
   flex-direction: column;
+`;
+
+export const Section = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
 `;
 
 export const Border = styled.div`
@@ -79,36 +80,45 @@ export const TableWrapper = styled.div`
 export const BottomWrapper = styled.div`
   width: 100%;
   max-width: 412px;
-  height: 156px;
+  height: 0.1px;
   margin: 0 auto;
-  padding: 0 20px;
-
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 8px;
+  position: absolute;
+  right: 20px;
+  bottom: calc(90px + 8px);
 `;
 
-export const Edit = styled.div`
-  width: 54px;
-  height: 54px;
-  border-radius: 50px;
-
-  border: 1px solid ${theme.colors.purple06};
-  background: ${theme.colors.gray01};
-  filter: drop-shadow(0px 0px 15px rgba(0, 0, 0, 0.1));
-
+export const EditButton = styled.button<{
+  isScrollUp: boolean;
+  isScrollDown: boolean;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: ${({ isScrollUp }) => (isScrollUp ? 0 : '8px')};
+  padding: ${({ isScrollUp }) => (isScrollUp ? '14px' : '12px 14px')};
+  border-radius: 100px;
+  background: #3c53ff;
+  filter: drop-shadow(0px 0px 15px rgba(0, 0, 0, 0.1));
 
-  cursor: pointer;
-  margin: 0 0 0 auto;
-`;
+  img {
+    width: ${({ isScrollUp }) => (isScrollUp ? '26px' : '18px')};
+    height: ${({ isScrollUp }) => (isScrollUp ? '26px' : '18px')};
+  }
 
-export const EditIcon = styled.img`
-  width: 24px;
-  height: 24px;
+  span {
+    color: white;
+    ${theme.typography.medium04};
+    white-space: nowrap;
+    overflow: hidden;
+    opacity: ${({ isScrollUp }) => (isScrollUp ? 0 : 1)};
+    max-width: ${({ isScrollUp }) => (isScrollUp ? '0px' : '100px')};
+    transition: opacity 0.3s ease-in-out, max-width 0.3s ease-in-out;
+  }
 `;
 
 export const AddButton = styled.button`

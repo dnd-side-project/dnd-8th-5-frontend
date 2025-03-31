@@ -15,12 +15,10 @@ import {
   Logo,
   FormContainer,
   Header,
-  TitleInputContnainer,
   InputWrapper,
   InputTitle,
   Input,
   DependingBox,
-  NumberSelectContnainer,
   SelectWrapper,
   CountButton,
   PeopleNumber,
@@ -32,6 +30,7 @@ import {
 import { createRoomAtom } from '@/atoms/createRoomAtom';
 import useInputScroll from '@/hooks/useInputScroll';
 import { ROUTES } from '@/constants/ROUTES';
+import { Layout } from '@/components/commons/layout';
 
 interface TagType {
   id: string;
@@ -107,25 +106,25 @@ const RoomStart = () => {
   };
 
   return (
-    <MainContainer>
-      <Logo src={roomStart} alt="room start logo" />
-      <FormContainer>
-        <Header>어떤 약속인가요?</Header>
+    <Layout>
+      <MainContainer>
+        <Logo src={roomStart} alt="room start logo" />
+        <FormContainer>
+          <Header>어떤 약속인가요?</Header>
 
-        <TagWrapper>
-          {tags.map(({ id, title, isSelected }: TagType) => (
-            <Tag
-              id={id}
-              key={title}
-              isSelected={isSelected}
-              onClick={handleTagClick}
-            >
-              {title}
-            </Tag>
-          ))}
-        </TagWrapper>
+          <TagWrapper>
+            {tags.map(({ id, title, isSelected }: TagType) => (
+              <Tag
+                id={id}
+                key={title}
+                isSelected={isSelected}
+                onClick={handleTagClick}
+              >
+                {title}
+              </Tag>
+            ))}
+          </TagWrapper>
 
-        <TitleInputContnainer>
           <InputWrapper>
             <InputTitle>약속 이름을 알려주세요</InputTitle>
             <Input
@@ -136,42 +135,43 @@ const RoomStart = () => {
               onChange={handleRoomNameChange}
               placeholder="최대 15자 입력 가능"
               autoComplete="new-password"
+              maxLength={15}
             />
           </InputWrapper>
-        </TitleInputContnainer>
 
-        <NumberSelectContnainer>
-          <InputTitle>약속 참여 인원을 알려주세요</InputTitle>
+          <InputWrapper>
+            <InputTitle>약속 참여 인원을 알려주세요</InputTitle>
+            <div style={{ position: 'relative' }}>
+              <SelectWrapper>
+                {isNotDecided && <DependingBox />}
+                <CountButton onClick={handleMinusButtonClick}>
+                  <img src={minus} />
+                </CountButton>
+                <PeopleNumber>{peopleNumber}명</PeopleNumber>
+                <CountButton onClick={handlePlusButtonClick}>
+                  <img src={plus} />
+                </CountButton>
+              </SelectWrapper>
+            </div>
+          </InputWrapper>
 
-          <DependingBox isNotDecided={isNotDecided} />
-
-          <SelectWrapper>
-            <CountButton onClick={handleMinusButtonClick}>
-              <img src={minus} />
-            </CountButton>
-            <PeopleNumber>{peopleNumber}명</PeopleNumber>
-            <CountButton onClick={handlePlusButtonClick}>
-              <img src={plus} />
-            </CountButton>
-          </SelectWrapper>
-        </NumberSelectContnainer>
-
-        <ChceckContainer>
-          <CheckBox
-            text={'아직 안 정해졌어요'}
-            setValue={setIsNotDecided}
-            value={isNotDecided}
-          ></CheckBox>
-        </ChceckContainer>
-        <BottomButton
-          onClick={() => {
-            canGoNext ? onSetRecoilState() : null;
-          }}
-          text={'다음'}
-          isActivated={canGoNext}
-        />
-      </FormContainer>
-    </MainContainer>
+          <ChceckContainer>
+            <CheckBox
+              text={'아직 안 정해졌어요'}
+              setValue={setIsNotDecided}
+              value={isNotDecided}
+            ></CheckBox>
+          </ChceckContainer>
+          <BottomButton
+            onClick={() => {
+              canGoNext ? onSetRecoilState() : null;
+            }}
+            text={'다음'}
+            isActivated={canGoNext}
+          />
+        </FormContainer>
+      </MainContainer>
+    </Layout>
   );
 };
 

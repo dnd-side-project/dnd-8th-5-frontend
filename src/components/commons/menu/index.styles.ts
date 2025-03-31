@@ -7,7 +7,7 @@ export const Overlay = styled.div`
   height: 100vh;
 
   position: fixed;
-  z-index: 4;
+  z-index: 120;
   top: 0;
   left: 0;
   right: 0;
@@ -23,7 +23,7 @@ export const Side = styled.div`
   border-radius: 0 20px 20px 0;
 
   position: fixed;
-  z-index: 4;
+  z-index: 121;
   top: 0;
   left: 0;
   bottom: 0;
@@ -51,7 +51,7 @@ export const Wrapper = styled.div`
   background: ${theme.colors.gray01};
 
   position: fixed;
-  z-index: 5;
+  z-index: 122;
   top: 0;
   left: 0;
   bottom: 0;

@@ -3,7 +3,7 @@ import { Calendar } from 'react-calendar';
 import theme from '@/styles/theme';
 
 export const StyledCalendar = styled(Calendar)`
-  width: 336px;
+  width: 100%;
   margin-top: 16px;
   margin-bottom: 60px;
 

@@ -3,18 +3,15 @@ import theme from '@/styles/theme';
 
 export const MainContainer = styled.div`
   width: 100%;
-  max-width: 375px;
 `;
 
 export const IndexText = styled.div`
   padding-bottom: 10px;
-  ${theme.typography.semibold04}
+  ${theme.typography.medium02}
 `;
 
 export const TitleText = styled.div<{ isBottomSheet: boolean }>`
-  ${(props) =>
-    props.isBottomSheet
-      ? theme.typography.semibold02
-      : theme.typography.semibold01};
+  font-weight: 600;
+  font-size: ${(props) => (props.isBottomSheet ? '20px' : '24px')};
   white-space: pre-wrap;
 `;

@@ -8,19 +8,19 @@ export const BottomButtonContainer = styled.div<{
   position: fixed;
   bottom: 0;
   width: 100%;
+  max-width: 412px;
   height: 90px;
   left: 0;
   right: 0;
   margin: 0 auto;
   max-width: 412px;
+  padding: 14px 0 0 0;
   ${({ isBackgroundVisible }) =>
     isBackgroundVisible &&
     css`
-      background: ${theme.colors.gray01};
-      border-top: 2px solid ${theme.colors.gray02};
+      background: white;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, white 12%);
     `};
-
-  z-index: 100;
 `;
 
 export const Wrapper = styled.button<{
@@ -34,7 +34,7 @@ export const Wrapper = styled.button<{
 
   border-radius: 6px;
 
-  ${theme.typography.semibold03};
+  ${theme.typography.medium01};
   color: ${({ isActivated }) =>
     isActivated ? theme.colors.gray01 : theme.colors.gray06};
   background: ${({ isActivated }) =>
@@ -43,9 +43,4 @@ export const Wrapper = styled.button<{
   display: flex;
   align-items: center;
   justify-content: center;
-
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 28px;
 `;

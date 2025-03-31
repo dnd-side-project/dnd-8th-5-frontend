@@ -4,36 +4,25 @@ import theme from '@/styles/theme';
 export const MainContainer = styled.div`
   position: relative;
   width: 100%;
-  max-width: 412px;
-  height: calc(100vh + 20px);
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  overflow-x: hidden;
-  overflow-y: hidden;
-
-  @media screen and (max-height: 667px) {
-    height: calc(100vh + 120px);
-  }
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 32px 0 0 0;
+  overflow: auto;
 `;
 
 export const HeaderContainer = styled.div`
-  position: absolute;
-  top: 33px;
   width: 100%;
-  height: 116px;
-  left: 20px;
-  margin-bottom: 34px;
+  padding: 0 20px;
 `;
 
 export const TimerContainr = styled.div`
-  position: absolute;
+  position: relative;
   display: flex;
-  top: 176px;
   width: 100%;
   justify-content: center;
-  margin-bottom: 0px;
-  z-index: 1;
+  margin: 40px 0;
 `;
 
 export const TImerWrapper = styled.div`
@@ -52,44 +41,38 @@ export const DependingBox = styled.div<{ value: number }>`
 
 export const BottomContainer = styled.div`
   display: flex;
-  position: absolute;
-  top: 435px;
   width: 100%;
-  height: 100%;
+  height: 332px;
   flex-direction: column;
+  flex: 1;
   align-items: center;
-  margin-bottom: 90px;
   background-color: #f5f6ff;
-  z-index: 2;
+  margin: 32px 0 0 0;
+  padding: 0 20px 144px 20px;
 `;
 
 export const BottomHeaderWrapper = styled.div`
-  position: absolute;
   width: 170px;
   height: 19px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-  z-index: 2;
 `;
 
 export const BottomHeaderText = styled.div`
-  z-index: 2;
   ${theme.typography.medium03}
 `;
 
 export const RecommendWrapper = styled.div`
-  position: absolute;
   display: flex;
   flex-direction: row;
-  top: 62px;
   width: 100%;
-  padding-inline: 20px;
   height: 94px;
+  margin: 24px 0 0 0;
+  gap: 12px;
   justify-content: space-between;
   flex-wrap: wrap;
-  z-index: 2;
   cursor: pointer;
 `;
 
@@ -106,13 +89,10 @@ export const RecommendBox = styled.div<{ value: boolean; isChecked: boolean }>`
     props.value ? theme.colors.gray01 : theme.colors.purple06};
   color: ${(props) => (props.isChecked ? theme.colors.gray03 : 'none')};
   ${theme.typography.medium02};
-  margin-bottom: 12px;
   pointer-events: ${(props) => (props.isChecked ? 'none' : null)};
 `;
 
 export const CheckboxWrapper = styled.div`
-  position: absolute;
-  top: 180px;
   width: 100%;
-  padding-inline: 20px;
+  margin: 24px 0 0 0;
 `;

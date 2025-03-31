@@ -8,12 +8,14 @@ const colors = {
   green01: '#E6F8EE',
   green02: '#59CE8F',
 
+  purple00: '#E3E7FF',
   purple01: '#F3F4F9',
   purple02: '#EDEFFF',
   purple03: '#DADEFF',
   purple04: '#BCC4FF',
   purple05: '#97A3FF',
   purple06: '#6A7BFF',
+  purple07: '#3C53FF',
 
   gray01: '#FFFFFF',
   gray02: '#F6F6F6',

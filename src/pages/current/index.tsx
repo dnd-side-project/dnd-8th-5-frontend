@@ -17,17 +17,17 @@ import LinkShareBottomSheet from '@/components/current/shareLinkBottomSheet';
 
 import {
   Body,
+  Section,
   Border,
   BottomWrapper,
-  Edit,
-  EditIcon,
+  EditButton,
   Participants,
   Subtitle,
   TableWrapper,
   Title,
   Wrapper,
 } from './index.styles';
-import edit from '@/assets/icons/edit.svg';
+import plus from '@/assets/icons/current_plus.svg';
 import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 
 import { useAuth } from '@/hooks/useAuth';
@@ -37,6 +37,8 @@ import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 
 import { RoomTypes } from '@/types/roomInfo';
 import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
+import { useScrollDetection } from '@/hooks/useScrollDirection';
+import { Layout } from '@/components/commons/layout';
 
 const Current = () => {
   const navigate = useNavigate();
@@ -45,6 +47,7 @@ const Current = () => {
   const [isShareLinkBottomSheetOpened] = useRecoilState(
     LinkShareBottomSheetState
   );
+  const { scrollRef, isScrollUp, isScrollDown } = useScrollDetection();
 
   const [
     { title, headCount, participants, deadLine, dates, startTime, endTime },
@@ -93,72 +96,87 @@ const Current = () => {
 
   if (!data) return null;
   return (
-    <Wrapper>
-      <Header pageName={ROUTES.CURRENT} title={title} />
-      <Body>
-        {deadLine && <Timer deadLine={deadLine} />}
-        <Title>실시간 참여 현황</Title>
-        <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
+    <Layout>
+      <Wrapper ref={scrollRef}>
+        <Header pageName={ROUTES.CURRENT} title={title} />
 
-        {headCount ? (
-          <ProgressBar headCount={headCount} participants={participants} />
-        ) : null}
+        <Body>
+          <Section>
+            {deadLine && <Timer deadLine={deadLine} />}
+            <Title>실시간 참여 현황</Title>
+            <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
 
-        <Participants>
-          {participants &&
-            participants.map((participant: string) => (
-              <ParticipantsBlock key={participant} participant={participant} />
-            ))}
+            {headCount ? (
+              <ProgressBar headCount={headCount} participants={participants} />
+            ) : null}
 
-          {headCount
-            ? participants.length < headCount && (
-                <ParticipantsBlock participant={'?'} />
-              )
-            : participants.length === 0 && (
-                <ParticipantsBlock participant={'?'} />
-              )}
-        </Participants>
-      </Body>
+            <Participants>
+              {participants &&
+                participants.map((participant: string) => (
+                  <ParticipantsBlock
+                    key={participant}
+                    participant={participant}
+                  />
+                ))}
 
-      <Border />
+              {headCount
+                ? participants.length < headCount && (
+                    <ParticipantsBlock participant={'?'} />
+                  )
+                : participants.length === 0 && (
+                    <ParticipantsBlock participant={'?'} />
+                  )}
+            </Participants>
+          </Section>
 
-      <Body>
-        <Title>실시간 등록 현황</Title>
-        {isTableView ? (
-          <TableWrapper>
-            <Table
-              dates={
-                dates.length < 4
-                  ? getFourChunks(getFormattedDateArray(dates))
-                  : getFormattedDateArray(dates)
-              }
-              startTime={startTime}
-              endTime={endTime}
-              participants={participants}
-            />
-          </TableWrapper>
-        ) : (
-          <CurrentCalendar
-            defaultActiveStartDate={
-              data.dates?.[0] ? new Date(data.dates[0]) : new Date()
-            }
-            participants={participants}
-          />
-        )}
-      </Body>
-      <BottomWrapper>
-        <Edit onClick={handleEditButtonClick}>
-          <EditIcon src={edit} alt="edit" />
-        </Edit>
+          <Border />
+
+          <Section>
+            <Title>실시간 등록 현황</Title>
+            {isTableView ? (
+              <TableWrapper>
+                <Table
+                  dates={
+                    dates.length < 4
+                      ? getFourChunks(getFormattedDateArray(dates))
+                      : getFormattedDateArray(dates)
+                  }
+                  startTime={startTime}
+                  endTime={endTime}
+                  participants={participants}
+                />
+              </TableWrapper>
+            ) : (
+              <CurrentCalendar
+                defaultActiveStartDate={
+                  data.dates?.[0] ? new Date(data.dates[0]) : new Date()
+                }
+                participants={participants}
+              />
+            )}
+          </Section>
+        </Body>
+
+        <BottomWrapper>
+          <EditButton
+            onClick={handleEditButtonClick}
+            isScrollUp={isScrollUp}
+            isScrollDown={isScrollDown}
+          >
+            <img src={plus} alt="일정 등록하기 버튼" />
+            <span>등록하기</span>
+          </EditButton>
+        </BottomWrapper>
+
         <BottomButton
           onClick={goToResult}
           text="우선순위 보기"
           isActivated={true}
         />
-      </BottomWrapper>
 
-      {isShareLinkBottomSheetOpened && <LinkShareBottomSheet />}
-    </Wrapper>
+        {isShareLinkBottomSheetOpened && <LinkShareBottomSheet />}
+      </Wrapper>
+    </Layout>
   );
 };
 

@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
-import { createRoomAtom, createRoomInfoState } from '@/atoms/createRoomAtom';
+import { createRoomAtom } from '@/atoms/createRoomAtom';
 import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
 
 import {
@@ -24,6 +24,7 @@ import BottomButton from '@/components/commons/bottomButton';
 
 import { ROUTES } from '@/constants/ROUTES';
 import { useCreateRoom } from '@/queries/room/useCreateRoom';
+import { Layout } from '@/components/commons/layout';
 
 const RoomTimer = () => {
   const navigate = useNavigate();
@@ -42,7 +43,6 @@ const RoomTimer = () => {
   ]);
 
   const [room, setRoom] = useRecoilState(createRoomAtom);
-  const recoilRoomInfoStates = useRecoilValue(createRoomInfoState);
   const [, setIsLinkShareBottomSheetOpened] = useRecoilState(
     LinkShareBottomSheetState
   );
@@ -146,58 +146,64 @@ const RoomTimer = () => {
   ]);
 
   return (
-    <MainContainer>
-      <HeaderContainer>
-        <RoomHeader
-          index={'2/2'}
-          title={`언제까지 참여자들의\n일정을 받아볼까요?`}
-          bottomSheet={false}
-        />
-      </HeaderContainer>
-      <TimerContainr>
-        <TImerWrapper>
-          <Timer setDay={setDay} setHour={setHour} setMinute={setMinute} />
-        </TImerWrapper>
-        {isChecked || isClickedRecommend.indexOf(true) >= 0 ? (
-          <DependingBox value={3} />
-        ) : (
-          <DependingBox value={1} />
-        )}
-      </TimerContainr>
-      <BottomContainer>
-        <BottomHeaderWrapper>
-          <BottomHeaderText>타이머 시간을 추천해드려요</BottomHeaderText>
-        </BottomHeaderWrapper>
-        <RecommendWrapper>
-          {RecommendArray.map((item: string, index: number) => {
-            return (
-              <RecommendBox
-                onClick={() => handleClickRecommendBox(index)}
-                key={item}
-                value={isClickedRecommend[index]}
-                isChecked={isChecked}
-              >
-                {item}
-              </RecommendBox>
-            );
-          })}
-        </RecommendWrapper>
-        <CheckboxWrapper>
-          <Checkbox
-            text={'타이머 등록 없이 여유롭게 일정을 받을래요'}
-            value={isChecked}
-            setValue={setIsChecked}
+    <Layout>
+      <MainContainer>
+        <HeaderContainer>
+          <RoomHeader
+            index={'2/2'}
+            title={`언제까지 참여자들의\n일정을 받아 볼까요?`}
+            bottomSheet={false}
           />
-        </CheckboxWrapper>
-      </BottomContainer>
-      <BottomButton
-        onClick={handleClickCompleteButton}
-        text="완료하기"
-        isActivated={
-          !allZero || isClickedRecommend.indexOf(true) >= 0 || isChecked
-        }
-      />
-    </MainContainer>
+        </HeaderContainer>
+
+        <TimerContainr>
+          <TImerWrapper>
+            <Timer setDay={setDay} setHour={setHour} setMinute={setMinute} />
+          </TImerWrapper>
+          {isChecked || isClickedRecommend.indexOf(true) >= 0 ? (
+            <DependingBox value={3} />
+          ) : (
+            <DependingBox value={1} />
+          )}
+        </TimerContainr>
+
+        <BottomContainer>
+          <BottomHeaderWrapper>
+            <BottomHeaderText>타이머 시간을 추천해드려요</BottomHeaderText>
+          </BottomHeaderWrapper>
+          <RecommendWrapper>
+            {RecommendArray.map((item: string, index: number) => {
+              return (
+                <RecommendBox
+                  onClick={() => handleClickRecommendBox(index)}
+                  key={item}
+                  value={isClickedRecommend[index]}
+                  isChecked={isChecked}
+                >
+                  {item}
+                </RecommendBox>
+              );
+            })}
+          </RecommendWrapper>
+
+          <CheckboxWrapper>
+            <Checkbox
+              text={'타이머 등록 없이 여유롭게 일정을 받을래요'}
+              value={isChecked}
+              setValue={setIsChecked}
+            />
+          </CheckboxWrapper>
+        </BottomContainer>
+
+        <BottomButton
+          onClick={handleClickCompleteButton}
+          text="완료하기"
+          isActivated={
+            !allZero || isClickedRecommend.indexOf(true) >= 0 || isChecked
+          }
+        />
+      </MainContainer>
+    </Layout>
   );
 };
 
