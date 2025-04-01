@@ -23,7 +23,6 @@ import { useAuth } from '@/hooks/useAuth';
 import { roomState } from '@/atoms/roomAtom';
 import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 import { ROUTES } from '@/constants/ROUTES';
-import { Layout } from '@/components/commons/layout';
 
 const Invite = () => {
   const { roomUUID } = useParams() as { roomUUID: string };
@@ -77,7 +76,6 @@ const Invite = () => {
   };
 
   return (
-    <Layout>
       <MainContainer>
         <HeaderWrapper>
           <Calendar src={calendar} />
@@ -103,7 +101,6 @@ const Invite = () => {
           등록 현황 보러가기
         </BottomSubButton>
       </MainContainer>
-    </Layout>
   );
 };
 
