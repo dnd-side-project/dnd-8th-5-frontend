@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
-import { createRoomAtom } from '@/atoms/createRoomAtom';
+import { createRoomAtom, createRoomInfoState } from '@/atoms/createRoomAtom';
 import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
 
 import {
@@ -43,13 +43,14 @@ const RoomTimer = () => {
   ]);
 
   const [room, setRoom] = useRecoilState(createRoomAtom);
+  const recoilRoomInfoStates = useRecoilValue(createRoomInfoState);
   const [, setIsLinkShareBottomSheetOpened] = useRecoilState(
     LinkShareBottomSheetState
   );
 
   const { mutate, data, isError, isSuccess } = useCreateRoom();
 
-  const handleCreateRoom = useCallback(() => {
+  useEffect(() => {
     if (
       day ||
       minute ||
@@ -59,19 +60,21 @@ const RoomTimer = () => {
     ) {
       mutate(room);
     }
-  }, [day, minute, hour, isClickedRecommend, isChecked, mutate, room]);
+  }, [room]);
 
   useEffect(() => {
     if (isError) {
       confirm('오류가 발생했습니다.\n처음부터 다시 시도해 주세요.');
       navigate(`${ROUTES.LANDING}`);
+      return;
     }
 
-    if (isSuccess && data) {
+    if (isSuccess) {
       navigate(`${ROUTES.CURRENT}/${data.roomUuid}`);
       setIsLinkShareBottomSheetOpened(true);
+      return;
     }
-  }, [isError, isSuccess, data]);
+  }, [isError, isSuccess]);
 
   useEffect(() => {
     setIsClickedRecommend((prev) =>
@@ -125,24 +128,39 @@ const RoomTimer = () => {
       recommendMinute = 0;
     }
 
-    setRoom((prev) => {
+    setRoom((prev: any) => {
       return {
         ...prev,
-        ['timeLimit']: isChecked
-          ? 0
-          : recommendDay * 24 * 60 + recommendHour * 60 + recommendMinute,
+        timer: isChecked
+          ? null
+          : {
+              day: isChecked
+                ? null
+                : isClickedRecommend.indexOf(true) >= 0
+                ? recommendDay
+                : day,
+              hour: isChecked
+                ? null
+                : isClickedRecommend.indexOf(true) >= 0
+                ? recommendHour
+                : hour,
+              minute: isChecked
+                ? null
+                : isClickedRecommend.indexOf(true) >= 0
+                ? recommendMinute
+                : minute,
+            },
       };
     });
-
-    handleCreateRoom();
   }, [
     day,
     hour,
     minute,
-    isClickedRecommend,
     isChecked,
-    setRoom,
-    handleCreateRoom,
+    room,
+    isClickedRecommend,
+    room,
+    recoilRoomInfoStates,
   ]);
 
   return (
@@ -151,11 +169,10 @@ const RoomTimer = () => {
         <HeaderContainer>
           <RoomHeader
             index={'2/2'}
-            title={`언제까지 참여자들의\n일정을 받아 볼까요?`}
+            title={`언제까지 참여자들의\n일정을 받아볼까요?`}
             bottomSheet={false}
           />
         </HeaderContainer>
-
         <TimerContainr>
           <TImerWrapper>
             <Timer setDay={setDay} setHour={setHour} setMinute={setMinute} />
@@ -166,7 +183,6 @@ const RoomTimer = () => {
             <DependingBox value={1} />
           )}
         </TimerContainr>
-
         <BottomContainer>
           <BottomHeaderWrapper>
             <BottomHeaderText>타이머 시간을 추천해드려요</BottomHeaderText>
@@ -185,7 +201,6 @@ const RoomTimer = () => {
               );
             })}
           </RecommendWrapper>
-
           <CheckboxWrapper>
             <Checkbox
               text={'타이머 등록 없이 여유롭게 일정을 받을래요'}
@@ -194,7 +209,6 @@ const RoomTimer = () => {
             />
           </CheckboxWrapper>
         </BottomContainer>
-
         <BottomButton
           onClick={handleClickCompleteButton}
           text="완료하기"
