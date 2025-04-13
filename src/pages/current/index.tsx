@@ -64,7 +64,7 @@ const Current = () => {
 
   useEffect(() => {
     if (isError) {
-      navigate(`${ROUTES.ERROR}`);
+      navigate(ROUTES.ERROR);
     }
   }, [isError]);
 
