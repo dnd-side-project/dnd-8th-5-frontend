@@ -76,31 +76,31 @@ const Invite = () => {
   };
 
   return (
-      <MainContainer>
-        <HeaderWrapper>
-          <Calendar src={calendar} />
-          <TitleWrapper>
-            <Title>약속에 초대합니다</Title>
-            <SubTitle>지금 바로 약속시간을 조율해보세요!</SubTitle>
-          </TitleWrapper>
-        </HeaderWrapper>
-        <BoxWrapper>
-          <UpperBoxWrapper>
-            <RoomTitle>{room.title}</RoomTitle>
-          </UpperBoxWrapper>
-          <LowerBoxWrapper>
-            <ParticipantsTitle>참여자</ParticipantsTitle>
-            <ParticipantsWraaper>{getParticipant()}</ParticipantsWraaper>
-          </LowerBoxWrapper>
-        </BoxWrapper>
+    <MainContainer>
+      <HeaderWrapper>
+        <Calendar src={calendar} />
+        <TitleWrapper>
+          <Title>약속에 초대합니다</Title>
+          <SubTitle>지금 바로 약속시간을 조율해보세요!</SubTitle>
+        </TitleWrapper>
+      </HeaderWrapper>
+      <BoxWrapper>
+        <UpperBoxWrapper>
+          <RoomTitle>{room.title}</RoomTitle>
+        </UpperBoxWrapper>
+        <LowerBoxWrapper>
+          <ParticipantsTitle>참여자</ParticipantsTitle>
+          <ParticipantsWraaper>{getParticipant()}</ParticipantsWraaper>
+        </LowerBoxWrapper>
+      </BoxWrapper>
 
-        <BottomButton onClick={handleStartButtonClick}>
-          일정 등록하기
-        </BottomButton>
-        <BottomSubButton onClick={handleSubButtonClick}>
-          등록 현황 보러가기
-        </BottomSubButton>
-      </MainContainer>
+      <BottomButton onClick={handleStartButtonClick}>
+        일정 등록하기
+      </BottomButton>
+      <BottomSubButton onClick={handleSubButtonClick}>
+        등록 현황 보러가기
+      </BottomSubButton>
+    </MainContainer>
   );
 };
 
