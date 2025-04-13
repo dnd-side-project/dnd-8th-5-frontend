@@ -21,11 +21,12 @@ const addFallbackRoomId = (roomId: string) => {
 
 const isFallbackRoom = (roomId: string) => {
   const ids = JSON.parse(localStorage.getItem(FALLBACK_HOST_KEY) || '[]');
-  return ids.includes(roomId);
+  return ids.includes(roomId) || ids.some((id: string) => roomId.includes(id));
 };
 
 instance.interceptors.request.use(async (config) => {
   const roomId = config?.url?.replaceAll('/api/room/', '');
+
   if (roomId && isFallbackRoom(roomId)) {
     config.baseURL = import.meta.env.VITE_API_PATH;
   }
