@@ -18,6 +18,7 @@ jobs:
       - name: ⚙️ Setup env
         run: |
           echo "VITE_API_PATH=${{secrets.VITE_API_PATH}}" >> .env
+          echo "VITE_TEMPORARY_API_PATH=${{secrets.VITE_TEMPORARY_API_PATH}}" >> .env
           echo "VITE_GA_TRACKING_ID=${{secrets.VITE_GA_TRACKING_ID}}" >> .env
           echo "PUBLIC_URL=${{secrets.PUBLIC_URL}}" >> .env
           echo "VITE_SENTRY_DSN=${{secrets.VITE_SENTRY_DSN}}" >> .env
