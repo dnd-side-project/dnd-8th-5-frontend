@@ -32,7 +32,6 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
             src={headerInfo}
             alt="share"
             onClick={() => {
-              Sentry.captureMessage(`Info Icon Clicked`);
               setIsTooltipShown(true);
             }}
           />
