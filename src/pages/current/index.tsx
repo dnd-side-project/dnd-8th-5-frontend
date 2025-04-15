@@ -74,7 +74,6 @@ const Current = () => {
     const isValidUser = useAuth(roomUUID as string);
 
     if (isValidUser) {
-      Sentry.captureMessage(`Login Success - Saved user info`);
       setSelectedMethod('possible');
       navigate(`${ROUTES.ADD_TIME}/${roomUUID}`);
     } else {

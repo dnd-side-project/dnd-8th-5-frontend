@@ -63,12 +63,7 @@ const Login = () => {
 
     if (Number.isNaN(Number(form.password))) {
       alert('비밀번호는 숫자만 입력해주세요');
-      Sentry.captureException(`Password is not a number`);
       return;
-    }
-
-    if (saveUserInfo) {
-      Sentry.captureMessage(`Save user info`);
     }
 
     if (canGoNext) {
@@ -81,17 +76,14 @@ const Login = () => {
       if (saveUserInfo) {
         localStorage.setItem('name', form.name);
         localStorage.setItem('uuid', String(roomUUID));
-        Sentry.captureMessage(`Login Success - Saved user info`);
       }
 
-      Sentry.captureMessage(`Login success`);
       localStorage.setItem('userName', form.name);
       navigate(`${ROUTES.ADD_TIME}/${roomUUID}`, { replace: true });
     }
 
     if (isError) {
       setIsPasswordError(true);
-      Sentry.captureMessage(`Password error`);
     }
   }, [isSuccess, isError]);
 
