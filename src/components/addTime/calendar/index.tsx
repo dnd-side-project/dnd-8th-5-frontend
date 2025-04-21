@@ -86,7 +86,7 @@ const Calendar = ({
   }, [selectedMethod]);
 
   const goToCurrent = () => {
-    navigate(`${ROUTES.CURRENT}/${roomUUID}`);
+    navigate(`${ROUTES.CURRENT}/${roomUUID}?isCompleted=true`);
   };
 
   const handleApplyClick = () => {
