@@ -111,7 +111,7 @@ const Modal = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 36px 16px;
+  padding: 36px 18px;
   background: #7282ff;
   border-radius: 18px;
 `;
@@ -151,4 +151,5 @@ const ApplyButton = styled.button`
   border-radius: 100px;
   background: #ffe465;
   font-size: 16px;
+  color: #000000;
 `;
