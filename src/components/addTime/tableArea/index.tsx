@@ -124,7 +124,7 @@ const TableArea = ({
     document.body.style.overflow = '';
     (wrapperRef.current as HTMLDivElement).style.overflow = 'auto';
 
-    navigate(`${ROUTES.CURRENT}/${roomUUID}?isCompleted=true`);
+    navigate(`${ROUTES.CURRENT}/${roomUUID}`);
   };
 
   const allTimeRange = getAllTimeRange(dates, timeRange);
