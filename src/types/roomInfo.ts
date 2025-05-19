@@ -44,5 +44,5 @@ export interface RoomInfoTypes {
 
   isRangeSelect: boolean;
   isOnlyDateSelect: boolean;
-  timerType: 'dial' | 'button' | 'checkbox';
+  timerType: 'dial' | 'button' | 'checkbox' | null;
 }
