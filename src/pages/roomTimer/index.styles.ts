@@ -8,13 +8,8 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 32px 0 0 0;
+  padding: 64px 0 0 0;
   overflow: auto;
-`;
-
-export const HeaderContainer = styled.div`
-  width: 100%;
-  padding: 0 20px;
 `;
 
 export const TimerContainr = styled.div`
@@ -22,10 +17,10 @@ export const TimerContainr = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
-  margin: 40px 0;
+  margin: 32px 0 8px 0;
 `;
 
-export const TImerWrapper = styled.div`
+export const TimerWrapper = styled.div`
   width: 100%;
   position: absolute;
   background-color: ${theme.colors.gray01};
@@ -82,11 +77,10 @@ export const RecommendBox = styled.div<{ value: boolean; isChecked: boolean }>`
   height: 41px;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) =>
-    props.value ? theme.colors.purple05 : theme.colors.gray01};
+  background: #fff;
+  border: ${({ value }) => value && `2px solid ${theme.colors.purple06}`};
   border-radius: 6px;
-  color: ${(props) =>
-    props.value ? theme.colors.gray01 : theme.colors.purple06};
+  color: ${theme.colors.purple06};
   color: ${(props) => (props.isChecked ? theme.colors.gray03 : 'none')};
   ${theme.typography.medium02};
   pointer-events: ${(props) => (props.isChecked ? 'none' : null)};

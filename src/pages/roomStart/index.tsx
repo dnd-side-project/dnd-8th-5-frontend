@@ -1,4 +1,4 @@
-import { SetStateAction, useCallback, useState, useRef } from 'react';
+import { SetStateAction, useState, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 
@@ -39,57 +39,62 @@ interface TagType {
 }
 
 const RoomStart = () => {
-  const [roomName, setRoomName] = useState('');
-  const [peopleNumber, setPeopleNumber] = useState(0);
-  const [isNotDecided, setIsNotDecided] = useState(false);
-  const [tags, setTags] = useState<TagType[]>(createRoomTagsData);
-
   const [recoilRoom, setRecoilRoom] = useRecoilState(createRoomAtom);
+
+  const [roomName, setRoomName] = useState(recoilRoom.title);
+  const [peopleNumber, setPeopleNumber] = useState<number | null>(
+    recoilRoom.headCount
+  );
+  const [tags, setTags] = useState<TagType[]>(createRoomTagsData);
+  const isNotDecided = peopleNumber === null;
 
   const navigate = useNavigate();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const canGoNext =
-    (!!roomName && peopleNumber > 0) || (isNotDecided && !!roomName);
+    (!!roomName && peopleNumber && peopleNumber > 0) ||
+    (peopleNumber === null && !!roomName);
 
-  const handleRoomNameChange = useCallback(
-    (e: { target: { value: SetStateAction<string> } }) => {
-      setRoomName(e.target.value);
-    },
-    [roomName]
-  );
+  const handleRoomNameChange = (e: {
+    target: { value: SetStateAction<string> };
+  }) => {
+    setRoomName(e.target.value);
+  };
 
-  const handlePlusButtonClick = useCallback(() => {
+  const handlePlusButtonClick = () => {
     setPeopleNumber((prevNumber) => {
+      if (prevNumber === null) return null;
       return prevNumber + 1;
     });
-  }, [peopleNumber]);
+  };
 
-  const handleMinusButtonClick = useCallback(() => {
+  const handleMinusButtonClick = () => {
     setPeopleNumber((prevNumber) => {
+      if (prevNumber === null) return null;
+
       if (prevNumber === 0) {
         return prevNumber;
       }
       return prevNumber - 1;
     });
-  }, [peopleNumber]);
+  };
 
-  const onSetRecoilState = useCallback(async () => {
-    if (isNotDecided) {
+  const onSetRecoilState = async () => {
+    if (peopleNumber === null) {
       setPeopleNumber(() => 0);
     }
 
     setRecoilRoom((prev) => {
       return {
         ...prev,
-        ['title']: roomName,
-        ['headCount']: isNotDecided ? 0 : peopleNumber,
+        title: roomName,
+        headCount: peopleNumber,
       };
     });
 
     navigate(`${ROUTES.ROOM_CALENDAR}`);
-  }, [recoilRoom, roomName, peopleNumber, isNotDecided]);
+  };
 
   useInputScroll(inputRef);
 
@@ -147,7 +152,7 @@ const RoomStart = () => {
                 <CountButton onClick={handleMinusButtonClick}>
                   <img src={minus} />
                 </CountButton>
-                <PeopleNumber>{peopleNumber}명</PeopleNumber>
+                <PeopleNumber>{peopleNumber ?? 0}명</PeopleNumber>
                 <CountButton onClick={handlePlusButtonClick}>
                   <img src={plus} />
                 </CountButton>
@@ -158,7 +163,13 @@ const RoomStart = () => {
           <ChceckContainer>
             <CheckBox
               text={'아직 안 정해졌어요'}
-              setValue={setIsNotDecided}
+              setValue={() => {
+                if (peopleNumber === null) {
+                  setPeopleNumber(0);
+                } else {
+                  setPeopleNumber(null);
+                }
+              }}
               value={isNotDecided}
             ></CheckBox>
           </ChceckContainer>

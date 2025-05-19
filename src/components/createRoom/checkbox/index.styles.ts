@@ -12,6 +12,7 @@ export const MainContainer = styled.div<{ value: boolean }>`
   border-radius: 6px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const TextWrapper = styled.div`

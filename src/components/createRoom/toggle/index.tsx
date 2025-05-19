@@ -1,6 +1,8 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 import { ToggleBtn, ToggleText, Circle } from './index.styles';
+import { useSetRecoilState } from 'recoil';
+import { createRoomAtom } from '@/atoms/createRoomAtom';
 
 interface ToggleProps {
   text: Array<string>;
@@ -10,11 +12,13 @@ interface ToggleProps {
 
 const Toggle = ({ text, toggle, setData }: ToggleProps) => {
   const [isToggle, setIsToggle] = useState(toggle);
+  const setRecoilRoom = useSetRecoilState(createRoomAtom);
 
-  const clickedToggle = useCallback(() => {
+  const clickedToggle = () => {
     setData((prev) => !prev);
     setIsToggle((prev) => !prev);
-  }, [isToggle]);
+    setRecoilRoom((prev) => ({ ...prev, isRangeSelect: !isToggle, dates: [] }));
+  };
 
   return (
     <ToggleBtn onClick={clickedToggle} toggle={isToggle}>

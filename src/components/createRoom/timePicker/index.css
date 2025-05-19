@@ -99,3 +99,6 @@
 .slick-arrow.slick-hidden {
   display: none;
 }
+.slick-slide div div {
+  font-weight: 500 !important;
+}

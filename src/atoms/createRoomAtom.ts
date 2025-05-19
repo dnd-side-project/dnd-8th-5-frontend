@@ -1,8 +1,8 @@
 import { atom, selector } from 'recoil';
-import { PostRoomTypes } from '@/types/roomInfo';
+import { RoomInfoTypes } from '@/types/roomInfo';
 import { initialCreateRoomData } from '@/assets/data/initialCreateRoomData';
 
-export const createRoomAtom = atom<PostRoomTypes>({
+export const createRoomAtom = atom<RoomInfoTypes>({
   key: 'recoilRoomAtoms',
   default: initialCreateRoomData,
 });
