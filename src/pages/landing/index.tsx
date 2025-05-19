@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import * as S from './index.styles';
@@ -16,6 +16,9 @@ import landing3 from '@/assets/images/landing3.webp';
 import landing4 from '@/assets/images/landing4.webp';
 import landing5 from '@/assets/images/landing5.webp';
 import landing6 from '@/assets/images/landing6.webp';
+import { initialCreateRoomData } from '@/assets/data/initialCreateRoomData';
+import { useSetRecoilState } from 'recoil';
+import { createRoomAtom } from '@/atoms/createRoomAtom';
 
 const Landing = () => {
   const introRef = useRef<HTMLDivElement>(null);
@@ -24,6 +27,7 @@ const Landing = () => {
   const thirdRef = useRef<HTMLDivElement>(null);
   const fourthRef = useRef<HTMLDivElement>(null);
   const lastRef = useRef<HTMLDivElement>(null);
+  const setRecoilRoom = useSetRecoilState(createRoomAtom);
 
   useComponentOnScreen([
     introRef,
@@ -64,6 +68,10 @@ const Landing = () => {
       ref: fourthRef,
     },
   ];
+
+  useEffect(() => {
+    setRecoilRoom(initialCreateRoomData);
+  }, []);
 
   return (
     <S.MainContainer>

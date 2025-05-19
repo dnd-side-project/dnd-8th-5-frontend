@@ -2,25 +2,23 @@ import styled from '@emotion/styled';
 import { Calendar } from 'react-multi-date-picker';
 import theme from '@/styles/theme';
 
-export const MainContainer = styled.div``;
-
-export const ToggleWrapper = styled.div`
-  position: absolute;
-  top: 123px;
-  right: 34px;
+export const Wrapper = styled.div`
+  position: relative;
+  width: 308px;
+  margin: 32px 0 0 0;
 `;
 
 export const CalendarComponent = styled(Calendar)`
-  .rmdp-wrapper {
-    border: 1px solid var(--rmdp-secondary-calendar);
+  .rmdp-calendar > div:not(.rmdp-header) {
+    width: 100%;
   }
-
   .rmdp-panel-body li {
     background-color: ${theme.colors.purple06};
   }
 
   .rmdp-week-day {
-    color: black !important;
+    color: ${theme.colors.gray06} !important;
+    font-weight: 400 !important;
   }
 
   .rmdp-day.rmdp-deactive {
@@ -28,8 +26,8 @@ export const CalendarComponent = styled(Calendar)`
   }
 
   .rmdp-day.rmdp-today span {
-    background-color: ${theme.colors.green01};
-    color: ${theme.colors.green02};
+    background-color: ${theme.colors.green01} !important;
+    color: ${theme.colors.green02} !important;
     box-shadow: ${theme.colors.green01} -0.4px 0px 0px 3px;
   }
 
@@ -40,10 +38,14 @@ export const CalendarComponent = styled(Calendar)`
     height: 10px !important;
   }
 
-  .rmdp-day.rmdp-today.rmdp-range span {
-    background-color: ${theme.colors.purple06};
+  .rmdp-day.rmdp-today.rmdp-range {
+    background-color: #dadef3 !important;
     color: white;
-    box-shadow: #dadef3 -0.4px 0px 0px 3px;
+    box-shadow: none;
+  }
+
+  .rmdp-day.rmdp-today.rmdp-range > span {
+    border-radius: 50%;
   }
 
   .rmdp-panel-body::-webkit-scrollbar-thumb {
@@ -95,11 +97,9 @@ export const CalendarComponent = styled(Calendar)`
     }
   }
 
-  @media (max-width: 860px) {
-    .rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover {
-      background-color: white;
-      color: black;
-    }
+  .rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover {
+    background-color: #ffff;
+    color: ${theme.colors.gray06};
   }
 
   .rmdp-day.rmdp-selected span:not(.highlight) {
@@ -111,31 +111,49 @@ export const CalendarComponent = styled(Calendar)`
     display: flex;
     align-items: center;
     justify-content: center;
+    color: ${theme.colors.gray06};
+    ${theme.typography.semibold02};
+  }
+
+  .rmdp-left > i {
+    border-color: ${theme.colors.gray06};
+  }
+
+  .rmdp-left.disabled > i {
+    border-color: ${theme.colors.gray03} !important;
+  }
+
+  .rmdp-right > i {
+    border-color: ${theme.colors.gray06} !important;
   }
 
   .rmdp-arrow-container {
     display: null;
-    top: 50%;
   }
 
   .rmdp-header {
-    position: absolute;
-    left: 32px;
-    top: 0px;
     width: 150px;
     height: 40px;
-    ${theme.typography.semibold03}
+  }
+
+  .rmdp-week-day:nth-child(1) {
+    color: #fd9090 !important;
+  }
+
+  .rmdp-week-day:last-child {
+    color: #a1b1ff !important;
   }
 
   .rmdp-week-day {
-    width: 47px !important;
-    height: 47px !important;
+    width: 44px !important;
+    height: 44px !important;
     ${theme.typography.semibold06}
   }
 
   .rmdp-day {
-    width: 47px;
-    height: 47px;
+    width: 44px;
+    height: 44px;
+    color: ${theme.colors.gray06};
   }
 
   .rmdp-day span {
@@ -143,12 +161,8 @@ export const CalendarComponent = styled(Calendar)`
   }
 
   .rmdp-year-picker {
-    position: absolute;
     display: flex;
     width: 412px !important;
-    left: -150px;
-    top: 42px;
-    right: 0px;
   }
 
   .rmdp-month-picker,
@@ -157,11 +171,8 @@ export const CalendarComponent = styled(Calendar)`
     border-radius: 5px;
     bottom: unset;
     left: unset;
-    position: absolute;
-    top: 50px;
     width: 300px;
     height: 200px;
-    left: 20px;
     padding: 10px;
     border: 2px solid #f6f6f6;
   }
@@ -171,11 +182,6 @@ export const CalendarComponent = styled(Calendar)`
     display: none !important;
   }
 
-  .rmdp-wrapper.rmdp-shadow.calendar.css-1djealw {
-    display: none !important;
-    box-shadow: 0 0 5px #00695c !important;
-  }
-
   .rmdp-calendar {
     height: max-content;
     width: 100%;
@@ -183,16 +189,20 @@ export const CalendarComponent = styled(Calendar)`
     justify-content: center;
     align-items: center;
     padding: 4px;
-    top: 112px;
     position: relative;
   }
 
   .rmdp-day-picker {
-    width: 100vw;
+    margin: 16px 0 0 0;
+    width: 308px;
+    padding: 0;
+  }
+
+  .rmdp-day-picker > div {
+    width: 100%;
+    display: flex;
     flex-direction: column;
-    position: absolute;
-    max-width: 400px;
-    top: 42px;
+    gap: 6px;
   }
 
   .rmdp-week,
@@ -201,10 +211,21 @@ export const CalendarComponent = styled(Calendar)`
     ${theme.typography.regular01}
   }
 
+  /* .rmdp-range.start {
+    box-shadow: none !important;
+    background: #dadef3;
+  }
+
   .rmdp-range.start span {
     background-color: ${theme.colors.purple06} !important;
     color: white !important;
-    box-shadow: ${theme.colors.purple06} -0.4px 0px 0px 3px !important;
+    box-shadow: none !important;
+  } */
+
+  .rmdp-range.start span {
+    background: ${theme.colors.purple06} !important;
+    color: white !important;
+    box-shadow: ${theme.colors.purple06} 0px 0px 0px 3px;
   }
 
   .rmdp-range.end span {
@@ -220,7 +241,6 @@ export const CalendarComponent = styled(Calendar)`
   .rmdp-range {
     background-color: #dadef3;
     box-shadow: none;
-    color: black;
   }
 
   @media (max-width: 860px) {
@@ -249,8 +269,7 @@ export const CalendarComponent = styled(Calendar)`
     box-shadow: none;
   }
 
-  .rmdp-arrow-container:hover .rmdp-arrow {
-    border: solid black !important;
-    border-width: 0 2px 2px 0 !important;
+  .rmdp-disabled {
+    color: ${theme.colors.gray03} !important;
   }
 `;

@@ -1,10 +1,14 @@
+import { useRecoilValue } from 'recoil';
 import './index.css';
 import {
   MainContainer,
   StyledSlider,
   TextContainer,
+  TimerWrapper,
   TimeText,
 } from './index.styles';
+import { getTimeRangeInTimePicker } from '@/utils/getRange';
+import { createRoomAtom } from '@/atoms/createRoomAtom';
 
 interface Current {
   setStartTime: React.Dispatch<React.SetStateAction<string>>;
@@ -12,58 +16,14 @@ interface Current {
 }
 
 const TimePicker = ({ setStartTime, setEndTime }: Current) => {
-  const START_TIME_ARRAY = [
-    '09:00',
-    '10:00',
-    '11:00',
-    '12:00',
-    '13:00',
-    '14:00',
-    '15:00',
-    '16:00',
-    '17:00',
-    '18:00',
-    '19:00',
-    '20:00',
-    '21:00',
-    '22:00',
-    '23:00',
-    '00:00',
-    '01:00',
-    '02:00',
-    '03:00',
-    '04:00',
-    '05:00',
-    '06:00',
-    '07:00',
-    '08:00',
-  ];
-  const END_TIME_ARRAY = [
-    '18:00',
-    '19:00',
-    '20:00',
-    '21:00',
-    '22:00',
-    '23:00',
-    '00:00',
-    '01:00',
-    '02:00',
-    '03:00',
-    '04:00',
-    '05:00',
-    '06:00',
-    '07:00',
-    '08:00',
-    '09:00',
-    '10:00',
-    '11:00',
-    '12:00',
-    '13:00',
-    '14:00',
-    '15:00',
-    '16:00',
-    '17:00',
-  ];
+  const recoilRoom = useRecoilValue(createRoomAtom);
+
+  const START_TIME_ARRAY = getTimeRangeInTimePicker(
+    recoilRoom.startTime ?? '09:00'
+  );
+  const END_TIME_ARRAY = getTimeRangeInTimePicker(
+    recoilRoom.endTime ?? '18:00'
+  );
 
   const settings = (startEnd: string) => {
     const setting = {
@@ -97,18 +57,23 @@ const TimePicker = ({ setStartTime, setEndTime }: Current) => {
 
   return (
     <MainContainer>
-      <StyledSlider {...settings('start')}>
-        {START_TIME_ARRAY.map((time: string) => (
-          <TimeText key={time}>{time}</TimeText>
-        ))}
-      </StyledSlider>
-      <TextContainer>부터</TextContainer>
-      <StyledSlider {...settings('end')}>
-        {END_TIME_ARRAY.map((time: string) => (
-          <TimeText key={time}>{time}</TimeText>
-        ))}
-      </StyledSlider>
-      <TextContainer>까지</TextContainer>
+      <TimerWrapper>
+        <StyledSlider {...settings('start')}>
+          {START_TIME_ARRAY.map((time: string) => (
+            <TimeText key={time}>{time}</TimeText>
+          ))}
+        </StyledSlider>
+        <TextContainer>부터</TextContainer>
+      </TimerWrapper>
+
+      <TimerWrapper>
+        <StyledSlider {...settings('end')}>
+          {END_TIME_ARRAY.map((time: string) => (
+            <TimeText key={time}>{time}</TimeText>
+          ))}
+        </StyledSlider>
+        <TextContainer>까지</TextContainer>
+      </TimerWrapper>
     </MainContainer>
   );
 };

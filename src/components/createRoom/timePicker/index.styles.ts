@@ -8,6 +8,7 @@ export const MainContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  gap: 40px;
   overflow: hidden;
   touch-action: none;
   z-index: 1;
@@ -17,8 +18,16 @@ export const GreyBox = styled.div`
   position: absolute;
   z-index: 2;
   background-color: ${theme.colors.gray02};
-  width: 335px;
+  border-radius: 4px;
+  width: 100%;
   height: 48px;
+`;
+
+export const TimerWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
 `;
 
 export const TimeText = styled.div`
@@ -30,6 +39,7 @@ export const TextContainer = styled.div`
   height: 135px;
   display: flex;
   flex-direction: row;
+  color: ${theme.colors.gray06} !important;
   ${theme.typography.medium01}
   align-items: center;
   justify-content: left;
@@ -49,7 +59,9 @@ export const StyledSlider = styled(Slider)`
 
   .slick-list {
     z-index: 3;
-    width: 80px;
+    width: 44px;
+    display: flex;
+    justify-content: flex-end;
     margin-bottom: 0px;
     padding-bottom: 0px;
   }
@@ -65,7 +77,7 @@ export const StyledSlider = styled(Slider)`
     color: ${theme.colors.gray03};
   }
   .slick-current {
-    color: ${theme.colors.purple05};
+    color: ${theme.colors.purple06};
   }
   .slick-center {
   }

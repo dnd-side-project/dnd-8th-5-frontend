@@ -13,6 +13,7 @@ const BottomButton = ({
       <Wrapper
         onClick={onClick}
         isActivated={isActivated}
+        disabled={!isActivated}
         isLanding={isLanding}
       >
         {text}

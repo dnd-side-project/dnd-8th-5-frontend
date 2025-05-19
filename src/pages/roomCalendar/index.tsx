@@ -7,33 +7,31 @@ import { createRoomAtom } from '@/atoms/createRoomAtom';
 import {
   CheckBoxContainer,
   DependingBox,
+  Divider,
   GreyBox,
-  HeaderContainer,
   MainContainer,
   TimePickerContainer,
-  TimePickerWrapper,
 } from './index.styles';
 
 import Checkbox from '@/components/createRoom/checkbox';
 import Calendar from '@/components/createRoom/calendar';
-import RoomHeader from '@/components/createRoom/header';
 import TimePicker from '@/components/createRoom/timePicker';
 import BottomButton from '@/components/commons/bottomButton';
 import { ROUTES } from '@/constants/ROUTES';
-import { Layout } from '@/components/commons/layout';
+import { RoomLayout } from '@/components/commons/layout/RoomLayout';
 
 const RoomCalendar = () => {
   const navigate = useNavigate();
+  const [recoilRoom, setRecoilRoom] = useRecoilState(createRoomAtom);
+  const [isCheckedBox, setIsCheckedBox] = useState<boolean>(
+    recoilRoom.isOnlyDateSelect ? true : false
+  );
+  const [startTime, setStartTime] = useState<string>(
+    recoilRoom.startTime ?? '09:00'
+  );
+  const [endTime, setEndTime] = useState<string>(recoilRoom.endTime ?? '18:00');
 
-  const [isCheckedBox, setIsCheckedBox] = useState<boolean>(false);
-  const [isActivated, setIsActivated] = useState<boolean>(false);
-  const [startTime, setStartTime] = useState<string>('09:00');
-  const [endTime, setEndTime] = useState<string>('18:00');
-  const [dates, setDates] = useState<string[]>([]);
   const [, setMonth] = useState<string>('');
-  const [numCalendarLows, setNumCalendarLows] = useState<number>(0);
-
-  const [, setRecoilRoom] = useRecoilState(createRoomAtom);
 
   const handleBottomButtonClick = () => {
     if (isCheckedBox) {
@@ -43,67 +41,62 @@ const RoomCalendar = () => {
 
     setRecoilRoom((prev) => ({
       ...prev,
-      dates: dates,
       startTime: isCheckedBox ? null : startTime,
       endTime: isCheckedBox ? null : endTime,
     }));
 
-    if (isActivated) {
-      navigate(`${ROUTES.ROOM_TIMER}`);
-    }
+    navigate(`${ROUTES.ROOM_TIMER}`);
   };
 
   useEffect(() => {
-    if ((isCheckedBox || startTime !== endTime) && dates.length > 0) {
-      setIsActivated(true);
+    if (isCheckedBox) {
+      setRecoilRoom((prev) => ({
+        ...prev,
+        isOnlyDateSelect: true,
+        startTime: null,
+        endTime: null,
+      }));
     } else {
-      setIsActivated(false);
+      setRecoilRoom((prev) => ({
+        ...prev,
+        isOnlyDateSelect: false,
+        startTime,
+        endTime,
+      }));
     }
-  }, [dates, startTime, endTime]);
-
-  useEffect(() => {
-    const element = document.querySelector(
-      '.rmdp-day-picker div'
-    ) as HTMLElement;
-    if (element) {
-      setNumCalendarLows(element.children.length);
-    }
-  });
+  }, [isCheckedBox]);
 
   return (
-    <Layout>
+    <RoomLayout title="날짜/시간대 선택" currentStep="date">
       <MainContainer>
-        <HeaderContainer>
-          <RoomHeader
-            index={'1/2'}
-            title={'날짜와 시간대를 정해 볼까요?'}
-            bottomSheet={false}
-          />
-        </HeaderContainer>
+        <Calendar setMonth={setMonth} />
 
-        <Calendar dates={dates} setDates={setDates} setMonth={setMonth} />
+        <Divider />
 
-        <TimePickerContainer numCalendarLows={numCalendarLows}>
-          <TimePickerWrapper>
-            <TimePicker setStartTime={setStartTime} setEndTime={setEndTime} />
-          </TimePickerWrapper>
+        <TimePickerContainer>
+          <TimePicker setStartTime={setStartTime} setEndTime={setEndTime} />
           <GreyBox />
           {isCheckedBox ? <DependingBox /> : null}
         </TimePickerContainer>
-        <CheckBoxContainer numCalendarLows={numCalendarLows}>
+
+        <CheckBoxContainer>
           <Checkbox
             text="시간 조율 없이 약속 날짜만 알고 싶어요"
             value={isCheckedBox}
             setValue={setIsCheckedBox}
           />
         </CheckBoxContainer>
+
         <BottomButton
           text="다음"
-          isActivated={isActivated}
+          isActivated={
+            recoilRoom.dates.length > 0 &&
+            (isCheckedBox || !!(startTime && endTime && startTime !== endTime))
+          }
           onClick={handleBottomButtonClick}
         />
       </MainContainer>
-    </Layout>
+    </RoomLayout>
   );
 };
 

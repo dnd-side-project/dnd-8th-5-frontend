@@ -6,7 +6,9 @@ export const ToggleBtn = styled.button<{ toggle: boolean }>`
   width: 100px;
   height: 26px;
 
-  position: relative;
+  position: absolute;
+  top: 15px;
+  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -29,3 +29,20 @@ export interface PostRoomTypes {
     minute: number;
   } | null;
 }
+
+export interface RoomInfoTypes {
+  title: string;
+  headCount: number | null;
+  dates: string[];
+  startTime: string | null;
+  endTime: string | null;
+  timer: {
+    day: number;
+    hour: number;
+    minute: number;
+  } | null;
+
+  isRangeSelect: boolean;
+  isOnlyDateSelect: boolean;
+  timerType: 'dial' | 'button' | 'checkbox';
+}

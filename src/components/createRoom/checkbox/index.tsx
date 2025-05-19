@@ -1,4 +1,3 @@
-import { useCallback, useState } from 'react';
 import uncheckdBox from '@/assets/icons/uncheckdBox.png';
 import checkedBox from '@/assets/icons/checkedBox.png';
 import { MainContainer, TextWrapper, Icon } from './index.styles';
@@ -6,20 +5,17 @@ import { MainContainer, TextWrapper, Icon } from './index.styles';
 interface Checkbox {
   text: string;
   value: boolean;
-  setValue: React.Dispatch<React.SetStateAction<boolean>>;
+  setValue: (value: boolean) => void;
 }
 
 const Checkbox = ({ text, value, setValue }: Checkbox) => {
-  const [isCheckedBox, setIsCheckedBox] = useState(value);
-
-  const onClickCheckBox = useCallback(() => {
-    setValue((prev) => !prev);
-    setIsCheckedBox((prev) => !prev);
-  }, [isCheckedBox]);
+  const onClickCheckBox = () => {
+    setValue(!value);
+  };
 
   return (
-    <MainContainer onClick={onClickCheckBox} value={isCheckedBox}>
-      <Icon src={isCheckedBox ? checkedBox : uncheckdBox} />
+    <MainContainer onClick={onClickCheckBox} value={value}>
+      <Icon src={value ? checkedBox : uncheckdBox} />
       <TextWrapper>{text}</TextWrapper>
     </MainContainer>
   );

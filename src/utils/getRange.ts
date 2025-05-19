@@ -12,3 +12,17 @@ export const getRange = (start: number, end: number, step = 1) => {
 
   return arr;
 };
+
+export const getTimeRangeInTimePicker = (startTime: string) => {
+  const pad = (num: number) => String(num).padStart(2, '0');
+  const startHour = parseInt(startTime.split(':')[0], 10);
+  const result = [];
+
+  for (let i = 0; i < 24; i++) {
+    const hour = (startHour + i) % 24;
+    const timeString = `${pad(hour)}:00`;
+    result.push(timeString);
+  }
+
+  return result;
+};

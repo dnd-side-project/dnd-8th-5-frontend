@@ -99,17 +99,17 @@ const typography = {
 
   regular01: css`
     font-size: 16px;
-    font-weight: 400px;
+    font-weight: 400;
     line-height: 130%;
   `,
   regular02: css`
     font-size: 14px;
-    font-weight: 400px;
+    font-weight: 400;
     line-height: 130%;
   `,
   regular03: css`
     font-size: 12px;
-    font-weight: 400px;
+    font-weight: 400;
     line-height: 130%;
   `,
 };

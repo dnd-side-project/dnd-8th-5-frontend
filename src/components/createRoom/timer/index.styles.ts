@@ -12,6 +12,7 @@ export const MainContainer = styled.div`
   overflow: hidden;
   touch-action: none;
   z-index: 1;
+  padding: 0 40px 0 0;
 `;
 
 export const GreyBox = styled.div`
@@ -22,6 +23,13 @@ export const GreyBox = styled.div`
   height: 48px;
   background-color: ${theme.colors.gray02};
   z-index: 2;
+  border-radius: 4px;
+`;
+
+export const SliderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2px;
 `;
 
 export const TimeText = styled.div`
@@ -29,14 +37,12 @@ export const TimeText = styled.div`
 `;
 
 export const TextContainer = styled.div`
-  width: 50px;
   height: 195px;
   display: flex;
   flex-direction: row;
   ${theme.typography.medium01}
+  color: ${theme.colors.gray07};
   align-items: center;
-  justify-content: left;
-  padding: 2px;
   z-index: 3;
 `;
 
@@ -47,16 +53,19 @@ export const StyledSlider = styled(Slider)`
 
   .slick-slide {
     color: white;
-    justify-items: center;
+    justify-items: flex-end;
     align-items: center;
     text-align: right;
-    ${theme.typography.medium01}
     height: 40px;
+  }
+
+  .slick-slide div div {
+    font-weight: 400;
   }
 
   .slick-list {
     z-index: 3;
-    width: 40px;
+    width: 62px;
     margin-bottom: 0px;
     padding-bottom: 0px;
   }

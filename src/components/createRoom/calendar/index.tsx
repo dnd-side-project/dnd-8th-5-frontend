@@ -1,27 +1,19 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { DateObject, getAllDatesInRange } from 'react-multi-date-picker';
-import {
-  CalendarComponent,
-  MainContainer,
-  ToggleWrapper,
-} from './index.styles';
+import { CalendarComponent, Wrapper } from './index.styles';
 import Toggle from '../toggle';
+import { useRecoilState } from 'recoil';
+import { createRoomAtom } from '@/atoms/createRoomAtom';
 
 interface Calendar {
-  dates: string[];
-  setDates: Dispatch<SetStateAction<string[]>>;
   setMonth: Dispatch<SetStateAction<string>>;
 }
 
-const Calendar = ({ dates, setDates, setMonth }: Calendar) => {
-  const [isRange, setIsRange] = useState<boolean>(false);
-  const [value, setValue] = useState();
+const Calendar = ({ setMonth }: Calendar) => {
+  const [recoilRoom, setRecoilRoom] = useRecoilState(createRoomAtom);
+  const [isRange, setIsRange] = useState<boolean>(
+    recoilRoom.isRangeSelect ?? false
+  );
 
   const ko = {
     name: 'ko',
@@ -56,11 +48,7 @@ const Calendar = ({ dates, setDates, setMonth }: Calendar) => {
   };
 
   const makeDatesRange = (dates: DateObject[] | Date[]) => {
-    if (dates.length < 2) {
-      setDates([]);
-      return;
-    }
-    const newDateArray = [];
+    const newDateArray: string[] = [];
     for (const date of dates) {
       const newDate = new Date(String(date));
       const year = newDate.getFullYear();
@@ -75,58 +63,44 @@ const Calendar = ({ dates, setDates, setMonth }: Calendar) => {
 
       newDateArray.push(format);
     }
-    setDates(newDateArray);
+    setRecoilRoom((prev) => ({ ...prev, dates: newDateArray }));
   };
 
-  useEffect(() => {
-    setDates([]);
-    setValue(undefined);
-  }, [isRange]);
+  const handleChangeDate = (dataObjects: DateObject | DateObject[] | null) => {
+    if (!dataObjects) return;
 
-  const handleChangeDate = useCallback(
-    (dataObjects: any) => {
-      if (isRange) {
-        setValue(dataObjects);
-        const allDates = getAllDatesInRange(Object(dataObjects), true);
-        makeDatesRange(allDates);
-      } else {
-        const newArr = [];
-        for (const key in Object(dataObjects)) {
-          setValue(dataObjects);
-          const year = Object(dataObjects)[key].year;
-          const month = Object(dataObjects)[key].month;
-          const day = Object(dataObjects)[key].day;
-          const format =
-            year +
-            '-' +
-            ('00' + month.toString()).slice(-2) +
-            '-' +
-            ('00' + day.toString()).slice(-2);
-          newArr.push(format);
-          const newDateArr = Array.from(new Set(newArr));
-          newDateArr.sort((a, b) => {
-            return new Date(a).getTime() - new Date(b).getTime();
-          });
-          setDates(newDateArr);
-        }
+    if (isRange) {
+      const allDates = getAllDatesInRange(Object(dataObjects), true);
+      makeDatesRange(allDates);
+    } else {
+      const newArr = [];
+      for (const key in Object(dataObjects)) {
+        const year = Object(dataObjects)[key].year;
+        const month = Object(dataObjects)[key].month;
+        const day = Object(dataObjects)[key].day;
+        const format =
+          year +
+          '-' +
+          ('00' + month.toString()).slice(-2) +
+          '-' +
+          ('00' + day.toString()).slice(-2);
+        newArr.push(format);
+        const newDateArr = Array.from(new Set(newArr));
+        newDateArr.sort((a, b) => {
+          return new Date(a).getTime() - new Date(b).getTime();
+        });
+        setRecoilRoom((prev) => ({ ...prev, dates: newDateArr }));
       }
-    },
-    [isRange, dates]
-  );
+    }
+  };
 
   return (
-    <MainContainer>
-      <ToggleWrapper>
-        <Toggle
-          text={['기간', '하나씩']}
-          toggle={isRange}
-          setData={setIsRange}
-        />
-      </ToggleWrapper>
+    <Wrapper>
+      <Toggle text={['기간', '하나씩']} toggle={isRange} setData={setIsRange} />
 
       <CalendarComponent
-        value={value}
-        onChange={(dataObjects) => {
+        value={recoilRoom.dates}
+        onChange={(dataObjects: DateObject | DateObject[] | null) => {
           handleChangeDate(dataObjects);
         }}
         onMonthChange={(dataObjects) => {
@@ -142,7 +116,7 @@ const Calendar = ({ dates, setDates, setMonth }: Calendar) => {
         buttons={true}
         rangeHover={false}
       />
-    </MainContainer>
+    </Wrapper>
   );
 };
 

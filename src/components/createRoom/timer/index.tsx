@@ -5,15 +5,23 @@ import {
   TextContainer,
   TimeText,
   GreyBox,
+  SliderWrapper,
 } from './index.styles';
+import { useSetRecoilState } from 'recoil';
+import { createRoomAtom } from '@/atoms/createRoomAtom';
 
 interface SetTimer {
+  day: number;
+  hour: number;
+  minute: number;
   setDay: React.Dispatch<React.SetStateAction<number>>;
   setHour: React.Dispatch<React.SetStateAction<number>>;
   setMinute: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Timer = ({ setDay, setHour, setMinute }: SetTimer) => {
+const Timer = ({ day, hour, minute, setDay, setHour, setMinute }: SetTimer) => {
+  const setRecoilRoom = useSetRecoilState(createRoomAtom);
+
   const DAY_ARRAY = getRange(0, 6);
   const HOUR_ARRAY = getRange(0, 24);
   const MINUTE_ARRAY = getRange(0, 6, 10);
@@ -34,6 +42,10 @@ const Timer = ({ setDay, setHour, setMinute }: SetTimer) => {
         } else if (startEnd === 'minute') {
           setMinute(MINUTE_ARRAY[currentSlide]);
         }
+        setRecoilRoom((prev) => ({
+          ...prev,
+          timerType: 'dial',
+        }));
       },
       centerMode: true,
       arrows: false,
@@ -58,36 +70,44 @@ const Timer = ({ setDay, setHour, setMinute }: SetTimer) => {
   return (
     <MainContainer>
       <GreyBox />
-      <StyledSlider {...settings('date')}>
-        {DAY_ARRAY.map((value: number) => {
-          return (
-            <div key={value}>
-              <TimeText>{value}</TimeText>
-            </div>
-          );
-        })}
-      </StyledSlider>
-      <TextContainer>일</TextContainer>
-      <StyledSlider {...settings('hour')}>
-        {HOUR_ARRAY.map((value: number) => {
-          return (
-            <div key={value}>
-              <TimeText>{value}</TimeText>
-            </div>
-          );
-        })}
-      </StyledSlider>
-      <TextContainer>시간</TextContainer>
-      <StyledSlider {...settings('minute')}>
-        {MINUTE_ARRAY.map((value: number) => {
-          return (
-            <div key={value}>
-              <TimeText>{value}</TimeText>
-            </div>
-          );
-        })}
-      </StyledSlider>
-      <TextContainer>분</TextContainer>
+      <SliderWrapper>
+        <StyledSlider {...settings('date')}>
+          {DAY_ARRAY.map((value: number) => {
+            return (
+              <div key={value}>
+                <TimeText>{value}</TimeText>
+              </div>
+            );
+          })}
+        </StyledSlider>
+        <TextContainer>일</TextContainer>
+      </SliderWrapper>
+
+      <SliderWrapper>
+        <StyledSlider {...settings('hour')}>
+          {HOUR_ARRAY.map((value: number) => {
+            return (
+              <div key={value}>
+                <TimeText>{value}</TimeText>
+              </div>
+            );
+          })}
+        </StyledSlider>
+        <TextContainer>시간</TextContainer>
+      </SliderWrapper>
+
+      <SliderWrapper>
+        <StyledSlider {...settings('minute')}>
+          {MINUTE_ARRAY.map((value: number) => {
+            return (
+              <div key={value}>
+                <TimeText>{value}</TimeText>
+              </div>
+            );
+          })}
+        </StyledSlider>
+        <TextContainer>분</TextContainer>
+      </SliderWrapper>
     </MainContainer>
   );
 };
