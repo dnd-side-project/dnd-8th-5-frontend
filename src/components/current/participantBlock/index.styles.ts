@@ -1,8 +1,11 @@
 import styled from '@emotion/styled';
 import theme from '@/styles/theme';
-import { participant } from '@/types/roomInfo';
 
-export const Wrapper = styled.div<participant>`
+export const Wrapper = styled.button<{
+  participant: string;
+  isSelected?: boolean;
+  disabled?: boolean;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,14 +14,17 @@ export const Wrapper = styled.div<participant>`
   height: 29px;
 
   border-radius: 4px;
-  background: ${theme.colors.gray02};
+  background: ${({ isSelected }) =>
+    isSelected ? '#fae1e1' : theme.colors.gray02};
   ${theme.typography.semibold06};
 
-  color: ${({ participant }) =>
+  color: ${({ participant, isSelected }) =>
     participant === '?'
       ? `${theme.colors.gray04}`
-      : `${theme.colors.purple06}`};
-
+      : isSelected
+      ? '#6d6d6d'
+      : theme.colors.purple06};
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'cursor')};
   -ms-user-select: none;
   -moz-user-select: -moz-none;
   -khtml-user-select: none;

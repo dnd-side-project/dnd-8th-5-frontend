@@ -45,13 +45,13 @@ const Invite = () => {
     for (let i = 0; i < room.participants.length; i++) {
       if (i > 6) {
         result.push(
-          <Participant key={room.participants[i]}>+{overCount}</Participant>
+          <Participant key={room.participants[i].id}>+{overCount}</Participant>
         );
         break;
       } else {
         result.push(
-          <Participant key={room.participants[i]}>
-            {room.participants[i]}
+          <Participant key={room.participants[i].id}>
+            {room.participants[i].name}
           </Participant>
         );
       }

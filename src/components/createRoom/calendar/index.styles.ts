@@ -51,10 +51,40 @@ export const CalendarComponent = styled(Calendar)`
     height: 10px !important;
   }
 
+  .rmdp-day.rmdp-range:not(.start):not(.end) {
+    background: #dadef3;
+    & > span {
+      background: #dadef3;
+      box-shadow: #dadef3 0px 0px 0px 3px;
+    }
+
+    & > span:hover {
+      background: #dadef3 !important;
+      box-shadow: #dadef3 0px 0px 0px 3px !important;
+      color: ${theme.colors.gray06} !important;
+    }
+  }
+
   .rmdp-day.rmdp-today.rmdp-range {
     background-color: #dadef3 !important;
     color: white;
     box-shadow: none;
+
+    & > span {
+      background-color: #dadef3 !important;
+      color: ${theme.colors.gray06} !important;
+    }
+  }
+
+  .rmdp-day.rmdp-today.rmdp-range.start {
+    background-color: #dadef3 !important;
+    box-shadow: none;
+    border-radius: 50% 0% 0% 50%;
+
+    & > span {
+      background-color: ${theme.colors.purple06} !important;
+      color: white !important;
+    }
   }
 
   .rmdp-day.rmdp-today.rmdp-range > span {

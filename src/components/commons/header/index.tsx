@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { tooltipState } from '@/atoms/tooltipAtom';
-import * as Sentry from '@sentry/react';
 
 import Menu from '../menu';
 import share from '@/assets/icons/share.svg';

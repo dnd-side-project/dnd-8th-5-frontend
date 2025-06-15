@@ -10,9 +10,10 @@ import calendarPrevMonth from '@/assets/icons/calendarPrevMonth.svg';
 import { AvailableDateTimeTypes } from '@/types/current';
 import { useGetAvailableTimesByGroup } from '@/queries/availableTimes/useGetAvailableTimesByGroup';
 import { CalendarProps } from 'react-calendar';
+import { Participant } from '@/types/roomInfo';
 
 interface CurrentCalendarTypes extends CalendarProps {
-  participants: string[];
+  participants: Participant[];
 }
 
 const Calendar = ({ participants, ...rest }: CurrentCalendarTypes) => {
