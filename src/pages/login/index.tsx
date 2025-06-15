@@ -67,7 +67,7 @@ const Login = () => {
     }
 
     if (canGoNext) {
-      mutate({ roomUUID, form });
+      mutate({ roomUUID, form: { ...form, name: form.name.trim() } });
     }
   };
 

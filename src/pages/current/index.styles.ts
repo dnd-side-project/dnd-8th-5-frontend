@@ -29,6 +29,10 @@ export const Section = styled.div`
   padding: 32px 20px 0 20px;
 `;
 
+export const TimerWrapper = styled.div`
+  padding: 32px 20px 0 20px;
+`;
+
 export const Border = styled.div`
   width: 100%;
   height: 8px;
@@ -59,14 +63,21 @@ export const EditButtonWrapper = styled.div`
 
 export const EditParticipantButton = styled.button<{
   isDeleteMode?: boolean;
+  disabled?: boolean;
 }>`
   padding: 3px 8px;
   border-radius: 4px;
   ${theme.typography.medium04};
-  background: ${({ isDeleteMode }) =>
-    isDeleteMode ? theme.colors.red01 : ' #eeeeee'};
+  background: ${({ isDeleteMode, disabled }) =>
+    isDeleteMode
+      ? disabled
+        ? theme.colors.red01
+        : theme.colors.red02
+      : ' #eeeeee'};
   color: ${({ isDeleteMode }) =>
     isDeleteMode ? theme.colors.gray01 : theme.colors.gray05};
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'cursor')};
+  transition: background 0.1s ease-in;
 `;
 
 export const Subtitle = styled.div<{
@@ -74,7 +85,7 @@ export const Subtitle = styled.div<{
 }>`
   margin-top: 6px;
   color: ${({ isDeleteMode }) =>
-    isDeleteMode ? theme.colors.red01 : theme.colors.gray05};
+    isDeleteMode ? theme.colors.red02 : theme.colors.gray05};
   ${theme.typography.medium04};
 `;
 

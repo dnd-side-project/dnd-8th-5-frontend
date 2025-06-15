@@ -4,7 +4,6 @@ import theme from '@/styles/theme';
 export const Wrapper = styled.div`
   width: 100%;
   height: 70px;
-  margin-top: 32px;
   padding: 4px 0;
 
   color: ${theme.colors.orange03};

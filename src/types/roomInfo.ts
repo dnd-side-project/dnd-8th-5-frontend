@@ -46,3 +46,7 @@ export interface RoomInfoTypes {
   isOnlyDateSelect: boolean;
   timerType: 'dial' | 'button' | 'checkbox' | null;
 }
+
+export interface DeleteParticipantTypes {
+  participantNames: string[];
+}

@@ -4,6 +4,7 @@ import theme from '@/styles/theme';
 export const Wrapper = styled.button<{
   participant: string;
   isSelected?: boolean;
+  disabled?: boolean;
 }>`
   display: flex;
   align-items: center;
@@ -23,7 +24,7 @@ export const Wrapper = styled.button<{
       : isSelected
       ? '#6d6d6d'
       : theme.colors.purple06};
-
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'cursor')};
   -ms-user-select: none;
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
