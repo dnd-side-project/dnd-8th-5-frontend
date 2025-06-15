@@ -25,6 +25,9 @@ import {
   TableWrapper,
   Title,
   Wrapper,
+  TitleWrapper,
+  EditParticipantButton,
+  EditButtonWrapper,
 } from './index.styles';
 import plus from '@/assets/icons/current_plus.svg';
 import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
@@ -38,6 +41,7 @@ import { RoomTypes } from '@/types/roomInfo';
 import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
 import { useScrollDetection } from '@/hooks/useScrollDirection';
 import { Layout } from '@/components/commons/layout';
+import { set } from 'lodash';
 
 const Current = () => {
   const navigate = useNavigate();
@@ -55,7 +59,10 @@ const Current = () => {
 
   const { data, isError } = useGetRoomInfo(roomUUID);
 
-  const [isEventModalOpened, setIsEventModalOpened] = useState<boolean>(false);
+  const [isDeleteMode, setIsDeleteMode] = useState<boolean>(false);
+  const [selectedDeleteParticipant, setSelectedDeleteParticipant] = useState<
+    string[]
+  >([]);
 
   useEffect(() => {
     if (data) {
@@ -94,6 +101,24 @@ const Current = () => {
     return newDates;
   };
 
+  const handleModeButtonToggle = () => {
+    setIsDeleteMode((prev) => !prev);
+  };
+
+  const handleParticipantClick = (participant: string) => {
+    if (!isDeleteMode) return;
+
+    if (selectedDeleteParticipant.includes(participant)) {
+      setSelectedDeleteParticipant((prev) =>
+        prev.filter((p) => p !== participant)
+      );
+    } else {
+      setSelectedDeleteParticipant((prev) => [...prev, participant]);
+    }
+  };
+
+  console.log(selectedDeleteParticipant);
+
   if (!data) return null;
   return (
     <Layout>
@@ -103,8 +128,35 @@ const Current = () => {
         <Body>
           <Section>
             {deadLine && <Timer deadLine={deadLine} />}
-            <Title>실시간 참여 현황</Title>
-            <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
+            <TitleWrapper>
+              <Title>실시간 참여 현황</Title>
+              {isDeleteMode ? (
+                <EditButtonWrapper>
+                  <EditParticipantButton onClick={() => setIsDeleteMode(false)}>
+                    취소
+                  </EditParticipantButton>
+                  <EditParticipantButton isDeleteMode={isDeleteMode}>
+                    삭제
+                  </EditParticipantButton>
+                </EditButtonWrapper>
+              ) : (
+                <EditParticipantButton
+                  isDeleteMode={isDeleteMode}
+                  onClick={handleModeButtonToggle}
+                >
+                  수정
+                </EditParticipantButton>
+              )}
+            </TitleWrapper>
+            {isDeleteMode ? (
+              <Subtitle isDeleteMode={isDeleteMode}>
+                삭제할 참여자를 선택해 주세요
+              </Subtitle>
+            ) : (
+              <Subtitle isDeleteMode={isDeleteMode}>
+                참여하지 않은 친구들에게 메시지를 보내 보세요!
+              </Subtitle>
+            )}
 
             {headCount ? (
               <ProgressBar headCount={headCount} participants={participants} />
@@ -116,16 +168,19 @@ const Current = () => {
                   <ParticipantsBlock
                     key={participant}
                     participant={participant}
+                    isSelected={selectedDeleteParticipant.includes(participant)}
+                    onClick={() => handleParticipantClick(participant)}
                   />
                 ))}
 
-              {headCount
-                ? participants.length < headCount && (
-                    <ParticipantsBlock participant={'?'} />
-                  )
-                : participants.length === 0 && (
-                    <ParticipantsBlock participant={'?'} />
-                  )}
+              {!isDeleteMode &&
+                (headCount
+                  ? participants.length < headCount && (
+                      <ParticipantsBlock participant={'?'} />
+                    )
+                  : participants.length === 0 && (
+                      <ParticipantsBlock participant={'?'} />
+                    ))}
             </Participants>
           </Section>
 

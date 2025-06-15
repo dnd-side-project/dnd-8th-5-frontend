@@ -25,6 +25,8 @@ const colors = {
   gray06: '#545454',
   gray07: '#1A1A1A',
 
+  red01: '#f14b4b',
+
   addTableBorder: '#DBDBDB',
   currentTableBorder: '#E7E7E7',
 };

@@ -26,7 +26,7 @@ export const Section = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
+  padding: 32px 20px 0 20px;
 `;
 
 export const Border = styled.div`
@@ -40,17 +40,41 @@ export const Border = styled.div`
   background: ${theme.colors.gray02};
 `;
 
-export const Title = styled.div`
-  margin-top: 32px;
+export const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
+export const Title = styled.div`
   color: ${theme.colors.gray07};
   ${theme.typography.semibold02};
 `;
 
-export const Subtitle = styled.div`
-  margin-top: 6px;
+export const EditButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`;
 
-  color: ${theme.colors.gray05};
+export const EditParticipantButton = styled.button<{
+  isDeleteMode?: boolean;
+}>`
+  padding: 3px 8px;
+  border-radius: 4px;
+  ${theme.typography.medium04};
+  background: ${({ isDeleteMode }) =>
+    isDeleteMode ? theme.colors.red01 : ' #eeeeee'};
+  color: ${({ isDeleteMode }) =>
+    isDeleteMode ? theme.colors.gray01 : theme.colors.gray05};
+`;
+
+export const Subtitle = styled.div<{
+  isDeleteMode: boolean;
+}>`
+  margin-top: 6px;
+  color: ${({ isDeleteMode }) =>
+    isDeleteMode ? theme.colors.red01 : theme.colors.gray05};
   ${theme.typography.medium04};
 `;
 
