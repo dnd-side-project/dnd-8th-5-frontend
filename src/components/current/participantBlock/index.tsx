@@ -1,8 +1,23 @@
+import { ButtonHTMLAttributes } from 'react';
 import { Wrapper } from './index.styles';
-import { participant } from '@/types/roomInfo';
+import { Participant } from '@/types/roomInfo';
 
-const ParticipantsBlock = ({ participant }: participant) => {
-  return <Wrapper participant={participant}>{participant.slice(0, 4)}</Wrapper>;
+interface ParticipantsBlockProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  participant: Participant;
+  isSelected?: boolean;
+}
+
+const ParticipantsBlock = ({
+  participant,
+  isSelected = false,
+  ...rest
+}: ParticipantsBlockProps) => {
+  return (
+    <Wrapper participant={participant.name} isSelected={isSelected} {...rest}>
+      {participant.name.slice(0, 4)}
+    </Wrapper>
+  );
 };
 
 export default ParticipantsBlock;

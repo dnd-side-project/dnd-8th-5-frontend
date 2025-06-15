@@ -25,6 +25,10 @@ import {
   TableWrapper,
   Title,
   Wrapper,
+  TitleWrapper,
+  EditParticipantButton,
+  EditButtonWrapper,
+  TimerWrapper,
 } from './index.styles';
 import plus from '@/assets/icons/current_plus.svg';
 import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
@@ -34,12 +38,19 @@ import { ROUTES } from '@/constants/ROUTES';
 import { getFourChunks } from '@/utils/getFourChunks';
 import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 
-import { RoomTypes } from '@/types/roomInfo';
+import { Participant, RoomTypes } from '@/types/roomInfo';
 import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
 import { useScrollDetection } from '@/hooks/useScrollDirection';
 import { Layout } from '@/components/commons/layout';
+import { AnimatePresence } from 'framer-motion';
+import { Modal } from '@/components/commons/modal';
+import { useDeleteParticipants } from '@/queries/room/useDeleteParticipants';
+import { useQueryClient } from '@tanstack/react-query';
+import { QUERY_KEYS } from '@/constants/QUERY_KEYS';
 
 const Current = () => {
+  const queryClient = useQueryClient();
+
   const navigate = useNavigate();
   const { roomUUID } = useParams() as { roomUUID: string };
   const [, setSelectedMethod] = useRecoilState(selectedMethodState);
@@ -55,7 +66,14 @@ const Current = () => {
 
   const { data, isError } = useGetRoomInfo(roomUUID);
 
-  const [isEventModalOpened, setIsEventModalOpened] = useState<boolean>(false);
+  const [isDeleteMode, setIsDeleteMode] = useState<boolean>(false);
+  const [selectedDeleteParticipants, setSelectedDeleteParticipants] = useState<
+    Participant[]
+  >([]);
+  const [isDeleteModalOpened, setIsDeleteModalOpened] =
+    useState<boolean>(false);
+
+  const { mutate: deleteParticipants } = useDeleteParticipants();
 
   useEffect(() => {
     if (data) {
@@ -94,89 +112,209 @@ const Current = () => {
     return newDates;
   };
 
+  const handleModeButtonToggle = () => {
+    setIsDeleteMode((prev) => !prev);
+  };
+
+  const handleParticipantClick = (participant: Participant) => {
+    if (!isDeleteMode) return;
+
+    if (
+      selectedDeleteParticipants.filter((p) => p.id === participant.id).length >
+      0
+    ) {
+      setSelectedDeleteParticipants((prev) =>
+        prev.filter((p) => p.id !== participant.id)
+      );
+    } else {
+      setSelectedDeleteParticipants((prev) => [...prev, participant]);
+    }
+  };
+
+  const handleDeleteClick = () => {
+    if (selectedDeleteParticipants.length === 0) return;
+
+    const body = {
+      participantIds: selectedDeleteParticipants.map((p) => p.id),
+    };
+
+    deleteParticipants(
+      { roomId: roomUUID, body },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries([
+            QUERY_KEYS.ROOM.GET_ROOM_INFO,
+            roomUUID,
+          ]);
+          queryClient.invalidateQueries([
+            QUERY_KEYS.AVAILABLE_TIME.GET_AVAILABLE_TIMES_BY_GROUP,
+            roomUUID,
+          ]);
+          queryClient.invalidateQueries([
+            QUERY_KEYS.RESULT.GET_CANDIDATE_TIMES,
+            roomUUID,
+          ]);
+          setIsDeleteModalOpened(false);
+          setIsDeleteMode(false);
+          setSelectedDeleteParticipants([]);
+        },
+      }
+    );
+  };
+
   if (!data) return null;
   return (
-    <Layout>
-      <Wrapper ref={scrollRef}>
-        <Header pageName={ROUTES.CURRENT} title={title} />
+    <>
+      <Layout>
+        <Wrapper ref={scrollRef}>
+          <Header pageName={ROUTES.CURRENT} title={title} />
 
-        <Body>
-          <Section>
-            {deadLine && <Timer deadLine={deadLine} />}
-            <Title>실시간 참여 현황</Title>
-            <Subtitle>참여하지 않은 친구들에게 메시지를 보내보세요!</Subtitle>
+          <Body>
+            {deadLine && (
+              <TimerWrapper>
+                <Timer deadLine={deadLine} />
+              </TimerWrapper>
+            )}
 
-            {headCount ? (
-              <ProgressBar headCount={headCount} participants={participants} />
-            ) : null}
+            <Section>
+              <TitleWrapper>
+                <Title>실시간 참여 현황</Title>
+                {isDeleteMode ? (
+                  <EditButtonWrapper>
+                    <EditParticipantButton
+                      onClick={() => {
+                        setIsDeleteMode(false);
+                        setSelectedDeleteParticipants([]);
+                      }}
+                    >
+                      취소
+                    </EditParticipantButton>
+                    <EditParticipantButton
+                      disabled={selectedDeleteParticipants.length === 0}
+                      isDeleteMode={isDeleteMode}
+                      onClick={() => setIsDeleteModalOpened(true)}
+                    >
+                      삭제
+                    </EditParticipantButton>
+                  </EditButtonWrapper>
+                ) : (
+                  <EditParticipantButton
+                    isDeleteMode={isDeleteMode}
+                    onClick={handleModeButtonToggle}
+                  >
+                    수정
+                  </EditParticipantButton>
+                )}
+              </TitleWrapper>
+              {isDeleteMode ? (
+                <Subtitle isDeleteMode={isDeleteMode}>
+                  삭제할 참여자를 선택해 주세요
+                </Subtitle>
+              ) : (
+                <Subtitle isDeleteMode={isDeleteMode}>
+                  참여하지 않은 친구들에게 메시지를 보내 보세요!
+                </Subtitle>
+              )}
 
-            <Participants>
-              {participants &&
-                participants.map((participant: string) => (
-                  <ParticipantsBlock
-                    key={participant}
-                    participant={participant}
-                  />
-                ))}
-
-              {headCount
-                ? participants.length < headCount && (
-                    <ParticipantsBlock participant={'?'} />
-                  )
-                : participants.length === 0 && (
-                    <ParticipantsBlock participant={'?'} />
-                  )}
-            </Participants>
-          </Section>
-
-          <Border />
-
-          <Section>
-            <Title>실시간 등록 현황</Title>
-            {isTableView ? (
-              <TableWrapper>
-                <Table
-                  dates={
-                    dates.length < 4
-                      ? getFourChunks(getFormattedDateArray(dates))
-                      : getFormattedDateArray(dates)
-                  }
-                  startTime={startTime}
-                  endTime={endTime}
+              {headCount ? (
+                <ProgressBar
+                  headCount={headCount}
                   participants={participants}
                 />
-              </TableWrapper>
-            ) : (
-              <CurrentCalendar
-                defaultActiveStartDate={
-                  data.dates?.[0] ? new Date(data.dates[0]) : new Date()
-                }
-                participants={participants}
-              />
-            )}
-          </Section>
-        </Body>
+              ) : null}
 
-        <BottomWrapper>
-          <EditButton
-            onClick={handleEditButtonClick}
-            isScrollUp={isScrollUp}
-            isScrollDown={isScrollDown}
-          >
-            <img src={plus} alt="일정 등록하기 버튼" />
-            <span>등록하기</span>
-          </EditButton>
-        </BottomWrapper>
+              <Participants>
+                {participants &&
+                  participants.map((participant: Participant) => (
+                    <ParticipantsBlock
+                      key={participant.id}
+                      participant={participant}
+                      isSelected={
+                        selectedDeleteParticipants.filter(
+                          (p) => p.id === participant.id
+                        ).length > 0
+                      }
+                      disabled={!isDeleteMode}
+                      onClick={() => handleParticipantClick(participant)}
+                    />
+                  ))}
 
-        <BottomButton
-          onClick={goToResult}
-          text="우선순위 보기"
-          isActivated={true}
-        />
+                {!isDeleteMode &&
+                  (headCount
+                    ? participants.length < headCount && (
+                        <ParticipantsBlock
+                          participant={{ id: -1, name: '?' }}
+                        />
+                      )
+                    : participants.length === 0 && (
+                        <ParticipantsBlock
+                          participant={{ id: -1, name: '?' }}
+                        />
+                      ))}
+              </Participants>
+            </Section>
 
-        {isShareLinkBottomSheetOpened && <LinkShareBottomSheet />}
-      </Wrapper>
-    </Layout>
+            <Border />
+
+            <Section>
+              <Title>실시간 등록 현황</Title>
+              {isTableView ? (
+                <TableWrapper>
+                  <Table
+                    dates={
+                      dates.length < 4
+                        ? getFourChunks(getFormattedDateArray(dates))
+                        : getFormattedDateArray(dates)
+                    }
+                    startTime={startTime}
+                    endTime={endTime}
+                    participants={participants}
+                  />
+                </TableWrapper>
+              ) : (
+                <CurrentCalendar
+                  defaultActiveStartDate={
+                    data.dates?.[0] ? new Date(data.dates[0]) : new Date()
+                  }
+                  participants={participants}
+                />
+              )}
+            </Section>
+          </Body>
+
+          <BottomWrapper>
+            <EditButton
+              onClick={handleEditButtonClick}
+              isScrollUp={isScrollUp}
+              isScrollDown={isScrollDown}
+            >
+              <img src={plus} alt="일정 등록하기 버튼" />
+              <span>등록하기</span>
+            </EditButton>
+          </BottomWrapper>
+
+          <BottomButton
+            onClick={goToResult}
+            text="우선순위 보기"
+            isActivated={true}
+          />
+
+          {isShareLinkBottomSheetOpened && <LinkShareBottomSheet />}
+        </Wrapper>
+      </Layout>
+
+      {isDeleteModalOpened && (
+        <AnimatePresence>
+          <Modal
+            title="선택한 인원을 삭제할까요?"
+            subtitle={`삭제된 인원은 다시 복구할 수 없으며,\n참여 현황에서도 제외돼요.`}
+            participants={selectedDeleteParticipants}
+            onAction={handleDeleteClick}
+            closeModal={() => setIsDeleteModalOpened(false)}
+          />
+        </AnimatePresence>
+      )}
+    </>
   );
 };
 

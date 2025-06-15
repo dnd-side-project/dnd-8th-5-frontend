@@ -24,7 +24,7 @@ import SortTimes from '@/components/result/option/sortOption';
 import Candidate from '@/components/result/candidate';
 import SelectParticipants from '@/components/result/option/participantsOption';
 
-import { RoomTypes } from '@/types/roomInfo';
+import { Participant, RoomTypes } from '@/types/roomInfo';
 import { CandidateTimesType } from '@/types/result';
 
 import { ROUTES } from '@/constants/ROUTES';
@@ -79,8 +79,8 @@ const Result = () => {
   const [participantsList, setParticipantsList] = useState<Participants[]>([]);
 
   useEffect(() => {
-    const newList = participants.map((participant: string) => ({
-      name: participant,
+    const newList = participants.map((participant: Participant) => ({
+      name: participant.name,
       isSelected: true,
     }));
 

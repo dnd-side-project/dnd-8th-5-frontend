@@ -17,12 +17,13 @@ import { getTimeRange } from '@/utils/getTimeRange';
 import { getTableDateFormat } from '@/utils/getTableDateFormat';
 import { getCurrentTableInfo } from '@/utils/getCurrentTableInfo';
 import { useGetAvailableTimesByGroup } from '@/queries/availableTimes/useGetAvailableTimesByGroup';
+import { Participant } from '@/types/roomInfo';
 
 interface TableTypes {
   dates: string[];
   startTime: string;
   endTime: string;
-  participants: string[];
+  participants: Participant[];
 }
 
 const Table = ({ dates, startTime, endTime, participants }: TableTypes) => {
