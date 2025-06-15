@@ -38,7 +38,7 @@ import { ROUTES } from '@/constants/ROUTES';
 import { getFourChunks } from '@/utils/getFourChunks';
 import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 
-import { RoomTypes } from '@/types/roomInfo';
+import { Participant, RoomTypes } from '@/types/roomInfo';
 import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
 import { useScrollDetection } from '@/hooks/useScrollDirection';
 import { Layout } from '@/components/commons/layout';
@@ -67,8 +67,8 @@ const Current = () => {
   const { data, isError } = useGetRoomInfo(roomUUID);
 
   const [isDeleteMode, setIsDeleteMode] = useState<boolean>(false);
-  const [selectedDeleteParticipant, setSelectedDeleteParticipant] = useState<
-    string[]
+  const [selectedDeleteParticipants, setSelectedDeleteParticipants] = useState<
+    Participant[]
   >([]);
   const [isDeleteModalOpened, setIsDeleteModalOpened] =
     useState<boolean>(false);
@@ -116,23 +116,26 @@ const Current = () => {
     setIsDeleteMode((prev) => !prev);
   };
 
-  const handleParticipantClick = (participant: string) => {
+  const handleParticipantClick = (participant: Participant) => {
     if (!isDeleteMode) return;
 
-    if (selectedDeleteParticipant.includes(participant)) {
-      setSelectedDeleteParticipant((prev) =>
-        prev.filter((p) => p !== participant)
+    if (
+      selectedDeleteParticipants.filter((p) => p.id === participant.id).length >
+      0
+    ) {
+      setSelectedDeleteParticipants((prev) =>
+        prev.filter((p) => p.id !== participant.id)
       );
     } else {
-      setSelectedDeleteParticipant((prev) => [...prev, participant]);
+      setSelectedDeleteParticipants((prev) => [...prev, participant]);
     }
   };
 
   const handleDeleteClick = () => {
-    if (selectedDeleteParticipant.length === 0) return;
+    if (selectedDeleteParticipants.length === 0) return;
 
     const body = {
-      participantNames: selectedDeleteParticipant,
+      participantIds: selectedDeleteParticipants.map((p) => p.id),
     };
 
     deleteParticipants(
@@ -153,7 +156,7 @@ const Current = () => {
           ]);
           setIsDeleteModalOpened(false);
           setIsDeleteMode(false);
-          setSelectedDeleteParticipant([]);
+          setSelectedDeleteParticipants([]);
         },
       }
     );
@@ -181,13 +184,13 @@ const Current = () => {
                     <EditParticipantButton
                       onClick={() => {
                         setIsDeleteMode(false);
-                        setSelectedDeleteParticipant([]);
+                        setSelectedDeleteParticipants([]);
                       }}
                     >
                       취소
                     </EditParticipantButton>
                     <EditParticipantButton
-                      disabled={selectedDeleteParticipant.length === 0}
+                      disabled={selectedDeleteParticipants.length === 0}
                       isDeleteMode={isDeleteMode}
                       onClick={() => setIsDeleteModalOpened(true)}
                     >
@@ -222,13 +225,15 @@ const Current = () => {
 
               <Participants>
                 {participants &&
-                  participants.map((participant: string) => (
+                  participants.map((participant: Participant) => (
                     <ParticipantsBlock
-                      key={participant}
+                      key={participant.id}
                       participant={participant}
-                      isSelected={selectedDeleteParticipant.includes(
-                        participant
-                      )}
+                      isSelected={
+                        selectedDeleteParticipants.filter(
+                          (p) => p.id === participant.id
+                        ).length > 0
+                      }
                       disabled={!isDeleteMode}
                       onClick={() => handleParticipantClick(participant)}
                     />
@@ -237,10 +242,14 @@ const Current = () => {
                 {!isDeleteMode &&
                   (headCount
                     ? participants.length < headCount && (
-                        <ParticipantsBlock participant={'?'} />
+                        <ParticipantsBlock
+                          participant={{ id: -1, name: '?' }}
+                        />
                       )
                     : participants.length === 0 && (
-                        <ParticipantsBlock participant={'?'} />
+                        <ParticipantsBlock
+                          participant={{ id: -1, name: '?' }}
+                        />
                       ))}
               </Participants>
             </Section>
@@ -299,7 +308,7 @@ const Current = () => {
           <Modal
             title="선택한 인원을 삭제할까요?"
             subtitle={`삭제된 인원은 다시 복구할 수 없으며,\n참여 현황에서도 제외돼요.`}
-            participants={selectedDeleteParticipant}
+            participants={selectedDeleteParticipants}
             onAction={handleDeleteClick}
             closeModal={() => setIsDeleteModalOpened(false)}
           />

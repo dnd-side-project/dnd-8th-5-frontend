@@ -1,15 +1,11 @@
-export interface participant {
-  participant: string;
-}
-
 export interface currentParticipants {
   headCount: number | null;
-  participants: string[];
+  participants: Participant[];
 }
 
 export interface RoomTypes {
   title: string;
-  participants: string[];
+  participants: Participant[];
   headCount: number | null;
   deadLine: string | null;
   dates: string[];
@@ -48,5 +44,10 @@ export interface RoomInfoTypes {
 }
 
 export interface DeleteParticipantTypes {
-  participantNames: string[];
+  participantIds: number[];
+}
+
+export interface Participant {
+  id: number;
+  name: string;
 }

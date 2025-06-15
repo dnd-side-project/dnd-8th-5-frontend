@@ -2,13 +2,14 @@ import theme from '@/styles/theme';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import IconTrash from './IconTrash';
+import { Participant as ParticipantType } from '@/types/roomInfo';
 
 interface Props {
   title: string;
   subtitle: string;
   onAction: () => void;
   closeModal: () => void;
-  participants: string[];
+  participants: ParticipantType[];
 }
 
 /** 임시 모달 */
@@ -48,8 +49,8 @@ export function Modal({
 
           <ParticipantsWrapper count={participants.length}>
             {participants.map((participant) => (
-              <Participant key={participant}>
-                {participant.slice(0, 4)}
+              <Participant key={participant.id}>
+                {participant.name.slice(0, 4)}
               </Participant>
             ))}
           </ParticipantsWrapper>
