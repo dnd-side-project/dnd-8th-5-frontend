@@ -27,13 +27,16 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
 
       <IconWrapper pageName={pageName}>
         {pageName === ROUTES.ADD_TIME ? (
-          <Icon
-            src={headerInfo}
-            alt="share"
-            onClick={() => {
-              setIsTooltipShown(true);
-            }}
-          />
+          <>
+            <div />
+            <Icon
+              src={headerInfo}
+              alt="share"
+              onClick={() => {
+                setIsTooltipShown(true);
+              }}
+            />
+          </>
         ) : (
           <>
             <Icon src={headerMenu} alt="menu" onClick={handleMenuClick} />

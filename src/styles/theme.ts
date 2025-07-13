@@ -19,6 +19,7 @@ const colors = {
 
   gray01: '#FFFFFF',
   gray02: '#F6F6F6',
+  gray025: '#e9e9e9',
   gray03: '#DBDBDB',
   gray04: '#B6B6B6',
   gray05: '#979797',
@@ -30,6 +31,8 @@ const colors = {
 
   addTableBorder: '#DBDBDB',
   currentTableBorder: '#E7E7E7',
+
+  tableBackground: '#F4F2F3',
 };
 
 const typography = {

@@ -155,7 +155,7 @@ const CancelButton = styled.button`
   justify-content: center;
   border-radius: 8px;
   color: ${theme.colors.gray05};
-  background: #e9e9e9;
+  background: ${theme.colors.gray025};
   ${theme.typography.medium03};
 `;
 
