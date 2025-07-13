@@ -21,6 +21,7 @@ export const ButtonWrapper = styled.div`
   gap: 8px;
   top: 0;
   right: 20px;
+  z-index: 2;
 `;
 
 export const MoveButton = styled.img`

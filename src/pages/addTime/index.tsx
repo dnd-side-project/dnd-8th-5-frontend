@@ -81,10 +81,7 @@ const AddTime = () => {
         </Body>
 
         {isTableView && isTooltipShown && (
-          <Tooltip
-            isTooltipShown={isTooltipShown}
-            setIsTooltipShown={setIsTooltipShown}
-          />
+          <Tooltip setIsTooltipShown={setIsTooltipShown} />
         )}
       </Wrapper>
     </Layout>

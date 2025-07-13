@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 64px 0 0 0;
+  padding: 60px 0 0 0;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
 export const Body = styled.div`
   width: 100%;
   height: 100%;
-  margin-top: 30px;
+  margin-top: 28px;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -26,12 +26,10 @@ export const Body = styled.div`
 
 export const TitleWrapper = styled.div`
   padding: 0 20px;
-
   display: flex;
   align-items: center;
-
   & + & {
-    margin-top: 14px;
+    margin-top: 12px;
   }
 `;
 

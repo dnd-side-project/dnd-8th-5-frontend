@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   width: 100%;
   margin: 0 auto;
 
-  height: 64px;
+  height: 60px;
   border-bottom: 1px solid ${theme.colors.gray03};
   background: ${theme.colors.gray01};
 

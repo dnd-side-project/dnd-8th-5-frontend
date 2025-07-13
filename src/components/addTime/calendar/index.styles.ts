@@ -3,12 +3,12 @@ import theme from '@/styles/theme';
 import Calendar from 'react-calendar';
 
 export const Wrapper = styled.div`
-  margin: 0 auto;
   position: relative;
 `;
 
 export const StyledCalendar = styled(Calendar)<{ selectedMethod: string }>`
   width: 336px;
+  margin: 0 auto;
 
   background: ${theme.colors.gray01};
   border: 1px solid ${theme.colors.gray03};

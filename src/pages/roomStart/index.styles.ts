@@ -11,6 +11,7 @@ export const MainContainer = styled.div`
   flex-direction: column;
   background: ${theme.colors.purple05};
   overflow: auto;
+  overscroll-behavior: none;
 `;
 
 export const Logo = styled.img`
@@ -18,6 +19,7 @@ export const Logo = styled.img`
   height: 36%;
   max-height: 333px;
   object-fit: cover;
+  overscroll-behavior: none;
 `;
 
 export const FormContainer = styled.div`

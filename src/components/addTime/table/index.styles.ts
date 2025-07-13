@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import theme from '@/styles/theme';
 import { SelectType } from '../tableArea/index.types';
-import { css } from '@emotion/react';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -16,6 +15,7 @@ export const Top = styled.div`
   width: 100%;
   padding: 8px 0 16px 0;
   background: ${theme.colors.gray01};
+  z-index: 1;
 `;
 
 export const ScrollWrapper = styled.div`
@@ -31,14 +31,13 @@ export const TableWrapper = styled.div`
 `;
 
 export const Date = styled.div`
-  width: 72px;
-
+  width: 73px;
   display: flex;
   align-items: center;
   justify-content: center;
-
   color: ${theme.colors.gray06};
   ${theme.typography.regular02};
+  user-select: none;
 `;
 
 export const ColumnWrapper = styled.div`
@@ -104,7 +103,7 @@ export const Time = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
+  user-select: none;
   color: ${theme.colors.gray06};
   ${theme.typography.regular02};
 

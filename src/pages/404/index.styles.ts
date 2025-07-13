@@ -10,4 +10,5 @@ export const MainContainer = styled.div`
   background-image: url(${background});
   background-size: cover;
   background-position: center;
+  overscroll-behavior: none;
 `;

@@ -9,4 +9,5 @@ export const Wrapper = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  overscroll-behavior: none;
 `;

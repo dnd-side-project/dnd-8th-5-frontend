@@ -62,11 +62,10 @@ export const TooltipHandleIcon = styled.img`
 
 export const CloseButton = styled.img`
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 100px;
+  top: 20px;
+  right: 20px;
   z-index: 5;
-  width: 64px;
-  height: 64px;
+  width: 52px;
+  height: 52px;
   cursor: pointer;
 `;
