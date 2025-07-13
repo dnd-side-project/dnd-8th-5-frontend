@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
 
 import {
@@ -18,8 +18,10 @@ import {
 import copy from '@/assets/icons/copy.svg';
 import linkShareBottomSheetRabbit from '@/assets/images/linkShareBottomSheetRabbit.webp';
 import useShareLink from '@/hooks/useShareLink';
+import { roomState } from '@/atoms/roomAtom';
 
 const ShareLinkBottomSheet = () => {
+  const room = useRecoilValue(roomState);
   const { inviteURL, handleUseShareAPI, handleCopyToClipBoard } =
     useShareLink();
 
@@ -56,7 +58,9 @@ const ShareLinkBottomSheet = () => {
               onClick={() => handleCopyToClipBoard()}
             />
           </LinkWrapper>
-          <ShareButton onClick={handleUseShareAPI}>지금 공유할게요</ShareButton>
+          <ShareButton onClick={() => handleUseShareAPI(room.title)}>
+            지금 공유할게요
+          </ShareButton>
           <LaterButtonWrapper>
             <LaterButton onClick={closeBottomSheet}>나중에 할게요</LaterButton>
           </LaterButtonWrapper>
