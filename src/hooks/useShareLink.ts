@@ -14,8 +14,7 @@ const useShareLink = () => {
 지금 바로 참여하고 모두의 시간을 찾아보세요.
 
 내 시간 등록하기 ↓
-${inviteURL}
-`,
+${inviteURL}`.trim(),
     };
 
     if (navigator.share) {
