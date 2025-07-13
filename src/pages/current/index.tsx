@@ -299,7 +299,9 @@ const Current = () => {
             isActivated={true}
           />
 
-          {isShareLinkBottomSheetOpened && <LinkShareBottomSheet />}
+          {isShareLinkBottomSheetOpened && (
+            <LinkShareBottomSheet roomTitle={title} />
+          )}
         </Wrapper>
       </Layout>
 
