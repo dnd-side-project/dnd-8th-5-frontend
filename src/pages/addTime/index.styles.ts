@@ -3,8 +3,11 @@ import theme from '@/styles/theme';
 
 export const Wrapper = styled.div`
   width: 100%;
-  padding: 48px 0 0 0;
-
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 64px 0 0 0;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -14,7 +17,11 @@ export const Wrapper = styled.div`
 
 export const Body = styled.div`
   width: 100%;
+  height: 100%;
   margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 `;
 
 export const TitleWrapper = styled.div`
@@ -35,13 +42,7 @@ export const Title = styled.span`
 
 export const Main = styled.div`
   width: 100%;
-  padding-top: 5px;
-
-  margin-top: 43px;
+  height: 100%;
+  margin: 24px 0 0 0;
   padding-bottom: 116px;
-
-  display: flex;
-  justify-content: space-between;
-
-  position: relative;
 `;

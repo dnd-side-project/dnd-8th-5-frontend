@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
@@ -23,8 +23,6 @@ const AddTime = () => {
   const userName = localStorage.getItem('userName') || '';
   const { data: room } = useGetRoomInfo(roomUUID);
 
-  const wrapperRef = useRef<HTMLDivElement>(null);
-
   const [selectedMethod] = useRecoilState(selectedMethodState);
   const [isResetButtonClick, setIsResetButtonClick] = useState<boolean>(false);
 
@@ -40,7 +38,7 @@ const AddTime = () => {
   if (!room) return null;
   return (
     <Layout>
-      <Wrapper ref={wrapperRef}>
+      <Wrapper>
         <Header pageName={ROUTES.ADD_TIME} title={room?.title ?? ''} />
         <Body>
           <TitleWrapper>
@@ -55,10 +53,10 @@ const AddTime = () => {
             />
             <Title>시간으로 선택해 주세요</Title>
           </TitleWrapper>
+
           <Main>
             {isTableView ? (
               <AddTimeTable
-                wrapperRef={wrapperRef}
                 startTime={parseInt(room.startTime)}
                 endTime={parseInt(room.endTime)}
                 selected={tableSelected}

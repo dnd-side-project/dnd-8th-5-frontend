@@ -1,105 +1,71 @@
 import styled from '@emotion/styled';
 import theme from '@/styles/theme';
 import { SelectType } from '../tableArea/index.types';
+import { css } from '@emotion/react';
 
 export const Wrapper = styled.div`
-  width: 231px;
-
-  border-radius: 5.5px;
-  border: 1px solid ${theme.colors.addTableBorder};
-  color: ${theme.colors.gray06};
-  ${theme.typography.medium02};
-
-  overflow: hidden;
+  position: relative;
+  height: 100%;
+  padding: 0 0 32px 0;
 `;
 
 export const Top = styled.div`
+  position: absolute;
+  top: 0;
   display: flex;
   width: 100%;
-  height: 37px;
-  border-bottom: 1px solid ${theme.colors.addTableBorder};
+  padding: 8px 0 16px 0;
+  background: ${theme.colors.gray01};
 `;
 
-export const Bottom = styled.div`
+export const ScrollWrapper = styled.div`
+  height: 100%;
+  padding: 0 0 100px 0;
+  overflow: auto;
+  overscroll-behavior: none;
+`;
+
+export const TableWrapper = styled.div`
   display: flex;
-  width: 100%;
+  padding: 44px 0 0 0;
 `;
 
-export const Blank = styled.div`
-  width: 17px;
-  height: 36px;
-
-  border-right: 1px solid ${theme.colors.addTableBorder};
-`;
-
-export const DateWrapper = styled.div`
-  display: flex;
-`;
-
-export const Date = styled.div<{ isValidDate: boolean }>`
-  width: ${({ isValidDate }) => (isValidDate ? '70px' : '71px')};
-  height: 36px;
+export const Date = styled.div`
+  width: 72px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   color: ${theme.colors.gray06};
-  ${theme.typography.medium04};
-
-  background: ${({ isValidDate }) =>
-    isValidDate ? theme.colors.gray01 : theme.colors.gray02};
-
-  border-left: ${({ isValidDate }) =>
-    !isValidDate && `1px solid ${theme.colors.addTableBorder}`};
-
-  & + & {
-    width: 71px;
-    border-left: 1px solid ${theme.colors.addTableBorder};
-  }
+  ${theme.typography.regular02};
 `;
 
-export const TimeWrapper = styled.div`
-  width: 17px;
-  border-right: 1px solid ${theme.colors.addTableBorder};
-`;
-
-export const Time = styled.div`
-  width: 16px;
-  height: 36px;
+export const ColumnWrapper = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: ${theme.colors.gray04};
-  ${theme.typography.regular03};
-
-  & + & {
-    height: 37px;
-    border-top: 1px solid ${theme.colors.addTableBorder};
-  }
+  width: 100%;
+  gap: 4px;
+  touch-action: none;
+  overscroll-behavior: contain;
 `;
 
-export const SelectWrapper = styled.div`
+export const Column = styled.div`
   width: 70px;
+  display: flex;
+  flex-direction: column;
 
   .mpr-designer-selection {
     border: none !important;
     background: none !important;
   }
-
-  & + & {
-    width: 71px;
-    border-left: 1px solid ${theme.colors.addTableBorder};
-  }
 `;
 
 export const Select = styled.div<SelectType>`
-  height: 17px;
+  height: 28px;
   box-sizing: content-box;
 
-  background-color: ${({ isValidDate }) =>
-    isValidDate ? `${theme.colors.gray01}` : `${theme.colors.gray02}`};
+  background: ${theme.colors.tableBackground};
+  opacity: ${({ isValidDate }) => (isValidDate ? 1 : 0.45)};
 
   &.selected {
     background-color: ${({ selectedMethod }) =>
@@ -109,15 +75,40 @@ export const Select = styled.div<SelectType>`
   }
 
   &:nth-of-type(even) {
-    height: 18px;
-    border-bottom: 1px dashed ${theme.colors.addTableBorder};
+    border-radius: 8px 8px 0 0;
+    border-bottom: 1px dashed ${theme.colors.gray03};
   }
 
   &:nth-of-type(odd) {
-    border-bottom: 1px solid ${theme.colors.addTableBorder};
+    border-radius: 0 0 8px 8px;
+    margin: 0 0 4px 0;
   }
+`;
 
-  &:last-of-type {
-    border-bottom: none;
+export const Divider = styled.div`
+  display: flex;
+  width: 1px;
+  background: ${theme.colors.gray025};
+  margin: 0px 32px 0 24px;
+`;
+
+export const TimeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0px 12px 0 0;
+`;
+
+export const Time = styled.div`
+  width: 48px;
+  height: 57px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: ${theme.colors.gray06};
+  ${theme.typography.regular02};
+
+  & + & {
+    margin: 4px 0 0 0;
   }
 `;
