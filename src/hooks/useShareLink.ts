@@ -8,13 +8,13 @@ const useShareLink = () => {
   const handleUseShareAPI = (roomTitle: string) => {
     const shareData = {
       title: '모두의 시간',
-      url: inviteURL,
       text: `💌 [${roomTitle}]
 약속 조율을 시작했어요!
 되거나 안 되는 시간만 체크하면 끝 👌
 지금 바로 참여하고 모두의 시간을 찾아보세요.
 
 내 시간 등록하기 ↓
+${inviteURL}
 `,
     };
 
