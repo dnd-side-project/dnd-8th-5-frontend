@@ -14,6 +14,7 @@ export const MainContainer = styled.div`
   background-image: url(${inviteBack});
   display: flex;
   justify-content: center;
+  overscroll-behavior: none;
 `;
 
 export const HeaderWrapper = styled.div`

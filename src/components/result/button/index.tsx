@@ -16,7 +16,7 @@ import resultBubble from '@/assets/images/resultBubble.png';
 import { ROUTES } from '@/constants/ROUTES';
 import useShareLink from '@/hooks/useShareLink';
 
-const Button = () => {
+const Button = ({ roomTitle }: { roomTitle: string }) => {
   const { roomUUID } = useParams();
   const navigate = useNavigate();
 
@@ -37,7 +37,7 @@ const Button = () => {
             onClick={goToCurrent}
           />
         </CurrentButtonWrapper>
-        <BottomButton onClick={handleUseShareAPI}>
+        <BottomButton onClick={() => handleUseShareAPI(roomTitle)}>
           결과 공유하기
           <ShareButton src={shareResult} alt="share" />
         </BottomButton>

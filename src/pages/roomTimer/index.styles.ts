@@ -18,6 +18,7 @@ export const TimerContainr = styled.div`
   width: 100%;
   justify-content: center;
   margin: 32px 0 8px 0;
+  overscroll-behavior: none;
 `;
 
 export const TimerWrapper = styled.div`

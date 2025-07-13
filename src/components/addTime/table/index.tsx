@@ -4,16 +4,17 @@ import Selecto from 'react-selecto';
 import { getTimeArray } from '@/utils/getTimeArray';
 import { getTableDateFormat } from '@/utils/getTableDateFormat';
 import {
-  Blank,
-  Bottom,
+  ColumnWrapper,
   Date,
-  DateWrapper,
   Select,
-  SelectWrapper,
+  Column,
   Time,
-  TimeWrapper,
   Top,
+  TableWrapper,
   Wrapper,
+  TimeWrapper,
+  Divider,
+  ScrollWrapper,
 } from './index.styles';
 import { TableType } from '../tableArea/index.types';
 
@@ -23,7 +24,6 @@ interface ValidDateType {
 }
 
 const Table = ({
-  contentRef,
   selected,
   setSelected,
   selectedMethod,
@@ -110,62 +110,62 @@ const Table = ({
   };
 
   return (
-    <Wrapper ref={contentRef}>
+    <Wrapper>
       <Top>
-        <Blank />
-        <DateWrapper>
-          {validDateChunks[tablePage].map(
-            ({ date, isValidDate }: ValidDateType) =>
-              date.slice(0, 5) === 'blank' ? (
-                <Date key={date} isValidDate={isValidDate} />
-              ) : (
-                <Date key={date} isValidDate={isValidDate}>
-                  {getTableDateFormat(date)}
-                </Date>
-              )
-          )}
-        </DateWrapper>
-      </Top>
-
-      <Bottom>
-        <TimeWrapper>
-          {times.map((time) => (
-            <Time key={time}>{time}</Time>
-          ))}
-        </TimeWrapper>
-
-        {validDateChunks[tablePage]?.map(
-          ({ date, isValidDate }: ValidDateType) => (
-            <SelectWrapper key={date} className="container">
-              <Selecto
-                className="mpr-designer-selection"
-                ref={selectoRef}
-                dragContainer={'.container'}
-                selectableTargets={['.valid']}
-                onSelect={handleCellSelect}
-                onDragEnd={addSelectedToObject}
-                hitRate={0}
-                selectFromInside={true}
-                continueSelect={true}
-                continueSelectWithoutDeselect={false}
-                selectByClick={false}
-                ratio={0}
-              />
-              {timeDetail.map((time) => (
-                <Select
-                  onClick={handleClickOneElement}
-                  onTouchStart={handleClickOneElement}
-                  className={isValidDate ? 'valid' : 'invalid'}
-                  key={`${date} ${time}:00`}
-                  id={`${date.slice(0, 10)} ${time}`}
-                  selectedMethod={selectedMethod}
-                  isValidDate={isValidDate}
-                />
-              ))}
-            </SelectWrapper>
+        {validDateChunks[tablePage].map(({ date }: ValidDateType) =>
+          date.slice(0, 5) === 'blank' ? (
+            <Date key={date} />
+          ) : (
+            <Date key={date}>{getTableDateFormat(date)}</Date>
           )
         )}
-      </Bottom>
+      </Top>
+
+      <ScrollWrapper>
+        <TableWrapper>
+          <ColumnWrapper>
+            {validDateChunks[tablePage]?.map(
+              ({ date, isValidDate }: ValidDateType) => (
+                <Column key={date} className="container">
+                  <Selecto
+                    className="mpr-designer-selection"
+                    ref={selectoRef}
+                    dragContainer={'.container'}
+                    selectableTargets={['.valid']}
+                    onSelect={handleCellSelect}
+                    onDragEnd={addSelectedToObject}
+                    hitRate={0}
+                    selectFromInside={true}
+                    continueSelect={true}
+                    continueSelectWithoutDeselect={false}
+                    selectByClick={false}
+                    ratio={0}
+                  />
+                  {timeDetail.map((time) => (
+                    <Select
+                      onClick={handleClickOneElement}
+                      onTouchStart={handleClickOneElement}
+                      className={isValidDate ? 'valid' : 'invalid'}
+                      key={`${date} ${time}:00`}
+                      id={`${date.slice(0, 10)} ${time}`}
+                      selectedMethod={selectedMethod}
+                      isValidDate={isValidDate}
+                    />
+                  ))}
+                </Column>
+              )
+            )}
+          </ColumnWrapper>
+
+          <Divider />
+
+          <TimeWrapper>
+            {times.map((time) => (
+              <Time key={time}>{time.toString().padStart(2, '0')}</Time>
+            ))}
+          </TimeWrapper>
+        </TableWrapper>
+      </ScrollWrapper>
     </Wrapper>
   );
 };

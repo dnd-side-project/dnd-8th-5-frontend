@@ -7,8 +7,8 @@ export const Wrapper = styled.div`
   overflow-y: auto;
   margin: 0 auto;
   padding: 48px 0 0px 0;
-  -ms-overflow-style: none;
   scrollbar-width: none;
+  overscroll-behavior: none;
   &::-webkit-scrollbar {
     display: none;
   }

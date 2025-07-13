@@ -24,6 +24,7 @@ export const BottomWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 10px 20px 28px 20px;
+  gap: 12px;
 `;
 
 export const ResetButtonWrapper = styled.div`
@@ -52,7 +53,6 @@ export const ResetText = styled.span`
 `;
 
 export const BottomButton = styled.button`
-  width: 273px;
   height: 52px;
   border-radius: 6px;
 
@@ -63,4 +63,5 @@ export const BottomButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 1;
 `;

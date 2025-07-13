@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { useScroll } from '@/hooks/useScroll';
 import _ from 'lodash';
 
 import {
   ButtonWrapper,
   MoveButton,
-  ScrollbarThumb,
-  ScrollbarTrack,
   TableWrapper,
+  Wrapper,
 } from './index.styles';
 import Table from '../table';
 import AddButton from '../button';
@@ -30,7 +28,6 @@ import { ROUTES } from '@/constants/ROUTES';
 import { selectedMethodState } from '@/atoms/selectedMethodAtom';
 
 const TableArea = ({
-  wrapperRef,
   startTime,
   endTime,
   selected,
@@ -50,20 +47,6 @@ const TableArea = ({
 
   const validDateChunks = getAddTimeTableInfo(dates);
   const timeRange = getTimeRange(startTime, endTime);
-
-  const windowHeight = window.innerHeight;
-
-  const {
-    contentWrapperRef,
-    contentRef,
-    trackRef,
-    thumbRef,
-    offsetY,
-    setOffsetY,
-    handleMouseDown,
-    handleTouchStart,
-    handleDragStart,
-  } = useScroll();
 
   const { data } = useGetAvailableTimesByOne(roomUUID, userName);
   const { mutate, isSuccess, isError } = usePutAvailableTimes();
@@ -90,40 +73,19 @@ const TableArea = ({
     }
   }, [data]);
 
-  useEffect(() => {
-    if (wrapperRef.current) {
-      document.body.style.overflow = 'hidden';
-      wrapperRef.current.style.overflow = 'hidden';
-    }
-  }, []);
-
-  const handleScrollToTop = () => {
-    const contentWrapper = contentWrapperRef.current as HTMLDivElement;
-    contentWrapper.scrollTo({ top: 0 });
-
-    setOffsetY(0);
-  };
-
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {
       setTablePage(tablePage - 1);
     }
-
-    handleScrollToTop();
   };
 
   const handleNextButtonClick = () => {
     if (tablePage !== validDateChunks.length - 1) {
       setTablePage(tablePage + 1);
     }
-
-    handleScrollToTop();
   };
 
   const goToCurrent = () => {
-    document.body.style.overflow = '';
-    (wrapperRef.current as HTMLDivElement).style.overflow = 'auto';
-
     navigate(`${ROUTES.CURRENT}/${roomUUID}`);
   };
 
@@ -163,31 +125,14 @@ const TableArea = ({
     }
 
     if (isError) {
-      alert('처리 중 오류가 발생했습니다. 다시 시도해 주세요!');
+      alert('처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
     }
   }, [isSuccess, isError]);
 
   return (
-    <>
-      <ButtonWrapper>
-        <MoveButton
-          src={tablePage === 0 ? addPrevDisable : addPrevActive}
-          alt="Prev Button"
-          onClick={handlePrevButtonClick}
-        />
-        <MoveButton
-          src={
-            tablePage !== validDateChunks.length - 1
-              ? addNextActive
-              : addNextDisable
-          }
-          alt="Next Button"
-          onClick={handleNextButtonClick}
-        />
-      </ButtonWrapper>
-      <TableWrapper ref={contentWrapperRef} windowHeight={windowHeight}>
+    <Wrapper>
+      <TableWrapper>
         <Table
-          contentRef={contentRef}
           selected={selected}
           setSelected={setSelected}
           times={timeRange}
@@ -197,23 +142,30 @@ const TableArea = ({
           isResetButtonClick={isResetButtonClick}
           setIsResetButtonClick={setIsResetButtonClick}
         />
+        <ButtonWrapper>
+          <MoveButton
+            src={tablePage === 0 ? addPrevDisable : addPrevActive}
+            alt="이전 날짜 이동 버튼"
+            onClick={handlePrevButtonClick}
+          />
+          <MoveButton
+            src={
+              tablePage !== validDateChunks.length - 1
+                ? addNextActive
+                : addNextDisable
+            }
+            alt="다음 날짜 이동 버튼"
+            onClick={handleNextButtonClick}
+          />
+        </ButtonWrapper>
       </TableWrapper>
-      <ScrollbarTrack ref={trackRef}>
-        <ScrollbarThumb
-          ref={thumbRef}
-          offsetY={offsetY}
-          onMouseDown={handleMouseDown}
-          onDragStart={handleDragStart}
-          onTouchStart={handleTouchStart}
-        />
-      </ScrollbarTrack>
 
       <AddButton
         setTableSelected={setTableSelected}
         handleApplyClick={handleApplyClick}
         setIsResetButtonClick={setIsResetButtonClick}
       />
-    </>
+    </Wrapper>
   );
 };
 

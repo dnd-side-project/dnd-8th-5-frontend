@@ -19,6 +19,8 @@ export const MainContainer = styled.div`
   }
   overflow-x: hidden;
   overflow-y: hidden;
+  overscroll-behavior: none;
+  overscroll-behavior: none;
 `;
 
 export const StartWrapper = styled.div`

@@ -8,6 +8,7 @@ export const MainContainer = styled.div`
   flex: 1;
   background-color: ${theme.colors.purple05};
   overflow: auto;
+  overscroll-behavior: none;
 `;
 
 export const Logo = styled.img`

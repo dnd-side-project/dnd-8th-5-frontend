@@ -11,6 +11,7 @@ export const MainContainer = styled.div`
   padding: 64px 20px 135px 20px;
   overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: none;
 `;
 
 export const Divider = styled.div`
