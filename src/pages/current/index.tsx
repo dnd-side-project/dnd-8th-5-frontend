@@ -111,7 +111,6 @@ const Current = () => {
 
     return newDates;
   };
-
   const handleModeButtonToggle = () => {
     setIsDeleteMode((prev) => !prev);
   };
@@ -300,7 +299,7 @@ const Current = () => {
           />
 
           {isShareLinkBottomSheetOpened && (
-            <LinkShareBottomSheet roomTitle={title} />
+            <LinkShareBottomSheet roomTitle={data.title} />
           )}
         </Wrapper>
       </Layout>
