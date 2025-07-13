@@ -191,7 +191,7 @@ const Result = () => {
           )}
         </Body>
 
-        <ResultButton />
+        <ResultButton roomTitle={title} />
 
         {isParticipantsOpened && (
           <BottomSheet
