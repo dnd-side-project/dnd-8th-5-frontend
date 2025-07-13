@@ -14,53 +14,59 @@ export const Wrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
 `;
 
-export const TooltipIcon = styled.img`
-  position: fixed;
-  top: 190px;
+export const Container = styled.div`
+  position: relative;
   width: 100%;
-  height: 380px;
+  height: 100%;
+`;
+
+export const GuideImage = styled.img`
+  position: absolute;
+  top: 190px;
+  width: 104%;
   max-width: 412px;
   padding-inline: 10px;
   z-index: 5;
 `;
 
+export const DragAreaWrapper = styled.div`
+  position: relative;
+  width: 168px;
+  margin: 254px 0 0 52px;
+`;
+
+export const DragArea = styled.img`
+  width: 100%;
+`;
+
 export const handleFade = keyframes`
 0%{
-  top:260px;
+  top: 0
 }
 75% {
-  top: 410px;
+  top: 224px;
 }
 100%{
-  top: 410px;
+  top: 224px;
 }
-
 `;
 
 export const TooltipHandleIcon = styled.img`
   position: absolute;
-  top: 260px;
-  left: 100px;
-  width: 95px;
-  height: 80px;
-  max-width: 412px;
-  padding-inline: 10px;
+  width: 72px;
+  top: 0;
+  left: 58px;
   z-index: 5;
   animation: ${handleFade} 2s 0s ease-in infinite forwards;
 `;
 
 export const CloseButton = styled.img`
   position: absolute;
-  width: 80px;
-  height: 66px;
-  bottom: 80px;
-
-  @media screen and (max-height: 700px) {
-    bottom: 20px;
-  }
-
-  max-width: 412px;
-  padding-inline: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 100px;
   z-index: 5;
+  width: 64px;
+  height: 64px;
   cursor: pointer;
 `;

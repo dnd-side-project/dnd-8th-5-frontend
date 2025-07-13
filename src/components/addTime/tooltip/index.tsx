@@ -1,12 +1,17 @@
 import {
   CloseButton,
   TooltipHandleIcon,
-  TooltipIcon,
+  GuideImage,
   Wrapper,
+  Container,
+  DragArea,
+  DragAreaWrapper,
 } from './index.styles';
 
-import guideIcon from '@/assets/icons/guide.png';
-import guideHandle from '@/assets/icons/guideHandle.png';
+import guideImage from '@/assets/images/add_time_guide.png';
+import guideDragAreaImage from '@/assets/images/add_time_guide_drag_area.png';
+import guideDragHandleImage from '@/assets/images/add_time_guide_handle.png';
+
 import closeIcon from '@/assets/icons/close.png';
 import { Dispatch, SetStateAction, useCallback } from 'react';
 
@@ -23,9 +28,14 @@ const Tooltip = ({ isTooltipShown, setIsTooltipShown }: Props) => {
 
   return (
     <Wrapper>
-      <TooltipIcon src={guideIcon} />
-      <TooltipHandleIcon src={guideHandle} />
-      <CloseButton src={closeIcon} onClick={handleGuideCloseClick} />
+      <Container>
+        <GuideImage src={guideImage} />
+        <DragAreaWrapper>
+          <DragArea src={guideDragAreaImage} />
+          <TooltipHandleIcon src={guideDragHandleImage} />
+        </DragAreaWrapper>
+        <CloseButton src={closeIcon} onClick={handleGuideCloseClick} />
+      </Container>
     </Wrapper>
   );
 };
