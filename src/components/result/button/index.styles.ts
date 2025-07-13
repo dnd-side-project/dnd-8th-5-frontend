@@ -30,6 +30,7 @@ export const BottomWrapper = styled.div`
 
   display: flex;
   justify-content: space-between;
+  gap: 12px;
   padding: 10px 20px 28px 20px;
 `;
 
@@ -53,21 +54,21 @@ export const CurrentButton = styled.img`
 `;
 
 export const BottomButton = styled.button`
-  width: 273px;
   height: 52px;
   border-radius: 6px;
 
-  ${theme.typography.semibold03};
+  ${theme.typography.medium01};
   color: ${theme.colors.gray01};
   background: ${theme.colors.purple06};
 
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 1;
+  gap: 8px;
 `;
 
 export const ShareButton = styled.img`
   width: 20px;
   height: 20px;
-  margin-left: 10px;
 `;
