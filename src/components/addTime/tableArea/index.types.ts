@@ -38,4 +38,6 @@ export interface TableType {
   times: number[];
   isResetButtonClick: boolean;
   setIsResetButtonClick: React.Dispatch<React.SetStateAction<boolean>>;
+  handlePrevButtonClick: () => void;
+  handleNextButtonClick: () => void;
 }

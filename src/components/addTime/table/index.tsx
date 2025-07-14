@@ -1,6 +1,11 @@
 import { useEffect, useRef } from 'react';
 import Selecto from 'react-selecto';
 
+import addPrevDisable from '@/assets/icons/addPrevDisable.png';
+import addNextDisable from '@/assets/icons/addNextDisable.png';
+import addPrevActive from '@/assets/icons/addPrevActive.png';
+import addNextActive from '@/assets/icons/addNextActive.png';
+
 import { getTimeArray } from '@/utils/getTimeArray';
 import { getTableDateFormat } from '@/utils/getTableDateFormat';
 import {
@@ -15,6 +20,9 @@ import {
   TimeWrapper,
   Divider,
   ScrollWrapper,
+  ButtonWrapper,
+  MoveButton,
+  DateWrapper,
 } from './index.styles';
 import { TableType } from '../tableArea/index.types';
 
@@ -32,6 +40,8 @@ const Table = ({
   times,
   isResetButtonClick,
   setIsResetButtonClick,
+  handlePrevButtonClick,
+  handleNextButtonClick,
 }: TableType) => {
   const selectoRef = useRef<any>(null);
   const timeDetail = getTimeArray(times);
@@ -112,13 +122,31 @@ const Table = ({
   return (
     <Wrapper>
       <Top>
-        {validDateChunks[tablePage].map(({ date }: ValidDateType) =>
-          date.slice(0, 5) === 'blank' ? (
-            <Date key={date} />
-          ) : (
-            <Date key={date}>{getTableDateFormat(date)}</Date>
-          )
-        )}
+        <DateWrapper>
+          {validDateChunks[tablePage].map(({ date }: ValidDateType) =>
+            date.slice(0, 5) === 'blank' ? (
+              <Date key={date} />
+            ) : (
+              <Date key={date}>{getTableDateFormat(date)}</Date>
+            )
+          )}
+        </DateWrapper>
+        <ButtonWrapper>
+          <MoveButton
+            src={tablePage === 0 ? addPrevDisable : addPrevActive}
+            alt="이전 날짜 이동 버튼"
+            onClick={handlePrevButtonClick}
+          />
+          <MoveButton
+            src={
+              tablePage !== validDateChunks.length - 1
+                ? addNextActive
+                : addNextDisable
+            }
+            alt="다음 날짜 이동 버튼"
+            onClick={handleNextButtonClick}
+          />
+        </ButtonWrapper>
       </Top>
 
       <ScrollWrapper>
