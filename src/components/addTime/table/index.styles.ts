@@ -5,29 +5,42 @@ import { SelectType } from '../tableArea/index.types';
 export const Wrapper = styled.div`
   position: relative;
   height: 100%;
-  padding: 0 0 32px 0;
 `;
 
 export const Top = styled.div`
-  position: absolute;
+  position: sticky;
   top: 0;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  padding: 8px 0 16px 0;
+  padding: 8px 20px;
   background: ${theme.colors.gray01};
   z-index: 1;
 `;
 
-export const ScrollWrapper = styled.div`
-  height: 100%;
-  padding: 0 0 100px 0;
-  overflow: auto;
-  overscroll-behavior: none;
+export const DateWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
-export const TableWrapper = styled.div`
+export const ButtonWrapper = styled.div`
   display: flex;
-  padding: 44px 0 0 0;
+  justify-content: space-between;
+  gap: 8px;
+`;
+
+export const MoveButton = styled.img`
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+`;
+
+export const ScrollWrapper = styled.div`
+  display: flex;
+  padding: 8px 20px 0 20px;
 `;
 
 export const Date = styled.div`
@@ -45,7 +58,7 @@ export const ColumnWrapper = styled.div`
   width: 100%;
   gap: 4px;
   touch-action: none;
-  overscroll-behavior: contain;
+  overscroll-behavior: none;
 `;
 
 export const Column = styled.div`
