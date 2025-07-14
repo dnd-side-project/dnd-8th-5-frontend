@@ -3,11 +3,12 @@ import theme from '@/styles/theme';
 
 export const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   flex: 1;
   padding: 60px 0 0 0;
+  overflow: auto;
+  overscroll-behavior: none;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -17,7 +18,6 @@ export const Wrapper = styled.div`
 
 export const Body = styled.div`
   width: 100%;
-  height: 100%;
   margin-top: 28px;
   display: flex;
   flex-direction: column;
@@ -40,7 +40,5 @@ export const Title = styled.span`
 
 export const Main = styled.div`
   width: 100%;
-  height: 100%;
-  margin: 24px 0 0 0;
-  padding-bottom: 116px;
+  padding: 0 0 100px 0;
 `;

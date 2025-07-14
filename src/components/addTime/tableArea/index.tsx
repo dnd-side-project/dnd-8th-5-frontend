@@ -3,20 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import _ from 'lodash';
 
-import {
-  ButtonWrapper,
-  MoveButton,
-  TableWrapper,
-  Wrapper,
-} from './index.styles';
+import { TableWrapper, Wrapper } from './index.styles';
 import Table from '../table';
 import AddButton from '../button';
 import { AddTimeTableTypes, TableSelectedTypes } from './index.types';
-
-import addPrevDisable from '@/assets/icons/addPrevDisable.png';
-import addNextDisable from '@/assets/icons/addNextDisable.png';
-import addPrevActive from '@/assets/icons/addPrevActive.png';
-import addNextActive from '@/assets/icons/addNextActive.png';
 
 import { getTimeRange } from '@/utils/getTimeRange';
 import { getAllTimeRange } from '@/utils/getAllTimeRange';
@@ -36,6 +26,7 @@ const TableArea = ({
   setTableSelected,
   isResetButtonClick,
   setIsResetButtonClick,
+  scrollToTop,
 }: AddTimeTableTypes) => {
   const navigate = useNavigate();
   const { roomUUID } = useParams() as { roomUUID: string };
@@ -76,12 +67,14 @@ const TableArea = ({
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {
       setTablePage(tablePage - 1);
+      scrollToTop();
     }
   };
 
   const handleNextButtonClick = () => {
     if (tablePage !== validDateChunks.length - 1) {
       setTablePage(tablePage + 1);
+      scrollToTop();
     }
   };
 
@@ -141,25 +134,10 @@ const TableArea = ({
           validDateChunks={validDateChunks}
           isResetButtonClick={isResetButtonClick}
           setIsResetButtonClick={setIsResetButtonClick}
+          handlePrevButtonClick={handlePrevButtonClick}
+          handleNextButtonClick={handleNextButtonClick}
         />
-        <ButtonWrapper>
-          <MoveButton
-            src={tablePage === 0 ? addPrevDisable : addPrevActive}
-            alt="이전 날짜 이동 버튼"
-            onClick={handlePrevButtonClick}
-          />
-          <MoveButton
-            src={
-              tablePage !== validDateChunks.length - 1
-                ? addNextActive
-                : addNextDisable
-            }
-            alt="다음 날짜 이동 버튼"
-            onClick={handleNextButtonClick}
-          />
-        </ButtonWrapper>
       </TableWrapper>
-
       <AddButton
         setTableSelected={setTableSelected}
         handleApplyClick={handleApplyClick}
