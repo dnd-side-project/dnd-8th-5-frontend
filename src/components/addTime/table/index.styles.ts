@@ -39,11 +39,8 @@ export const MoveButton = styled.img`
 `;
 
 export const ScrollWrapper = styled.div`
-  padding: 8px 20px 0 20px;
-`;
-
-export const TableWrapper = styled.div`
   display: flex;
+  padding: 8px 20px 0 20px;
 `;
 
 export const Date = styled.div`

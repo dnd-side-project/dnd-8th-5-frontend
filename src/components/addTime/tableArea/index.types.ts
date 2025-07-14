@@ -1,3 +1,5 @@
+import { RefObject } from 'react';
+
 export interface SelectType {
   isValidDate: boolean;
   selectedMethod: string;
@@ -27,6 +29,7 @@ export interface AddTimeTableTypes {
   setTableSelected: React.Dispatch<React.SetStateAction<TableSelectedTypes>>;
   isResetButtonClick: boolean;
   setIsResetButtonClick: React.Dispatch<React.SetStateAction<boolean>>;
+  scrollToTop: () => void;
 }
 
 export interface TableType {

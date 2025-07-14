@@ -15,7 +15,6 @@ import {
   Column,
   Time,
   Top,
-  TableWrapper,
   Wrapper,
   TimeWrapper,
   Divider,
@@ -150,49 +149,47 @@ const Table = ({
       </Top>
 
       <ScrollWrapper>
-        <TableWrapper>
-          <ColumnWrapper>
-            {validDateChunks[tablePage]?.map(
-              ({ date, isValidDate }: ValidDateType) => (
-                <Column key={date} className="container">
-                  <Selecto
-                    className="mpr-designer-selection"
-                    ref={selectoRef}
-                    dragContainer={'.container'}
-                    selectableTargets={['.valid']}
-                    onSelect={handleCellSelect}
-                    onDragEnd={addSelectedToObject}
-                    hitRate={0}
-                    selectFromInside={true}
-                    continueSelect={true}
-                    continueSelectWithoutDeselect={false}
-                    selectByClick={false}
-                    ratio={0}
+        <ColumnWrapper>
+          {validDateChunks[tablePage]?.map(
+            ({ date, isValidDate }: ValidDateType) => (
+              <Column key={date} className="container">
+                <Selecto
+                  className="mpr-designer-selection"
+                  ref={selectoRef}
+                  dragContainer={'.container'}
+                  selectableTargets={['.valid']}
+                  onSelect={handleCellSelect}
+                  onDragEnd={addSelectedToObject}
+                  hitRate={0}
+                  selectFromInside={true}
+                  continueSelect={true}
+                  continueSelectWithoutDeselect={false}
+                  selectByClick={false}
+                  ratio={0}
+                />
+                {timeDetail.map((time) => (
+                  <Select
+                    onClick={handleClickOneElement}
+                    onTouchStart={handleClickOneElement}
+                    className={isValidDate ? 'valid' : 'invalid'}
+                    key={`${date} ${time}:00`}
+                    id={`${date.slice(0, 10)} ${time}`}
+                    selectedMethod={selectedMethod}
+                    isValidDate={isValidDate}
                   />
-                  {timeDetail.map((time) => (
-                    <Select
-                      onClick={handleClickOneElement}
-                      onTouchStart={handleClickOneElement}
-                      className={isValidDate ? 'valid' : 'invalid'}
-                      key={`${date} ${time}:00`}
-                      id={`${date.slice(0, 10)} ${time}`}
-                      selectedMethod={selectedMethod}
-                      isValidDate={isValidDate}
-                    />
-                  ))}
-                </Column>
-              )
-            )}
-          </ColumnWrapper>
+                ))}
+              </Column>
+            )
+          )}
+        </ColumnWrapper>
 
-          <Divider />
+        <Divider />
 
-          <TimeWrapper>
-            {times.map((time) => (
-              <Time key={time}>{time.toString().padStart(2, '0')}</Time>
-            ))}
-          </TimeWrapper>
-        </TableWrapper>
+        <TimeWrapper>
+          {times.map((time) => (
+            <Time key={time}>{time.toString().padStart(2, '0')}</Time>
+          ))}
+        </TimeWrapper>
       </ScrollWrapper>
     </Wrapper>
   );

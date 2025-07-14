@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
@@ -32,13 +32,22 @@ const AddTime = () => {
   const [isTooltipShown, setIsTooltipShown] =
     useRecoilState<boolean>(tooltipState);
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollToTop = () => {
+    scrollRef.current?.scrollTo({
+      top: 124,
+      behavior: 'smooth',
+    });
+  };
+
   const isTableView =
     room?.startTime !== null && room?.endTime !== null ? true : false;
 
   if (!room) return null;
   return (
     <Layout>
-      <Wrapper>
+      <Wrapper ref={scrollRef}>
         <Header pageName={ROUTES.ADD_TIME} title={room?.title ?? ''} />
         <Body>
           <TitleWrapper>
@@ -65,6 +74,7 @@ const AddTime = () => {
                 dates={room.dates}
                 isResetButtonClick={isResetButtonClick}
                 setIsResetButtonClick={setIsResetButtonClick}
+                scrollToTop={scrollToTop}
               />
             ) : (
               <AddCalendar

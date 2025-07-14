@@ -26,6 +26,7 @@ const TableArea = ({
   setTableSelected,
   isResetButtonClick,
   setIsResetButtonClick,
+  scrollToTop,
 }: AddTimeTableTypes) => {
   const navigate = useNavigate();
   const { roomUUID } = useParams() as { roomUUID: string };
@@ -66,12 +67,14 @@ const TableArea = ({
   const handlePrevButtonClick = () => {
     if (tablePage !== 0) {
       setTablePage(tablePage - 1);
+      scrollToTop();
     }
   };
 
   const handleNextButtonClick = () => {
     if (tablePage !== validDateChunks.length - 1) {
       setTablePage(tablePage + 1);
+      scrollToTop();
     }
   };
 
