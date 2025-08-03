@@ -47,6 +47,7 @@ import { Modal } from '@/components/commons/modal';
 import { useDeleteParticipants } from '@/queries/room/useDeleteParticipants';
 import { useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/constants/QUERY_KEYS';
+import { Helmet } from 'react-helmet-async';
 
 const Current = () => {
   const queryClient = useQueryClient();
@@ -164,6 +165,21 @@ const Current = () => {
   if (!data) return null;
   return (
     <>
+      <Helmet>
+        <title>{`${title} - 실시간 참여 현황`}</title>
+        <meta name="title" content={`${title} - 실시간 참여 현황`} />
+        <meta
+          name="description"
+          content="실시간 참여 현황 | 쉽고 빠른 약속시간 정하기, 모두의 시간"
+        />
+        <meta property="og:title" content={`${title} - 실시간 참여 현황`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/ogimage.png" />
+        <meta
+          property="og:description"
+          content="지금 바로 참여 현황을 살펴 보세요!"
+        />
+      </Helmet>
       <Layout>
         <Wrapper ref={scrollRef}>
           <Header pageName={ROUTES.CURRENT} title={title} />

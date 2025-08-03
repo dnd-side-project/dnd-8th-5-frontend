@@ -5,6 +5,15 @@ const useShareLink = () => {
   const { roomUUID } = useParams();
   const inviteURL = `${window.location.origin}${ROUTES.INVITE}/${roomUUID}?utm_source=user&utm_campaign=user_invite`;
 
+  const handleCopyToClipBoard = async () => {
+    try {
+      await navigator.clipboard.writeText(inviteURL);
+      alert('클립보드에 복사되었습니다.');
+    } catch {
+      alert('링크 복사에 실패했습니다.');
+    }
+  };
+
   const handleUseShareAPI = (roomTitle: string) => {
     const shareData = {
       title: '모두의 시간',
@@ -17,19 +26,10 @@ const useShareLink = () => {
 ${inviteURL}`.trim(),
     };
 
-    if (navigator.share) {
+    if (navigator.canShare()) {
       navigator.share(shareData);
     } else {
       handleCopyToClipBoard();
-    }
-  };
-
-  const handleCopyToClipBoard = async () => {
-    try {
-      await navigator.clipboard.writeText(inviteURL);
-      alert('클립보드에 복사되었습니다.');
-    } catch {
-      alert('링크 복사에 실패했습니다.\n다시 시도해 주세요.');
     }
   };
 

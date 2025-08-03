@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /roomStart
+Allow: /roomCalendar
+Allow: /roomTimer
+
+
+Disallow: /invite/
+Disallow: /current/
+Disallow: /result/
+Disallow: /addTime/

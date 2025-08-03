@@ -31,6 +31,7 @@ import { ROUTES } from '@/constants/ROUTES';
 import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 import { useGetCandidateTimes } from '@/queries/result/useGetCandidateTimes';
 import { Layout } from '@/components/commons/layout';
+import { Helmet } from 'react-helmet-async';
 
 interface Participants {
   name: string;
@@ -119,109 +120,126 @@ const Result = () => {
   };
 
   return (
-    <Layout>
-      <Wrapper>
-        <Header pageName={ROUTES.RESULT} title={title} />
-        <Body>
-          <TitleWrapper>
-            <Title isNumber={false}>현재까지</Title>
-            <Title isNumber={true}>{participants.length}</Title>
-            <Title isNumber={false}>명의</Title>
-          </TitleWrapper>
-          <TitleWrapper>
-            <Title isNumber={false}>약속 조율 결과예요</Title>
-          </TitleWrapper>
-          <SelectWrapper>
-            <SelectBox
-              text={getFilteredName()}
-              handleClick={handleParticipantOpen}
-            />
-            <SelectBox
-              text={
-                queryString.sort === 'fast'
-                  ? '빠른 시간 순'
-                  : '오래 만날 수 있는 순'
+    <>
+      <Helmet>
+        <title>{`${title} - 우선 순위 보기`}</title>
+        <meta name="title" content={`${title} - 우선 순위 보기`} />
+        <meta
+          name="description"
+          content="쉽고 빠른 약속시간 정하기, 모두의 시간"
+        />
+        <meta property="og:title" content={`${title} - 우선 순위 보기`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/ogimage.png" />
+        <meta
+          property="og:description"
+          content="지금 바로 조율 결과를 확인해 보세요!"
+        />
+      </Helmet>
+      <Layout>
+        <Wrapper>
+          <Header pageName={ROUTES.RESULT} title={title} />
+          <Body>
+            <TitleWrapper>
+              <Title isNumber={false}>현재까지</Title>
+              <Title isNumber={true}>{participants.length}</Title>
+              <Title isNumber={false}>명의</Title>
+            </TitleWrapper>
+            <TitleWrapper>
+              <Title isNumber={false}>약속 조율 결과예요</Title>
+            </TitleWrapper>
+            <SelectWrapper>
+              <SelectBox
+                text={getFilteredName()}
+                handleClick={handleParticipantOpen}
+              />
+              <SelectBox
+                text={
+                  queryString.sort === 'fast'
+                    ? '빠른 시간 순'
+                    : '오래 만날 수 있는 순'
+                }
+                handleClick={handleOrderOpen}
+              />
+            </SelectWrapper>
+
+            {data?.candidateTimes.length === 0 ? (
+              <NobodyWrapper>
+                <Nobody>
+                  <NobodyRabbit src={nobody} alt="nobody" />
+                  <NobodyText>모두가 되는 시간이 없어요</NobodyText>
+                </Nobody>
+              </NobodyWrapper>
+            ) : (
+              <>
+                {data?.candidateTimes[0].unavailableParticipantNames.length !==
+                0 ? (
+                  <NobodyWrapper>
+                    <Nobody>
+                      <NobodyRabbit src={nobody} alt="nobody" />
+                      <NobodyText>모두가 되는 시간이 없어요</NobodyText>
+                    </Nobody>
+                  </NobodyWrapper>
+                ) : null}
+
+                {data?.candidateTimes.map(
+                  ({
+                    date,
+                    dayOfWeek,
+                    startTime,
+                    endTime,
+                    availableParticipantNames,
+                    unavailableParticipantNames,
+                  }: CandidateTimesType) => (
+                    <Candidate
+                      key={`part ${date} ${startTime} ${endTime}`}
+                      date={date}
+                      dayOfWeek={dayOfWeek}
+                      startTime={startTime}
+                      endTime={endTime}
+                      availableParticipantNames={availableParticipantNames}
+                      unavailableParticipantNames={unavailableParticipantNames}
+                      count={participants.length}
+                      defaultOpen={true}
+                    />
+                  )
+                )}
+              </>
+            )}
+          </Body>
+
+          <ResultButton roomTitle={title} />
+
+          {isParticipantsOpened && (
+            <BottomSheet
+              setIsBottomSheetOpened={setIsParticipantsOpened}
+              title="참여자"
+              children={
+                <SelectParticipants
+                  setIsParticipantOpened={setIsParticipantsOpened}
+                  participantsList={participantsList}
+                  setParticipantsList={setParticipantsList}
+                />
               }
-              handleClick={handleOrderOpen}
             />
-          </SelectWrapper>
-
-          {data?.candidateTimes.length === 0 ? (
-            <NobodyWrapper>
-              <Nobody>
-                <NobodyRabbit src={nobody} alt="nobody" />
-                <NobodyText>모두가 되는 시간이 없어요</NobodyText>
-              </Nobody>
-            </NobodyWrapper>
-          ) : (
-            <>
-              {data?.candidateTimes[0].unavailableParticipantNames.length !==
-              0 ? (
-                <NobodyWrapper>
-                  <Nobody>
-                    <NobodyRabbit src={nobody} alt="nobody" />
-                    <NobodyText>모두가 되는 시간이 없어요</NobodyText>
-                  </Nobody>
-                </NobodyWrapper>
-              ) : null}
-
-              {data?.candidateTimes.map(
-                ({
-                  date,
-                  dayOfWeek,
-                  startTime,
-                  endTime,
-                  availableParticipantNames,
-                  unavailableParticipantNames,
-                }: CandidateTimesType) => (
-                  <Candidate
-                    key={`part ${date} ${startTime} ${endTime}`}
-                    date={date}
-                    dayOfWeek={dayOfWeek}
-                    startTime={startTime}
-                    endTime={endTime}
-                    availableParticipantNames={availableParticipantNames}
-                    unavailableParticipantNames={unavailableParticipantNames}
-                    count={participants.length}
-                    defaultOpen={true}
-                  />
-                )
-              )}
-            </>
           )}
-        </Body>
 
-        <ResultButton roomTitle={title} />
-
-        {isParticipantsOpened && (
-          <BottomSheet
-            setIsBottomSheetOpened={setIsParticipantsOpened}
-            title="참여자"
-            children={
-              <SelectParticipants
-                setIsParticipantOpened={setIsParticipantsOpened}
-                participantsList={participantsList}
-                setParticipantsList={setParticipantsList}
-              />
-            }
-          />
-        )}
-
-        {isSortOpened && (
-          <BottomSheet
-            setIsBottomSheetOpened={setIsSortOpened}
-            title="정렬"
-            children={
-              <SortTimes
-                queryString={queryString}
-                setQueryString={setQueryString}
-                setIsSortOpened={setIsSortOpened}
-              />
-            }
-          />
-        )}
-      </Wrapper>
-    </Layout>
+          {isSortOpened && (
+            <BottomSheet
+              setIsBottomSheetOpened={setIsSortOpened}
+              title="정렬"
+              children={
+                <SortTimes
+                  queryString={queryString}
+                  setQueryString={setQueryString}
+                  setIsSortOpened={setIsSortOpened}
+                />
+              }
+            />
+          )}
+        </Wrapper>
+      </Layout>
+    </>
   );
 };
 
