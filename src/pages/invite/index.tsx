@@ -85,13 +85,6 @@ const Invite = () => {
           name="description"
           content="쉽고 빠른 약속시간 정하기, 모두의 시간"
         />
-        <meta property="og:title" content={`${room.title} | 모두의 시간`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/ogimage.png" />
-        <meta
-          property="og:description"
-          content="지금 바로 약속 시간을 등록하세요!"
-        />
       </Helmet>
       <MainContainer>
         <HeaderWrapper>

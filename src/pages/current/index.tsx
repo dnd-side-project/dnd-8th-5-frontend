@@ -154,6 +154,17 @@ const Current = () => {
             QUERY_KEYS.RESULT.GET_CANDIDATE_TIMES,
             roomUUID,
           ]);
+
+          const savedUser = localStorage.getItem('userName');
+          const isSavedUserDeleted =
+            savedUser &&
+            selectedDeleteParticipants.filter((p) => p.name === savedUser)
+              .length > 0;
+
+          if (isSavedUserDeleted) {
+            localStorage.clear();
+          }
+
           setIsDeleteModalOpened(false);
           setIsDeleteMode(false);
           setSelectedDeleteParticipants([]);
@@ -171,13 +182,6 @@ const Current = () => {
         <meta
           name="description"
           content="실시간 참여 현황 | 쉽고 빠른 약속시간 정하기, 모두의 시간"
-        />
-        <meta property="og:title" content={`${title} - 실시간 참여 현황`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/ogimage.png" />
-        <meta
-          property="og:description"
-          content="지금 바로 참여 현황을 살펴 보세요!"
         />
       </Helmet>
       <Layout>

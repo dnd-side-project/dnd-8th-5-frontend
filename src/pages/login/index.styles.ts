@@ -90,6 +90,7 @@ export const CheckBoxContainer = styled.div`
 
 export const RightWrapper = styled.div`
   display: flex;
+  cursor: pointer;
 `;
 
 export const ImgWrapper = styled.div``;

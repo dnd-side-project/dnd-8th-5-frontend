@@ -128,13 +128,6 @@ const Result = () => {
           name="description"
           content="쉽고 빠른 약속시간 정하기, 모두의 시간"
         />
-        <meta property="og:title" content={`${title} - 우선 순위 보기`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/ogimage.png" />
-        <meta
-          property="og:description"
-          content="지금 바로 조율 결과를 확인해 보세요!"
-        />
       </Helmet>
       <Layout>
         <Wrapper>
