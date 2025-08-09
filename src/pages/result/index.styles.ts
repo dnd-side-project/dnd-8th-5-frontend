@@ -7,21 +7,19 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 48px 0 0 0;
   overflow: auto;
 `;
 
 export const Body = styled.div`
   width: 100%;
-  padding: 0 20px;
-  margin-top: 30px;
-  padding-bottom: 117px;
+  padding: 76px 0 117px 0;
 `;
 
 export const TitleWrapper = styled.div`
   height: 30px;
   display: flex;
   align-items: center;
+  padding: 0 20px;
 `;
 
 export const Title = styled.span<{ isNumber: boolean }>`
@@ -35,19 +33,20 @@ export const Title = styled.span<{ isNumber: boolean }>`
 export const SelectWrapper = styled.div`
   width: 100%;
   height: 33px;
-  margin-top: 34px;
+  margin-top: 32px;
+  padding: 0 20px;
 `;
 
 export const NobodyWrapper = styled.div`
-  width: 100%;
   padding: 28px 0;
-  margin-top: 14px;
+  margin: 14px 20px 0 20px;
 
   border-radius: 7px;
   border: 1px dashed ${theme.colors.gray03};
   background: ${theme.colors.gray02};
 
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: center;
 `;
