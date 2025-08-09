@@ -31,3 +31,21 @@ export const getAvailableTimesByGroup = async (roomUUID: string) => {
 
   return data;
 };
+
+export const getAvailableTimeOverview = async ({
+  roomId,
+  participants,
+}: {
+  roomId: string;
+  participants: string[];
+}) => {
+  const participantsNames = participants.join('&participantsNames=');
+  const response = await instance.get(
+    `/api/room/${roomId}/available-time/overview`,
+    {
+      params: { participantsNames },
+    }
+  );
+
+  return response.data;
+};

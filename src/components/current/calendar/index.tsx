@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import dayjs from 'dayjs';
 
 import { NextMonthIcon, PrevMonthIcon, StyledCalendar } from './index.styles';
@@ -7,31 +6,25 @@ import theme from '@/styles/theme';
 import calendarNextMonth from '@/assets/icons/calendarNextMonth.svg';
 import calendarPrevMonth from '@/assets/icons/calendarPrevMonth.svg';
 
-import { AvailableDateTimeTypes } from '@/types/current';
-import { useGetAvailableTimesByGroup } from '@/queries/availableTimes/useGetAvailableTimesByGroup';
+import {
+  AvailableDateTimesTypes,
+  AvailableDateTimeTypes,
+} from '@/types/current';
 import { CalendarProps } from 'react-calendar';
 import { Participant } from '@/types/roomInfo';
 
 interface CurrentCalendarTypes extends CalendarProps {
+  timeInfo?: AvailableDateTimesTypes;
   participants: Participant[];
 }
 
-const Calendar = ({ participants, ...rest }: CurrentCalendarTypes) => {
-  const { roomUUID } = useParams() as { roomUUID: string };
-
-  const [currentTableInfo, setCurrentTableInfo] = useState<
-    AvailableDateTimeTypes[]
-  >([]);
-
-  const { data } = useGetAvailableTimesByGroup(roomUUID);
-
-  useEffect(() => {
-    if (data) {
-      setCurrentTableInfo(data.availableDateTimes);
-    }
-  }, [data]);
-
-  const availableDatesInfo = currentTableInfo.map(
+const Calendar = ({
+  timeInfo,
+  participants,
+  ...rest
+}: CurrentCalendarTypes) => {
+  console.log(timeInfo, participants);
+  const availableDatesInfo = timeInfo?.availableDateTimes?.map(
     (date: AvailableDateTimeTypes) => ({
       date: date.availableDate,
       opacity: date.availableTimeInfos[0].count / participants.length,
@@ -40,7 +33,7 @@ const Calendar = ({ participants, ...rest }: CurrentCalendarTypes) => {
 
   const addTileClassName = ({ date }: { date: Date }) => {
     if (
-      availableDatesInfo.find(
+      availableDatesInfo?.find(
         (availableDate: { date: string; opacity: number }) =>
           availableDate.date === dayjs(date).format('YYYY-MM-DD')
       )
@@ -52,7 +45,7 @@ const Calendar = ({ participants, ...rest }: CurrentCalendarTypes) => {
   };
 
   const updateColors = () => {
-    availableDatesInfo.forEach(
+    availableDatesInfo?.forEach(
       ({ date, opacity }: { date: string; opacity: number }) => {
         const element = document.querySelector(
           `.availableDate${date}`

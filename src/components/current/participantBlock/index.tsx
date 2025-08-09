@@ -6,15 +6,22 @@ interface ParticipantsBlockProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   participant: Participant;
   isSelected?: boolean;
+  isDeleteMode?: boolean;
 }
 
 const ParticipantsBlock = ({
   participant,
   isSelected = false,
+  isDeleteMode = false,
   ...rest
 }: ParticipantsBlockProps) => {
   return (
-    <Wrapper participant={participant.name} isSelected={isSelected} {...rest}>
+    <Wrapper
+      participant={participant.name}
+      isSelected={isSelected}
+      isDeleteMode={isDeleteMode}
+      {...rest}
+    >
       {participant.name.slice(0, 4)}
     </Wrapper>
   );

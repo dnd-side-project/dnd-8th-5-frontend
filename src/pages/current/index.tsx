@@ -48,6 +48,8 @@ import { useDeleteParticipants } from '@/queries/room/useDeleteParticipants';
 import { useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/constants/QUERY_KEYS';
 import { Helmet } from 'react-helmet-async';
+import { useGetAvailableTimeOverview } from '@/queries/availableTimes/useGetAvailableTimeOverview';
+import { useGetAvailableTimesByGroup } from '@/queries/availableTimes/useGetAvailableTimesByGroup';
 
 const Current = () => {
   const queryClient = useQueryClient();
@@ -66,6 +68,18 @@ const Current = () => {
   ] = useState<RoomTypes>(initialRoomInfoData);
 
   const { data, isError } = useGetRoomInfo(roomUUID);
+
+  const [selectedParticipants, setSelectedParticipants] = useState<
+    Participant[]
+  >([]);
+  const { data: timeInfo } = useGetAvailableTimesByGroup(
+    roomUUID,
+    selectedParticipants.length === 0
+  );
+  const { data: availableTimeOverview } = useGetAvailableTimeOverview({
+    roomId: roomUUID,
+    participants: selectedParticipants.map((p) => p.name),
+  });
 
   const [isDeleteMode, setIsDeleteMode] = useState<boolean>(false);
   const [selectedDeleteParticipants, setSelectedDeleteParticipants] = useState<
@@ -116,7 +130,7 @@ const Current = () => {
     setIsDeleteMode((prev) => !prev);
   };
 
-  const handleParticipantClick = (participant: Participant) => {
+  const handleParticipantClickToDelete = (participant: Participant) => {
     if (!isDeleteMode) return;
 
     if (
@@ -128,6 +142,18 @@ const Current = () => {
       );
     } else {
       setSelectedDeleteParticipants((prev) => [...prev, participant]);
+    }
+  };
+
+  const handleParticipantClickToSelect = (participant: Participant) => {
+    if (isDeleteMode) return;
+
+    if (selectedParticipants.includes(participant)) {
+      setSelectedParticipants((prev) =>
+        prev.filter((p) => p.id !== participant.id)
+      );
+    } else {
+      setSelectedParticipants((prev) => [...prev, participant]);
     }
   };
 
@@ -243,20 +269,27 @@ const Current = () => {
               ) : null}
 
               <Participants>
-                {participants &&
-                  participants.map((participant: Participant) => (
-                    <ParticipantsBlock
-                      key={participant.id}
-                      participant={participant}
-                      isSelected={
-                        selectedDeleteParticipants.filter(
-                          (p) => p.id === participant.id
-                        ).length > 0
-                      }
-                      disabled={!isDeleteMode}
-                      onClick={() => handleParticipantClick(participant)}
-                    />
-                  ))}
+                {participants?.map((participant: Participant) => (
+                  <ParticipantsBlock
+                    key={participant.id}
+                    participant={participant}
+                    isDeleteMode={isDeleteMode}
+                    isSelected={
+                      isDeleteMode
+                        ? selectedDeleteParticipants.filter(
+                            (p) => p.id === participant.id
+                          ).length > 0
+                        : selectedParticipants.filter(
+                            (p) => p.id === participant.id
+                          ).length > 0
+                    }
+                    onClick={
+                      isDeleteMode
+                        ? () => handleParticipantClickToDelete(participant)
+                        : () => handleParticipantClickToSelect(participant)
+                    }
+                  />
+                ))}
 
                 {!isDeleteMode &&
                   (headCount
@@ -292,10 +325,19 @@ const Current = () => {
                 </TableWrapper>
               ) : (
                 <CurrentCalendar
+                  timeInfo={
+                    selectedParticipants.length > 0
+                      ? availableTimeOverview
+                      : timeInfo
+                  }
                   defaultActiveStartDate={
                     data.dates?.[0] ? new Date(data.dates[0]) : new Date()
                   }
-                  participants={participants}
+                  participants={
+                    selectedParticipants.length > 0
+                      ? selectedParticipants
+                      : participants
+                  }
                 />
               )}
             </Section>
