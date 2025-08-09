@@ -48,6 +48,7 @@ import { useDeleteParticipants } from '@/queries/room/useDeleteParticipants';
 import { useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/constants/QUERY_KEYS';
 import { Helmet } from 'react-helmet-async';
+import { UpdateNote } from '@/components/commons/updateNote';
 
 const Current = () => {
   const queryClient = useQueryClient();
@@ -189,6 +190,8 @@ const Current = () => {
           <Header pageName={ROUTES.CURRENT} title={title} />
 
           <Body>
+            <UpdateNote />
+
             {deadLine && (
               <TimerWrapper>
                 <Timer deadLine={deadLine} />
