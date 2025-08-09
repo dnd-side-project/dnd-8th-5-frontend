@@ -167,8 +167,9 @@ const Result = () => {
               </NobodyWrapper>
             ) : (
               <>
-                {data?.candidateTimes[0].unavailableParticipantNames.length !==
-                0 ? (
+                {!isFiltered &&
+                data?.candidateTimes[0].unavailableParticipantNames.length !==
+                  0 ? (
                   <NobodyWrapper>
                     <Nobody>
                       <NobodyRabbit src={nobody} alt="nobody" />
