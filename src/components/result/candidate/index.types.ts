@@ -5,6 +5,7 @@ export interface CandidateTypes {
   endTime: string;
   availableParticipantNames: string[];
   unavailableParticipantNames: string[];
-  count: number | null;
+  count: number;
   defaultOpen?: boolean;
+  isFiltered: boolean;
 }

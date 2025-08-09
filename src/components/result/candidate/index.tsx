@@ -10,6 +10,8 @@ const Candidate = ({
   availableParticipantNames,
   unavailableParticipantNames,
   defaultOpen = false,
+  count,
+  isFiltered,
 }: CandidateTypes) => {
   const convertDateFormat = () => {
     if (startTime && endTime) {
@@ -27,10 +29,10 @@ const Candidate = ({
       <Accordion
         title={convertDateFormat()}
         availableParticipantNames={availableParticipantNames}
-        unavailableParticipantNames={unavailableParticipantNames}
-        totalCount={
-          availableParticipantNames.length + unavailableParticipantNames.length
+        unavailableParticipantNames={
+          isFiltered ? [] : unavailableParticipantNames
         }
+        totalCount={count}
         defaultOpen={defaultOpen}
       />
     </Wrapper>
