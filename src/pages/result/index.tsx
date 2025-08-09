@@ -32,6 +32,7 @@ import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 import { useGetCandidateTimes } from '@/queries/result/useGetCandidateTimes';
 import { Layout } from '@/components/commons/layout';
 import { Helmet } from 'react-helmet-async';
+import { UpdateNote } from '@/components/commons/updateNote';
 
 interface Participants {
   name: string;
@@ -135,6 +136,7 @@ const Result = () => {
         <Wrapper>
           <Header pageName={ROUTES.RESULT} title={title} />
           <Body>
+            <UpdateNote />
             <TitleWrapper>
               <Title isNumber={false}>현재까지</Title>
               <Title isNumber={true}>{participants.length}</Title>
@@ -178,33 +180,37 @@ const Result = () => {
                   </NobodyWrapper>
                 ) : null}
 
-                {data?.candidateTimes.map(
-                  ({
-                    date,
-                    dayOfWeek,
-                    startTime,
-                    endTime,
-                    availableParticipantNames,
-                    unavailableParticipantNames,
-                  }: CandidateTimesType) => (
-                    <Candidate
-                      key={`part ${date} ${startTime} ${endTime}`}
-                      date={date}
-                      dayOfWeek={dayOfWeek}
-                      startTime={startTime}
-                      endTime={endTime}
-                      availableParticipantNames={availableParticipantNames}
-                      unavailableParticipantNames={unavailableParticipantNames}
-                      count={
-                        isFiltered
-                          ? filteredParticipants.length
-                          : participants.length
-                      }
-                      isFiltered={isFiltered}
-                      defaultOpen={true}
-                    />
-                  )
-                )}
+                <div style={{ padding: '0 20px' }}>
+                  {data?.candidateTimes.map(
+                    ({
+                      date,
+                      dayOfWeek,
+                      startTime,
+                      endTime,
+                      availableParticipantNames,
+                      unavailableParticipantNames,
+                    }: CandidateTimesType) => (
+                      <Candidate
+                        key={`part ${date} ${startTime} ${endTime}`}
+                        date={date}
+                        dayOfWeek={dayOfWeek}
+                        startTime={startTime}
+                        endTime={endTime}
+                        availableParticipantNames={availableParticipantNames}
+                        unavailableParticipantNames={
+                          unavailableParticipantNames
+                        }
+                        count={
+                          isFiltered
+                            ? filteredParticipants.length
+                            : participants.length
+                        }
+                        isFiltered={isFiltered}
+                        defaultOpen={true}
+                      />
+                    )
+                  )}
+                </div>
               </>
             )}
           </Body>
