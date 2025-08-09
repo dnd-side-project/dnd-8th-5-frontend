@@ -119,6 +119,8 @@ const Result = () => {
     } else return `${filteredParticipants[0].name} 외 ${selectedCount - 1}명`;
   };
 
+  const isFiltered = filteredParticipants.length !== participantsList.length;
+
   return (
     <>
       <Helmet>
@@ -192,7 +194,12 @@ const Result = () => {
                       endTime={endTime}
                       availableParticipantNames={availableParticipantNames}
                       unavailableParticipantNames={unavailableParticipantNames}
-                      count={participants.length}
+                      count={
+                        isFiltered
+                          ? filteredParticipants.length
+                          : participants.length
+                      }
+                      isFiltered={isFiltered}
                       defaultOpen={true}
                     />
                   )
