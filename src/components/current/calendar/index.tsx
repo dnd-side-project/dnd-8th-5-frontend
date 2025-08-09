@@ -23,7 +23,6 @@ const Calendar = ({
   participants,
   ...rest
 }: CurrentCalendarTypes) => {
-  console.log(timeInfo, participants);
   const availableDatesInfo = timeInfo?.availableDateTimes?.map(
     (date: AvailableDateTimeTypes) => ({
       date: date.availableDate,

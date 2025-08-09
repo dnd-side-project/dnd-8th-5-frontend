@@ -320,7 +320,16 @@ const Current = () => {
                     }
                     startTime={startTime}
                     endTime={endTime}
-                    participants={participants}
+                    timeInfo={
+                      selectedParticipants.length > 0
+                        ? availableTimeOverview
+                        : timeInfo
+                    }
+                    participants={
+                      selectedParticipants.length > 0
+                        ? selectedParticipants
+                        : participants
+                    }
                   />
                 </TableWrapper>
               ) : (
