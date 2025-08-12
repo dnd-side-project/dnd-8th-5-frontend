@@ -48,7 +48,11 @@ const AddTime = () => {
   return (
     <Layout>
       <Wrapper ref={scrollRef}>
-        <Header pageName={ROUTES.ADD_TIME} title={room?.title ?? ''} />
+        <Header
+          pageName={ROUTES.ADD_TIME}
+          roomId={roomUUID}
+          title={room?.title ?? ''}
+        />
         <Body>
           <TitleWrapper>
             <Title>{`${userName ?? ''} 님의 일정을`}</Title>
