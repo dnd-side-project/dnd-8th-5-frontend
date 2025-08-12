@@ -1,10 +1,12 @@
-import styled from '@emotion/styled';
-import RocketIcon from './Rocket';
-import theme from '@/styles/theme';
-import ChevronRightIcon from './ChevronRight';
 import { CSSProperties } from 'react';
+import styled from '@emotion/styled';
+import theme from '@/styles/theme';
+import RocketIcon from './Rocket';
+import ChevronRightIcon from './ChevronRight';
 
-const SHOW_UNTIL = 1755442799;
+const SHOW_UNTIL = 1755615599;
+const UPDATE_NOTE_URL =
+  'https://corinthionia.notion.site/25-08-12-24d7f0f8f024802bb8b2d64a8a0b7048';
 
 export function UpdateNote({
   isRoomStart = false,
@@ -18,7 +20,7 @@ export function UpdateNote({
 
   return (
     <Wrapper
-      href="https://pinto-henley-d33.notion.site/244b99fc3c9c8091a64ec9666554ad60"
+      href={UPDATE_NOTE_URL}
       target="_blank"
       rel="noopener noreferrer"
       isRoomStart={isRoomStart}
@@ -28,7 +30,7 @@ export function UpdateNote({
       <strong>업데이트 소식</strong>
       <span>|</span>
       <Content isRoomStart={isRoomStart}>
-        <span>실시간 현황에서 참여자를 삭제할 수 있어요.</span>
+        <span>참여자별로 등록한 일정을 확인할 수 있어요.</span>
         <ChevronRightIcon size={16} />
       </Content>
     </Wrapper>
