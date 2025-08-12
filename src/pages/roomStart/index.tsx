@@ -31,6 +31,7 @@ import { createRoomAtom } from '@/atoms/createRoomAtom';
 import useInputScroll from '@/hooks/useInputScroll';
 import { ROUTES } from '@/constants/ROUTES';
 import { Layout } from '@/components/commons/layout';
+import { UpdateNote } from '@/components/commons/updateNote';
 
 interface TagType {
   id: string;
@@ -113,6 +114,8 @@ const RoomStart = () => {
   return (
     <Layout>
       <MainContainer>
+        <UpdateNote isRoomStart />
+
         <Logo src={roomStart} alt="room start logo" />
         <FormContainer>
           <Header>어떤 약속인가요?</Header>

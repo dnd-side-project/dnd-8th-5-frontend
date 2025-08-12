@@ -50,6 +50,7 @@ import { QUERY_KEYS } from '@/constants/QUERY_KEYS';
 import { Helmet } from 'react-helmet-async';
 import { useGetAvailableTimeOverview } from '@/queries/availableTimes/useGetAvailableTimeOverview';
 import { useGetAvailableTimesByGroup } from '@/queries/availableTimes/useGetAvailableTimesByGroup';
+import { UpdateNote } from '@/components/commons/updateNote';
 
 const Current = () => {
   const queryClient = useQueryClient();
@@ -215,6 +216,8 @@ const Current = () => {
           <Header pageName={ROUTES.CURRENT} title={title} />
 
           <Body>
+            <UpdateNote />
+
             {deadLine && (
               <TimerWrapper>
                 <Timer deadLine={deadLine} />

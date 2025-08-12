@@ -6,7 +6,6 @@ export const Wrapper = styled.div`
   height: 100%;
   overflow-y: auto;
   margin: 0 auto;
-  padding: 48px 0 0px 0;
   scrollbar-width: none;
   overscroll-behavior: none;
   &::-webkit-scrollbar {
@@ -17,7 +16,7 @@ export const Wrapper = styled.div`
 export const Body = styled.div`
   width: 100%;
   margin: 0 auto;
-  padding: 0 0 90px 0;
+  padding: 76px 0 90px 0;
   display: flex;
   flex-direction: column;
 `;
@@ -26,11 +25,11 @@ export const Section = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 32px 20px 0 20px;
+  padding: 16px 20px 0 20px;
 `;
 
 export const TimerWrapper = styled.div`
-  padding: 32px 20px 0 20px;
+  padding: 0 20px 16px 20px;
 `;
 
 export const Border = styled.div`
