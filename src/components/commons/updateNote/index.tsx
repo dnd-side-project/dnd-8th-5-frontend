@@ -20,6 +20,7 @@ export function UpdateNote({
 
   return (
     <Wrapper
+      id="update-note"
       href={UPDATE_NOTE_URL}
       target="_blank"
       rel="noopener noreferrer"
