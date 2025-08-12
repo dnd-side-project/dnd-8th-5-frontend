@@ -1,5 +1,6 @@
 import { instance } from './instance';
 import { PutAvailableTimesParamsType } from '@/types/addTime';
+import qs from 'qs';
 
 export const putAvailableTimes = async ({
   roomUUID,
@@ -30,4 +31,23 @@ export const getAvailableTimesByGroup = async (roomUUID: string) => {
   );
 
   return data;
+};
+
+export const getAvailableTimeOverview = async ({
+  roomId,
+  participants,
+}: {
+  roomId: string;
+  participants: string[];
+}) => {
+  const response = await instance.get(
+    `/api/room/${roomId}/available-time/overview`,
+    {
+      params: { participantNames: participants },
+      paramsSerializer: (params) =>
+        qs.stringify(params, { arrayFormat: 'repeat' }),
+    }
+  );
+
+  return response.data;
 };
