@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState, useRef, FormEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import loginBg from '@/assets/images/loginBack.webp';
-import * as Sentry from '@sentry/react';
 
 import {
   FormContainer,

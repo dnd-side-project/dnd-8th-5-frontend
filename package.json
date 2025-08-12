@@ -65,6 +65,7 @@
     "lodash": "^4.17.21",
     "lottie-react": "^2.4.1",
     "normalize.css": "^8.0.1",
+    "qs": "^6.14.0",
     "react": "^18.2.0",
     "react-calendar": "4.0.0",
     "react-dom": "^18.2.0",
