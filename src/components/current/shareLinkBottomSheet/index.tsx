@@ -19,9 +19,17 @@ import copy from '@/assets/icons/copy.svg';
 import linkShareBottomSheetRabbit from '@/assets/images/linkShareBottomSheetRabbit.webp';
 import useShareLink from '@/hooks/useShareLink';
 
-const ShareLinkBottomSheet = ({ roomTitle }: { roomTitle: string }) => {
-  const { inviteURL, handleUseShareAPI, handleCopyToClipBoard } =
-    useShareLink();
+const ShareLinkBottomSheet = ({
+  roomId,
+  roomTitle,
+}: {
+  roomId: string;
+  roomTitle: string;
+}) => {
+  const { inviteURL, handleUseShareAPI, handleCopyToClipBoard } = useShareLink(
+    roomId,
+    roomTitle
+  );
 
   const setIsLinkShareBottomSheetOpened = useSetRecoilState(
     LinkShareBottomSheetState
@@ -53,12 +61,10 @@ const ShareLinkBottomSheet = ({ roomTitle }: { roomTitle: string }) => {
             <CopyIcon
               src={copy}
               alt="copy link"
-              onClick={() => handleCopyToClipBoard()}
+              onClick={handleCopyToClipBoard}
             />
           </LinkWrapper>
-          <ShareButton onClick={() => handleUseShareAPI(roomTitle)}>
-            지금 공유할게요
-          </ShareButton>
+          <ShareButton onClick={handleUseShareAPI}>지금 공유할게요</ShareButton>
           <LaterButtonWrapper>
             <LaterButton onClick={closeBottomSheet}>나중에 할게요</LaterButton>
           </LaterButtonWrapper>
