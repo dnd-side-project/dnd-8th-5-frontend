@@ -11,8 +11,16 @@ import { Icon, IconWrapper, Title, Wrapper } from './index.styles';
 import { ROUTES } from '@/constants/ROUTES';
 import useShareLink from '@/hooks/useShareLink';
 
-const Header = ({ pageName, title }: { pageName: string; title: string }) => {
-  const { handleCopyToClipBoard } = useShareLink();
+const Header = ({
+  pageName,
+  title,
+  roomId,
+}: {
+  pageName: string;
+  title: string;
+  roomId: string;
+}) => {
+  const { handleCopyToClipBoard } = useShareLink(roomId, title);
 
   const [, setIsTooltipShown] = useRecoilState(tooltipState);
 
@@ -40,11 +48,7 @@ const Header = ({ pageName, title }: { pageName: string; title: string }) => {
         ) : (
           <>
             <Icon src={headerMenu} alt="menu" onClick={handleMenuClick} />
-            <Icon
-              src={share}
-              alt="share"
-              onClick={() => handleCopyToClipBoard()}
-            />
+            <Icon src={share} alt="share" onClick={handleCopyToClipBoard} />
           </>
         )}
       </IconWrapper>

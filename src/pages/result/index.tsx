@@ -134,7 +134,7 @@ const Result = () => {
       </Helmet>
       <Layout>
         <Wrapper>
-          <Header pageName={ROUTES.RESULT} title={title} />
+          <Header pageName={ROUTES.RESULT} roomId={roomUUID} title={title} />
           <Body>
             <UpdateNote />
             <TitleWrapper>
@@ -215,7 +215,7 @@ const Result = () => {
             )}
           </Body>
 
-          <ResultButton roomTitle={title} />
+          <ResultButton roomId={roomUUID} roomTitle={title} />
 
           {isParticipantsOpened && (
             <BottomSheet

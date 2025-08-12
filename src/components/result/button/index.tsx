@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import {
   BottomButton,
@@ -16,14 +16,19 @@ import resultBubble from '@/assets/images/resultBubble.png';
 import { ROUTES } from '@/constants/ROUTES';
 import useShareLink from '@/hooks/useShareLink';
 
-const Button = ({ roomTitle }: { roomTitle: string }) => {
-  const { roomUUID } = useParams();
+const Button = ({
+  roomId,
+  roomTitle,
+}: {
+  roomId: string;
+  roomTitle: string;
+}) => {
   const navigate = useNavigate();
 
-  const { handleUseShareAPI } = useShareLink();
+  const { handleUseShareAPI } = useShareLink(roomId, roomTitle);
 
   const goToCurrent = () => {
-    navigate(`${ROUTES.CURRENT}/${roomUUID}`);
+    navigate(`${ROUTES.CURRENT}/${roomId}`);
   };
 
   return (
@@ -37,7 +42,7 @@ const Button = ({ roomTitle }: { roomTitle: string }) => {
             onClick={goToCurrent}
           />
         </CurrentButtonWrapper>
-        <BottomButton onClick={() => handleUseShareAPI(roomTitle)}>
+        <BottomButton onClick={handleUseShareAPI}>
           결과 공유하기
           <ShareButton src={shareResult} alt="share" />
         </BottomButton>

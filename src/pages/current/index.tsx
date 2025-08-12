@@ -207,7 +207,7 @@ const Current = () => {
       </Helmet>
       <Layout>
         <Wrapper ref={scrollRef}>
-          <Header pageName={ROUTES.CURRENT} title={title} />
+          <Header pageName={ROUTES.CURRENT} roomId={roomUUID} title={title} />
 
           <Body>
             <UpdateNote />
@@ -363,7 +363,7 @@ const Current = () => {
           />
 
           {isShareLinkBottomSheetOpened && (
-            <LinkShareBottomSheet roomTitle={data.title} />
+            <LinkShareBottomSheet roomId={roomUUID} roomTitle={data.title} />
           )}
         </Wrapper>
       </Layout>
