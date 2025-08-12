@@ -1,6 +1,8 @@
 import { AvailableDateTimeTypes } from '../types/current';
 import { getTimeArray } from './getTimeArray';
 
+const MIN_COLUMN_COUNT = 4;
+
 export const getCurrentTableInfo = (
   availableDateTimes: AvailableDateTimeTypes[],
   dates: string[],
@@ -19,9 +21,8 @@ export const getCurrentTableInfo = (
         };
   });
 
-  // 최소 column 개수: 4
-  if (dates.length < 4) {
-    const remainder = 4 - (dates.length % 4);
+  if (dates.length < MIN_COLUMN_COUNT) {
+    const remainder = MIN_COLUMN_COUNT - (dates.length % MIN_COLUMN_COUNT);
     const timeArray = getTimeArray(timeRange);
 
     const blankDateTimes = timeArray.map((time: string) => ({

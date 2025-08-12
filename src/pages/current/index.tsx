@@ -51,6 +51,7 @@ import { Helmet } from 'react-helmet-async';
 import { useGetAvailableTimeOverview } from '@/queries/availableTimes/useGetAvailableTimeOverview';
 import { useGetAvailableTimesByGroup } from '@/queries/availableTimes/useGetAvailableTimesByGroup';
 import { UpdateNote } from '@/components/commons/updateNote';
+import { getFormattedDateArray } from '@/utils/getFormattedDateArray';
 
 const Current = () => {
   const queryClient = useQueryClient();
@@ -120,13 +121,6 @@ const Current = () => {
     navigate(`${ROUTES.RESULT}/${roomUUID}`);
   };
 
-  const getFormattedDateArray = (dates: string[]) => {
-    const newDates = dates.map((date) =>
-      dayjs(date).locale('ko').format('YYYY-MM-DD dddd').toString()
-    );
-
-    return newDates;
-  };
   const handleModeButtonToggle = () => {
     setIsDeleteMode((prev) => !prev);
   };
@@ -316,11 +310,7 @@ const Current = () => {
               {isTableView ? (
                 <TableWrapper>
                   <Table
-                    dates={
-                      dates.length < 4
-                        ? getFourChunks(getFormattedDateArray(dates))
-                        : getFormattedDateArray(dates)
-                    }
+                    dates={getFormattedDateArray(dates)}
                     startTime={startTime}
                     endTime={endTime}
                     timeInfo={

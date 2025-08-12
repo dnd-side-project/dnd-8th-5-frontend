@@ -19,6 +19,8 @@ import {
   AvailableDateTimesTypes,
   AvailableDateTimeTypes,
 } from '@/types/current';
+import { getFourChunks } from '@/utils/getFourChunks';
+import { getFormattedDateArray } from '@/utils/getFormattedDateArray';
 
 interface TableTypes {
   dates: string[];
@@ -37,12 +39,14 @@ const Table = ({
 }: TableTypes) => {
   const timeRange = getTimeRange(parseInt(startTime), parseInt(endTime));
 
+  const dateInfo = dates.length < 4 ? getFourChunks(dates) : dates;
+
   return (
     <Wrapper>
       <Top>
         <Blank />
         <DateWrapper>
-          {dates.map((date: string) =>
+          {dateInfo.map((date: string) =>
             date.slice(0, 5) === 'blank' ? (
               <Date key={date} isBlank={true}></Date>
             ) : (
