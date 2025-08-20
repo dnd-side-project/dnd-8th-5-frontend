@@ -4,6 +4,7 @@ import { CalendarComponent, Wrapper } from './index.styles';
 import Toggle from '../toggle';
 import { useRecoilState } from 'recoil';
 import { createRoomAtom } from '@/atoms/createRoomAtom';
+import dayjs from 'dayjs';
 
 interface Calendar {
   setMonth: Dispatch<SetStateAction<string>>;
@@ -47,50 +48,26 @@ const Calendar = ({ setMonth }: Calendar) => {
     ],
   };
 
-  const makeDatesRange = (dates: DateObject[] | Date[]) => {
-    const newDateArray: string[] = [];
-    for (const date of dates) {
-      const newDate = new Date(String(date));
-      const year = newDate.getFullYear();
-      const month = newDate.getMonth() + 1;
-      const day = newDate.getDate();
-      const format =
-        year +
-        '-' +
-        ('00' + month.toString()).slice(-2) +
-        '-' +
-        ('00' + day.toString()).slice(-2);
+  const handleChangeDate = (value: DateObject | DateObject[] | null) => {
+    if (!value) return;
 
-      newDateArray.push(format);
-    }
-    setRecoilRoom((prev) => ({ ...prev, dates: newDateArray }));
-  };
-
-  const handleChangeDate = (dataObjects: DateObject | DateObject[] | null) => {
-    if (!dataObjects) return;
+    const dates = Array.isArray(value) ? value : value ? [value] : [];
 
     if (isRange) {
-      const allDates = getAllDatesInRange(Object(dataObjects), true);
-      makeDatesRange(allDates);
+      const dateRange = getAllDatesInRange(dates, true);
+      setRecoilRoom((prev) => ({
+        ...prev,
+        dates: dateRange.map((date) =>
+          date instanceof Date
+            ? dayjs(date).format('YYYY-MM-DD')
+            : date.format('YYYY-MM-DD')
+        ),
+      }));
     } else {
-      const newArr = [];
-      for (const key in Object(dataObjects)) {
-        const year = Object(dataObjects)[key].year;
-        const month = Object(dataObjects)[key].month;
-        const day = Object(dataObjects)[key].day;
-        const format =
-          year +
-          '-' +
-          ('00' + month.toString()).slice(-2) +
-          '-' +
-          ('00' + day.toString()).slice(-2);
-        newArr.push(format);
-        const newDateArr = Array.from(new Set(newArr));
-        newDateArr.sort((a, b) => {
-          return new Date(a).getTime() - new Date(b).getTime();
-        });
-        setRecoilRoom((prev) => ({ ...prev, dates: newDateArr }));
-      }
+      setRecoilRoom((prev) => ({
+        ...prev,
+        dates: dates.map((date) => date.format('YYYY-MM-DD')),
+      }));
     }
   };
 
