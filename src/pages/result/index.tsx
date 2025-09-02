@@ -39,9 +39,9 @@ interface Participants {
   isSelected: boolean;
 }
 
-interface QueryStringTypes {
-  name: string;
-  sort: string;
+export interface FilterTypes {
+  names: string[];
+  sort: 'fast' | 'long';
 }
 
 const Result = () => {
@@ -54,8 +54,8 @@ const Result = () => {
 
   const [isSortOpened, setIsSortOpened] = useState(false);
 
-  const [queryString, setQueryString] = useState<QueryStringTypes>({
-    name: '',
+  const [filter, setFilter] = useState<FilterTypes>({
+    names: [],
     sort: 'fast',
   });
 
@@ -67,27 +67,20 @@ const Result = () => {
     setIsSortOpened(!isSortOpened);
   };
 
-  const [{ title, participants }, setRoom] =
-    useState<RoomTypes>(initialRoomInfoData);
-
-  const roomInfo = useGetRoomInfo(roomUUID);
-
-  useEffect(() => {
-    if (roomInfo.data) {
-      setRoom(roomInfo.data);
-    }
-  }, [roomInfo.data]);
+  const { data: roomInfo } = useGetRoomInfo(roomUUID);
 
   const [participantsList, setParticipantsList] = useState<Participants[]>([]);
 
   useEffect(() => {
-    const newList = participants.map((participant: Participant) => ({
+    if (!roomInfo) return;
+
+    const newList = roomInfo.participants.map((participant: Participant) => ({
       name: participant.name,
       isSelected: true,
     }));
 
     setParticipantsList(newList);
-  }, [participants]);
+  }, [roomInfo?.participants]);
 
   useEffect(() => {
     const selected = participantsList.filter(
@@ -95,20 +88,18 @@ const Result = () => {
     );
 
     setFilteredParticipants(selected);
-
-    const qs = selected.map(({ name }: { name: string }) => `name=${name}&`);
-    setQueryString({ ...queryString, name: qs.join('') });
+    setFilter({ ...filter, names: selected.map((s) => s.name) });
   }, [participantsList]);
 
   const { data, refetch } = useGetCandidateTimes(
     roomUUID,
-    queryString.sort,
-    queryString.name
+    filter.sort,
+    filter.names
   );
 
   useEffect(() => {
     refetch();
-  }, [queryString]);
+  }, [filter]);
 
   const getFilteredName = () => {
     const selectedCount = filteredParticipants.length;
@@ -122,11 +113,12 @@ const Result = () => {
 
   const isFiltered = filteredParticipants.length !== participantsList.length;
 
+  if (!roomInfo) return null;
   return (
     <>
       <Helmet>
-        <title>{`${title} - 우선 순위 보기`}</title>
-        <meta name="title" content={`${title} - 우선 순위 보기`} />
+        <title>{`${roomInfo.title} - 우선 순위 보기`}</title>
+        <meta name="title" content={`${roomInfo.title} - 우선 순위 보기`} />
         <meta
           name="description"
           content="쉽고 빠른 약속시간 정하기, 모두의 시간"
@@ -134,12 +126,16 @@ const Result = () => {
       </Helmet>
       <Layout>
         <Wrapper>
-          <Header pageName={ROUTES.RESULT} roomId={roomUUID} title={title} />
+          <Header
+            pageName={ROUTES.RESULT}
+            roomId={roomUUID}
+            title={roomInfo.title}
+          />
           <Body>
             <UpdateNote />
             <TitleWrapper>
               <Title isNumber={false}>현재까지</Title>
-              <Title isNumber={true}>{participants.length}</Title>
+              <Title isNumber={true}>{roomInfo.participants.length}</Title>
               <Title isNumber={false}>명의</Title>
             </TitleWrapper>
             <TitleWrapper>
@@ -152,7 +148,7 @@ const Result = () => {
               />
               <SelectBox
                 text={
-                  queryString.sort === 'fast'
+                  filter.sort === 'fast'
                     ? '빠른 시간 순'
                     : '오래 만날 수 있는 순'
                 }
@@ -203,7 +199,7 @@ const Result = () => {
                         count={
                           isFiltered
                             ? filteredParticipants.length
-                            : participants.length
+                            : roomInfo.participants.length
                         }
                         isFiltered={isFiltered}
                         defaultOpen={true}
@@ -215,7 +211,7 @@ const Result = () => {
             )}
           </Body>
 
-          <ResultButton roomId={roomUUID} roomTitle={title} />
+          <ResultButton roomId={roomUUID} roomTitle={roomInfo.title} />
 
           {isParticipantsOpened && (
             <BottomSheet
@@ -237,8 +233,8 @@ const Result = () => {
               title="정렬"
               children={
                 <SortTimes
-                  queryString={queryString}
-                  setQueryString={setQueryString}
+                  filter={filter}
+                  setFilter={setFilter}
                   setIsSortOpened={setIsSortOpened}
                 />
               }

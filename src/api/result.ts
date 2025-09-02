@@ -1,13 +1,16 @@
 import { instance } from './instance';
+import qs from 'qs';
 
 export const getCandidateTimesInfo = async (
-  roomUUID: string,
+  roomId: string,
   sort: string,
-  name: string
+  name: string[]
 ) => {
-  const { data } = await instance.get(
-    `/api/room/${roomUUID}/adjustment-result?sorted=${sort}&${name}`
-  );
+  const { data } = await instance.get(`/api/room/${roomId}/adjustment-result`, {
+    params: { sorted: sort, name },
+    paramsSerializer: (params) =>
+      qs.stringify(params, { arrayFormat: 'repeat' }),
+  });
 
   return data;
 };

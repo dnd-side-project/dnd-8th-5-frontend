@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import _ from 'lodash';
-import * as Sentry from '@sentry/react';
+
 import { TableWrapper, Wrapper } from './index.styles';
 import Table from '../table';
 import AddButton from '../button';
@@ -16,6 +16,7 @@ import { useGetAvailableTimesByOne } from '@/queries/availableTimes/useGetAvaila
 
 import { ROUTES } from '@/constants/ROUTES';
 import { selectedMethodState } from '@/atoms/selectedMethodAtom';
+import * as Sentry from '@sentry/react';
 
 const TableArea = ({
   startTime,
@@ -40,7 +41,7 @@ const TableArea = ({
   const timeRange = getTimeRange(startTime, endTime);
 
   const { data } = useGetAvailableTimesByOne(roomUUID, userName);
-  const { mutate, isSuccess, isError } = usePutAvailableTimes();
+  const { mutate, isSuccess, isError, error } = usePutAvailableTimes();
 
   useEffect(() => {
     if (data) {
@@ -118,7 +119,15 @@ const TableArea = ({
     }
 
     if (isError) {
-      Sentry.captureException(`${selectedMethod}, ${Object.values(selected).flat()}`);
+      Sentry.captureException({
+        name: userName,
+        hasTime: true,
+        availableDateTimes: _.difference(
+          allTimeRange,
+          Object.values(selected).flat()
+        ),
+        error: error,
+      });
       alert('처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
     }
   }, [isSuccess, isError]);

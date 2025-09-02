@@ -5,10 +5,10 @@ import { QUERY_KEYS } from '@/constants/QUERY_KEYS';
 export const useGetCandidateTimes = (
   roomUUID: string,
   sort: string,
-  name: string
+  names: string[]
 ) => {
   return useQuery(
-    [QUERY_KEYS.RESULT.GET_CANDIDATE_TIMES, roomUUID, sort, name],
-    () => getCandidateTimesInfo(roomUUID, sort, name)
+    [QUERY_KEYS.RESULT.GET_CANDIDATE_TIMES, roomUUID, sort, names],
+    () => getCandidateTimesInfo(roomUUID, sort, names)
   );
 };
