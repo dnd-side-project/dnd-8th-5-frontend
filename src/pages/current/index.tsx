@@ -175,6 +175,10 @@ const Current = () => {
             QUERY_KEYS.RESULT.GET_CANDIDATE_TIMES,
             roomUUID,
           ]);
+          queryClient.invalidateQueries([
+            QUERY_KEYS.AVAILABLE_TIME.GET_AVAILABLE_TIMES_BY_ONE,
+            roomUUID,
+          ]);
 
           const savedUser = localStorage.getItem('userName');
           const isSavedUserDeleted =
