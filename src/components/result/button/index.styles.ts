@@ -3,7 +3,7 @@ import theme from '@/styles/theme';
 
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: 412px;
+  max-width: 462px;
   height: 117px;
 
   position: fixed;

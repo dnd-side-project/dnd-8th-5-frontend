@@ -4,7 +4,7 @@ import inviteBack from '@/assets/images/inviteBack.webp';
 
 export const MainContainer = styled.div`
   width: 100%;
-  max-width: 412px;
+  max-width: 462px;
   height: calc(100vh + 90px);
   position: relative;
   left: 0;
@@ -108,7 +108,7 @@ export const Participant = styled.div`
   ${theme.typography.semibold06}
   color: ${theme.colors.purple06};
 
-  @media screen and (max-width: 412px) {
+  @media screen and (max-width: 462px) {
     width: 64px;
   }
 `;

@@ -3,7 +3,7 @@ import { putAvailableTimes } from '@/api/availableTimes';
 import { PutAvailableTimesParamsType } from '@/types/addTime';
 
 export const usePutAvailableTimes = () => {
-  return useMutation(({ roomUUID, payload }: PutAvailableTimesParamsType) =>
-    putAvailableTimes({ roomUUID, payload })
+  return useMutation(({ roomId, payload }: PutAvailableTimesParamsType) =>
+    putAvailableTimes({ roomId, payload })
   );
 };

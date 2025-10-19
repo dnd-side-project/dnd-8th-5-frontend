@@ -44,7 +44,7 @@ export const Wrapper = styled.a<{ isRoomStart: boolean }>`
   left: 0;
   margin: 0 20px 16px 20px;
   width: calc(100% - 40px);
-  max-width: 412px;
+  max-width: 462px;
   background: ${({ isRoomStart }) =>
     isRoomStart ? '#b6bfff' : theme.colors.gray02};
   border-radius: 8px;

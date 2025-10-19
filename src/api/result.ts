@@ -1,3 +1,4 @@
+import { GetAdjustmentResultRepsonse } from '@/models/result';
 import { instance } from './instance';
 import qs from 'qs';
 
@@ -6,11 +7,12 @@ export const getCandidateTimesInfo = async (
   sort: string,
   name: string[]
 ) => {
-  const { data } = await instance.get(`/api/room/${roomId}/adjustment-result`, {
-    params: { sorted: sort, name },
-    paramsSerializer: (params) =>
-      qs.stringify(params, { arrayFormat: 'repeat' }),
-  });
-
-  return data;
+  return await instance.get<GetAdjustmentResultRepsonse>(
+    `/api/room/${roomId}/adjustment-result`,
+    {
+      params: { sorted: sort, name },
+      paramsSerializer: (params: string[]) =>
+        qs.stringify(params, { arrayFormat: 'repeat' }),
+    }
+  );
 };

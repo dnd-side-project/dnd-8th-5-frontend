@@ -1,5 +1,3 @@
-import { RefObject } from 'react';
-
 export interface SelectType {
   isValidDate: boolean;
   selectedMethod: string;

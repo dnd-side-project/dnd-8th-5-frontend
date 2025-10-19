@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   justify-content: center;
   top: 0px;
   width: 100%;
-  max-width: 412px;
+  max-width: 462px;
   height: 100%;
   z-index: 200;
   align-items: center;
@@ -24,7 +24,7 @@ export const GuideImage = styled.img`
   position: absolute;
   top: 190px;
   width: 104%;
-  max-width: 412px;
+  max-width: 462px;
   padding-inline: 10px;
   z-index: 5;
 `;
