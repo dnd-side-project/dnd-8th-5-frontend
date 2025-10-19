@@ -79,6 +79,7 @@ export function ParticipantOption({
           </ParticipantBlock>
         ))}
       </Wrapper>
+
       <Bottom>
         <Refresh onClick={handleRefresh}>
           <RefreshIcon src={refresh} alt="refresh" />

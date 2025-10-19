@@ -15,6 +15,7 @@ import { useGetCandidateTimes } from '@/queries/result/useGetCandidateTimes';
 import empty from '@/assets/images/nobody.png';
 import { Candidate } from '@/components/result/candidate';
 import { ParticipantOption } from '@/components/result/option/participantsOption';
+import { Loading } from '@/components/commons/loading';
 
 export interface FilterTypes {
   names: string[];
@@ -48,7 +49,7 @@ export default function Result() {
   const { data: candidateTimes } = useGetCandidateTimes(
     roomId ?? '',
     filter.sort,
-    filter.names
+    filter.names.sort((a, b) => a.localeCompare(b, 'ko-KR'))
   );
 
   const isParticipantsFiltered =
@@ -57,7 +58,8 @@ export default function Result() {
   const showEmpty =
     !candidateTimes ||
     candidateTimes.candidateTimes.length === 0 ||
-    candidateTimes.candidateTimes[0].unavailableParticipantNames.length > 0;
+    candidateTimes.candidateTimes[0].unavailableParticipantNames.length <
+      filter.names.length;
 
   const selectedParticipantsText = (() => {
     if (filter.names.length === roomInfo?.participants.length) {
@@ -93,7 +95,7 @@ export default function Result() {
         names: roomInfo.participants.map((participant) => participant.name),
       }));
     }
-  }, [roomInfo]);
+  }, [roomInfo?.participants]);
 
   if (!roomId) {
     navigation(ROUTES.LANDING);
@@ -101,7 +103,11 @@ export default function Result() {
   }
 
   if (!roomInfo) {
-    return <div>Loading...</div>;
+    return (
+      <Layout>
+        <Loading />
+      </Layout>
+    );
   }
 
   return (
@@ -124,7 +130,7 @@ export default function Result() {
           <Main>
             <Title>
               <h1>
-                현재까지 <span>{roomInfo.participants.length}</span>명의
+                현재까지 <span>{filter.names.length}</span>명의
               </h1>
               <h1>약속 조율 결과예요</h1>
             </Title>
@@ -209,7 +215,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   flex: 1;
   overflow: auto;
-  border: 1px solid gray;
 `;
 
 export const Main = styled.main`

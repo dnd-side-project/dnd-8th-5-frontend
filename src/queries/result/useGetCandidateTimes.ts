@@ -8,12 +8,7 @@ export const useGetCandidateTimes = (
   names: string[]
 ) => {
   return useQuery({
-    queryKey: [
-      QUERY_KEYS.RESULT.GET_CANDIDATE_TIMES,
-      roomId,
-      sort,
-      names.sort((a, b) => a.localeCompare(b, 'ko-KR')),
-    ],
+    queryKey: [QUERY_KEYS.RESULT.GET_CANDIDATE_TIMES, roomId, sort, names],
     queryFn: () => getCandidateTimesInfo(roomId, sort, names),
     enabled: !!roomId,
   });
