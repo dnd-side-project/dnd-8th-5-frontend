@@ -7,19 +7,18 @@ export const Bottom = styled.div`
   height: 44px;
 
   display: flex;
-  justify-content: space-between;
-
+  gap: 8px;
   position: absolute;
   bottom: 28px;
 `;
 
 export const Button = styled.div`
-  width: 243px;
   height: 100%;
 
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 1;
 
   border-radius: 6px;
   ${theme.typography.semibold04};
@@ -29,7 +28,7 @@ export const Button = styled.div`
   cursor: pointer;
 `;
 
-export const ParticipantWrapper = styled.div<{ isSelected: boolean }>`
+export const ParticipantBlock = styled.div<{ isSelected: boolean }>`
   height: 36px;
   padding: 8px 20px;
   border-radius: 38px;
@@ -50,12 +49,9 @@ export const ParticipantWrapper = styled.div<{ isSelected: boolean }>`
 `;
 
 export const Refresh = styled.div`
-  width: 87px;
-  margin-left: 2px;
-
   display: flex;
   align-items: center;
-
+  padding: 0 8px;
   cursor: pointer;
 `;
 

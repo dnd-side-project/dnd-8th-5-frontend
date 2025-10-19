@@ -1,111 +1,91 @@
-import { useState, MouseEvent, TouchEvent, useEffect } from 'react';
-
+import { useState } from 'react';
+import refresh from '@/assets/icons/refresh.svg';
 import {
   Bottom,
   Button,
+  ParticipantBlock,
   Refresh,
   RefreshButton,
   RefreshIcon,
 } from './index.styles';
 import { Wrapper } from '../index.styles';
-import refresh from '@/assets/icons/refresh.svg';
 
-import { Participants, ParticipantsOptionTypes } from './index.types';
+interface Props {
+  handleCloseBottomSheet: () => void;
+  participants: string[];
+  selectedParticipants: string[];
+  handleSelectedParticipantsSelect: (participants: string[]) => void;
+}
 
-import Participant from '../participantBlock';
+export function ParticipantOption({
+  handleCloseBottomSheet,
+  participants,
+  selectedParticipants,
+  handleSelectedParticipantsSelect,
+}: Props) {
+  const [selected, setSelected] = useState<string[]>(selectedParticipants);
 
-const ParticipantOption = ({
-  setIsParticipantOpened,
-  participantsList,
-  setParticipantsList,
-}: ParticipantsOptionTypes) => {
-  const [isSelectedAll, setIsSelectedAll] = useState<boolean>(false);
-  const [updatedList, setUpdatedList] =
-    useState<Participants[]>(participantsList);
+  const handleSelectAllClick = () => {
+    if (selected.length === participants.length) {
+      setSelected([]);
+      return;
+    }
 
-  const selectedCount = updatedList.filter(
-    ({ isSelected }: { isSelected: boolean }) => isSelected === true
-  ).length;
-
-  const handleSelectAll = () => {
-    const newList = updatedList.map((participant: Participants) => ({
-      ...participant,
-      isSelected: !isSelectedAll,
-    }));
-
-    setUpdatedList(newList);
-    setIsSelectedAll(!isSelectedAll);
+    setSelected(participants);
   };
 
-  const handleBlockClick = (
-    e: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>
-  ) => {
-    const target = e.target as HTMLDivElement;
+  const handleParticipantClick = (participant: string) => {
+    if (selected.includes(participant)) {
+      const filtered = selected.filter((p) => p !== participant);
+      setSelected(filtered);
+      return;
+    }
 
-    const newList = updatedList.map(({ name, isSelected }: Participants) =>
-      name === target.id
-        ? { name: name, isSelected: !isSelected }
-        : { name: name, isSelected: isSelected }
-    );
-
-    setUpdatedList(newList);
+    setSelected([...selected, participant]);
   };
 
   const handleRefresh = () => {
-    const newList = updatedList.map(({ name }: { name: string }) => ({
-      name: name,
-      isSelected: false,
-    }));
-
-    setUpdatedList(newList);
+    setSelected(participants);
   };
 
   const handleApplyClick = () => {
-    if (selectedCount === 0) {
-      const newList = updatedList.map((participant: Participants) => ({
-        ...participant,
-        isSelected: true,
-      }));
-
-      setParticipantsList(newList);
-      setIsSelectedAll(true);
-    } else {
-      setParticipantsList(updatedList);
+    if (selected.length === 0) {
+      handleSelectedParticipantsSelect(participants);
+      handleCloseBottomSheet();
+      return;
     }
 
-    setIsParticipantOpened(false);
+    handleSelectedParticipantsSelect(selected);
+    handleCloseBottomSheet();
   };
-
-  useEffect(() => {
-    setIsSelectedAll(selectedCount === updatedList.length);
-  }, [updatedList, setIsSelectedAll]);
 
   return (
     <>
       <Wrapper>
-        <Participant
-          id="전체참여자"
-          onClick={handleSelectAll}
-          isSelected={isSelectedAll}
-        />
-        {updatedList.map(({ name, isSelected }: Participants) => (
-          <Participant
-            onClick={handleBlockClick}
-            key={name}
-            id={name}
-            isSelected={isSelected}
-          />
+        <ParticipantBlock
+          id="전체 참여자"
+          onClick={handleSelectAllClick}
+          isSelected={participants.length === selected.length}
+        >
+          전체
+        </ParticipantBlock>
+        {participants.map((participant) => (
+          <ParticipantBlock
+            key={participant}
+            onClick={() => handleParticipantClick(participant)}
+            isSelected={selected.includes(participant)}
+          >
+            {participant}
+          </ParticipantBlock>
         ))}
       </Wrapper>
       <Bottom>
         <Refresh onClick={handleRefresh}>
           <RefreshIcon src={refresh} alt="refresh" />
-          <RefreshButton>새로고침</RefreshButton>
+          <RefreshButton>초기화</RefreshButton>
         </Refresh>
         <Button onClick={handleApplyClick}>적용하기</Button>
       </Bottom>
     </>
   );
-};
-
-export default ParticipantOption;
+}
