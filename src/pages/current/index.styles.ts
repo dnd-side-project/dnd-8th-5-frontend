@@ -114,7 +114,7 @@ export const TableWrapper = styled.div`
 
 export const BottomWrapper = styled.div`
   width: 100%;
-  max-width: 462px;
+  max-width: 412px;
   height: 0.1px;
   margin: 0 auto;
   display: flex;

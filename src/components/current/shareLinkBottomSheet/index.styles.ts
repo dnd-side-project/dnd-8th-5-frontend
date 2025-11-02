@@ -18,7 +18,7 @@ export const Overlay = styled.div`
 
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: 462px;
+  max-width: 412px;
   height: 450px;
 
   position: fixed;

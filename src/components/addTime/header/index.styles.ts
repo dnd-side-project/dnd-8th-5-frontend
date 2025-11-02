@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 64px;
   background: #fff;
-  max-width: 462px;
+  max-width: 412px;
 `;
 
 export const InfoWrapper = styled.div`

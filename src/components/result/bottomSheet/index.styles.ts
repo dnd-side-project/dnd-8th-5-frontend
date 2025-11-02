@@ -18,7 +18,7 @@ export const Overlay = styled.div`
 
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: 462px;
+  max-width: 412px;
   border-radius: 12px 12px 0 0;
   background: ${theme.colors.gray01};
 
