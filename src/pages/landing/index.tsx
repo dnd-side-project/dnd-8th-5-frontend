@@ -149,8 +149,16 @@ import landingPriority from '@/assets/images/landing_priority.webp';
 import { Layout } from '@/components/commons/layout';
 import theme from '@/styles/theme';
 import { flotingAnimation } from '@/utils/flotingAnimation';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/constants/ROUTES';
 
 export default function Landing() {
+  const navigate = useNavigate();
+
+  const handleStartButtonClick = () => {
+    navigate(ROUTES.ROOM_START);
+  };
+
   return (
     <Layout>
       <Wrapper>
@@ -211,7 +219,7 @@ export default function Landing() {
         </FifthSection>
       </Wrapper>
 
-      <Button>시작하기</Button>
+      <Button onClick={handleStartButtonClick}>시작하기</Button>
     </Layout>
   );
 }
