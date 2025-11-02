@@ -140,6 +140,9 @@ import landingLogoRabbit from '@/assets/images/landing_logo_rabbit.webp';
 import landingScroll from '@/assets/images/landing_scroll.webp';
 import landingChat from '@/assets/images/landing_chat.webp';
 import landingHelp from '@/assets/images/landing_help.webp';
+import landingCalendar from '@/assets/images/landing_calendar.webp';
+import landingShare from '@/assets/images/landing_share.webp';
+import landingAddTime from '@/assets/images/landing_add_time.webp';
 
 import { Layout } from '@/components/commons/layout';
 import theme from '@/styles/theme';
@@ -175,6 +178,20 @@ export default function Landing() {
           <img src={landingChat} width="100%" />
           <img src={landingHelp} width="100%" style={{ marginTop: '76px' }} />
         </SecondSection>
+
+        <ThirdSection>
+          <div>
+            <h3>약속 시간 만들기</h3>
+            <h2>{`간단하게 약속 모임을\n만들어 보세요!`}</h2>
+            <img src={landingCalendar} width="100%" />
+            <img src={landingShare} width="100%" />
+          </div>
+          <div>
+            <h3>시간 입력하기</h3>
+            <h2>{`되는 시간 / 안 되는 시간 토글로\n일정을 등록해 보세요`}</h2>
+            <img src={landingAddTime} width="100%" />
+          </div>
+        </ThirdSection>
       </Wrapper>
     </Layout>
   );
@@ -227,7 +244,6 @@ export const ScrollWrapper = styled.div`
 `;
 
 export const SecondSection = styled.section`
-  position: relative;
   width: 100%;
   height: 100vh;
   min-height: 100vh;
@@ -242,5 +258,41 @@ export const SecondSection = styled.section`
     text-align: center;
     color: ${theme.colors.gray01};
     ${theme.typography.medium00};
+  }
+`;
+
+export const ThirdSection = styled.section`
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px 80px 20px;
+  gap: 148px;
+  background: linear-gradient(
+    to bottom,
+    rgba(236, 239, 254, 0) 0%,
+    rgba(236, 239, 254, 1) 100%
+  );
+
+  div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h3 {
+    margin: 0 0 8px 0;
+    color: ${theme.colors.purple06};
+    ${theme.typography.medium01};
+  }
+
+  h2 {
+    margin: 0 0 36px 0;
+    white-space: pre-line;
+    text-align: center;
+    color: ${theme.colors.gray07};
+    ${theme.typography.semibold01};
   }
 `;
