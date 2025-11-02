@@ -1,138 +1,11 @@
-// import { useEffect, useRef } from 'react';
-// import { Link } from 'react-router-dom';
-
+import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-
-// import * as S from './index.styles';
-
-// import BottomButton from '@/components/commons/bottomButton';
-// import { useComponentOnScreen } from '@/hooks/useComponentOnScreen';
-
-// import Rabbit from '@/assets/images/rabbit.webp';
-// import SubLogo from '@/assets/images/subLogo.webp';
-// import Logo from '@/assets/images/logo.webp';
-// import ScrollArrow from '@/assets/icons/scrollArrow.webp';
-// import landing1 from '@/assets/images/landing1.webp';
-// import landing2 from '@/assets/images/landing2.webp';
-// import landing3 from '@/assets/images/landing3.webp';
-// import landing4 from '@/assets/images/landing4.webp';
-// import landing5 from '@/assets/images/landing5.webp';
-// import landing6 from '@/assets/images/landing6.webp';
-// import { initialCreateRoomData } from '@/assets/data/initialCreateRoomData';
-// import { useSetRecoilState } from 'recoil';
-// import { createRoomAtom } from '@/atoms/createRoomAtom';
-
-// const Landing = () => {
-//   const introRef = useRef<HTMLDivElement>(null);
-//   const firstRef = useRef<HTMLDivElement>(null);
-//   const secondRef = useRef<HTMLDivElement>(null);
-//   const thirdRef = useRef<HTMLDivElement>(null);
-//   const fourthRef = useRef<HTMLDivElement>(null);
-//   const lastRef = useRef<HTMLDivElement>(null);
-//   const setRecoilRoom = useSetRecoilState(createRoomAtom);
-
-//   useComponentOnScreen([
-//     introRef,
-//     firstRef,
-//     secondRef,
-//     thirdRef,
-//     fourthRef,
-//     lastRef,
-//   ]);
-
-//   const CONTENTS = [
-//     {
-//       id: 1,
-//       titleHeader: '약속 시간 만들기',
-//       title: '간단하게 약속 모임을\n만들어보세요',
-//       images: [landing2, landing3],
-//       ref: firstRef,
-//     },
-//     {
-//       id: 2,
-//       titleHeader: '시간 입력하기',
-//       title: '되는 시간/안되는 시간 토글로\n일정을 등록해보세요',
-//       images: [landing4],
-//       ref: secondRef,
-//     },
-//     {
-//       id: 3,
-//       titleHeader: '실시간 확인하기',
-//       title: '일정등록 타이머와 함께\n실시간 참여율을 확인할 수 있어요',
-//       images: [landing5],
-//       ref: thirdRef,
-//     },
-//     {
-//       id: 4,
-//       titleHeader: '우선순위 확인하기',
-//       title: '조율 결과를\n한눈에 확인해볼까요?',
-//       images: [landing6],
-//       ref: fourthRef,
-//     },
-//   ];
-
-//   useEffect(() => {
-//     setRecoilRoom(initialCreateRoomData);
-//   }, []);
-
-//   return (
-//     <S.MainContainer>
-//       <S.StartWrapper>
-//         <img className="logo-header" src={SubLogo} />
-//         <img className="logo" src={Logo} />
-//         <img className="rabbit" src={Rabbit} />
-//         <S.ScrollWrapper>
-//           <img className="arrow" src={ScrollArrow} />
-//           스크롤해 보세요
-//         </S.ScrollWrapper>
-//       </S.StartWrapper>
-//       <S.IntroWrapper ref={introRef}>
-//         <div className="title">
-//           {`3인 이상 약속을 잡을 때,
-//         일정 조율하기 어렵지 않으셨나요?`}
-//         </div>
-//         <img className="chat" src={landing1} />
-//         <div className="section">
-//           <div className="section-logo">
-//             <img className="logo" src={Logo} />
-//           </div>
-//           <div className="section-text">도와드릴게요!</div>
-//         </div>
-//       </S.IntroWrapper>
-//       <S.ContentsWrapper>
-//         {CONTENTS.map((item) => {
-//           return (
-//             <S.ContentWrapper index={item.id} key={item.id} ref={item.ref}>
-//               <S.TitleWrapper>
-//                 <div className="title-header">{item.titleHeader}</div>
-//                 <div className="title">{item.title}</div>
-//               </S.TitleWrapper>
-//               {item.images.map((image) => {
-//                 return <img src={image} key={image} />;
-//               })}
-//             </S.ContentWrapper>
-//           );
-//         })}
-//       </S.ContentsWrapper>
-//       <S.LastWrapper ref={lastRef}>
-//         <div className="title">
-//           {`간편하고 빠르게 약속시간을 정하고 싶다면
-//           모두의 시간과 함께 해보세요!`}
-//         </div>
-//       </S.LastWrapper>
-//       <Link to="/roomStart">
-//         <BottomButton
-//           text="시작하기"
-//           isBackgroundVisible={false}
-//           isActivated={true}
-//           isLanding={true}
-//         />
-//       </Link>
-//     </S.MainContainer>
-//   );
-// };
-
-// export default Landing;
+import theme from '@/styles/theme';
+import { ROUTES } from '@/constants/ROUTES';
+import { Layout } from '@/components/commons/layout';
+import { flotingAnimation } from '@/utils/flotingAnimation';
+import { useComponentOnScreen } from '@/hooks/useComponentOnScreen';
 
 import landingBackgroundImage from '@/assets/images/landing_background.webp';
 import landingLogo from '@/assets/images/landing_logo.webp';
@@ -146,18 +19,19 @@ import landingAddTime from '@/assets/images/landing_add_time.webp';
 import landingCurrent from '@/assets/images/landing_current.webp';
 import landingPriority from '@/assets/images/landing_priority.webp';
 
-import { Layout } from '@/components/commons/layout';
-import theme from '@/styles/theme';
-import { flotingAnimation } from '@/utils/flotingAnimation';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '@/constants/ROUTES';
-
 export default function Landing() {
   const navigate = useNavigate();
 
   const handleStartButtonClick = () => {
     navigate(ROUTES.ROOM_START);
   };
+
+  const secondRef = useRef<HTMLDivElement>(null);
+  const thirdRef = useRef<HTMLDivElement>(null);
+  const fourthRef = useRef<HTMLDivElement>(null);
+  const fifthRef = useRef<HTMLDivElement>(null);
+
+  useComponentOnScreen([secondRef, thirdRef, fourthRef, fifthRef]);
 
   return (
     <Layout>
@@ -181,13 +55,13 @@ export default function Landing() {
           </ScrollWrapper>
         </FirstSection>
 
-        <SecondSection>
+        <SecondSection ref={secondRef}>
           <h2>{`3인이상 약속을 잡을 때,\n일정 조율하기 어렵지 않으셨나요?`}</h2>
           <img src={landingChat} width="100%" />
           <img src={landingHelp} width="100%" style={{ marginTop: '76px' }} />
         </SecondSection>
 
-        <ThirdSection>
+        <ThirdSection ref={thirdRef}>
           <div>
             <h2>약속 시간 만들기</h2>
             <h3>{`간단하게 약속 모임을\n만들어 보세요!`}</h3>
@@ -201,7 +75,7 @@ export default function Landing() {
           </div>
         </ThirdSection>
 
-        <FourthSection>
+        <FourthSection ref={fourthRef}>
           <div>
             <h2>실시간 확인하기</h2>
             <h3>{`일정등록 타이머와 함께\n실시간 참여율을 확인할 수 있어요`}</h3>
@@ -214,7 +88,7 @@ export default function Landing() {
           </div>
         </FourthSection>
 
-        <FifthSection>
+        <FifthSection ref={fifthRef}>
           <h3>{`간편하고 빠르게 약속 시간을 정하고 싶다면\n모두의 시간과 함께 해 보세요!`}</h3>
         </FifthSection>
       </Wrapper>
@@ -272,6 +146,9 @@ export const SecondSection = styled.section`
     color: ${theme.colors.gray01};
     ${theme.typography.medium00};
   }
+
+  transition: all 2s;
+  transform: translateY(100px);
 `;
 
 export const ThirdSection = styled.section`
@@ -302,6 +179,9 @@ export const ThirdSection = styled.section`
     color: ${theme.colors.gray07};
     ${theme.typography.semibold01};
   }
+
+  transition: all 2s;
+  transform: translateY(100px);
 `;
 
 export const FourthSection = styled.section`
@@ -333,6 +213,9 @@ export const FourthSection = styled.section`
     color: ${theme.colors.gray07};
     ${theme.typography.semibold01};
   }
+
+  transition: all 2s;
+  transform: translateY(100px);
 `;
 
 export const FifthSection = styled.div`
@@ -345,6 +228,9 @@ export const FifthSection = styled.div`
     margin: 0;
     color: ${theme.colors.gray01};
   }
+
+  transition: all 2s;
+  transform: translateY(100px);
 `;
 
 export const Button = styled.button`
