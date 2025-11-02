@@ -138,6 +138,8 @@ import landingBackgroundImage from '@/assets/images/landing_background.webp';
 import landingLogo from '@/assets/images/landing_logo.webp';
 import landingLogoRabbit from '@/assets/images/landing_logo_rabbit.webp';
 import landingScroll from '@/assets/images/landing_scroll.webp';
+import landingChat from '@/assets/images/landing_chat.webp';
+import landingHelp from '@/assets/images/landing_help.webp';
 
 import { Layout } from '@/components/commons/layout';
 import theme from '@/styles/theme';
@@ -149,18 +151,12 @@ export default function Landing() {
       <Wrapper>
         <Background src={landingBackgroundImage} alt="배경 이미지" />
         <FirstSection>
-          <img
-            src={landingLogo}
-            alt="모두의 시간"
-            width="302px"
-            height="88px"
-          />
+          <img src={landingLogo} alt="모두의 시간" width="80%" />
           <img
             src={landingLogoRabbit}
             alt="모두의 시간"
-            width="293px"
-            height="329px"
-            style={{ marginTop: '72px' }}
+            width="80%"
+            style={{ marginTop: '64px' }}
           />
           <ScrollWrapper>
             <img
@@ -173,6 +169,12 @@ export default function Landing() {
 
           <Button>시작하기</Button>
         </FirstSection>
+
+        <SecondSection>
+          <h2>{`3인이상 약속을 잡을 때,\n일정 조율하기 어렵지 않으셨나요?`}</h2>
+          <img src={landingChat} width="100%" />
+          <img src={landingHelp} width="100%" style={{ marginTop: '76px' }} />
+        </SecondSection>
       </Wrapper>
     </Layout>
   );
@@ -183,21 +185,21 @@ export const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  flex: 1;
   overflow-y: auto;
 `;
 
 export const Background = styled.img`
+  position: absolute;
   width: 100%;
   height: auto;
   z-index: -1;
-  position: absolute;
 `;
 
 export const FirstSection = styled.section`
+  position: relative;
   width: 100%;
   height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -220,6 +222,25 @@ export const Button = styled.button`
 
 export const ScrollWrapper = styled.div`
   position: absolute;
-  bottom: 120px;
+  bottom: 100px;
   animation: ${flotingAnimation} 2s infinite;
+`;
+
+export const SecondSection = styled.section`
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8vh 20px 0 20px;
+
+  h2 {
+    margin: 0 0 40px 0;
+    white-space: pre-line;
+    text-align: center;
+    color: ${theme.colors.gray01};
+    ${theme.typography.medium00};
+  }
 `;
