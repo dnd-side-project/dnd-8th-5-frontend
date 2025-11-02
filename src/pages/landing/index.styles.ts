@@ -7,11 +7,11 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 412px;
-  height: 5948px;
+  max-width: 462px;
+  height: 6670px;
   margin: 0 auto;
   background-image: url(${landingBack});
-  background-size: 412px 5948px;
+  background-size: 462px 6670px;
   background-position: center;
   background-color: ${theme.colors.purple05};
   &::-webkit-scrollbar {
@@ -42,7 +42,7 @@ export const StartWrapper = styled.div`
   }
 
   .logo {
-    width: calc(100% - 152px);
+    width: 260px;
     height: 42px;
     margin-bottom: 58px;
   }
