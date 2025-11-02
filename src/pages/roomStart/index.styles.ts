@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 export const MainContainer = styled.div`
   position: relative;
   width: 100%;
-  max-width: 412px;
+  max-width: 462px;
   height: 100%;
   display: flex;
   flex-direction: column;

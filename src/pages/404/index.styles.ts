@@ -3,7 +3,7 @@ import background from '@/assets/images/errorBack.webp';
 
 export const MainContainer = styled.div`
   width: 100%;
-  max-width: 412px;
+  max-width: 462px;
   height: 100vh;
 
   margin: 0 auto;
