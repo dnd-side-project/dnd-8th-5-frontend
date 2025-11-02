@@ -235,11 +235,11 @@ export const FifthSection = styled.div`
 
 export const Button = styled.button`
   position: absolute;
-  bottom: 32px;
+  bottom: 24px;
   left: 20px;
   width: calc(100% - 40px);
-  margin: 0 auto;
   height: 52px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
