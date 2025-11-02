@@ -143,6 +143,8 @@ import landingHelp from '@/assets/images/landing_help.webp';
 import landingCalendar from '@/assets/images/landing_calendar.webp';
 import landingShare from '@/assets/images/landing_share.webp';
 import landingAddTime from '@/assets/images/landing_add_time.webp';
+import landingCurrent from '@/assets/images/landing_current.webp';
+import landingPriority from '@/assets/images/landing_priority.webp';
 
 import { Layout } from '@/components/commons/layout';
 import theme from '@/styles/theme';
@@ -169,8 +171,6 @@ export default function Landing() {
               height="24px"
             />
           </ScrollWrapper>
-
-          <Button>시작하기</Button>
         </FirstSection>
 
         <SecondSection>
@@ -181,18 +181,37 @@ export default function Landing() {
 
         <ThirdSection>
           <div>
-            <h3>약속 시간 만들기</h3>
-            <h2>{`간단하게 약속 모임을\n만들어 보세요!`}</h2>
-            <img src={landingCalendar} width="100%" />
-            <img src={landingShare} width="100%" />
+            <h2>약속 시간 만들기</h2>
+            <h3>{`간단하게 약속 모임을\n만들어 보세요!`}</h3>
+            <img src={landingCalendar} width="60%" />
+            <img src={landingShare} width="60%" />
           </div>
           <div>
-            <h3>시간 입력하기</h3>
-            <h2>{`되는 시간 / 안 되는 시간 토글로\n일정을 등록해 보세요`}</h2>
+            <h2>시간 입력하기</h2>
+            <h3>{`되는 시간 / 안 되는 시간 토글로\n일정을 등록해 보세요`}</h3>
             <img src={landingAddTime} width="100%" />
           </div>
         </ThirdSection>
+
+        <FourthSection>
+          <div>
+            <h2>실시간 확인하기</h2>
+            <h3>{`일정등록 타이머와 함께\n실시간 참여율을 확인할 수 있어요`}</h3>
+            <img src={landingCurrent} width="60%" />
+          </div>
+          <div>
+            <h2>우선순위 확인하기</h2>
+            <h3>{`조율 결과를\n한눈에 확인해 볼까요?`}</h3>
+            <img src={landingPriority} width="60%" />
+          </div>
+        </FourthSection>
+
+        <FifthSection>
+          <h3>{`간편하고 빠르게 약속 시간을 정하고 싶다면\n모두의 시간과 함께 해 보세요!`}</h3>
+        </FifthSection>
       </Wrapper>
+
+      <Button>시작하기</Button>
     </Layout>
   );
 }
@@ -223,20 +242,6 @@ export const FirstSection = styled.section`
   padding: 14vh 20px 0 20px;
 `;
 
-export const Button = styled.button`
-  position: absolute;
-  bottom: 32px;
-  width: calc(100% - 40px);
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${theme.colors.gray01};
-  border-radius: 6px;
-  background: #4e62fb;
-  ${theme.typography.semibold03};
-`;
-
 export const ScrollWrapper = styled.div`
   position: absolute;
   bottom: 100px;
@@ -262,18 +267,12 @@ export const SecondSection = styled.section`
 `;
 
 export const ThirdSection = styled.section`
-  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 20px 80px 20px;
+  padding: 4vh 20px 80px 20px;
   gap: 148px;
-  background: linear-gradient(
-    to bottom,
-    rgba(236, 239, 254, 0) 0%,
-    rgba(236, 239, 254, 1) 100%
-  );
 
   div {
     width: 100%;
@@ -282,17 +281,76 @@ export const ThirdSection = styled.section`
     align-items: center;
   }
 
-  h3 {
+  h2 {
     margin: 0 0 8px 0;
     color: ${theme.colors.purple06};
     ${theme.typography.medium01};
   }
 
-  h2 {
+  h3 {
     margin: 0 0 36px 0;
     white-space: pre-line;
     text-align: center;
     color: ${theme.colors.gray07};
     ${theme.typography.semibold01};
   }
+`;
+
+export const FourthSection = styled.section`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px 80px 20px;
+  gap: 148px;
+  background: #dadeff;
+
+  div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h2 {
+    margin: 0 0 8px 0;
+    color: ${theme.colors.purple06};
+    ${theme.typography.medium01};
+  }
+
+  h3 {
+    margin: 0 0 36px 0;
+    white-space: pre-line;
+    text-align: center;
+    color: ${theme.colors.gray07};
+    ${theme.typography.semibold01};
+  }
+`;
+
+export const FifthSection = styled.div`
+  width: 100%;
+  padding: 128px 0 0 0;
+
+  h3 {
+    white-space: pre-line;
+    text-align: center;
+    margin: 0;
+    color: ${theme.colors.gray01};
+  }
+`;
+
+export const Button = styled.button`
+  position: absolute;
+  bottom: 32px;
+  left: 20px;
+  width: calc(100% - 40px);
+  margin: 0 auto;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${theme.colors.gray01};
+  border-radius: 6px;
+  background: #4e62fb;
+  ${theme.typography.semibold03};
 `;
