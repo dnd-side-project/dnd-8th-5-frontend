@@ -8,3 +8,11 @@ export interface CandidateTime {
   unavailableParticipantNames: string[];
   isConfirmed: boolean;
 }
+
+export interface GetCandidateTimesParams {
+  roomId: string;
+  sort: string;
+  names?: string[];
+  page: number;
+  size: number;
+}

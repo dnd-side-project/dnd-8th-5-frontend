@@ -1,16 +1,20 @@
-import { GetAdjustmentResultRepsonse } from '@/models/result';
-import { instance } from './instance';
 import qs from 'qs';
+import { GetAdjustmentResultRepsonse } from '@/models/result';
+import { PageableResponse } from '@/models/common';
+import { GetCandidateTimesParams } from '@/types/result';
+import { instance } from './instance';
 
-export const getCandidateTimesInfo = async (
-  roomId: string,
-  sort: string,
-  name: string[]
-) => {
-  return await instance.get<GetAdjustmentResultRepsonse>(
-    `/api/room/${roomId}/adjustment-result`,
+export const getCandidateTimesInfo = async ({
+  roomId,
+  sort,
+  names,
+  page,
+  size,
+}: GetCandidateTimesParams) => {
+  return await instance.get<PageableResponse<GetAdjustmentResultRepsonse>>(
+    `/api/v1/room/${roomId}/adjustment-results`,
     {
-      params: { sorted: sort, name },
+      params: { sort, participantNames: names, page, size },
       paramsSerializer: (params: string[]) =>
         qs.stringify(params, { arrayFormat: 'repeat' }),
     }

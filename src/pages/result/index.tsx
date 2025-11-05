@@ -11,11 +11,12 @@ import ResultButton from '@/components/result/button';
 import BottomSheet from '@/components/result/bottomSheet';
 import SortOption from '@/components/result/option/sortOption';
 import { useEffect, useState } from 'react';
-import { useGetCandidateTimes } from '@/queries/result/useGetCandidateTimes';
 import empty from '@/assets/images/nobody.png';
 import { Candidate } from '@/components/result/candidate';
 import { ParticipantOption } from '@/components/result/option/participantsOption';
 import { Loading } from '@/components/commons/loading';
+import { LoadMoreButton } from '@/components/result/loadMoreButton';
+import { useGetCandidateTimesInfiniteQuery } from '@/queries/result/useGetCandidateTimes';
 
 export interface FilterTypes {
   names: string[];
@@ -46,20 +47,28 @@ export default function Result() {
     useState<boolean>(false);
   const [isSortFilterOpen, setIsSortFilterOpen] = useState<boolean>(false);
 
-  const { data: candidateTimes } = useGetCandidateTimes(
-    roomId ?? '',
-    filter.sort,
-    filter.names.sort((a, b) => a.localeCompare(b, 'ko-KR'))
-  );
+  const {
+    data: candidateTimesData,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useGetCandidateTimesInfiniteQuery({
+    roomId: roomId ?? '',
+    sort: filter.sort,
+    names: filter.names.sort((a, b) => a.localeCompare(b, 'ko-KR')),
+  });
+
+  const candidateTimes =
+    candidateTimesData?.pages.flatMap((p) => p.content) ?? [];
+  console.log(candidateTimesData);
 
   const isParticipantsFiltered =
     roomInfo?.participants.length !== filter.names.length;
 
   const showEmpty =
     !candidateTimes ||
-    candidateTimes.candidateTimes.length === 0 ||
-    candidateTimes.candidateTimes[0].unavailableParticipantNames.length <
-      filter.names.length;
+    candidateTimes.length === 0 ||
+    candidateTimes[0].unavailableParticipantNames.length < filter.names.length;
 
   const selectedParticipantsText = (() => {
     if (filter.names.length === roomInfo?.participants.length) {
@@ -148,9 +157,9 @@ export default function Result() {
 
             {showEmpty && <EmptyResult />}
 
-            {candidateTimes && candidateTimes.candidateTimes.length > 0 && (
+            {candidateTimes && candidateTimes.length > 0 && (
               <List>
-                {candidateTimes?.candidateTimes.map((candidateTime) => (
+                {candidateTimes.map((candidateTime) => (
                   <Candidate
                     key={candidateTime.id}
                     candidateTime={candidateTime}
@@ -162,6 +171,12 @@ export default function Result() {
                     }
                   />
                 ))}
+                {hasNextPage && (
+                  <LoadMoreButton
+                    onClick={() => fetchNextPage()}
+                    disabled={isFetchingNextPage}
+                  />
+                )}
               </List>
             )}
           </Main>
@@ -270,4 +285,9 @@ export const EmptyRabbit = styled.img`
 export const EmptyText = styled.span`
   color: ${theme.colors.gray04};
   ${theme.typography.medium02};
+`;
+
+export const LoadMore = styled.div`
+  width: 100%;
+  height: 1px;
 `;

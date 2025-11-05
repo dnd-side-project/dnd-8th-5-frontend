@@ -1,8 +1,4 @@
 export interface GetAdjustmentResultRepsonse {
-  candidateTimes: CandidateTime[];
-}
-
-export interface CandidateTime {
   id: number;
   date: string;
   dayOfWeek: string;
