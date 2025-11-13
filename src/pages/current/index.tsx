@@ -52,6 +52,7 @@ import { useGetAvailableTimeOverview } from '@/queries/availableTimes/useGetAvai
 import { useGetAvailableTimesByGroup } from '@/queries/availableTimes/useGetAvailableTimesByGroup';
 import { UpdateNote } from '@/components/commons/updateNote';
 import { getFormattedDateArray } from '@/utils/getFormattedDateArray';
+import { Loading } from '@/components/commons/loading';
 
 const Current = () => {
   const queryClient = useQueryClient();
@@ -173,6 +174,10 @@ const Current = () => {
           ]);
           queryClient.invalidateQueries([
             QUERY_KEYS.RESULT.GET_CANDIDATE_TIMES,
+            roomUUID,
+          ]);
+          queryClient.invalidateQueries([
+            QUERY_KEYS.AVAILABLE_TIME.GET_AVAILABLE_TIMES_BY_ONE,
             roomUUID,
           ]);
 
@@ -309,21 +314,29 @@ const Current = () => {
               <Title>실시간 등록 현황</Title>
               {isTableView ? (
                 <TableWrapper>
-                  <Table
-                    dates={getFormattedDateArray(dates)}
-                    startTime={startTime}
-                    endTime={endTime}
-                    timeInfo={
-                      selectedParticipants.length > 0
-                        ? availableTimeOverview
-                        : timeInfo
-                    }
-                    participants={
-                      selectedParticipants.length > 0
-                        ? selectedParticipants
-                        : participants
-                    }
-                  />
+                  {(
+                    selectedParticipants.length > 0
+                      ? availableTimeOverview
+                      : timeInfo
+                  ) ? (
+                    <Table
+                      dates={getFormattedDateArray(dates)}
+                      startTime={startTime}
+                      endTime={endTime}
+                      timeInfo={
+                        selectedParticipants.length > 0
+                          ? availableTimeOverview
+                          : timeInfo
+                      }
+                      participants={
+                        selectedParticipants.length > 0
+                          ? selectedParticipants
+                          : participants
+                      }
+                    />
+                  ) : (
+                    <Loading />
+                  )}
                 </TableWrapper>
               ) : (
                 <CurrentCalendar

@@ -27,7 +27,7 @@ const Calendar = ({
   selectedMethod,
   ...rest
 }: AddCalendarType) => {
-  const { roomUUID } = useParams() as { roomUUID: string };
+  const { roomId } = useParams() as { roomId: string };
   const navigate = useNavigate();
   const userName = localStorage.getItem('userName') || '';
 
@@ -72,7 +72,7 @@ const Calendar = ({
     }
   }, [date]);
 
-  const { data } = useGetAvailableTimesByOne(roomUUID, userName);
+  const { data } = useGetAvailableTimesByOne(roomId, userName);
   const { mutate, isSuccess } = usePutAvailableTimes();
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const Calendar = ({
   }, [selectedMethod]);
 
   const goToCurrent = () => {
-    navigate(`${ROUTES.CURRENT}/${roomUUID}`);
+    navigate(`${ROUTES.CURRENT}/${roomId}`);
   };
 
   const handleApplyClick = () => {
@@ -97,7 +97,7 @@ const Calendar = ({
         availableDateTimes: [...selected],
       };
 
-      mutate({ roomUUID, payload });
+      mutate({ roomId, payload });
     }
 
     if (selectedMethod === 'impossible') {
@@ -110,7 +110,7 @@ const Calendar = ({
         availableDateTimes: filteredTime,
       };
 
-      mutate({ roomUUID, payload });
+      mutate({ roomId, payload });
     }
   };
 

@@ -1,119 +1,122 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-
-import {
-  Body,
-  Nobody,
-  NobodyRabbit,
-  NobodyText,
-  NobodyWrapper,
-  SelectWrapper,
-  Title,
-  TitleWrapper,
-  Wrapper,
-} from './index.styles';
-
-import nobody from '@/assets/images/nobody.png';
-import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
-
+import styled from '@emotion/styled';
+import theme from '@/styles/theme';
+import { Helmet } from 'react-helmet-async';
+import { Layout } from '@/components/commons/layout';
 import Header from '@/components/commons/header';
+import { ROUTES } from '@/constants/ROUTES';
+import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
+import { useNavigate, useParams } from 'react-router-dom';
 import SelectBox from '@/components/result/selectBox';
 import ResultButton from '@/components/result/button';
 import BottomSheet from '@/components/result/bottomSheet';
-import SortTimes from '@/components/result/option/sortOption';
-import Candidate from '@/components/result/candidate';
-import SelectParticipants from '@/components/result/option/participantsOption';
-
-import { Participant, RoomTypes } from '@/types/roomInfo';
-import { CandidateTimesType } from '@/types/result';
-
-import { ROUTES } from '@/constants/ROUTES';
-import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
-import { useGetCandidateTimes } from '@/queries/result/useGetCandidateTimes';
-import { Layout } from '@/components/commons/layout';
-import { Helmet } from 'react-helmet-async';
-import { UpdateNote } from '@/components/commons/updateNote';
-
-interface Participants {
-  name: string;
-  isSelected: boolean;
-}
+import SortOption from '@/components/result/option/sortOption';
+import { useState } from 'react';
+import empty from '@/assets/images/nobody.png';
+import { Candidate } from '@/components/result/candidate';
+import { ParticipantOption } from '@/components/result/option/participantsOption';
+import { Loading } from '@/components/commons/loading';
+import { LoadMoreButton } from '@/components/result/loadMoreButton';
+import { useGetCandidateTimesInfiniteQuery } from '@/queries/result/useGetCandidateTimes';
+import { useLoadMore } from '@/hooks/useLoadMore';
 
 export interface FilterTypes {
   names: string[];
   sort: 'fast' | 'long';
 }
 
-const Result = () => {
-  const { roomUUID } = useParams() as { roomUUID: string };
+function EmptyResult() {
+  return (
+    <EmptyWrapper>
+      <EmptyRabbit src={empty} alt="모두가 되는 시간이 없어요" />
+      <EmptyText>모두가 되는 시간이 없어요</EmptyText>
+    </EmptyWrapper>
+  );
+}
 
-  const [isParticipantsOpened, setIsParticipantsOpened] = useState(false);
-  const [filteredParticipants, setFilteredParticipants] = useState<
-    Participants[]
-  >([]);
+export default function Result() {
+  const { roomId } = useParams<{ roomId: string }>();
+  const navigation = useNavigate();
 
-  const [isSortOpened, setIsSortOpened] = useState(false);
+  const { data: roomInfo } = useGetRoomInfo(roomId || '');
 
   const [filter, setFilter] = useState<FilterTypes>({
     names: [],
     sort: 'fast',
   });
 
-  const handleParticipantOpen = () => {
-    setIsParticipantsOpened(!isParticipantsOpened);
-  };
+  const [isParticipantFilterOpen, setIsParticipantFilterOpen] =
+    useState<boolean>(false);
+  const [isSortFilterOpen, setIsSortFilterOpen] = useState<boolean>(false);
 
-  const handleOrderOpen = () => {
-    setIsSortOpened(!isSortOpened);
-  };
+  const {
+    data: candidateTimesData,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+  } = useGetCandidateTimesInfiniteQuery({
+    roomId: roomId ?? '',
+    sort: filter.sort,
+    names: [...filter.names].sort((a, b) => a.localeCompare(b, 'ko-KR')),
+  });
 
-  const { data: roomInfo } = useGetRoomInfo(roomUUID);
+  const candidateTimes =
+    candidateTimesData?.pages.flatMap((p) => p.content) ?? [];
 
-  const [participantsList, setParticipantsList] = useState<Participants[]>([]);
+  const showEmpty =
+    !isLoading &&
+    !isFetchingNextPage &&
+    (!candidateTimes ||
+      candidateTimes.length === 0 ||
+      candidateTimes[0].availableParticipantNames.length < filter.names.length);
 
-  useEffect(() => {
-    if (!roomInfo) return;
+  const [isAutoLoad, setIsAutoLoad] = useState(false);
+  const { loadMoreRef } = useLoadMore({
+    fetchNextPage,
+    hasNextPage: !!hasNextPage && isAutoLoad,
+    isFetchingNextPage,
+  });
 
-    const newList = roomInfo.participants.map((participant: Participant) => ({
-      name: participant.name,
-      isSelected: true,
-    }));
-
-    setParticipantsList(newList);
-  }, [roomInfo?.participants]);
-
-  useEffect(() => {
-    const selected = participantsList.filter(
-      ({ isSelected }: { isSelected: boolean }) => isSelected === true
-    );
-
-    setFilteredParticipants(selected);
-    setFilter({ ...filter, names: selected.map((s) => s.name) });
-  }, [participantsList]);
-
-  const { data, refetch } = useGetCandidateTimes(
-    roomUUID,
-    filter.sort,
-    filter.names
-  );
-
-  useEffect(() => {
-    refetch();
-  }, [filter]);
-
-  const getFilteredName = () => {
-    const selectedCount = filteredParticipants.length;
-
-    if (selectedCount === 0 || selectedCount === participantsList.length) {
+  const selectedParticipantsText = (() => {
+    if (filter.names.length === roomInfo?.participants.length) {
       return '전체 참여자';
-    } else if (selectedCount === 1) {
-      return `${filteredParticipants[0].name}`;
-    } else return `${filteredParticipants[0].name} 외 ${selectedCount - 1}명`;
-  };
+    }
 
-  const isFiltered = filteredParticipants.length !== participantsList.length;
+    if (filter.names.length === 1) {
+      return filter.names[0];
+    }
 
-  if (!roomInfo) return null;
+    if (filter.names.length > 1) {
+      return `${filter.names[0]} 외 ${filter.names.length - 1}명`;
+    }
+
+    return '전체 참여자';
+  })();
+
+  const selectedSortText = (() => {
+    switch (filter.sort) {
+      case 'fast':
+        return '빠른 시간순';
+      case 'long':
+        return '오래 만날 수 있는 순';
+      default:
+        return '빠른 시간순';
+    }
+  })();
+
+  if (!roomId) {
+    navigation(ROUTES.LANDING);
+    return null;
+  }
+
+  if (!roomInfo) {
+    return (
+      <Layout>
+        <Loading />
+      </Layout>
+    );
+  }
+
   return (
     <>
       <Helmet>
@@ -128,122 +131,174 @@ const Result = () => {
         <Wrapper>
           <Header
             pageName={ROUTES.RESULT}
-            roomId={roomUUID}
+            roomId={roomId}
             title={roomInfo.title}
           />
-          <Body>
-            <UpdateNote />
-            <TitleWrapper>
-              <Title isNumber={false}>현재까지</Title>
-              <Title isNumber={true}>{roomInfo.participants.length}</Title>
-              <Title isNumber={false}>명의</Title>
-            </TitleWrapper>
-            <TitleWrapper>
-              <Title isNumber={false}>약속 조율 결과예요</Title>
-            </TitleWrapper>
-            <SelectWrapper>
+          <Main>
+            <Title>
+              <h1>
+                현재까지{' '}
+                <span>
+                  {filter.names.length || roomInfo.participants.length}
+                </span>
+                명의
+              </h1>
+              <h1>약속 조율 결과예요</h1>
+            </Title>
+
+            <div>
               <SelectBox
-                text={getFilteredName()}
-                handleClick={handleParticipantOpen}
+                text={selectedParticipantsText}
+                handleClick={() => setIsParticipantFilterOpen((prev) => !prev)}
               />
               <SelectBox
-                text={
-                  filter.sort === 'fast'
-                    ? '빠른 시간 순'
-                    : '오래 만날 수 있는 순'
-                }
-                handleClick={handleOrderOpen}
+                text={selectedSortText}
+                handleClick={() => setIsSortFilterOpen((prev) => !prev)}
               />
-            </SelectWrapper>
+            </div>
 
-            {data?.candidateTimes.length === 0 ? (
-              <NobodyWrapper>
-                <Nobody>
-                  <NobodyRabbit src={nobody} alt="nobody" />
-                  <NobodyText>모두가 되는 시간이 없어요</NobodyText>
-                </Nobody>
-              </NobodyWrapper>
-            ) : (
-              <>
-                {!isFiltered &&
-                data?.candidateTimes[0].unavailableParticipantNames.length !==
-                  0 ? (
-                  <NobodyWrapper>
-                    <Nobody>
-                      <NobodyRabbit src={nobody} alt="nobody" />
-                      <NobodyText>모두가 되는 시간이 없어요</NobodyText>
-                    </Nobody>
-                  </NobodyWrapper>
-                ) : null}
+            {isLoading && <Loading />}
+            {showEmpty && <EmptyResult />}
 
-                <div style={{ padding: '0 20px' }}>
-                  {data?.candidateTimes.map(
-                    ({
-                      date,
-                      dayOfWeek,
-                      startTime,
-                      endTime,
-                      availableParticipantNames,
-                      unavailableParticipantNames,
-                    }: CandidateTimesType) => (
-                      <Candidate
-                        key={`part ${date} ${startTime} ${endTime}`}
-                        date={date}
-                        dayOfWeek={dayOfWeek}
-                        startTime={startTime}
-                        endTime={endTime}
-                        availableParticipantNames={availableParticipantNames}
-                        unavailableParticipantNames={
-                          unavailableParticipantNames
-                        }
-                        count={
-                          isFiltered
-                            ? filteredParticipants.length
-                            : roomInfo.participants.length
-                        }
-                        isFiltered={isFiltered}
-                        defaultOpen={true}
-                      />
-                    )
-                  )}
-                </div>
-              </>
+            {candidateTimes && candidateTimes.length > 0 && (
+              <List>
+                {candidateTimes.map((candidateTime) => (
+                  <Candidate
+                    key={
+                      candidateTime.id ??
+                      `${candidateTime.date}-${candidateTime.dayOfWeek}-${candidateTime.startTime}-${candidateTime.endTime}`
+                    }
+                    candidateTime={candidateTime}
+                    isFiltered={filter.names.length > 0}
+                    totalCount={
+                      filter.names.length > 0
+                        ? filter.names.length
+                        : roomInfo.participants.length
+                    }
+                  />
+                ))}
+                {hasNextPage && !isAutoLoad && (
+                  <LoadMoreButton
+                    onClick={() => {
+                      setIsAutoLoad(true);
+                    }}
+                    disabled={isFetchingNextPage}
+                  />
+                )}
+
+                {hasNextPage && isAutoLoad && (
+                  <div ref={loadMoreRef} style={{ height: 1 }} />
+                )}
+              </List>
             )}
-          </Body>
-
-          <ResultButton roomId={roomUUID} roomTitle={roomInfo.title} />
-
-          {isParticipantsOpened && (
-            <BottomSheet
-              setIsBottomSheetOpened={setIsParticipantsOpened}
-              title="참여자"
-              children={
-                <SelectParticipants
-                  setIsParticipantOpened={setIsParticipantsOpened}
-                  participantsList={participantsList}
-                  setParticipantsList={setParticipantsList}
-                />
-              }
-            />
-          )}
-
-          {isSortOpened && (
-            <BottomSheet
-              setIsBottomSheetOpened={setIsSortOpened}
-              title="정렬"
-              children={
-                <SortTimes
-                  filter={filter}
-                  setFilter={setFilter}
-                  setIsSortOpened={setIsSortOpened}
-                />
-              }
-            />
-          )}
+          </Main>
         </Wrapper>
+
+        <ResultButton roomId={roomId} roomTitle={roomInfo.title} />
+
+        {isParticipantFilterOpen && (
+          <BottomSheet
+            closeBottomSheet={() => setIsParticipantFilterOpen(false)}
+            title="참여자"
+          >
+            <ParticipantOption
+              handleCloseBottomSheet={() => setIsParticipantFilterOpen(false)}
+              participants={roomInfo.participants.map(
+                (participant) => participant.name
+              )}
+              selectedParticipants={filter.names}
+              handleSelectedParticipantsSelect={(participants: string[]) =>
+                setFilter((prev) => ({ ...prev, names: participants }))
+              }
+            />
+          </BottomSheet>
+        )}
+
+        {isSortFilterOpen && (
+          <BottomSheet
+            closeBottomSheet={() => setIsSortFilterOpen(false)}
+            title="정렬"
+          >
+            <SortOption
+              handleCloseBottomSheet={() => setIsSortFilterOpen(false)}
+              sort={filter.sort}
+              handleSortChange={(sort: 'fast' | 'long') =>
+                setFilter((prev) => ({ ...prev, sort: sort }))
+              }
+            />
+          </BottomSheet>
+        )}
       </Layout>
     </>
   );
-};
+}
 
-export default Result;
+export const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: auto;
+`;
+
+export const Main = styled.main`
+  width: 100%;
+  padding: 60px 20px 0 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`;
+
+export const Title = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 36px 0;
+
+  h1 {
+    margin: 0;
+    color: ${theme.colors.gray07};
+    ${theme.typography.semibold01}
+  }
+
+  span {
+    color: ${theme.colors.orange03};
+    ${theme.typography.semibold01}
+  }
+`;
+
+export const List = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 12px;
+  padding: 12px 0 110px 0;
+`;
+
+export const EmptyWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 12px 0;
+  padding: 28px 0;
+  border-radius: 8px;
+  border: 1px dashed ${theme.colors.gray03};
+  background: ${theme.colors.gray02};
+`;
+
+export const EmptyRabbit = styled.img`
+  width: 37px;
+  height: 49px;
+  object-fit: cover;
+`;
+
+export const EmptyText = styled.span`
+  color: ${theme.colors.gray04};
+  ${theme.typography.medium02};
+`;
+
+export const LoadMore = styled.div`
+  width: 100%;
+  height: 1px;
+`;

@@ -19,6 +19,7 @@ interface Props {
   totalCount: number;
   availableParticipantNames: string[];
   unavailableParticipantNames: string[];
+  isFiltered?: boolean;
 }
 
 const Accordion = ({
@@ -27,6 +28,7 @@ const Accordion = ({
   totalCount,
   availableParticipantNames,
   unavailableParticipantNames,
+  isFiltered = false,
 }: Props) => {
   const parentRef = useRef<HTMLDivElement>(null);
   const childRef = useRef<HTMLDivElement>(null);
@@ -88,18 +90,20 @@ const Accordion = ({
             </NameList>
           </Item>
 
-          <Item>
-            <InfoText>
-              <span>{`${totalCount}명 중 `}</span>
-              <span className="unavailable">{`${unavailableParticipantNames.length}명 불가능`}</span>
-            </InfoText>
-            <NameList>
-              {!!unavailableParticipantNames.length &&
-                unavailableParticipantNames.map((name) => (
-                  <NameBlock key={name}>{name.slice(0, 4)}</NameBlock>
-                ))}
-            </NameList>
-          </Item>
+          {!isFiltered && (
+            <Item>
+              <InfoText>
+                <span>{`${totalCount}명 중 `}</span>
+                <span className="unavailable">{`${unavailableParticipantNames.length}명 불가능`}</span>
+              </InfoText>
+              <NameList>
+                {!!unavailableParticipantNames.length &&
+                  unavailableParticipantNames.map((name) => (
+                    <NameBlock key={name}>{name.slice(0, 4)}</NameBlock>
+                  ))}
+              </NameList>
+            </Item>
+          )}
         </ItemWrapper>
       </ListWrapper>
     </Wrapper>

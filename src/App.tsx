@@ -28,8 +28,8 @@ function App() {
         <Route path={`${ROUTES.INVITE}/:roomUUID`} element={<Invite />} />
         <Route path={`${ROUTES.LOGIN}/:roomUUID`} element={<Login />} />
         <Route path={`${ROUTES.CURRENT}/:roomUUID`} element={<Current />} />
-        <Route path={`${ROUTES.ADD_TIME}/:roomUUID`} element={<AddTime />} />
-        <Route path={`${ROUTES.RESULT}/:roomUUID`} element={<Result />} />
+        <Route path={`${ROUTES.ADD_TIME}/:roomId`} element={<AddTime />} />
+        <Route path={`${ROUTES.RESULT}/:roomId`} element={<Result />} />
         <Route path={`${ROUTES.ERROR}`} element={<Error />} />
         <Route path="*" element={<Error />} />
       </Routes>

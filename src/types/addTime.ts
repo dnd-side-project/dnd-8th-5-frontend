@@ -5,6 +5,6 @@ export interface PutAvailableTimesType {
 }
 
 export interface PutAvailableTimesParamsType {
-  roomUUID: string;
+  roomId: string;
   payload: PutAvailableTimesType;
 }

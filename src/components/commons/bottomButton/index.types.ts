@@ -7,4 +7,5 @@ export interface BottomButtonType
   isActivated: boolean;
   isBackgroundVisible?: boolean;
   isLanding?: boolean;
+  isLoading?: boolean;
 }

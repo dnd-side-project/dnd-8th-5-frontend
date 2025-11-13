@@ -19,9 +19,9 @@ import { ROUTES } from '@/constants/ROUTES';
 import { Layout } from '@/components/commons/layout';
 
 const AddTime = () => {
-  const { roomUUID } = useParams() as { roomUUID: string };
+  const { roomId } = useParams() as { roomId: string };
   const userName = localStorage.getItem('userName') || '';
-  const { data: room } = useGetRoomInfo(roomUUID);
+  const { data: room } = useGetRoomInfo(roomId);
 
   const [selectedMethod] = useRecoilState(selectedMethodState);
   const [isResetButtonClick, setIsResetButtonClick] = useState<boolean>(false);
@@ -41,8 +41,7 @@ const AddTime = () => {
     });
   };
 
-  const isTableView =
-    room?.startTime !== null && room?.endTime !== null ? true : false;
+  const isTableView = Boolean(room?.startTime && room?.endTime);
 
   if (!room) return null;
   return (
@@ -50,7 +49,7 @@ const AddTime = () => {
       <Wrapper ref={scrollRef}>
         <Header
           pageName={ROUTES.ADD_TIME}
-          roomId={roomUUID}
+          roomId={roomId}
           title={room?.title ?? ''}
         />
         <Body>
@@ -70,8 +69,8 @@ const AddTime = () => {
           <Main>
             {isTableView ? (
               <AddTimeTable
-                startTime={parseInt(room.startTime)}
-                endTime={parseInt(room.endTime)}
+                startTime={parseInt(room.startTime!)}
+                endTime={parseInt(room.endTime!)}
                 selected={tableSelected}
                 setSelected={setTableSelected}
                 setTableSelected={setTableSelected}

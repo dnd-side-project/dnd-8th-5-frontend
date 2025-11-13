@@ -1,4 +1,4 @@
-export interface CandidateTime {
+export interface GetAdjustmentResultRepsonse {
   id: number;
   date: string;
   dayOfWeek: string;
@@ -7,12 +7,4 @@ export interface CandidateTime {
   availableParticipantNames: string[];
   unavailableParticipantNames: string[];
   isConfirmed: boolean;
-}
-
-export interface GetCandidateTimesParams {
-  roomId: string;
-  sort: string;
-  names?: string[];
-  page: number;
-  size: number;
 }
