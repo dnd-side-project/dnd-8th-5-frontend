@@ -41,7 +41,8 @@ const TableArea = ({
   const timeRange = getTimeRange(startTime, endTime);
 
   const { data } = useGetAvailableTimesByOne(roomId, userName);
-  const { mutate, isSuccess, isError, error } = usePutAvailableTimes();
+  const { mutate, isSuccess, isError, error, isLoading } =
+    usePutAvailableTimes();
 
   useEffect(() => {
     if (data) {
@@ -149,6 +150,7 @@ const TableArea = ({
         />
       </TableWrapper>
       <AddButton
+        isLoading={isLoading}
         setTableSelected={setTableSelected}
         handleApplyClick={handleApplyClick}
         setIsResetButtonClick={setIsResetButtonClick}

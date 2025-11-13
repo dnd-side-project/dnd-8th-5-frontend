@@ -8,18 +8,21 @@ import {
   ResetText,
   Wrapper,
 } from './index.styles';
+import { Loading } from '@/components/commons/loading';
 
 interface TableSelectedTypes {
   [key: number]: string[];
 }
 
 interface AddButtonTypes {
+  isLoading: boolean;
   handleApplyClick: () => void;
   setTableSelected: React.Dispatch<React.SetStateAction<TableSelectedTypes>>;
   setIsResetButtonClick: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Button = ({
+  isLoading,
   setTableSelected,
   handleApplyClick,
   setIsResetButtonClick,
@@ -43,7 +46,9 @@ const Button = ({
           <ResetButton src={reset} alt="reset" />
           <ResetText>초기화</ResetText>
         </ResetButtonWrapper>
-        <BottomButton onClick={handleApplyClick}>등록하기</BottomButton>
+        <BottomButton onClick={handleApplyClick} disabled={isLoading}>
+          {isLoading ? <Loading size={20} /> : '등록하기'}
+        </BottomButton>
       </BottomWrapper>
     </Wrapper>
   );
