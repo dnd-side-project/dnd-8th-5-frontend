@@ -10,13 +10,14 @@ import SelectBox from '@/components/result/selectBox';
 import ResultButton from '@/components/result/button';
 import BottomSheet from '@/components/result/bottomSheet';
 import SortOption from '@/components/result/option/sortOption';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import empty from '@/assets/images/nobody.png';
 import { Candidate } from '@/components/result/candidate';
 import { ParticipantOption } from '@/components/result/option/participantsOption';
 import { Loading } from '@/components/commons/loading';
 import { LoadMoreButton } from '@/components/result/loadMoreButton';
 import { useGetCandidateTimesInfiniteQuery } from '@/queries/result/useGetCandidateTimes';
+import { useLoadMore } from '@/hooks/useLoadMore';
 
 export interface FilterTypes {
   names: string[];
@@ -60,15 +61,20 @@ export default function Result() {
 
   const candidateTimes =
     candidateTimesData?.pages.flatMap((p) => p.content) ?? [];
-  console.log(candidateTimesData);
-
-  const isParticipantsFiltered =
-    roomInfo?.participants.length !== filter.names.length;
 
   const showEmpty =
-    !candidateTimes ||
-    candidateTimes.length === 0 ||
-    candidateTimes[0].unavailableParticipantNames.length < filter.names.length;
+    !isFetchingNextPage &&
+    (!candidateTimes ||
+      candidateTimes.length === 0 ||
+      candidateTimes[0].unavailableParticipantNames.length <
+        filter.names.length);
+
+  const [isAutoLoad, setIsAutoLoad] = useState(false);
+  const { loadMoreRef } = useLoadMore({
+    fetchNextPage,
+    hasNextPage: !!hasNextPage && isAutoLoad,
+    isFetchingNextPage,
+  });
 
   const selectedParticipantsText = (() => {
     if (filter.names.length === roomInfo?.participants.length) {
@@ -96,15 +102,6 @@ export default function Result() {
         return '빠른 시간순';
     }
   })();
-
-  useEffect(() => {
-    if (roomInfo) {
-      setFilter((prev) => ({
-        ...prev,
-        names: roomInfo.participants.map((participant) => participant.name),
-      }));
-    }
-  }, [roomInfo?.participants]);
 
   if (!roomId) {
     navigation(ROUTES.LANDING);
@@ -139,7 +136,11 @@ export default function Result() {
           <Main>
             <Title>
               <h1>
-                현재까지 <span>{filter.names.length}</span>명의
+                현재까지{' '}
+                <span>
+                  {filter.names.length || roomInfo.participants.length}
+                </span>
+                명의
               </h1>
               <h1>약속 조율 결과예요</h1>
             </Title>
@@ -163,19 +164,26 @@ export default function Result() {
                   <Candidate
                     key={candidateTime.id}
                     candidateTime={candidateTime}
-                    isFiltered={isParticipantsFiltered}
+                    isFiltered={filter.names.length > 0}
                     totalCount={
-                      isParticipantsFiltered
+                      filter.names.length > 0
                         ? filter.names.length
                         : roomInfo.participants.length
                     }
                   />
                 ))}
-                {hasNextPage && (
+                {hasNextPage && !isAutoLoad && (
                   <LoadMoreButton
-                    onClick={() => fetchNextPage()}
+                    onClick={() => {
+                      fetchNextPage();
+                      setIsAutoLoad(true);
+                    }}
                     disabled={isFetchingNextPage}
                   />
+                )}
+
+                {hasNextPage && isAutoLoad && (
+                  <div ref={loadMoreRef} style={{ height: 1 }} />
                 )}
               </List>
             )}
