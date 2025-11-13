@@ -57,7 +57,7 @@ export default function Result() {
   } = useGetCandidateTimesInfiniteQuery({
     roomId: roomId ?? '',
     sort: filter.sort,
-    names: filter.names.sort((a, b) => a.localeCompare(b, 'ko-KR')),
+    names: [...filter.names].sort((a, b) => a.localeCompare(b, 'ko-KR')),
   });
 
   const candidateTimes =
@@ -106,7 +106,7 @@ export default function Result() {
 
   if (!roomId) {
     navigation(ROUTES.LANDING);
-    return;
+    return null;
   }
 
   if (!roomInfo) {
@@ -200,35 +200,33 @@ export default function Result() {
           <BottomSheet
             closeBottomSheet={() => setIsParticipantFilterOpen(false)}
             title="참여자"
-            children={
-              <ParticipantOption
-                handleCloseBottomSheet={() => setIsParticipantFilterOpen(false)}
-                participants={roomInfo.participants.map(
-                  (participant) => participant.name
-                )}
-                selectedParticipants={filter.names}
-                handleSelectedParticipantsSelect={(participants: string[]) =>
-                  setFilter((prev) => ({ ...prev, names: participants }))
-                }
-              />
-            }
-          />
+          >
+            <ParticipantOption
+              handleCloseBottomSheet={() => setIsParticipantFilterOpen(false)}
+              participants={roomInfo.participants.map(
+                (participant) => participant.name
+              )}
+              selectedParticipants={filter.names}
+              handleSelectedParticipantsSelect={(participants: string[]) =>
+                setFilter((prev) => ({ ...prev, names: participants }))
+              }
+            />
+          </BottomSheet>
         )}
 
         {isSortFilterOpen && (
           <BottomSheet
             closeBottomSheet={() => setIsSortFilterOpen(false)}
             title="정렬"
-            children={
-              <SortOption
-                handleCloseBottomSheet={() => setIsSortFilterOpen(false)}
-                sort={filter.sort}
-                handleSortChange={(sort: 'fast' | 'long') =>
-                  setFilter((prev) => ({ ...prev, sort: sort }))
-                }
-              />
-            }
-          />
+          >
+            <SortOption
+              handleCloseBottomSheet={() => setIsSortFilterOpen(false)}
+              sort={filter.sort}
+              handleSortChange={(sort: 'fast' | 'long') =>
+                setFilter((prev) => ({ ...prev, sort: sort }))
+              }
+            />
+          </BottomSheet>
         )}
       </Layout>
     </>

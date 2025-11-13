@@ -26,11 +26,7 @@ instance.interceptors.response.use(
 );
 
 export interface HttpClient extends AxiosInstance {
-  get<T = unknown>(
-    url: string,
-    data?: unknown,
-    config?: AxiosRequestConfig
-  ): Promise<T>;
+  get<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T>;
   post<T = unknown>(
     url: string,
     data?: unknown,
@@ -46,9 +42,5 @@ export interface HttpClient extends AxiosInstance {
     data?: unknown,
     config?: AxiosRequestConfig
   ): Promise<T>;
-  delete<T = unknown>(
-    url: string,
-    data?: unknown,
-    config?: AxiosRequestConfig
-  ): Promise<T>;
+  delete<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T>;
 }

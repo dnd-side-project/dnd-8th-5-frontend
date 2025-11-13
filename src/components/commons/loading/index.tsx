@@ -10,7 +10,7 @@ export function Loading({ size = 36 }: { size?: number }) {
 }
 
 const Spinner = styled.div<{ size: number }>`
-  position: 'absolute';
+  position: absolute;
   display: inline-block;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
