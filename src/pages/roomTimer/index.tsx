@@ -67,7 +67,7 @@ const RoomTimer = () => {
     LinkShareBottomSheetState
   );
 
-  const { mutate, data, isError, isSuccess } = useCreateRoom();
+  const { mutate, data, isError, isSuccess, isLoading } = useCreateRoom();
 
   const handleClickRecommendBox = (label: string, value: TimerType) => {
     if (selectedButton === label) {
@@ -208,6 +208,7 @@ const RoomTimer = () => {
           onClick={handleClickCompleteButton}
           text="완료하기"
           isActivated={!allZero || !!selectedButton || isChecked}
+          isLoading={isLoading}
         />
       </MainContainer>
     </RoomLayout>

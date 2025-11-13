@@ -28,6 +28,7 @@ export const Wrapper = styled.button<{
   isActivated: boolean;
   isLanding: boolean;
 }>`
+  position: relative;
   width: calc(100% - 40px);
   max-width: ${({ isLanding }) => (isLanding ? '375px' : '412px')};
   height: 52px;

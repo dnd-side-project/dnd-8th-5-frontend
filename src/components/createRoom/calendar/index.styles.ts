@@ -171,7 +171,7 @@ export const CalendarComponent = styled(Calendar)`
     height: 40px;
   }
 
-  .rmdp-week-day:nth-child(1) {
+  .rmdp-week-day:nth-of-type(1) {
     color: #fd9090 !important;
   }
 
