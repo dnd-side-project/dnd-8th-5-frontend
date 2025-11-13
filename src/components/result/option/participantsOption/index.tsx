@@ -23,15 +23,14 @@ export function ParticipantOption({
   selectedParticipants,
   handleSelectedParticipantsSelect,
 }: Props) {
-  const [selected, setSelected] = useState<string[]>(selectedParticipants);
+  const [selected, setSelected] = useState<string[]>(
+    selectedParticipants.length === 0 ? participants : selectedParticipants
+  );
 
   const handleSelectAllClick = () => {
-    if (selected.length === participants.length) {
-      setSelected([]);
-      return;
-    }
-
-    setSelected(participants);
+    setSelected((prev) =>
+      prev.length === participants.length ? [] : participants
+    );
   };
 
   const handleParticipantClick = (participant: string) => {
@@ -45,7 +44,7 @@ export function ParticipantOption({
   };
 
   const handleRefresh = () => {
-    setSelected(participants);
+    setSelected([]);
   };
 
   const handleApplyClick = () => {
