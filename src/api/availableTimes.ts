@@ -43,7 +43,7 @@ export const getAvailableTimeOverview = async ({
     `/api/room/${roomId}/available-time/overview`,
     {
       params: { participantNames: participants },
-      paramsSerializer: (params: string[]) =>
+      paramsSerializer: (params: Record<string, any>) =>
         qs.stringify(params, { arrayFormat: 'repeat' }),
     }
   );

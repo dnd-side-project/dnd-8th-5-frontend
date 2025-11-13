@@ -15,7 +15,7 @@ export const getCandidateTimesInfo = async ({
     `/api/v1/room/${roomId}/adjustment-results`,
     {
       params: { sort, participantNames: names, page, size },
-      paramsSerializer: (params: string[]) =>
+      paramsSerializer: (params: Record<string, any>) =>
         qs.stringify(params, { arrayFormat: 'repeat' }),
     }
   );

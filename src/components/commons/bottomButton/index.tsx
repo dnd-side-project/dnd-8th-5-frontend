@@ -1,3 +1,4 @@
+import { Loading } from '../loading';
 import { Wrapper, BottomButtonContainer } from './index.styles';
 import { BottomButtonType } from './index.types';
 
@@ -7,6 +8,7 @@ const BottomButton = ({
   isActivated,
   isBackgroundVisible = true,
   isLanding = false,
+  isLoading = false,
 }: BottomButtonType) => {
   return (
     <BottomButtonContainer isBackgroundVisible={isBackgroundVisible}>
@@ -16,7 +18,7 @@ const BottomButton = ({
         disabled={!isActivated}
         isLanding={isLanding}
       >
-        {text}
+        {isLoading ? <Loading size={20} /> : text}
       </Wrapper>
     </BottomButtonContainer>
   );

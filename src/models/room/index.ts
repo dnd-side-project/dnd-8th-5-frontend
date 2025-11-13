@@ -12,3 +12,7 @@ export interface Participant {
   id: number;
   name: string;
 }
+
+export interface CreateRoomResponse {
+  roomUuid: string;
+}
