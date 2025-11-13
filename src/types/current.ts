@@ -1,13 +1,14 @@
 export interface currentInfo {
-  current: { availableDateTimes: availableDateTimes[] };
+  current: { availableDateTimes: AvailableDateTimes[] };
 }
 
-interface availableDateTimes {
+// here
+interface AvailableDateTimes {
   availableDate: string;
-  availableTimeInfos: availableTimeInfo[];
+  availableTimeInfos: AvailableTimeInfo[];
 }
 
-interface availableTimeInfo {
+interface AvailableTimeInfo {
   time: string | null;
   count: number;
 }
@@ -15,7 +16,8 @@ interface availableTimeInfo {
 export interface AvailableDateTimeTypes {
   availableDate: string;
   availableTimeInfos: {
-    time: string;
+    timeInfoId?: number;
+    time: string | null;
     count: number;
   }[];
 }

@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react';
 import {
   Body,
   Content,
@@ -7,20 +8,20 @@ import {
   Title,
   Wrapper,
 } from './index.styles';
-import { BottomSheetType } from './index.types';
+
+export interface Props {
+  title: string;
+  closeBottomSheet: () => void;
+}
 
 const BottomSheet = ({
-  setIsBottomSheetOpened,
   title,
+  closeBottomSheet,
   children,
-}: BottomSheetType) => {
-  const closeModal = () => {
-    setIsBottomSheetOpened(false);
-  };
-
+}: PropsWithChildren<Props>) => {
   return (
     <>
-      <Overlay onClick={closeModal} />
+      <Overlay onClick={closeBottomSheet} />
       <Wrapper>
         <Header>
           <HeaderBar />

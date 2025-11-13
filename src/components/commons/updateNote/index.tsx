@@ -4,9 +4,9 @@ import theme from '@/styles/theme';
 import RocketIcon from './Rocket';
 import ChevronRightIcon from './ChevronRight';
 
-const SHOW_UNTIL = 1755615599;
+// const SHOW_UNTIL = 1755615599;
 const UPDATE_NOTE_URL =
-  'https://corinthionia.notion.site/25-08-12-24d7f0f8f024802bb8b2d64a8a0b7048';
+  'https://corinthionia.notion.site/25-10-19-5-2917f0f8f02480f28224fedc3b77f748';
 
 export function UpdateNote({
   isRoomStart = false,
@@ -15,8 +15,8 @@ export function UpdateNote({
   isRoomStart?: boolean;
   style?: CSSProperties;
 }) {
-  const now = Math.floor(Date.now() / 1000);
-  if (now > SHOW_UNTIL) return null;
+  // const now = Math.floor(Date.now() / 1000);
+  // if (now > SHOW_UNTIL) return null;
 
   return (
     <Wrapper
@@ -31,7 +31,7 @@ export function UpdateNote({
       <strong>업데이트 소식</strong>
       <span>|</span>
       <Content isRoomStart={isRoomStart}>
-        <span>참여자별로 등록한 일정을 확인할 수 있어요.</span>
+        <span>5개 이상의 조율 결과를 확인할 수 있어요.</span>
         <ChevronRightIcon size={16} />
       </Content>
     </Wrapper>

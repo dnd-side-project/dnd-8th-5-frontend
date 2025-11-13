@@ -3,13 +3,9 @@ import theme from '@/styles/theme';
 
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: 412px;
-  margin-top: 10px;
-  padding: 15px 17px;
-
-  border-radius: 7px;
+  padding: 16px;
+  border-radius: 8px;
   background: ${theme.colors.purple01};
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,7 +13,6 @@ export const Wrapper = styled.div`
 
 export const Content = styled.div`
   width: 100%;
-
   display: flex;
   flex-direction: column;
   align-items: center;

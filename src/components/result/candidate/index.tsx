@@ -1,26 +1,27 @@
 import Accordion from '@/components/commons/accordion';
 import { Wrapper } from './index.styles';
-import { CandidateTypes } from './index.types';
+import { CandidateTime } from '@/types/result';
 
-const Candidate = ({
-  date,
-  dayOfWeek,
-  startTime,
-  endTime,
-  availableParticipantNames,
-  unavailableParticipantNames,
-  defaultOpen = false,
-  count,
-  isFiltered,
-}: CandidateTypes) => {
+interface Props {
+  candidateTime: CandidateTime;
+  isFiltered: boolean;
+  totalCount: number;
+}
+
+export function Candidate({ candidateTime, isFiltered, totalCount }: Props) {
   const convertDateFormat = () => {
-    if (startTime && endTime) {
-      return `${date.slice(5, 7)}월 ${date.slice(
+    if (candidateTime.startTime && candidateTime.endTime) {
+      return `${candidateTime.date.slice(5, 7)}월 ${candidateTime.date.slice(
         8,
         10
-      )}일 (${dayOfWeek}) ${startTime} ~ ${endTime}`;
+      )}일 (${candidateTime.dayOfWeek}) ${candidateTime.startTime} ~ ${
+        candidateTime.endTime
+      }`;
     } else {
-      return `${date.slice(5, 7)}월 ${date.slice(8, 10)}일 (${dayOfWeek}) `;
+      return `${candidateTime.date.slice(5, 7)}월 ${candidateTime.date.slice(
+        8,
+        10
+      )}일 (${candidateTime.dayOfWeek}) `;
     }
   };
 
@@ -28,15 +29,12 @@ const Candidate = ({
     <Wrapper>
       <Accordion
         title={convertDateFormat()}
-        availableParticipantNames={availableParticipantNames}
-        unavailableParticipantNames={
-          isFiltered ? [] : unavailableParticipantNames
-        }
-        totalCount={count}
-        defaultOpen={defaultOpen}
+        isFiltered={isFiltered}
+        availableParticipantNames={candidateTime.availableParticipantNames}
+        unavailableParticipantNames={candidateTime.unavailableParticipantNames}
+        totalCount={totalCount}
+        defaultOpen={true}
       />
     </Wrapper>
   );
-};
-
-export default Candidate;
+}

@@ -53,6 +53,7 @@ export const ResetText = styled.span`
 `;
 
 export const BottomButton = styled.button`
+  position: relative;
   height: 52px;
   border-radius: 6px;
 

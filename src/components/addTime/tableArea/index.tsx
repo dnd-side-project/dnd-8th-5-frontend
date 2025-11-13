@@ -30,7 +30,7 @@ const TableArea = ({
   scrollToTop,
 }: AddTimeTableTypes) => {
   const navigate = useNavigate();
-  const { roomUUID } = useParams() as { roomUUID: string };
+  const { roomId } = useParams() as { roomId: string };
   const userName = localStorage.getItem('userName') || '';
 
   const [tablePage, setTablePage] = useState(0);
@@ -40,8 +40,9 @@ const TableArea = ({
   const validDateChunks = getAddTimeTableInfo(dates);
   const timeRange = getTimeRange(startTime, endTime);
 
-  const { data } = useGetAvailableTimesByOne(roomUUID, userName);
-  const { mutate, isSuccess, isError, error } = usePutAvailableTimes();
+  const { data } = useGetAvailableTimesByOne(roomId, userName);
+  const { mutate, isSuccess, isError, error, isLoading } =
+    usePutAvailableTimes();
 
   useEffect(() => {
     if (data) {
@@ -80,7 +81,7 @@ const TableArea = ({
   };
 
   const goToCurrent = () => {
-    navigate(`${ROUTES.CURRENT}/${roomUUID}`);
+    navigate(`${ROUTES.CURRENT}/${roomId}`);
   };
 
   const allTimeRange = getAllTimeRange(dates, timeRange);
@@ -93,7 +94,7 @@ const TableArea = ({
         availableDateTimes: Object.values(selected).flat(),
       };
 
-      mutate({ roomUUID, payload });
+      mutate({ roomId, payload });
     }
 
     if (selectedMethod === 'impossible') {
@@ -108,7 +109,7 @@ const TableArea = ({
         availableDateTimes: filteredTime,
       };
 
-      mutate({ roomUUID, payload });
+      mutate({ roomId, payload });
     }
   };
 
@@ -149,6 +150,7 @@ const TableArea = ({
         />
       </TableWrapper>
       <AddButton
+        isLoading={isLoading}
         setTableSelected={setTableSelected}
         handleApplyClick={handleApplyClick}
         setIsResetButtonClick={setIsResetButtonClick}

@@ -102,6 +102,7 @@ export const TableWrapper = styled.div`
   margin-top: 26px;
   overflow-y: hidden;
   position: relative;
+  min-height: 200px;
 
   overflow-x: auto;
   -ms-overflow-style: none;

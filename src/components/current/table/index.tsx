@@ -20,7 +20,6 @@ import {
   AvailableDateTimeTypes,
 } from '@/types/current';
 import { getFourChunks } from '@/utils/getFourChunks';
-import { getFormattedDateArray } from '@/utils/getFormattedDateArray';
 
 interface TableTypes {
   dates: string[];
