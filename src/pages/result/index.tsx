@@ -68,8 +68,7 @@ export default function Result() {
     !isFetchingNextPage &&
     (!candidateTimes ||
       candidateTimes.length === 0 ||
-      candidateTimes[0].unavailableParticipantNames.length <
-        filter.names.length);
+      candidateTimes[0].availableParticipantNames.length < filter.names.length);
 
   const [isAutoLoad, setIsAutoLoad] = useState(false);
   const { loadMoreRef } = useLoadMore({
