@@ -49,8 +49,8 @@ export function ParticipantOption({
   };
 
   const handleApplyClick = () => {
-    if (selected.length === 0) {
-      handleSelectedParticipantsSelect(participants);
+    if (selected.length === 0 || selected.length === participants.length) {
+      handleSelectedParticipantsSelect([]);
       handleCloseBottomSheet();
       return;
     }

@@ -4,11 +4,11 @@ import { CandidateTime } from '@/types/result';
 
 interface Props {
   candidateTime: CandidateTime;
-  totalCount: number;
   isFiltered: boolean;
+  totalCount: number;
 }
 
-export function Candidate({ candidateTime, totalCount, isFiltered }: Props) {
+export function Candidate({ candidateTime, isFiltered, totalCount }: Props) {
   const convertDateFormat = () => {
     if (candidateTime.startTime && candidateTime.endTime) {
       return `${candidateTime.date.slice(5, 7)}월 ${candidateTime.date.slice(
@@ -29,10 +29,9 @@ export function Candidate({ candidateTime, totalCount, isFiltered }: Props) {
     <Wrapper>
       <Accordion
         title={convertDateFormat()}
+        isFiltered={isFiltered}
         availableParticipantNames={candidateTime.availableParticipantNames}
-        unavailableParticipantNames={
-          isFiltered ? [] : candidateTime.unavailableParticipantNames
-        }
+        unavailableParticipantNames={candidateTime.unavailableParticipantNames}
         totalCount={totalCount}
         defaultOpen={true}
       />
