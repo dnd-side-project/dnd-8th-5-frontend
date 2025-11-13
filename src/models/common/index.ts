@@ -33,6 +33,6 @@ export function convertPageable<T>(res: PageableResponse<T>): InfinitePage<T> {
     totalElements: res.total,
     totalPages: res.totalPages,
     hasNext,
-    nextPageP: hasNext ? res.pageRequest.page + 1 : undefined,
+    nextPage: hasNext ? res.pageRequest.page + 1 : undefined,
   };
 }

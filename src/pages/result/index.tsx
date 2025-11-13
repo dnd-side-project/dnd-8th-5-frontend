@@ -53,6 +53,7 @@ export default function Result() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    isLoading,
   } = useGetCandidateTimesInfiniteQuery({
     roomId: roomId ?? '',
     sort: filter.sort,
@@ -63,6 +64,7 @@ export default function Result() {
     candidateTimesData?.pages.flatMap((p) => p.content) ?? [];
 
   const showEmpty =
+    !isLoading &&
     !isFetchingNextPage &&
     (!candidateTimes ||
       candidateTimes.length === 0 ||
@@ -156,13 +158,17 @@ export default function Result() {
               />
             </div>
 
+            {isLoading && <Loading />}
             {showEmpty && <EmptyResult />}
 
             {candidateTimes && candidateTimes.length > 0 && (
               <List>
                 {candidateTimes.map((candidateTime) => (
                   <Candidate
-                    key={candidateTime.id}
+                    key={
+                      candidateTime.id ??
+                      `${candidateTime.date}-${candidateTime.dayOfWeek}-${candidateTime.startTime}-${candidateTime.endTime}`
+                    }
                     candidateTime={candidateTime}
                     isFiltered={filter.names.length > 0}
                     totalCount={
@@ -175,7 +181,6 @@ export default function Result() {
                 {hasNextPage && !isAutoLoad && (
                   <LoadMoreButton
                     onClick={() => {
-                      fetchNextPage();
                       setIsAutoLoad(true);
                     }}
                     disabled={isFetchingNextPage}
@@ -268,6 +273,7 @@ export const Title = styled.div`
 export const List = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1;
   gap: 12px;
   padding: 12px 0 110px 0;
 `;

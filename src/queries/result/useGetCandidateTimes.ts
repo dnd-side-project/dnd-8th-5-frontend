@@ -15,7 +15,7 @@ export const useGetCandidateTimesInfiniteQuery = ({
 }) => {
   return useInfiniteQuery({
     queryKey: [QUERY_KEYS.RESULT.GET_CANDIDATE_TIMES, roomId, sort, names],
-    queryFn: async ({ pageParam = 0 }) => {
+    queryFn: async ({ pageParam = 1 }) => {
       return await getCandidateTimesInfo({
         roomId,
         sort,
@@ -30,5 +30,6 @@ export const useGetCandidateTimesInfiniteQuery = ({
     },
     enabled: !!roomId,
     refetchOnWindowFocus: false,
+    cacheTime: 0,
   });
 };
