@@ -25,7 +25,7 @@ export const Section = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 16px 20px 0 20px;
+  padding: 32px 20px 0 20px;
 `;
 
 export const TimerWrapper = styled.div`

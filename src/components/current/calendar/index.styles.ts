@@ -127,16 +127,15 @@ export const StyledCalendar = styled(Calendar)`
     color: #59ce8f;
     background: #e6f8ee;
   }
-`;
 
-export const PrevMonthIcon = styled.img`
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-`;
+  .react-calendar__navigation__arrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+  }
 
-export const NextMonthIcon = styled.img`
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
+  .react-calendar__navigation__label {
+    text-align: center;
+    margin-bottom: 4px;
+  }
 `;
