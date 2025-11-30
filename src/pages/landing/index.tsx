@@ -130,8 +130,7 @@ export const SecondSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 96px 20px;
-  margin: 0 0 32px 0;
+  padding: 32px 20px;
 
   h2 {
     margin: 0 0 40px 0;
@@ -152,6 +151,7 @@ export const ThirdSection = styled.section`
   align-items: center;
   padding: 100px 20px;
   gap: 100px;
+  margin: 32px 0 0 0;
 
   div {
     width: 100%;
