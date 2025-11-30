@@ -19,7 +19,8 @@ export const useComponentOnScreen = (refs: RefObject<HTMLDivElement>[]) => {
   };
 
   const observer = new IntersectionObserver(handleScroll, {
-    threshold: 0.2,
+    // threshold: 0.1,
+    rootMargin: '0px 0px -20% 0px',
   });
 
   useEffect(() => {

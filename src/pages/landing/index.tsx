@@ -46,17 +46,12 @@ export default function Landing() {
             style={{ marginTop: '64px' }}
           />
           <ScrollWrapper>
-            <img
-              src={landingScroll}
-              alt="스크롤해 보세요"
-              width="150px"
-              height="24px"
-            />
+            <img src={landingScroll} alt="스크롤해 보세요" width="140px" />
           </ScrollWrapper>
         </FirstSection>
 
         <SecondSection ref={secondRef}>
-          <h2>{`3인이상 약속을 잡을 때,\n일정 조율하기 어렵지 않으셨나요?`}</h2>
+          <h2>{`3인 이상 약속을 잡을 때,\n일정 조율하기 어렵지 않으셨나요?`}</h2>
           <img src={landingChat} width="100%" />
           <img src={landingHelp} width="100%" style={{ marginTop: '76px' }} />
         </SecondSection>
@@ -121,23 +116,22 @@ export const FirstSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 14vh 20px 0 20px;
+  padding: 12vh 20px 0 20px;
 `;
 
 export const ScrollWrapper = styled.div`
   position: absolute;
-  bottom: 100px;
+  bottom: 96px;
   animation: ${flotingAnimation} 2s infinite;
 `;
 
 export const SecondSection = styled.section`
   width: 100%;
-  height: 100vh;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 8vh 20px 0 20px;
+  padding: 96px 20px;
+  margin: 0 0 32px 0;
 
   h2 {
     margin: 0 0 40px 0;
@@ -148,7 +142,7 @@ export const SecondSection = styled.section`
   }
 
   transition: all 2s;
-  transform: translateY(100px);
+  transform: translateY(96px);
 `;
 
 export const ThirdSection = styled.section`
@@ -156,8 +150,8 @@ export const ThirdSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4vh 20px 80px 20px;
-  gap: 148px;
+  padding: 100px 20px;
+  gap: 100px;
 
   div {
     width: 100%;
@@ -181,7 +175,7 @@ export const ThirdSection = styled.section`
   }
 
   transition: all 2s;
-  transform: translateY(100px);
+  transform: translateY(96px);
 `;
 
 export const FourthSection = styled.section`
@@ -189,9 +183,14 @@ export const FourthSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 60px 20px 80px 20px;
-  gap: 148px;
-  background: #dadeff;
+  padding: 96px 20px;
+  margin: 40px 0 0 0;
+  gap: 100px;
+  background: linear-gradient(
+    to bottom,
+    #dadeff 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
 
   div {
     width: 100%;
@@ -215,22 +214,24 @@ export const FourthSection = styled.section`
   }
 
   transition: all 2s;
-  transform: translateY(100px);
+  transform: translateY(96px);
 `;
 
 export const FifthSection = styled.div`
   width: 100%;
-  padding: 128px 0 0 0;
+  padding: 52px 0 60px 0;
 
   h3 {
     white-space: pre-line;
     text-align: center;
     margin: 0;
     color: ${theme.colors.gray01};
+    font-size: 18px;
+    font-weight: 400;
   }
 
   transition: all 2s;
-  transform: translateY(100px);
+  transform: translateY(96px);
 `;
 
 export const Button = styled.button`
