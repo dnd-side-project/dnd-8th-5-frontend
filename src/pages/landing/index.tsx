@@ -7,11 +7,11 @@ import { Layout } from '@/components/commons/layout';
 import { flotingAnimation } from '@/utils/flotingAnimation';
 import { useComponentOnScreen } from '@/hooks/useComponentOnScreen';
 
-// import landingBackgroundImage from '@/assets/images/landing_background.webp';
-import landingBackgroundImage from '@/assets/images/landing_background_xmas.webp';
+import landingBackgroundImage from '@/assets/images/landing_background.webp';
+import landingBackgroundImageXmas from '@/assets/images/landing_background_xmas.webp';
 
 import landingLogo from '@/assets/images/landing_logo.webp';
-// import landingLogoRabbit from '@/assets/images/landing_logo_rabbit.webp';
+import landingLogoRabbit from '@/assets/images/landing_logo_rabbit.webp';
 import landingLogoRabbit1 from '@/assets/images/landing_logo_rabbit_xmas1.webp';
 import landingLogoRabbit2 from '@/assets/images/landing_logo_rabbit_xmas2.webp';
 import landingLogoRabbit3 from '@/assets/images/landing_logo_rabbit_xmas3.webp';
@@ -25,15 +25,27 @@ import landingAddTime from '@/assets/images/landing_add_time.webp';
 import landingCurrent from '@/assets/images/landing_current.webp';
 import landingPriority from '@/assets/images/landing_priority.webp';
 
-const rabbits = [landingLogoRabbit1, landingLogoRabbit2, landingLogoRabbit3];
+const xmasRabbits = [
+  landingLogoRabbit1,
+  landingLogoRabbit2,
+  landingLogoRabbit3,
+];
+
+const isAfterXmas2025 = (() => {
+  const now = new Date();
+  const xmas2025 = new Date('2025-12-25T00:00:00'); // 로컬 시간 기준
+  return now >= xmas2025;
+})();
 
 export default function Landing() {
   const navigate = useNavigate();
   const [selectedRabbit, setSelectedRabbit] = useState<string | null>(null);
 
   useEffect(() => {
-    const random = Math.floor(Math.random() * rabbits.length);
-    setSelectedRabbit(rabbits[random]);
+    if (!isAfterXmas2025) {
+      const random = Math.floor(Math.random() * xmasRabbits.length);
+      setSelectedRabbit(xmasRabbits[random]);
+    }
   }, []);
 
   const handleStartButtonClick = () => {
@@ -50,16 +62,25 @@ export default function Landing() {
   return (
     <Layout>
       <Wrapper>
-        <Background src={landingBackgroundImage} alt="배경 이미지" />
+        <Background
+          src={
+            isAfterXmas2025
+              ? landingBackgroundImage
+              : landingBackgroundImageXmas
+          }
+          alt="배경 이미지"
+        />
         <FirstSection>
           <img src={landingLogo} alt="모두의 시간" width="244px" />
           <img
-            src={selectedRabbit || landingLogoRabbit1}
-            alt="모두의 시간"
-            width="375px"
-            style={{ marginTop: '2vh' }}
-            // width="80%"
-            // style={{ marginTop: '64px' }}
+            src={
+              isAfterXmas2025
+                ? landingLogoRabbit
+                : selectedRabbit || landingLogoRabbit1
+            }
+            alt="모두의 시간 캐릭터"
+            width={isAfterXmas2025 ? '80%' : '375px'}
+            style={{ marginTop: isAfterXmas2025 ? '64px' : '2vh' }}
           />
           <ScrollWrapper>
             <img src={landingScroll} alt="스크롤해 보세요" width="140px" />
