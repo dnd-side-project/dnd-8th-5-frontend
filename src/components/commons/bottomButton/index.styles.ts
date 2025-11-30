@@ -14,7 +14,7 @@ export const BottomButtonContainer = styled.div<{
   right: 0;
   margin: 0 auto;
   max-width: 412px;
-  padding: 10px 0 0 0;
+  padding: 14px 0 0 0;
   z-index: 3;
   ${({ isBackgroundVisible }) =>
     isBackgroundVisible &&
@@ -30,7 +30,7 @@ export const Wrapper = styled.button<{
 }>`
   position: relative;
   width: calc(100% - 40px);
-  max-width: ${({ isLanding }) => (isLanding ? '375px' : '412px')};
+  max-width: ${({ isLanding }) => (isLanding ? '375px' : '462px')};
   height: 52px;
   margin: 0 auto;
 

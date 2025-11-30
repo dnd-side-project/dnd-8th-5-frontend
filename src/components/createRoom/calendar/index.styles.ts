@@ -197,7 +197,7 @@ export const CalendarComponent = styled(Calendar)`
 
   .rmdp-year-picker {
     display: flex;
-    width: 412px !important;
+    width: 462px !important;
   }
 
   .rmdp-month-picker,
