@@ -8,12 +8,12 @@ export const BottomButtonContainer = styled.div<{
   position: fixed;
   bottom: 0;
   width: 100%;
-  max-width: 462px;
+  max-width: 412px;
   height: 90px;
   left: 0;
   right: 0;
   margin: 0 auto;
-  max-width: 462px;
+  max-width: 412px;
   padding: 14px 0 0 0;
   z-index: 3;
   ${({ isBackgroundVisible }) =>

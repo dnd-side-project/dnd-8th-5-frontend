@@ -4,7 +4,7 @@ import inviteBack from '@/assets/images/inviteBack.webp';
 
 export const MainContainer = styled.div`
   width: 100%;
-  max-width: 462px;
+  max-width: 412px;
   height: calc(100vh + 90px);
   position: relative;
   left: 0;

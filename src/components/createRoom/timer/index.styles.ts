@@ -8,7 +8,7 @@ export const MainContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 462px;
+  max-width: 412px;
   overflow: hidden;
   touch-action: none;
   z-index: 1;
@@ -17,7 +17,7 @@ export const MainContainer = styled.div`
 
 export const GreyBox = styled.div`
   position: absolute;
-  max-width: 462px;
+  max-width: 412px;
   left: 20px;
   right: 20px;
   height: 48px;
