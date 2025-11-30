@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import theme from '@/styles/theme';
@@ -7,9 +7,15 @@ import { Layout } from '@/components/commons/layout';
 import { flotingAnimation } from '@/utils/flotingAnimation';
 import { useComponentOnScreen } from '@/hooks/useComponentOnScreen';
 
-import landingBackgroundImage from '@/assets/images/landing_background.webp';
+// import landingBackgroundImage from '@/assets/images/landing_background.webp';
+import landingBackgroundImage from '@/assets/images/landing_background_xmas.webp';
+
 import landingLogo from '@/assets/images/landing_logo.webp';
-import landingLogoRabbit from '@/assets/images/landing_logo_rabbit.webp';
+// import landingLogoRabbit from '@/assets/images/landing_logo_rabbit.webp';
+import landingLogoRabbit1 from '@/assets/images/landing_logo_rabbit_xmas1.webp';
+import landingLogoRabbit2 from '@/assets/images/landing_logo_rabbit_xmas2.webp';
+import landingLogoRabbit3 from '@/assets/images/landing_logo_rabbit_xmas3.webp';
+
 import landingScroll from '@/assets/images/landing_scroll.webp';
 import landingChat from '@/assets/images/landing_chat.webp';
 import landingHelp from '@/assets/images/landing_help.webp';
@@ -19,8 +25,16 @@ import landingAddTime from '@/assets/images/landing_add_time.webp';
 import landingCurrent from '@/assets/images/landing_current.webp';
 import landingPriority from '@/assets/images/landing_priority.webp';
 
+const rabbits = [landingLogoRabbit1, landingLogoRabbit2, landingLogoRabbit3];
+
 export default function Landing() {
   const navigate = useNavigate();
+  const [selectedRabbit, setSelectedRabbit] = useState<string | null>(null);
+
+  useEffect(() => {
+    const random = Math.floor(Math.random() * rabbits.length);
+    setSelectedRabbit(rabbits[random]);
+  }, []);
 
   const handleStartButtonClick = () => {
     navigate(ROUTES.ROOM_START);
@@ -38,12 +52,14 @@ export default function Landing() {
       <Wrapper>
         <Background src={landingBackgroundImage} alt="배경 이미지" />
         <FirstSection>
-          <img src={landingLogo} alt="모두의 시간" width="80%" />
+          <img src={landingLogo} alt="모두의 시간" width="244px" />
           <img
-            src={landingLogoRabbit}
+            src={selectedRabbit || landingLogoRabbit1}
             alt="모두의 시간"
-            width="80%"
-            style={{ marginTop: '64px' }}
+            width="375px"
+            style={{ marginTop: '2vh' }}
+            // width="80%"
+            // style={{ marginTop: '64px' }}
           />
           <ScrollWrapper>
             <img src={landingScroll} alt="스크롤해 보세요" width="140px" />
@@ -60,8 +76,8 @@ export default function Landing() {
           <div>
             <h2>약속 시간 만들기</h2>
             <h3>{`간단하게 약속 모임을\n만들어 보세요!`}</h3>
-            <img src={landingCalendar} width="60%" />
-            <img src={landingShare} width="60%" />
+            <img src={landingCalendar} width="260px" />
+            <img src={landingShare} width="260px" />
           </div>
           <div>
             <h2>시간 입력하기</h2>
@@ -74,12 +90,12 @@ export default function Landing() {
           <div>
             <h2>실시간 확인하기</h2>
             <h3>{`일정등록 타이머와 함께\n실시간 참여율을 확인할 수 있어요`}</h3>
-            <img src={landingCurrent} width="60%" />
+            <img src={landingCurrent} width="260px" />
           </div>
           <div>
             <h2>우선순위 확인하기</h2>
             <h3>{`조율 결과를\n한눈에 확인해 볼까요?`}</h3>
-            <img src={landingPriority} width="60%" />
+            <img src={landingPriority} width="260px" />
           </div>
         </FourthSection>
 
@@ -130,7 +146,8 @@ export const SecondSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 32px 20px;
+  padding: 60px 20px 160px 20px;
+  gap: 12px;
 
   h2 {
     margin: 0 0 40px 0;
@@ -151,7 +168,7 @@ export const ThirdSection = styled.section`
   align-items: center;
   padding: 100px 20px;
   gap: 100px;
-  margin: 32px 0 0 0;
+  margin: 160px 0 0 0;
 
   div {
     width: 100%;
@@ -183,9 +200,8 @@ export const FourthSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 96px 20px;
-  margin: 40px 0 0 0;
-  gap: 100px;
+  padding: 20px 20px;
+  gap: 132px;
   background: linear-gradient(
     to bottom,
     #dadeff 0%,
@@ -219,7 +235,7 @@ export const FourthSection = styled.section`
 
 export const FifthSection = styled.div`
   width: 100%;
-  padding: 52px 0 60px 0;
+  padding: 60px 0;
 
   h3 {
     white-space: pre-line;

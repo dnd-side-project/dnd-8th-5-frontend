@@ -30,7 +30,7 @@ export const Wrapper = styled.button<{
 }>`
   position: relative;
   width: calc(100% - 40px);
-  max-width: ${({ isLanding }) => (isLanding ? '375px' : '462px')};
+  max-width: ${({ isLanding }) => (isLanding ? '375px' : '412px')};
   height: 52px;
   margin: 0 auto;
 

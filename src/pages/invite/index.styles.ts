@@ -108,7 +108,7 @@ export const Participant = styled.div`
   ${theme.typography.semibold06}
   color: ${theme.colors.purple06};
 
-  @media screen and (max-width: 462px) {
+  @media screen and (max-width: 412px) {
     width: 64px;
   }
 `;
