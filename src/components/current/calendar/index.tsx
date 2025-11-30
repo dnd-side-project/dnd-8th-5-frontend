@@ -1,10 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import dayjs from 'dayjs';
 
-import { NextMonthIcon, PrevMonthIcon, StyledCalendar } from './index.styles';
+import { StyledCalendar } from './index.styles';
 import theme from '@/styles/theme';
-import calendarNextMonth from '@/assets/icons/calendarNextMonth.svg';
-import calendarPrevMonth from '@/assets/icons/calendarPrevMonth.svg';
 
 import {
   AvailableDateTimesTypes,
@@ -12,6 +10,8 @@ import {
 } from '@/types/current';
 import { CalendarProps } from 'react-calendar';
 import { Participant } from '@/types/roomInfo';
+import IconChevronRight from './IconChevronRight';
+import IconChevronLeft from './IconChevronLeft';
 
 interface CurrentCalendarTypes extends CalendarProps {
   timeInfo?: AvailableDateTimesTypes;
@@ -29,6 +29,24 @@ const Calendar = ({
       opacity: date.availableTimeInfos[0].count / participants.length,
     })
   );
+
+  const { minDate, maxDate } = useMemo(() => {
+    if (!timeInfo?.availableDateTimes?.length) {
+      return { minDate: undefined, maxDate: undefined };
+    }
+
+    const sorted = [...timeInfo.availableDateTimes].sort((a, b) =>
+      a.availableDate.localeCompare(b.availableDate)
+    );
+
+    const first = dayjs(sorted[0].availableDate);
+    const last = dayjs(sorted[sorted.length - 1].availableDate);
+
+    const min = first.startOf('month').toDate();
+    const max = last.endOf('month').toDate();
+
+    return { minDate: min, maxDate: max };
+  }, [timeInfo]);
 
   const addTileClassName = ({ date }: { date: Date }) => {
     if (
@@ -73,14 +91,16 @@ const Calendar = ({
       tileClassName={addTileClassName}
       next2Label={null}
       prev2Label={null}
-      nextLabel={<NextMonthIcon src={calendarNextMonth} />}
-      prevLabel={<PrevMonthIcon src={calendarPrevMonth} />}
+      nextLabel={<IconChevronRight fill={theme.colors.gray05} />}
+      prevLabel={<IconChevronLeft fill={theme.colors.gray05} />}
       showNeighboringMonth={false}
       minDetail="month"
       maxDetail="month"
       calendarType="US"
       formatDay={(_, date) => dayjs(date).format('D')}
       formatMonthYear={(_, date) => dayjs(date).format('M월')}
+      minDate={minDate}
+      maxDate={maxDate}
       {...rest}
     />
   );
