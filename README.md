@@ -60,12 +60,12 @@
 <br/>
 <br/>
 
-# 🧑🏻‍💻 FE 팀원 정보
+# 🧑🏻‍💻 개발자 정보
 
-|                      <img src="https://avatars.githubusercontent.com/u/79887293?v=4" width=150px>                       |      <img src="https://avatars.githubusercontent.com/u/81014501?v=4" width=150px>      |
-| :---------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------: |
-|                                        [김주현](https://github.com/corinthionia)                                        |                          [노현](https://github.com/YesHyeon)                           |
-|                                 [corinthionia@gmail.com](mailto:corinthionia@gmail.com)                                 |                   [shgus1224@naver.com](mailto:shgus1224@naver.com)                    |
-| 조율 현황 페이지 개발<br/>일정 등록 페이지 개발<br/>우선순위 확인 페이지 개발<br/>Google Analytics 설정<br/>서비스 배포 | 방 생성 페이지 개발<br/>로그인 페이지 개발<br/>링크공유 기능 구현<br/>로그인 기능 구현 |
+| 이름   | Github                          | 역할           | 이메일                 |
+| ------ | ------------------------------- | -------------- | ---------------------- |
+| 김주현 | https://github.com/corinthionia | 기획 / FE 개발 | corinthionia@gmail.com |
 
-<br/>
+- 모두의 시간은 [새로운 저장소](https://github.com/modutime)에서 마이그레이션 진행 중입니다.
+- 리뉴얼 이후 본 저장소는 아카이브 될 예정입니다.
+- 사용 중 불편 사항이나 버그 제보는 [피드백 폼](https://tally.so/r/3EgaGr)을 이용해 주세요.
