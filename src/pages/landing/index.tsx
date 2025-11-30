@@ -116,7 +116,7 @@ export const FirstSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12vh 20px 0 20px;
+  padding: 13vh 20px 0 20px;
 `;
 
 export const ScrollWrapper = styled.div`
