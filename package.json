@@ -109,5 +109,6 @@
     "prop-types": "^15.8.1",
     "vite": "^4.4.9",
     "vite-tsconfig-paths": "^4.2.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
