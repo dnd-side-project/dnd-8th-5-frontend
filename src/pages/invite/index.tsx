@@ -26,6 +26,8 @@ import { Helmet } from 'react-helmet-async';
 
 import calendar from '@/assets/images/invite_calendar.webp';
 import calendarXmas from '@/assets/images/invite_calendar_xmas.webp';
+import Snowfall from 'react-snowfall';
+import { Layout } from '@/components/commons/layout';
 
 const isAfterXmas2025 = (() => {
   const now = new Date();
@@ -103,32 +105,43 @@ const Invite = () => {
         />
       </Helmet>
 
-      <MainContainer isAfterXmas2025={isAfterXmas2025}>
-        <HeaderWrapper>
-          <Calendar src={isAfterXmas2025 ? calendar : calendarXmas} />
-          <TitleWrapper>
-            <Title>약속에 초대합니다</Title>
-            <SubTitle>지금 바로 약속 시간을 조율해 보세요!</SubTitle>
-          </TitleWrapper>
-        </HeaderWrapper>
+      <Layout>
+        {!isAfterXmas2025 && (
+          <Snowfall
+            color="#fff"
+            snowflakeCount={30}
+            wind={[-0.5, 0.5]}
+            opacity={[0.5, 1]}
+            style={{ zIndex: 1 }}
+          />
+        )}
+        <MainContainer isAfterXmas2025={isAfterXmas2025}>
+          <HeaderWrapper>
+            <Calendar src={isAfterXmas2025 ? calendar : calendarXmas} />
+            <TitleWrapper>
+              <Title>약속에 초대합니다</Title>
+              <SubTitle>지금 바로 약속 시간을 조율해 보세요!</SubTitle>
+            </TitleWrapper>
+          </HeaderWrapper>
 
-        <BoxWrapper>
-          <UpperBoxWrapper>
-            <RoomTitle>{room.title}</RoomTitle>
-          </UpperBoxWrapper>
-          <LowerBoxWrapper>
-            <ParticipantsTitle>참여자</ParticipantsTitle>
-            <ParticipantsWrapper>{getParticipant()}</ParticipantsWrapper>
-          </LowerBoxWrapper>
-        </BoxWrapper>
+          <BoxWrapper>
+            <UpperBoxWrapper>
+              <RoomTitle>{room.title}</RoomTitle>
+            </UpperBoxWrapper>
+            <LowerBoxWrapper>
+              <ParticipantsTitle>참여자</ParticipantsTitle>
+              <ParticipantsWrapper>{getParticipant()}</ParticipantsWrapper>
+            </LowerBoxWrapper>
+          </BoxWrapper>
 
-        <BottomButton onClick={handleStartButtonClick}>
-          일정 등록하기
-        </BottomButton>
-        <BottomSubButton onClick={handleSubButtonClick}>
-          등록 현황 보러 가기
-        </BottomSubButton>
-      </MainContainer>
+          <BottomButton onClick={handleStartButtonClick}>
+            일정 등록하기
+          </BottomButton>
+          <BottomSubButton onClick={handleSubButtonClick}>
+            등록 현황 보러 가기
+          </BottomSubButton>
+        </MainContainer>
+      </Layout>
     </>
   );
 };
