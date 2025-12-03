@@ -1,43 +1,44 @@
 import styled from '@emotion/styled';
 import theme from '@/styles/theme';
-import inviteBack from '@/assets/images/inviteBack.webp';
+import inviteBg from '@/assets/images/invite_bg.webp';
+import inviteBgXmas from '@/assets/images/invite_bg_xmas.webp';
 
-export const MainContainer = styled.div`
+export const MainContainer = styled.div<{ isAfterXmas2025: boolean }>`
   width: 100%;
   max-width: 412px;
-  height: calc(100vh + 90px);
+  height: 100vh;
   position: relative;
   left: 0;
   right: 0;
   margin: 0 auto;
   background-size: cover;
-  background-image: url(${inviteBack});
+  background-image: ${({ isAfterXmas2025 }) =>
+    isAfterXmas2025 ? `url(${inviteBg})` : `url(${inviteBgXmas})`};
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  overscroll-behavior: none;
+  overflow: hidden;
 `;
 
 export const HeaderWrapper = styled.div`
-  position: absolute;
-  top: 153px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 30px;
 `;
 
 export const Calendar = styled.img`
-  width: 161.5px;
-  top: 153px;
+  width: 162px;
 `;
 
 export const TitleWrapper = styled.div`
-  top: 153px;
-  color: ${theme.colors.gray01};
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 34px;
+  gap: 2px;
+  color: ${theme.colors.gray01};
 `;
 
 export const Title = styled.div`
@@ -47,66 +48,65 @@ export const Title = styled.div`
 `;
 
 export const SubTitle = styled.div`
-  ${theme.typography.medium02}
+  ${theme.typography.regular01}
 `;
 
 export const BoxWrapper = styled.div`
-  position: absolute;
-  top: 388px;
+  display: flex;
+  flex-direction: column;
   width: calc(100% - 40px);
-  height: 202px;
+  margin: 40px 0 0 0;
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 12px;
+  filter: drop-shadow(0px 0px 9px rgba(45, 55, 127, 0.2));
+  backdrop-filter: blur(13px);
 `;
 
 export const UpperBoxWrapper = styled.div`
   width: 100%;
-  height: 60px;
   background-color: rgba(255, 255, 255, 0.15);
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-
+  border-radius: 12px 12px 0 0;
   display: flex;
   align-items: center;
-  padding-left: 27px;
+  padding: 16px 28px;
   color: ${theme.colors.gray01};
 `;
 
 export const LowerBoxWrapper = styled.div`
-  width: calc(100% - 54px);
-  padding-top: 17px;
-  margin: 0 auto;
+  width: 100%;
+  padding: 16px 28px 32px 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 `;
 
 export const ParticipantsTitle = styled.div`
-  ${theme.typography.semibold04}
+  ${theme.typography.medium02}
   color: ${theme.colors.gray01};
   margin-bottom: 8px;
 `;
 
-export const ParticipantsWraaper = styled.div`
+export const ParticipantsWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  gap: 4px;
   flex-direction: row;
-  white-space: normal;
-  flex-basis: 100%;
 `;
 
-export const Participant = styled.div`
-  width: 72px;
-  height: 33px;
-  margin-right: 6px;
-  margin-bottom: 6px;
-  display: flex;
+export const Participant = styled.div<{ isAfterXmas2025: boolean }>`
+  width: 62px;
+  height: 30px;
 
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.4);
-  ${theme.typography.semibold06}
-  color: ${theme.colors.purple06};
+  ${theme.typography.medium04}
+  color: ${({ isAfterXmas2025 }) =>
+    isAfterXmas2025 ? theme.colors.purple06 : theme.colors.gray01};
 
   @media screen and (max-width: 412px) {
     width: 64px;
@@ -114,41 +114,34 @@ export const Participant = styled.div`
 `;
 
 export const RoomTitle = styled.div`
-  ${theme.typography.semibold02}
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 130%;
 `;
 
 export const BottomButton = styled.button`
   width: calc(100% - 40px);
   max-width: 375px;
   height: 52px;
-  margin: 0 auto;
-  position: absolute;
+  margin: 44px 0 0 0;
   border-radius: 6px;
-  ${theme.typography.semibold03};
+  ${theme.typography.medium01};
   color: ${theme.colors.purple06};
   background: ${theme.colors.gray01};
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 636px;
-  left: 0;
-  right: 0;
-  bottom: 28px;
 `;
 
 export const BottomSubButton = styled.button`
   width: calc(100% - 40px);
   max-width: 375px;
-  height: 52px;
-  margin: 0 auto;
-  position: absolute;
+  margin: 20px 0 0 0;
+  padding: 0;
   border-radius: 6px;
-  ${theme.typography.semibold04};
+  ${theme.typography.medium02};
   color: ${theme.colors.gray01};
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 690px;
 `;

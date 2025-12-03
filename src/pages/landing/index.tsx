@@ -23,6 +23,7 @@ import landingSection1BgXmas from '@/assets/images/landing_section1_bg_xmas.webp
 import landingLogoRabbit1 from '@/assets/images/landing_logo_rabbit_xmas1.webp';
 import landingLogoRabbit2 from '@/assets/images/landing_logo_rabbit_xmas2.webp';
 import landingLogoRabbit3 from '@/assets/images/landing_logo_rabbit_xmas3.webp';
+import Snowfall from 'react-snowfall';
 
 const xmasRabbits = [
   landingLogoRabbit1,
@@ -53,6 +54,16 @@ export default function Landing() {
 
   return (
     <Layout>
+      {!isAfterXmas2025 && (
+        <Snowfall
+          color="#fff"
+          snowflakeCount={30}
+          wind={[-0.5, 0.5]}
+          opacity={[0.5, 1]}
+          style={{ zIndex: 3 }}
+        />
+      )}
+
       <Wrapper>
         <FirstSection>
           <img
@@ -153,7 +164,7 @@ export const FirstSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12vh 20px 0 20px;
+  padding: 14vh 20px 0 20px;
 
   .background {
     position: absolute;
