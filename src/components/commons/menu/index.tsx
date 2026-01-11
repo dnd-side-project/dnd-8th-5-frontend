@@ -49,7 +49,11 @@ const Menu = ({ setIsMenuOpened }: MenuTypes) => {
             <PlusText onClick={goToRoom}>약속 만들기</PlusText>
           </PlusWrapper>
           <FeedbackBtn>
-            <a href="https://tally.so/r/3EgaGr" target="_blank">
+            <a
+              href="https://tally.so/r/3EgaGr"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               모두의 시간에게 피드백 보내기
             </a>
           </FeedbackBtn>

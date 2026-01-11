@@ -82,9 +82,20 @@ export default function Landing() {
         <ArrowWrapper>
           <LandingArrowDownIcon />
         </ArrowWrapper>
-      </Wrapper>
 
-      <Button onClick={handleStartButtonClick}>시작하기</Button>
+        <Button onClick={handleStartButtonClick}>시작하기</Button>
+
+        <SixthSection>
+          <button>Privacy Policy</button> •{' '}
+          <a
+            href="https://tally.so/r/3EgaGr"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Contact
+          </a>
+        </SixthSection>
+      </Wrapper>
 
       <Background />
     </Layout>
@@ -263,7 +274,7 @@ export const ArrowWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 0 240px 0;
+  padding: 40px 0 40px 0;
 
   svg {
     animation: ${flotingAnimation} 2s infinite;
@@ -271,11 +282,13 @@ export const ArrowWrapper = styled.div`
 `;
 
 export const Button = styled.button`
-  position: absolute;
+  position: sticky;
   bottom: 24px;
   left: 20px;
+  z-index: 1;
   width: calc(100% - 40px);
   height: 52px;
+  padding: 16px 0;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -284,4 +297,24 @@ export const Button = styled.button`
   border-radius: 6px;
   background: #4e62fb;
   ${theme.typography.semibold03};
+`;
+
+export const SixthSection = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 56px 0 72px 0;
+  color: ${theme.colors.gray01};
+
+  button {
+    color: ${theme.colors.gray01};
+    ${theme.typography.regular02};
+  }
+
+  a {
+    color: ${theme.colors.gray01};
+    ${theme.typography.regular02};
+  }
 `;
