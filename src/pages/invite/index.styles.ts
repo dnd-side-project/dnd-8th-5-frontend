@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 import theme from '@/styles/theme';
 import inviteBg from '@/assets/images/invite_bg.webp';
-import inviteBgXmas from '@/assets/images/invite_bg_xmas.webp';
 
-export const MainContainer = styled.div<{ isAfterXmas2025: boolean }>`
+export const MainContainer = styled.div`
   width: 100%;
   max-width: 412px;
   height: 100vh;
@@ -12,8 +11,7 @@ export const MainContainer = styled.div<{ isAfterXmas2025: boolean }>`
   right: 0;
   margin: 0 auto;
   background-size: cover;
-  background-image: ${({ isAfterXmas2025 }) =>
-    isAfterXmas2025 ? `url(${inviteBg})` : `url(${inviteBgXmas})`};
+  background-image: ${() => `url(${inviteBg})`};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -94,7 +92,7 @@ export const ParticipantsWrapper = styled.div`
   flex-direction: row;
 `;
 
-export const Participant = styled.div<{ isAfterXmas2025: boolean }>`
+export const Participant = styled.div`
   width: 62px;
   height: 30px;
 
@@ -105,8 +103,7 @@ export const Participant = styled.div<{ isAfterXmas2025: boolean }>`
   border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.4);
   ${theme.typography.medium04}
-  color: ${({ isAfterXmas2025 }) =>
-    isAfterXmas2025 ? theme.colors.purple06 : theme.colors.gray01};
+  color:  ${theme.colors.purple06};
 
   @media screen and (max-width: 412px) {
     width: 64px;

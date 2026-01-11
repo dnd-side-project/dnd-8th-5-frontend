@@ -35,7 +35,7 @@ export const BottomWrapper = styled.div`
   padding: 10px 20px 28px 20px;
 `;
 
-export const CurrentButtonWrapper = styled.div`
+export const CurrentButtonWrapper = styled.button`
   width: 52px;
   height: 52px;
   border-radius: 50%;
