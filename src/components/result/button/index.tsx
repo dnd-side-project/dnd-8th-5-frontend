@@ -35,12 +35,8 @@ const Button = ({
     <Wrapper>
       <Bubble src={resultBubble} alt="go to current page bubble" />
       <BottomWrapper>
-        <CurrentButtonWrapper>
-          <CurrentButton
-            src={home}
-            alt="go to current page"
-            onClick={goToCurrent}
-          />
+        <CurrentButtonWrapper onClick={goToCurrent}>
+          <CurrentButton src={home} alt="go to current page" />
         </CurrentButtonWrapper>
         <BottomButton onClick={handleUseShareAPI}>
           결과 공유하기
