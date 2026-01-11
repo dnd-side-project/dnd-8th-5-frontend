@@ -27,8 +27,8 @@ export function PrivacyPolicyModal({ onClose }: PrivacyPolicyModal) {
         transition={{ type: 'spring', stiffness: 300, damping: 50 }}
       >
         <ModalHeader>
-          <button onClick={onClose}>
-            <img src={iconClose} width={'30px'} height={'30px'} />
+          <button type="button" onClick={onClose}>
+            <img src={iconClose} alt="닫기" />
           </button>
         </ModalHeader>
 
@@ -117,6 +117,11 @@ const ModalHeader = styled.div`
   button {
     width: 30px;
     height: 30px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 `;
 

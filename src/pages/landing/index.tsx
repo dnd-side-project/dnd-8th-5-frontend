@@ -89,7 +89,7 @@ export default function Landing() {
         <Button onClick={handleStartButtonClick}>시작하기</Button>
 
         <SixthSection>
-          <button onClick={() => setOpenPrivacyModal(true)}>
+          <button type="button" onClick={() => setOpenPrivacyModal(true)}>
             Privacy Policy
           </button>{' '}
           •{' '}
