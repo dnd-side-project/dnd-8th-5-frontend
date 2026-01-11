@@ -17,9 +17,12 @@ import landingAddTime from '@/assets/images/landing_add_time.webp';
 import landingCurrent from '@/assets/images/landing_current.webp';
 import landingPriority from '@/assets/images/landing_priority.webp';
 import { LandingArrowDownIcon } from '@/assets/icons/landingArrowDown';
+import { useState } from 'react';
+import { PrivacyPolicyModal } from '@/components/landing/privacy';
 
 export default function Landing() {
   const navigate = useNavigate();
+  const [openPrivacyModal, setOpenPrivacyModal] = useState(false);
 
   const handleStartButtonClick = () => {
     navigate(ROUTES.ROOM_START);
@@ -86,7 +89,10 @@ export default function Landing() {
         <Button onClick={handleStartButtonClick}>시작하기</Button>
 
         <SixthSection>
-          <button>Privacy Policy</button> •{' '}
+          <button onClick={() => setOpenPrivacyModal(true)}>
+            Privacy Policy
+          </button>{' '}
+          •{' '}
           <a
             href="https://tally.so/r/3EgaGr"
             target="_blank"
@@ -94,6 +100,9 @@ export default function Landing() {
           >
             Contact
           </a>
+          {openPrivacyModal && (
+            <PrivacyPolicyModal onClose={() => setOpenPrivacyModal(false)} />
+          )}
         </SixthSection>
       </Wrapper>
 
