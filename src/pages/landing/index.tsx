@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import theme from '@/styles/theme';
@@ -19,34 +18,8 @@ import landingCurrent from '@/assets/images/landing_current.webp';
 import landingPriority from '@/assets/images/landing_priority.webp';
 import { LandingArrowDownIcon } from '@/assets/icons/landingArrowDown';
 
-import landingSection1BgXmas from '@/assets/images/landing_section1_bg_xmas.webp';
-import landingLogoRabbit1 from '@/assets/images/landing_logo_rabbit_xmas1.webp';
-import landingLogoRabbit2 from '@/assets/images/landing_logo_rabbit_xmas2.webp';
-import landingLogoRabbit3 from '@/assets/images/landing_logo_rabbit_xmas3.webp';
-import Snowfall from 'react-snowfall';
-
-const xmasRabbits = [
-  landingLogoRabbit1,
-  landingLogoRabbit2,
-  landingLogoRabbit3,
-];
-
-const isAfterXmas2025 = (() => {
-  const now = new Date();
-  const xmas2025 = new Date('2025-12-25T00:00:00'); // 로컬 시간 기준
-  return now >= xmas2025;
-})();
-
 export default function Landing() {
   const navigate = useNavigate();
-  const [selectedRabbit, setSelectedRabbit] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!isAfterXmas2025) {
-      const random = Math.floor(Math.random() * xmasRabbits.length);
-      setSelectedRabbit(xmasRabbits[random]);
-    }
-  }, []);
 
   const handleStartButtonClick = () => {
     navigate(ROUTES.ROOM_START);
@@ -54,40 +27,22 @@ export default function Landing() {
 
   return (
     <Layout>
-      {!isAfterXmas2025 && (
-        <Snowfall
-          color="#fff"
-          snowflakeCount={30}
-          wind={[-0.5, 0.5]}
-          opacity={[0.5, 1]}
-          style={{ zIndex: 3 }}
-        />
-      )}
-
       <Wrapper>
         <FirstSection>
-          <img
-            className="background"
-            src={isAfterXmas2025 ? landingSection1Bg : landingSection1BgXmas}
-            alt=""
-          />
+          <img className="background" src={landingSection1Bg} alt="" />
           <img src={landingLogo} alt="모두의 시간" width="244px" />
           <img
-            src={
-              isAfterXmas2025
-                ? landingLogoRabbit
-                : selectedRabbit || landingLogoRabbit1
-            }
+            src={landingLogoRabbit}
             alt="모두의 시간 캐릭터"
-            width={isAfterXmas2025 ? '80%' : '375px'}
-            style={{ marginTop: isAfterXmas2025 ? '64px' : '2vh' }}
+            width={'80%'}
+            style={{ marginTop: '64px' }}
           />
           <ScrollWrapper>
             <img src={landingScroll} alt="스크롤해 보세요" width="132px" />
           </ScrollWrapper>
         </FirstSection>
 
-        <SecondSection isAfterXmas2025={isAfterXmas2025}>
+        <SecondSection>
           <h2>{`3인 이상 약속을 잡을 때,\n일정 조율하기 어렵지 않으셨나요?`}</h2>
           <img src={landingChat} width="100%" />
           <img src={landingHelp} width="100%" style={{ marginTop: '76px' }} />
@@ -131,7 +86,7 @@ export default function Landing() {
 
       <Button onClick={handleStartButtonClick}>시작하기</Button>
 
-      <Background isAfterXmas2025={isAfterXmas2025} />
+      <Background />
     </Layout>
   );
 }
@@ -145,14 +100,13 @@ export const Wrapper = styled.div`
   overflow-y: auto;
 `;
 
-export const Background = styled.div<{ isAfterXmas2025: boolean }>`
+export const Background = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: ${({ isAfterXmas2025 }) =>
-    isAfterXmas2025 ? '#96a3ff' : '#151937'};
+  background: #96a3ff;
   z-index: -3;
 `;
 
@@ -182,17 +136,18 @@ export const ScrollWrapper = styled.div`
   animation: ${flotingAnimation} 2s infinite;
 `;
 
-export const SecondSection = styled.section<{ isAfterXmas2025: boolean }>`
+export const SecondSection = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 64px 20px 300px 20px;
   gap: 12px;
-  background: ${({ isAfterXmas2025 }) =>
-    isAfterXmas2025
-      ? 'linear-gradient(180deg, rgb(150, 163, 255, 0) 0%, rgb(150, 163, 255, 1) 70%)'
-      : 'linear-gradient(180deg, rgb(21, 25, 55, 0) 0%, rgb(21, 25, 55, 1) 70%)'};
+  background: linear-gradient(
+    180deg,
+    rgb(150, 163, 255, 0) 0%,
+    rgb(150, 163, 255, 1) 70%
+  );
 
   h2 {
     margin: 0 0 40px 0;
