@@ -1,6 +1,6 @@
 import theme from '@/styles/theme';
 import styled from '@emotion/styled';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import iconClose from '@/assets/icons/close.png';
 
@@ -10,7 +10,7 @@ interface PrivacyPolicyModal {
 
 export function PrivacyPolicyModal({ onClose }: PrivacyPolicyModal) {
   return (
-    <AnimatePresence>
+    <>
       <Dim
         key="dim"
         initial={{ opacity: 0 }}
@@ -95,7 +95,7 @@ export function PrivacyPolicyModal({ onClose }: PrivacyPolicyModal) {
           </Content>
         </ModalBody>
       </ModalWrapper>
-    </AnimatePresence>
+    </>
   );
 }
 

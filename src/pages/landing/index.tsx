@@ -19,6 +19,7 @@ import landingPriority from '@/assets/images/landing_priority.webp';
 import { LandingArrowDownIcon } from '@/assets/icons/landingArrowDown';
 import { useState } from 'react';
 import { PrivacyPolicyModal } from '@/components/landing/privacy';
+import { AnimatePresence } from 'framer-motion';
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -101,7 +102,9 @@ export default function Landing() {
             Contact
           </a>
           {openPrivacyModal && (
-            <PrivacyPolicyModal onClose={() => setOpenPrivacyModal(false)} />
+            <AnimatePresence>
+              <PrivacyPolicyModal onClose={() => setOpenPrivacyModal(false)} />
+            </AnimatePresence>
           )}
         </SixthSection>
       </Wrapper>
