@@ -3,7 +3,6 @@ import { instance } from './instance';
 import { PutAvailableTimesParamsType } from '@/types/addTime';
 import {
   GetAvailableTimesByOneResponse,
-  GetAvailableTimesByGroupResponse,
   GetAvailableTimeOverviewResponse,
 } from '@/models/availableTimes';
 
@@ -23,12 +22,6 @@ export const getAvailableTimesByOne = async (
 ) => {
   return await instance.get<GetAvailableTimesByOneResponse>(
     `/api/room/${roomId}/available-time?name=${userName}`
-  );
-};
-
-export const getAvailableTimesByGroup = async (roomId: string) => {
-  return await instance.get<GetAvailableTimesByGroupResponse>(
-    `/api/room/${roomId}/available-time/group`
   );
 };
 
