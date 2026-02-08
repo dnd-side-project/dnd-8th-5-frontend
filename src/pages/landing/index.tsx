@@ -17,13 +17,9 @@ import landingAddTime from '@/assets/images/landing_add_time.webp';
 import landingCurrent from '@/assets/images/landing_current.webp';
 import landingPriority from '@/assets/images/landing_priority.webp';
 import { LandingArrowDownIcon } from '@/assets/icons/landingArrowDown';
-import { useState } from 'react';
-import { PrivacyPolicyModal } from '@/components/landing/privacy';
-import { AnimatePresence } from 'framer-motion';
 
 export default function Landing() {
   const navigate = useNavigate();
-  const [openPrivacyModal, setOpenPrivacyModal] = useState(false);
 
   const handleStartButtonClick = () => {
     navigate(ROUTES.ROOM_START);
@@ -90,7 +86,7 @@ export default function Landing() {
         <Button onClick={handleStartButtonClick}>시작하기</Button>
 
         <SixthSection>
-          <button type="button" onClick={() => setOpenPrivacyModal(true)}>
+          <button type="button" onClick={() => navigate(ROUTES.PRIVACY)}>
             Privacy Policy
           </button>{' '}
           •{' '}
@@ -101,11 +97,6 @@ export default function Landing() {
           >
             Contact
           </a>
-          {openPrivacyModal && (
-            <AnimatePresence>
-              <PrivacyPolicyModal onClose={() => setOpenPrivacyModal(false)} />
-            </AnimatePresence>
-          )}
         </SixthSection>
       </Wrapper>
 
