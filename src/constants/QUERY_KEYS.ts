@@ -7,7 +7,6 @@ export const QUERY_KEYS = {
   },
   AVAILABLE_TIME: {
     GET_AVAILABLE_TIMES_BY_ONE: 'get-available-time-by-one',
-    GET_AVAILABLE_TIMES_BY_GROUP: 'get-available-time-by-group',
   },
   RESULT: {
     GET_CANDIDATE_TIMES: 'get-candidate-times',

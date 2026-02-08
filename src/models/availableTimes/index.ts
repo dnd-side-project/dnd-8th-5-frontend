@@ -3,10 +3,6 @@ export interface GetAvailableTimesByOneResponse {
   availableDateTimes: string[];
 }
 
-export interface GetAvailableTimesByGroupResponse {
-  availableDateTimes: AvailableDateTimes[];
-}
-
 export interface GetAvailableTimeOverviewResponse {
   availableDateTimes: AvailableDateTimes[];
 }
