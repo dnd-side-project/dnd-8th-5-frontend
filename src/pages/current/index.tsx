@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import dayjs from 'dayjs';
-
 import { useRecoilState } from 'recoil';
 import { selectedMethodState } from '@/atoms/selectedMethodAtom';
 
@@ -35,7 +33,6 @@ import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 
 import { useAuth } from '@/hooks/useAuth';
 import { ROUTES } from '@/constants/ROUTES';
-import { getFourChunks } from '@/utils/getFourChunks';
 import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 
 import { Participant, RoomTypes } from '@/types/roomInfo';
@@ -49,7 +46,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/constants/QUERY_KEYS';
 import { Helmet } from 'react-helmet-async';
 import { useGetAvailableTimeOverview } from '@/queries/availableTimes/useGetAvailableTimeOverview';
-import { useGetAvailableTimesByGroup } from '@/queries/availableTimes/useGetAvailableTimesByGroup';
 import { UpdateNote } from '@/components/commons/updateNote';
 import { getFormattedDateArray } from '@/utils/getFormattedDateArray';
 import { Loading } from '@/components/commons/loading';
@@ -75,10 +71,6 @@ const Current = () => {
   const [selectedParticipants, setSelectedParticipants] = useState<
     Participant[]
   >([]);
-  const { data: timeInfo } = useGetAvailableTimesByGroup(
-    roomUUID,
-    selectedParticipants.length === 0
-  );
   const { data: availableTimeOverview } = useGetAvailableTimeOverview({
     roomId: roomUUID,
     participants: selectedParticipants.map((p) => p.name),
@@ -169,8 +161,8 @@ const Current = () => {
             roomUUID,
           ]);
           queryClient.invalidateQueries([
-            QUERY_KEYS.AVAILABLE_TIME.GET_AVAILABLE_TIMES_BY_GROUP,
-            roomUUID,
+            `roomId=${roomUUID}`,
+            `availableTimeOverview`,
           ]);
           queryClient.invalidateQueries([
             QUERY_KEYS.RESULT.GET_CANDIDATE_TIMES,
@@ -314,20 +306,12 @@ const Current = () => {
               <Title>실시간 등록 현황</Title>
               {isTableView ? (
                 <TableWrapper>
-                  {(
-                    selectedParticipants.length > 0
-                      ? availableTimeOverview
-                      : timeInfo
-                  ) ? (
+                  {availableTimeOverview ? (
                     <Table
                       dates={getFormattedDateArray(dates)}
                       startTime={startTime}
                       endTime={endTime}
-                      timeInfo={
-                        selectedParticipants.length > 0
-                          ? availableTimeOverview
-                          : timeInfo
-                      }
+                      timeInfo={availableTimeOverview}
                       participants={
                         selectedParticipants.length > 0
                           ? selectedParticipants
@@ -340,11 +324,7 @@ const Current = () => {
                 </TableWrapper>
               ) : (
                 <CurrentCalendar
-                  timeInfo={
-                    selectedParticipants.length > 0
-                      ? availableTimeOverview
-                      : timeInfo
-                  }
+                  timeInfo={availableTimeOverview}
                   defaultActiveStartDate={
                     data.dates?.[0] ? new Date(data.dates[0]) : new Date()
                   }

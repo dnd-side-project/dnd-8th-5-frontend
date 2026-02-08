@@ -15,9 +15,6 @@ export const useGetAvailableTimeOverview = ({
       participants.join('&'),
     ],
     queryFn: () => getAvailableTimeOverview({ roomId, participants }),
-    enabled: participants.length > 0,
-    staleTime: 0,
-    cacheTime: 0,
     keepPreviousData: true,
   });
 };
