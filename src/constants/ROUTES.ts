@@ -9,4 +9,5 @@ export const ROUTES = {
   ADD_TIME: '/addTime',
   RESULT: '/result',
   ERROR: '/error',
+  PRIVACY: '/privacy',
 };
