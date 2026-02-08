@@ -13,6 +13,7 @@ import Invite from './pages/invite';
 import Error from './pages/404';
 import useScrollToTop from './hooks/useScrollToTop';
 import useGoogleAnalytics from './hooks/useGoogleAnalytics';
+import Privacy from './pages/privacy';
 
 function App() {
   useGoogleAnalytics();
@@ -30,6 +31,7 @@ function App() {
         <Route path={`${ROUTES.CURRENT}/:roomUUID`} element={<Current />} />
         <Route path={`${ROUTES.ADD_TIME}/:roomId`} element={<AddTime />} />
         <Route path={`${ROUTES.RESULT}/:roomId`} element={<Result />} />
+        <Route path={ROUTES.PRIVACY} element={<Privacy />} />
         <Route path={`${ROUTES.ERROR}`} element={<Error />} />
         <Route path="*" element={<Error />} />
       </Routes>

@@ -1,5 +1,4 @@
 import iconBack from '@/assets/icons/room_header_back.svg';
-import iconMenu from '@/assets/icons/room_header_menu.svg';
 import {
   InfoWrapper,
   Title,
