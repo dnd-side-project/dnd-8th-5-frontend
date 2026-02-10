@@ -21,7 +21,7 @@ export const getAvailableTimesByOne = async (
   userName: string
 ) => {
   return await instance.get<GetAvailableTimesByOneResponse>(
-    `/api/room/${roomId}/available-time?name=${userName}`
+    `/guest/api/room/${roomId}/available-time?name=${userName}`
   );
 };
 
@@ -33,7 +33,7 @@ export const getAvailableTimeOverview = async ({
   participants: string[];
 }) => {
   return await instance.get<GetAvailableTimeOverviewResponse>(
-    `/api/room/${roomId}/available-time/overview`,
+    `/guest/api/room/${roomId}/available-time/overview`,
     {
       params: { participantNames: participants },
       paramsSerializer: (params: Record<string, any>) =>
