@@ -23,7 +23,7 @@ export const FormContainer = styled.div`
   align-items: center;
   width: 100%;
   max-width: 412px;
-  padding: 32px 20px 40px 20px;
+  padding: 40px 20px 40px 20px;
   background: white;
 `;
 
@@ -31,7 +31,6 @@ export const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 24px 0 0 0;
   gap: 8px;
   ${theme.typography.medium02}
   &::placeholder {
@@ -84,7 +83,7 @@ export const LoginButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px 0 0 0;
+  margin: 24px 0 0 0;
   border-radius: 6px;
   color: white;
   background: ${theme.colors.purple06};

@@ -94,14 +94,30 @@ const Login = () => {
       <MainContainer>
         <Logo src={loginBg} />
         <FormContainer>
-          <HeaderText>{room?.title?.slice(0, 15)}</HeaderText>
+          <KakaoLoginButton
+            onClick={() =>
+              (window.location.href = `${
+                import.meta.env.VITE_API_PATH
+              }/oauth2/authorization/kakao`)
+            }
+          >
+            <img src={kakao} alt="카카오 로고" />
+            카카오 로그인
+          </KakaoLoginButton>
+
+          <BorderWrapper>
+            <Border />
+            <span>또는</span>
+            <Border />
+          </BorderWrapper>
+
           <FormWrapper onSubmit={handleFormSubmit}>
             <Input
               autoComplete="off"
               ref={inputNameRef}
               type="text"
               name="name"
-              placeholder="이름 입력"
+              placeholder="이번 약속에서만 쓸 이름 입력"
               maxLength={5}
               value={form.name}
               onChange={onChangeForm}
@@ -128,25 +144,8 @@ const Login = () => {
                 <ErrorMessage>비밀번호가 일치하지 않아요</ErrorMessage>
               )}
             </InputWrapper>
-            <LoginButton type="submit">로그인</LoginButton>
+            <LoginButton type="submit">비회원 로그인</LoginButton>
           </FormWrapper>
-
-          <BorderWrapper>
-            <Border />
-            <span>또는</span>
-            <Border />
-          </BorderWrapper>
-
-          <KakaoLoginButton
-            onClick={() =>
-              (window.location.href = `${
-                import.meta.env.VITE_API_PATH
-              }/oauth2/authorization/kakao`)
-            }
-          >
-            <img src={kakao} alt="카카오 로고" />
-            카카오 로그인
-          </KakaoLoginButton>
         </FormContainer>
       </MainContainer>
     </Layout>
