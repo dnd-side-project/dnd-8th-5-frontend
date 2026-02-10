@@ -12,7 +12,7 @@ export const getCandidateTimesInfo = async ({
   size,
 }: GetCandidateTimesParams) => {
   return await instance.get<PageableResponse<GetAdjustmentResultRepsonse>>(
-    `/api/v1/room/${roomId}/adjustment-results`,
+    `/guest/api/v1/room/${roomId}/adjustment-results`,
     {
       params: { sort, participantNames: names, page, size },
       paramsSerializer: (params: Record<string, any>) =>
