@@ -15,6 +15,7 @@ import Error from './pages/404';
 import useScrollToTop from './hooks/useScrollToTop';
 import useGoogleAnalytics from './hooks/useGoogleAnalytics';
 import Privacy from './pages/privacy';
+import LoginNickname from './pages/login/nickname';
 
 function App() {
   useGoogleAnalytics();
@@ -29,6 +30,10 @@ function App() {
         <Route path={`${ROUTES.ROOM_TIMER}`} element={<Timer />} />
         <Route path={`${ROUTES.INVITE}/:roomUUID`} element={<Invite />} />
         <Route path={`${ROUTES.LOGIN}/:roomUUID`} element={<Login />} />
+        <Route
+          path={`${ROUTES.LOGIN_NICKNAME}/:roomId`}
+          element={<LoginNickname />}
+        />
         <Route path={`${ROUTES.AUTH}`} element={<KakaoAuth />} />
         <Route path={`${ROUTES.CURRENT}/:roomUUID`} element={<Current />} />
         <Route path={`${ROUTES.ADD_TIME}/:roomId`} element={<AddTime />} />

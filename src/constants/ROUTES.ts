@@ -5,6 +5,7 @@ export const ROUTES = {
   ROOM_CALENDAR: '/roomCalendar',
   INVITE: '/invite',
   LOGIN: '/login',
+  LOGIN_NICKNAME: '/login/nickname',
   CURRENT: '/current',
   ADD_TIME: '/addTime',
   RESULT: '/result',
