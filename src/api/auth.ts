@@ -13,3 +13,7 @@ export const getUserMe = async () => {
     .get<GetUserMeResponse>('/api/user/me')
     .then((res) => res.data);
 };
+
+export const postRoomParticipant = (roomId: string, name: string) => {
+  return instance.post(`/api/room/${roomId}/participants`, { name });
+};

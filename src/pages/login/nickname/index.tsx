@@ -12,14 +12,19 @@ import {
   InputHelperText,
   ErrorMessage,
 } from './index.styles';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
+import { usePostRoomParticipant } from '@/queries/auth/usePostRoomParticipant';
+import { ROUTES } from '@/constants/ROUTES';
 
 const MOCK_NAME = '김주현';
 
 export default function LoginNickname() {
+  const navigate = useNavigate();
   const { roomId } = useParams() as { roomId: string };
   const { data: room } = useGetRoomInfo(roomId);
+  const { mutate: postNickname, isLoading: isLoadingPostNickname } =
+    usePostRoomParticipant();
 
   const [isEditing, setIsEditing] = useState(false);
   const [nickname, setNickname] = useState(MOCK_NAME);
@@ -38,6 +43,22 @@ export default function LoginNickname() {
     if (nickname.length >= 1 && nickname.length <= 4) {
       setIsEditing(false);
     }
+  };
+
+  const handleSubmit = () => {
+    if (isLoadingPostNickname) return;
+
+    postNickname(
+      { roomId, nickname: nickname.trim() },
+      {
+        onSuccess: () => {
+          navigate(`${ROUTES.ADD_TIME}/${roomId}`);
+        },
+        onError: () => {
+          setErrorMessage('error');
+        },
+      }
+    );
   };
 
   return (
@@ -83,7 +104,9 @@ export default function LoginNickname() {
             {!!errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
 
             <Bottom>
-              <button type="submit">시작하기</button>
+              <button type="submit" onSubmit={handleSubmit}>
+                시작하기
+              </button>
             </Bottom>
           </Form>
         </Body>
