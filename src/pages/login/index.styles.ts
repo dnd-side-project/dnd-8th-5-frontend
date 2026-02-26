@@ -38,12 +38,6 @@ export const FormWrapper = styled.form`
   }
 `;
 
-export const HeaderText = styled.div`
-  font-size: 24px;
-  font-weight: 500;
-  font-family: 'Pretendard';
-`;
-
 export const InputWrapper = styled.div`
   position: relative;
   display: flex;

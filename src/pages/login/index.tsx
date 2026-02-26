@@ -4,7 +4,6 @@ import * as Sentry from '@sentry/react';
 
 import {
   FormContainer,
-  HeaderText,
   MainContainer,
   Input,
   Logo,
@@ -22,7 +21,6 @@ import useInputScroll from '@/hooks/useInputScroll';
 
 import { ROUTES } from '@/constants/ROUTES';
 
-import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 import { usePostUserInfo } from '@/queries/auth/usePostUserInfo';
 import { Layout } from '@/components/commons/layout';
 
@@ -30,8 +28,7 @@ import loginBg from '@/assets/images/login_bg.webp';
 import kakao from '@/assets/icons/kakao.svg';
 
 const Login = () => {
-  const { roomUUID } = useParams() as { roomUUID: string };
-  const { data: room } = useGetRoomInfo(roomUUID);
+  const { roomId } = useParams() as { roomId: string };
 
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
   const [isNameError, setIsNameError] = useState<boolean>(false);
@@ -69,7 +66,7 @@ const Login = () => {
     }
 
     if (canGoNext) {
-      mutate({ roomUUID, form: { ...form, name: form.name.trim() } });
+      mutate({ roomUUID: roomId, form: { ...form, name: form.name.trim() } });
     }
   };
 
@@ -77,11 +74,11 @@ const Login = () => {
     if (isSuccess) {
       if (saveUserInfo) {
         localStorage.setItem('name', form.name);
-        localStorage.setItem('uuid', String(roomUUID));
+        localStorage.setItem('uuid', String(roomId));
       }
 
       localStorage.setItem('userName', form.name);
-      navigate(`${ROUTES.ADD_TIME}/${roomUUID}`, { replace: true });
+      navigate(`${ROUTES.ADD_TIME}/${roomId}`, { replace: true });
     }
 
     if (isError) {
@@ -98,7 +95,7 @@ const Login = () => {
             onClick={() =>
               (window.location.href = `${
                 import.meta.env.VITE_API_PATH
-              }/oauth2/authorization/kakao`)
+              }/oauth2/authorization/kakao?roomUuid=${roomId}`)
             }
           >
             <img src={kakao} alt="카카오 로고" />

@@ -29,7 +29,7 @@ function App() {
         <Route path={`${ROUTES.ROOM_CALENDAR}`} element={<RoomCalendar />} />
         <Route path={`${ROUTES.ROOM_TIMER}`} element={<Timer />} />
         <Route path={`${ROUTES.INVITE}/:roomUUID`} element={<Invite />} />
-        <Route path={`${ROUTES.LOGIN}/:roomUUID`} element={<Login />} />
+        <Route path={`${ROUTES.LOGIN}/:roomId`} element={<Login />} />
         <Route
           path={`${ROUTES.LOGIN_NICKNAME}/:roomId`}
           element={<LoginNickname />}
