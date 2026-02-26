@@ -21,7 +21,7 @@ import Checkbox from '@/components/createRoom/checkbox';
 import BottomButton from '@/components/commons/bottomButton';
 
 import { ROUTES } from '@/constants/ROUTES';
-import { useCreateRoom } from '@/queries/room/useCreateRoom';
+import { useCreateRoom } from '@/queries/room';
 import { RoomLayout } from '@/components/commons/layout/RoomLayout';
 
 type TimerType = { day: number; hour: number; minute: number };

@@ -13,10 +13,10 @@ import {
   ErrorMessage,
 } from './index.styles';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
-import { usePostRoomParticipant } from '@/queries/auth/usePostRoomParticipant';
+import { useGetRoomInfo } from '@/queries/room';
+import { usePostRoomParticipant } from '@/queries/auth';
 import { ROUTES } from '@/constants/ROUTES';
-import { useGetRoomParticipantMe } from '@/queries/auth/useGetRoomParticipantMe';
+import { useGetRoomParticipantMe } from '@/queries/auth';
 
 export default function LoginNickname() {
   const navigate = useNavigate();

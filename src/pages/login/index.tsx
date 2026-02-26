@@ -21,7 +21,7 @@ import useInputScroll from '@/hooks/useInputScroll';
 
 import { ROUTES } from '@/constants/ROUTES';
 
-import { usePostUserInfo } from '@/queries/auth/usePostUserInfo';
+import { usePostUserInfo } from '@/queries/auth';
 import { Layout } from '@/components/commons/layout';
 
 import loginBg from '@/assets/images/login_bg.webp';

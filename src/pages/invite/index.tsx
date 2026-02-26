@@ -20,7 +20,7 @@ import {
 import { useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { roomState } from '@/atoms/roomAtom';
-import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
+import { useGetRoomInfo } from '@/queries/room';
 import { ROUTES } from '@/constants/ROUTES';
 import { Helmet } from 'react-helmet-async';
 

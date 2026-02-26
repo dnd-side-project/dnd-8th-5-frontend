@@ -11,8 +11,8 @@ import { AddTimeTableTypes, TableSelectedTypes } from './index.types';
 import { getTimeRange } from '@/utils/getTimeRange';
 import { getAllTimeRange } from '@/utils/getAllTimeRange';
 import { getAddTimeTableInfo } from '@/utils/getAddTimeTableInfo';
-import { usePutAvailableTimes } from '@/queries/availableTimes/usePutAvailableTimes';
-import { useGetAvailableTimesByOne } from '@/queries/availableTimes/useGetAvailableTimesByOne';
+import { usePutAvailableTimes } from '@/queries/availableTimes';
+import { useGetAvailableTimesByOne } from '@/queries/availableTimes';
 
 import { ROUTES } from '@/constants/ROUTES';
 import { selectedMethodState } from '@/atoms/selectedMethodAtom';

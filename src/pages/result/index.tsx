@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { Layout } from '@/components/commons/layout';
 import Header from '@/components/commons/header';
 import { ROUTES } from '@/constants/ROUTES';
-import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
+import { useGetRoomInfo } from '@/queries/room';
 import { useNavigate, useParams } from 'react-router-dom';
 import SelectBox from '@/components/result/selectBox';
 import ResultButton from '@/components/result/button';
@@ -16,7 +16,7 @@ import { Candidate } from '@/components/result/candidate';
 import { ParticipantOption } from '@/components/result/option/participantsOption';
 import { Loading } from '@/components/commons/loading';
 import { LoadMoreButton } from '@/components/result/loadMoreButton';
-import { useGetCandidateTimesInfiniteQuery } from '@/queries/result/useGetCandidateTimes';
+import { useGetCandidateTimesInfiniteQuery } from '@/queries/result';
 import { useLoadMore } from '@/hooks/useLoadMore';
 
 export interface FilterTypes {

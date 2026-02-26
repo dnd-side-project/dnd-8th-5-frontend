@@ -33,7 +33,7 @@ import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 
 import { useAuth } from '@/hooks/useAuth';
 import { ROUTES } from '@/constants/ROUTES';
-import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
+import { useGetRoomInfo } from '@/queries/room';
 
 import { Participant, RoomTypes } from '@/types/roomInfo';
 import { LinkShareBottomSheetState } from '@/atoms/LinkShareBottomSheetAtom';
@@ -41,11 +41,11 @@ import { useScrollDetection } from '@/hooks/useScrollDirection';
 import { Layout } from '@/components/commons/layout';
 import { AnimatePresence } from 'framer-motion';
 import { Modal } from '@/components/commons/modal';
-import { useDeleteParticipants } from '@/queries/room/useDeleteParticipants';
+import { useDeleteParticipants } from '@/queries/room';
 import { useQueryClient } from '@tanstack/react-query';
 import { queryKeys } from '@/queries/queryKey';
 import { Helmet } from 'react-helmet-async';
-import { useGetAvailableTimeOverview } from '@/queries/availableTimes/useGetAvailableTimeOverview';
+import { useGetAvailableTimeOverview } from '@/queries/availableTimes';
 import { UpdateNote } from '@/components/commons/updateNote';
 import { getFormattedDateArray } from '@/utils/getFormattedDateArray';
 import { Loading } from '@/components/commons/loading';

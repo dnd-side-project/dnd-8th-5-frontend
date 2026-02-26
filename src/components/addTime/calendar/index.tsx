@@ -6,8 +6,8 @@ import dayjs from 'dayjs';
 import calendarNextMonth from '@/assets/icons/calendarNextMonth.svg';
 import calendarPrevMonth from '@/assets/icons/calendarPrevMonth.svg';
 
-import { useGetAvailableTimesByOne } from '@/queries/availableTimes/useGetAvailableTimesByOne';
-import { usePutAvailableTimes } from '@/queries/availableTimes/usePutAvailableTimes';
+import { useGetAvailableTimesByOne } from '@/queries/availableTimes';
+import { usePutAvailableTimes } from '@/queries/availableTimes';
 import { ROUTES } from '@/constants/ROUTES';
 
 import {
