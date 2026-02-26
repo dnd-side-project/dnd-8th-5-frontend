@@ -1,4 +1,5 @@
 import { getAvailableTimeOverview } from '@/api/availableTimes';
+import { queryKeys } from '@/queries/queryKey';
 import { useQuery } from '@tanstack/react-query';
 
 export const useGetAvailableTimeOverview = ({
@@ -9,11 +10,7 @@ export const useGetAvailableTimeOverview = ({
   participants: string[];
 }) => {
   return useQuery({
-    queryKey: [
-      `roomId=${roomId}`,
-      `availableTimeOverview`,
-      participants.join('&'),
-    ],
+    queryKey: queryKeys.room.availableTime.overview(roomId, participants),
     queryFn: () => getAvailableTimeOverview({ roomId, participants }),
     keepPreviousData: true,
   });

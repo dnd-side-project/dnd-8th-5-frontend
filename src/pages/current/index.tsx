@@ -43,7 +43,7 @@ import { AnimatePresence } from 'framer-motion';
 import { Modal } from '@/components/commons/modal';
 import { useDeleteParticipants } from '@/queries/room/useDeleteParticipants';
 import { useQueryClient } from '@tanstack/react-query';
-import { QUERY_KEYS } from '@/constants/QUERY_KEYS';
+import { queryKeys } from '@/queries/queryKey';
 import { Helmet } from 'react-helmet-async';
 import { useGetAvailableTimeOverview } from '@/queries/availableTimes/useGetAvailableTimeOverview';
 import { UpdateNote } from '@/components/commons/updateNote';
@@ -156,22 +156,9 @@ const Current = () => {
       { roomId: roomUUID, body },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries([
-            QUERY_KEYS.ROOM.GET_ROOM_INFO,
-            roomUUID,
-          ]);
-          queryClient.invalidateQueries([
-            `roomId=${roomUUID}`,
-            `availableTimeOverview`,
-          ]);
-          queryClient.invalidateQueries([
-            QUERY_KEYS.RESULT.GET_CANDIDATE_TIMES,
-            roomUUID,
-          ]);
-          queryClient.invalidateQueries([
-            QUERY_KEYS.AVAILABLE_TIME.GET_AVAILABLE_TIMES_BY_ONE,
-            roomUUID,
-          ]);
+          queryClient.invalidateQueries({
+            queryKey: queryKeys.room.all(roomUUID),
+          });
 
           const savedUser = localStorage.getItem('userName');
           const isSavedUserDeleted =
