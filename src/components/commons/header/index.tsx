@@ -8,7 +8,7 @@ import headerMenu from '@/assets/icons/headerMenu.svg';
 import headerInfo from '@/assets/icons/headerInfo.svg';
 import { Icon, IconWrapper, Title, Wrapper } from './index.styles';
 
-import { ROUTES } from '@/constants/ROUTES';
+import { ROUTES } from '@/constants/routes';
 import useShareLink from '@/hooks/useShareLink';
 
 const Header = ({
@@ -34,7 +34,7 @@ const Header = ({
       <Title>{title.slice(0, 16)}</Title>
 
       <IconWrapper pageName={pageName}>
-        {pageName === ROUTES.ADD_TIME ? (
+        {pageName === '/addTime' ? (
           <>
             <div />
             <Icon

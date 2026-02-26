@@ -15,7 +15,7 @@ import { Body, Main, Title, TitleWrapper, Wrapper } from './index.styles';
 import { TableSelectedTypes } from './index.types';
 
 import { useGetRoomInfo } from '@/queries/room';
-import { ROUTES } from '@/constants/ROUTES';
+import { ROUTES } from '@/constants/routes';
 import { Layout } from '@/components/commons/layout';
 
 const AddTime = () => {
@@ -47,11 +47,7 @@ const AddTime = () => {
   return (
     <Layout>
       <Wrapper ref={scrollRef}>
-        <Header
-          pageName={ROUTES.ADD_TIME}
-          roomId={roomId}
-          title={room?.title ?? ''}
-        />
+        <Header pageName="/addTime" roomId={roomId} title={room?.title ?? ''} />
         <Body>
           <TitleWrapper>
             <Title>{`${userName ?? ''} 님의 일정을`}</Title>

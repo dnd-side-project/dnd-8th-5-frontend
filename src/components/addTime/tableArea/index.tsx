@@ -14,7 +14,7 @@ import { getAddTimeTableInfo } from '@/utils/getAddTimeTableInfo';
 import { usePutAvailableTimes } from '@/queries/availableTimes';
 import { useGetAvailableTimesByOne } from '@/queries/availableTimes';
 
-import { ROUTES } from '@/constants/ROUTES';
+import { ROUTES } from '@/constants/routes';
 import { selectedMethodState } from '@/atoms/selectedMethodAtom';
 import * as Sentry from '@sentry/react';
 
@@ -81,7 +81,7 @@ const TableArea = ({
   };
 
   const goToCurrent = () => {
-    navigate(`${ROUTES.CURRENT}/${roomId}`);
+    navigate(ROUTES.CURRENT(roomId));
   };
 
   const allTimeRange = getAllTimeRange(dates, timeRange);

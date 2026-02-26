@@ -19,7 +19,7 @@ import {
 import useInputs from '@/hooks/useFormInput';
 import useInputScroll from '@/hooks/useInputScroll';
 
-import { ROUTES } from '@/constants/ROUTES';
+import { ROUTES } from '@/constants/routes';
 
 import { usePostUserInfo } from '@/queries/auth';
 import { Layout } from '@/components/commons/layout';
@@ -78,7 +78,7 @@ const Login = () => {
       }
 
       localStorage.setItem('userName', form.name);
-      navigate(`${ROUTES.ADD_TIME}/${roomId}`, { replace: true });
+      navigate(ROUTES.ADD_TIME(roomId), { replace: true });
     }
 
     if (isError) {

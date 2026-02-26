@@ -3,7 +3,7 @@ import theme from '@/styles/theme';
 import { Helmet } from 'react-helmet-async';
 import { Layout } from '@/components/commons/layout';
 import Header from '@/components/commons/header';
-import { ROUTES } from '@/constants/ROUTES';
+import { ROUTES } from '@/constants/routes';
 import { useGetRoomInfo } from '@/queries/room';
 import { useNavigate, useParams } from 'react-router-dom';
 import SelectBox from '@/components/result/selectBox';
@@ -129,11 +129,7 @@ export default function Result() {
       </Helmet>
       <Layout>
         <Wrapper>
-          <Header
-            pageName={ROUTES.RESULT}
-            roomId={roomId}
-            title={roomInfo.title}
-          />
+          <Header pageName="/result" roomId={roomId} title={roomInfo.title} />
           <Main>
             <Title>
               <h1>

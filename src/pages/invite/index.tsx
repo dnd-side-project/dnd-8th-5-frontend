@@ -21,7 +21,7 @@ import { useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { roomState } from '@/atoms/roomAtom';
 import { useGetRoomInfo } from '@/queries/room';
-import { ROUTES } from '@/constants/ROUTES';
+import { ROUTES } from '@/constants/routes';
 import { Helmet } from 'react-helmet-async';
 
 import calendar from '@/assets/images/invite_calendar.webp';
@@ -67,15 +67,15 @@ const Invite = () => {
     const isValidUser = useAuth(roomUUID as string);
 
     if (isValidUser) {
-      navigate(`${ROUTES.ADD_TIME}/${roomUUID}`);
+      navigate(ROUTES.ADD_TIME(roomUUID));
     } else {
       localStorage.clear();
-      navigate(`${ROUTES.LOGIN}/${roomUUID}`);
+      navigate(ROUTES.LOGIN(roomUUID));
     }
   };
 
   const handleSubButtonClick = () => {
-    navigate(`${ROUTES.CURRENT}/${roomUUID}`);
+    navigate(ROUTES.CURRENT(roomUUID));
   };
 
   return (

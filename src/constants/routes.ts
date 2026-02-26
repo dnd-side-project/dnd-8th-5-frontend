@@ -1,0 +1,15 @@
+export const ROUTES = {
+  LANDING: '/',
+  ROOM_TIMER: '/roomTimer',
+  ROOM_START: '/roomStart',
+  ROOM_CALENDAR: '/roomCalendar',
+  ERROR: '/error',
+  PRIVACY: '/privacy',
+  INVITE: (roomId: string) => `/invite/${roomId}`,
+  LOGIN: (roomId: string) => `/login/${roomId}`,
+  LOGIN_NICKNAME: (roomId: string) => `/login/nickname/${roomId}`,
+  CURRENT: (roomId: string) => `/current/${roomId}`,
+  ADD_TIME: (roomId: string) => `/addTime/${roomId}`,
+  RESULT: (roomId: string) => `/result/${roomId}`,
+  AUTH: (roomId: string) => `/auth/${roomId}`,
+};

@@ -8,7 +8,7 @@ import calendarPrevMonth from '@/assets/icons/calendarPrevMonth.svg';
 
 import { useGetAvailableTimesByOne } from '@/queries/availableTimes';
 import { usePutAvailableTimes } from '@/queries/availableTimes';
-import { ROUTES } from '@/constants/ROUTES';
+import { ROUTES } from '@/constants/routes';
 
 import {
   Wrapper,
@@ -86,7 +86,7 @@ const Calendar = ({
   }, [selectedMethod]);
 
   const goToCurrent = () => {
-    navigate(`${ROUTES.CURRENT}/${roomId}`);
+    navigate(ROUTES.CURRENT(roomId));
   };
 
   const handleApplyClick = () => {

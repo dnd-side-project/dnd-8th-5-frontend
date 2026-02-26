@@ -32,7 +32,7 @@ import plus from '@/assets/icons/current_plus.svg';
 import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 
 import { useAuth } from '@/hooks/useAuth';
-import { ROUTES } from '@/constants/ROUTES';
+import { ROUTES } from '@/constants/routes';
 import { useGetRoomInfo } from '@/queries/room';
 
 import { Participant, RoomTypes } from '@/types/roomInfo';
@@ -104,14 +104,14 @@ const Current = () => {
 
     if (isValidUser) {
       setSelectedMethod('possible');
-      navigate(`${ROUTES.ADD_TIME}/${roomUUID}`);
+      navigate(ROUTES.ADD_TIME(roomUUID));
     } else {
-      navigate(`${ROUTES.LOGIN}/${roomUUID}`);
+      navigate(ROUTES.LOGIN(roomUUID));
     }
   };
 
   const goToResult = () => {
-    navigate(`${ROUTES.RESULT}/${roomUUID}`);
+    navigate(ROUTES.RESULT(roomUUID));
   };
 
   const handleModeButtonToggle = () => {
@@ -191,7 +191,7 @@ const Current = () => {
       </Helmet>
       <Layout>
         <Wrapper ref={scrollRef}>
-          <Header pageName={ROUTES.CURRENT} roomId={roomUUID} title={title} />
+          <Header pageName="/current" roomId={roomUUID} title={title} />
 
           <Body>
             <UpdateNote />

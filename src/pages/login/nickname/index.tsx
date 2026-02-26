@@ -15,7 +15,7 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetRoomInfo } from '@/queries/room';
 import { usePostRoomParticipant } from '@/queries/auth';
-import { ROUTES } from '@/constants/ROUTES';
+import { ROUTES } from '@/constants/routes';
 import { useGetRoomParticipantMe } from '@/queries/auth';
 
 export default function LoginNickname() {
@@ -32,7 +32,7 @@ export default function LoginNickname() {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  if (!room) return;
+  if (!room) return null;
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -52,7 +52,7 @@ export default function LoginNickname() {
       { roomId, nickname: nickname.trim() },
       {
         onSuccess: () => {
-          navigate(`${ROUTES.ADD_TIME}/${roomId}`);
+          navigate(ROUTES.ADD_TIME(roomId));
         },
         onError: () => {
           setErrorMessage('error');
