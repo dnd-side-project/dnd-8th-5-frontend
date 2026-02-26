@@ -1,5 +1,5 @@
 import { CreateRoomResponse, GetRoomDetailResponse } from '@/models/room';
-import { instance } from './instance';
+import { instance } from '../instance';
 import { PostRoomTypes, DeleteParticipantTypes } from '@/types/roomInfo';
 
 export const getRoomInfoV2 = async (roomUUID: string) => {

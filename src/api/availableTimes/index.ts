@@ -1,5 +1,5 @@
 import qs from 'qs';
-import { instance } from './instance';
+import { instance } from '../instance';
 import { PutAvailableTimesParamsType } from '@/types/addTime';
 import {
   GetAvailableTimesByOneResponse,

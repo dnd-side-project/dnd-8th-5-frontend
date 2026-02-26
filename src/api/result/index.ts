@@ -2,7 +2,7 @@ import qs from 'qs';
 import { GetAdjustmentResultRepsonse } from '@/models/result';
 import { PageableResponse } from '@/models/common';
 import { GetCandidateTimesParams } from '@/types/result';
-import { instance } from './instance';
+import { instance } from '../instance';
 
 export const getCandidateTimesInfo = async ({
   roomId,

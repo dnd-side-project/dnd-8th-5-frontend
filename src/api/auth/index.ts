@@ -1,5 +1,5 @@
 import { PostAuthParamsType, GetUserMeResponse } from '@/types/auth';
-import { authInstance, instance } from './instance';
+import { authInstance, instance } from '../instance';
 import { GetRoomParticipantMeResponse } from '@/models/auth';
 
 export const postUserInfo = async ({ roomUUID, form }: PostAuthParamsType) => {
