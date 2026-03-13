@@ -1,3 +1,8 @@
+export interface PostUserInfoResponse {
+  accessToken: string;
+  accessTokenExpireTime: string;
+}
+
 export interface PostAuthType {
   name: string;
   password: string;

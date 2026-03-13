@@ -26,12 +26,12 @@ import { Layout } from '@/components/commons/layout';
 
 import loginBg from '@/assets/images/login_bg.webp';
 import kakao from '@/assets/icons/kakao.svg';
+import { useTokenStore } from '@/stores';
 
 const Login = () => {
   const { roomId } = useParams() as { roomId: string };
 
   const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
-  const [isNameError, setIsNameError] = useState<boolean>(false);
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
 
   const inputNameRef = useRef<HTMLInputElement>(null);
@@ -39,6 +39,8 @@ const Login = () => {
 
   useInputScroll(inputNameRef);
   useInputScroll(inputPasswordRef);
+
+  const { setAccessToken } = useTokenStore();
 
   const { form, onChangeForm } = useInputs({
     name: '',
@@ -49,7 +51,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const { mutate, isSuccess, isError } = usePostUserInfo();
+  const { mutate: postLogin, error } = usePostUserInfo();
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,25 +68,28 @@ const Login = () => {
     }
 
     if (canGoNext) {
-      mutate({ roomUUID: roomId, form: { ...form, name: form.name.trim() } });
+      postLogin(
+        {
+          roomUUID: roomId,
+          form: { ...form, name: form.name.trim() },
+        },
+        {
+          onSuccess: (response) => {
+            if (saveUserInfo) {
+              localStorage.setItem('name', form.name);
+              localStorage.setItem('uuid', String(roomId));
+            }
+            setAccessToken(response.accessToken);
+            localStorage.setItem('userName', form.name);
+            navigate(ROUTES.ADD_TIME(roomId), { replace: true });
+          },
+          onError: () => {
+            setIsPasswordError(true);
+          },
+        }
+      );
     }
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      if (saveUserInfo) {
-        localStorage.setItem('name', form.name);
-        localStorage.setItem('uuid', String(roomId));
-      }
-
-      localStorage.setItem('userName', form.name);
-      navigate(ROUTES.ADD_TIME(roomId), { replace: true });
-    }
-
-    if (isError) {
-      setIsPasswordError(true);
-    }
-  }, [isSuccess, isError]);
 
   return (
     <Layout>
@@ -118,7 +123,7 @@ const Login = () => {
               maxLength={5}
               value={form.name}
               onChange={onChangeForm}
-              isError={isNameError}
+              isError={!!error}
             />
             <InputWrapper>
               <Input
@@ -134,7 +139,7 @@ const Login = () => {
                 maxLength={4}
                 isError={isPasswordError}
               />
-              {isNameError && (
+              {!!error && (
                 <ErrorMessage>이름을 4자리 이내로 입력해 주세요</ErrorMessage>
               )}
               {isPasswordError && (
