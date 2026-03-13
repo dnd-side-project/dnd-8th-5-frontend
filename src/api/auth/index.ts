@@ -11,7 +11,7 @@ export const postUserInfo = async ({ roomUUID, form }: PostAuthParamsType) => {
 
 export const getUserMe = async () => {
   return await authInstance
-    .get<GetUserMeResponse>('/api/user/me')
+    .get<GetUserMeResponse>('/api/v1/users/me')
     .then((res) => res.data);
 };
 
