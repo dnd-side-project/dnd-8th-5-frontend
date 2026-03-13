@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, FormEvent } from 'react';
 import { Layout } from '@/components/commons/layout';
 import roomStart from '@/assets/images/room_info_bg.png';
 import {
@@ -26,25 +26,21 @@ export default function LoginNickname() {
   const { mutate: postName, isLoading: isLoadingPostName } =
     usePostRoomParticipant();
 
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
   const [name, setName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleEditClick = () => {
-    setIsEditing(true);
+    setIsEditMode(true);
     setTimeout(() => inputRef.current?.focus(), 0);
   };
 
-  const handleConfirmClick = () => {
-    if (name.length >= 1 && name.length <= 4) {
-      setIsEditing(false);
-    }
-  };
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const handleSubmit = () => {
-    if (isLoadingPostName) return;
+    if (isLoadingPostName || name.trim().length < 1) return;
 
     postName(
       { roomId, name: name.trim() },
@@ -73,10 +69,10 @@ export default function LoginNickname() {
         <Logo src={roomStart} alt="room start logo" />
         <Body>
           <H1>{room.title}</H1>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <InputWrapper>
-              <div>
-                {isEditing ? (
+              {isEditMode ? (
+                <>
                   <input
                     ref={inputRef}
                     value={name}
@@ -88,31 +84,24 @@ export default function LoginNickname() {
                     minLength={1}
                     maxLength={4}
                   />
-                ) : (
+                  <InputHelperText>{`${name.length}/4`}</InputHelperText>
+                </>
+              ) : (
+                <>
                   <span>
                     <strong>{name}</strong>
                   </span>
-                )}
-                {!isEditing && <span>님으로 시작</span>}
-              </div>
-              {!isEditing && (
-                <button
-                  type="button"
-                  onClick={isEditing ? handleConfirmClick : handleEditClick}
-                >
-                  변경
-                </button>
-              )}
-              {isEditing && (
-                <InputHelperText>{`${name.length}/4`}</InputHelperText>
+                  <span>님으로 시작</span>
+                  <button type="button" onClick={handleEditClick}>
+                    변경
+                  </button>
+                </>
               )}
             </InputWrapper>
             {!!errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
 
             <Bottom>
-              <button type="submit" onSubmit={handleSubmit}>
-                시작하기
-              </button>
+              <button type="submit">시작하기</button>
             </Bottom>
           </Form>
         </Body>
