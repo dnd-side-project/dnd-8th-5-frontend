@@ -1,5 +1,5 @@
 import qs from 'qs';
-import { instance } from '../instance';
+import { authInstance, instance } from '../instance';
 import { PutAvailableTimesParamsType } from '@/types/addTime';
 import {
   GetAvailableTimesByOneResponse,
@@ -10,8 +10,8 @@ export const putAvailableTimes = async ({
   roomId,
   payload,
 }: PutAvailableTimesParamsType) => {
-  return await instance.put(
-    `/api/room/${roomId}/available-time`,
+  return await authInstance.put(
+    `/api/v1/rooms/${roomId}/time-blocks/available-time`,
     JSON.stringify(payload)
   );
 };

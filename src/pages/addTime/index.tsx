@@ -15,7 +15,6 @@ import { Body, Main, Title, TitleWrapper, Wrapper } from './index.styles';
 import { TableSelectedTypes } from './index.types';
 
 import { useGetRoomInfo } from '@/queries/room';
-import { ROUTES } from '@/constants/routes';
 import { Layout } from '@/components/commons/layout';
 
 const AddTime = () => {
