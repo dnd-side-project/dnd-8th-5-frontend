@@ -101,6 +101,8 @@ export const Bottom = styled.div`
   height: 90px;
   background: ${theme.colors.gray01};
   border-top: 1px solid ${theme.colors.gray02};
+  max-width: 412px;
+  margin: 0 auto;
 
   button {
     display: flex;
