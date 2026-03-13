@@ -32,8 +32,6 @@ export default function LoginNickname() {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  if (!room) return null;
-
   const handleEditClick = () => {
     setIsEditing(true);
     setTimeout(() => inputRef.current?.focus(), 0);
@@ -66,6 +64,8 @@ export default function LoginNickname() {
       setName(userInfo.name);
     }
   }, [userInfo]);
+
+  if (!room) return null;
 
   return (
     <Layout>
