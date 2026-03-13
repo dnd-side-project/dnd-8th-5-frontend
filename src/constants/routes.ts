@@ -11,5 +11,5 @@ export const ROUTES = {
   CURRENT: (roomId: string) => `/current/${roomId}`,
   ADD_TIME: (roomId: string) => `/addTime/${roomId}`,
   RESULT: (roomId: string) => `/result/${roomId}`,
-  AUTH: (roomId: string) => `/kakao-auth/${roomId}`,
+  AUTH: `/kakao-auth`,
 };

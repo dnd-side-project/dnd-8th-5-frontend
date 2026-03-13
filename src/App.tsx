@@ -34,7 +34,7 @@ function App() {
           path={ROUTES.LOGIN_NICKNAME(':roomId')}
           element={<LoginNickname />}
         />
-        <Route path={ROUTES.AUTH(':roomId')} element={<KakaoAuth />} />
+        <Route path={ROUTES.AUTH} element={<KakaoAuth />} />
         <Route path={ROUTES.CURRENT(':roomUUID')} element={<Current />} />
         <Route path={ROUTES.ADD_TIME(':roomId')} element={<AddTime />} />
         <Route path={ROUTES.RESULT(':roomId')} element={<Result />} />
