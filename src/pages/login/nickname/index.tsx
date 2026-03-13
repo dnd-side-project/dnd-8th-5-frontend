@@ -88,10 +88,12 @@ export default function LoginNickname() {
                 </>
               ) : (
                 <>
-                  <span>
-                    <strong>{name}</strong>
-                  </span>
-                  <span>님으로 시작</span>
+                  <div>
+                    <span>
+                      <strong>{name}</strong>
+                    </span>
+                    <span>님으로 시작</span>
+                  </div>
                   <button type="button" onClick={handleEditClick}>
                     변경
                   </button>
