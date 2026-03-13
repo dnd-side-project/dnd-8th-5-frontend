@@ -3,7 +3,8 @@
 import { useEffect } from 'react';
 import { wrap } from '@suspensive/react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { getUserMe } from '@/api/auth';
+import { getUserMe, getRoomParticipantMe } from '@/api/auth';
+import { AxiosError } from 'axios';
 import { useTokenStore, useUserStore } from '@/stores';
 import { ROUTES } from '@/constants/routes';
 
@@ -36,8 +37,22 @@ const KakaoAuth = wrap.Suspense({ fallback: null }).on(() => {
       try {
         const user = await getUserMe();
         setUser({ ...user });
-        navigate(ROUTES.LOGIN_NICKNAME(roomId), { replace: true });
-      } catch (err) {
+
+        const isParticipant = await getRoomParticipantMe(roomId)
+          .then(() => true)
+          .catch((err: unknown) => {
+            if (err instanceof AxiosError && err.response?.status === 400)
+              return false;
+            throw err;
+          });
+
+        navigate(
+          isParticipant
+            ? ROUTES.ADD_TIME(roomId)
+            : ROUTES.LOGIN_NICKNAME(roomId),
+          { replace: true }
+        );
+      } catch {
         alert('로그인 중 오류가 발생했어요. 다시 시도해 주세요.');
         navigate(ROUTES.LOGIN(roomId), { replace: true });
       }

@@ -17,6 +17,7 @@ import { useGetRoomInfo } from '@/queries/room';
 import { usePostRoomParticipant } from '@/queries/auth';
 import { ROUTES } from '@/constants/routes';
 import { useGetUserInfo } from '@/queries/auth';
+import { AxiosError } from 'axios';
 
 export default function LoginNickname() {
   const navigate = useNavigate();
@@ -48,8 +49,12 @@ export default function LoginNickname() {
         onSuccess: () => {
           navigate(ROUTES.ADD_TIME(roomId));
         },
-        onError: () => {
-          setErrorMessage('참여 중 에러가 발생했어요.');
+        onError: (error: unknown) => {
+          const message =
+            error instanceof AxiosError
+              ? error.response?.data?.message ?? '참여 중 에러가 발생했어요.'
+              : '참여 중 에러가 발생했어요.';
+          setErrorMessage(message);
         },
       }
     );
