@@ -16,13 +16,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useGetRoomInfo } from '@/queries/room';
 import { usePostRoomParticipant } from '@/queries/auth';
 import { ROUTES } from '@/constants/routes';
-import { useGetRoomParticipantMe } from '@/queries/auth';
+import { useGetUserInfo } from '@/queries/auth';
 
 export default function LoginNickname() {
   const navigate = useNavigate();
   const { roomId } = useParams() as { roomId: string };
   const { data: room } = useGetRoomInfo(roomId);
-  const { data: userInfo } = useGetRoomParticipantMe(roomId);
+  const { data: userInfo } = useGetUserInfo();
   const { mutate: postNickname, isLoading: isLoadingPostNickname } =
     usePostRoomParticipant();
 

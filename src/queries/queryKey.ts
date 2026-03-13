@@ -1,6 +1,9 @@
 const authKeys = {
-  participantMe: (roomId: string) =>
-    ['room', roomId, 'auth', 'participant-me'] as const,
+  me: () => ['user'],
+};
+
+const participantKeys = {
+  me: (roomId: string) => ['room', roomId, 'auth', 'participant-me'] as const,
 };
 
 const availableTimeKeys = {
@@ -20,12 +23,13 @@ const resultKeys = {
 const roomKeys = {
   all: (roomId: string) => ['room', roomId] as const,
   info: (roomId: string) => [...roomKeys.all(roomId), 'info'] as const,
-  auth: authKeys,
+  participant: participantKeys,
   availableTime: availableTimeKeys,
   result: resultKeys,
 };
 
 export const queryKeys = {
   all: ['room'] as const,
+  auth: authKeys,
   room: roomKeys,
 };
