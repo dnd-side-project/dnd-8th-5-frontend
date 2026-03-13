@@ -1,5 +1,5 @@
 import {
-  postRoomParticipantMe,
+  getRoomParticipantMe,
   postRoomParticipant,
   postUserInfo,
 } from '@/api/auth';
@@ -10,7 +10,7 @@ import { PostAuthParamsType } from '@/types/auth';
 export const useGetRoomParticipantMe = (roomId: string) => {
   return useQuery({
     queryKey: queryKeys.room.auth.participantMe(roomId),
-    queryFn: () => postRoomParticipantMe(roomId),
+    queryFn: () => getRoomParticipantMe(roomId),
   });
 };
 

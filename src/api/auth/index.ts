@@ -16,11 +16,13 @@ export const getUserMe = async () => {
 };
 
 export const postRoomParticipant = (roomId: string, name: string) => {
-  return instance.post(`/api/room/${roomId}/participants`, { name });
+  return authInstance.post(`/api/room/${roomId}/participants`, { name });
 };
 
-export const postRoomParticipantMe = (roomId: string) => {
-  return instance.get<GetRoomParticipantMeResponse>(
-    `/api/v1/rooms/${roomId}/participants/me`
-  );
+export const getRoomParticipantMe = (roomId: string) => {
+  return authInstance
+    .get<GetRoomParticipantMeResponse>(
+      `/api/v1/rooms/${roomId}/participants/me`
+    )
+    .then((res) => res.data);
 };
