@@ -5,6 +5,7 @@ import { wrap } from '@suspensive/react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getUserMe } from '@/api/auth';
 import { useTokenStore, useUserStore } from '@/stores';
+import { ROUTES } from '@/constants/routes';
 
 const KakaoAuth = wrap.Suspense({ fallback: null }).on(() => {
   const navigate = useNavigate();
@@ -16,17 +17,29 @@ const KakaoAuth = wrap.Suspense({ fallback: null }).on(() => {
   useEffect(() => {
     async function login() {
       const accessToken = searchParams.get('access_token');
+      const roomId = searchParams.get('room_uuid');
 
-      if (!accessToken) return;
+      if (!roomId) {
+        alert('로그인 중 오류가 발생했어요.');
+        navigate('/', { replace: true });
+        return;
+      }
+
+      if (!accessToken) {
+        alert('로그인 중 오류가 발생했어요. 다시 시도해 주세요.');
+        navigate(ROUTES.LOGIN(roomId), { replace: true });
+        return;
+      }
 
       setAccessToken(accessToken);
 
       try {
         const user = await getUserMe();
         setUser({ ...user });
-        navigate('/', { replace: true });
+        navigate(ROUTES.LOGIN_NICKNAME(roomId), { replace: true });
       } catch (err) {
-        console.error('Login failed:', err);
+        alert('로그인 중 오류가 발생했어요. 다시 시도해 주세요.');
+        navigate(ROUTES.LOGIN(roomId), { replace: true });
       }
     }
 
