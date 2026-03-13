@@ -17,8 +17,7 @@ export const useGetRoomParticipantMe = (roomId: string) => {
 
 export const usePostRoomParticipant = () => {
   return useMutation({
-    mutationFn: ({ roomId, nickname }: { roomId: string; nickname: string }) =>
-      postRoomParticipant(roomId, nickname),
+    mutationFn: postRoomParticipant,
   });
 };
 

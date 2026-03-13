@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Layout } from '@/components/commons/layout';
 import roomStart from '@/assets/images/room_info_bg.png';
 import {
@@ -23,11 +23,11 @@ export default function LoginNickname() {
   const { roomId } = useParams() as { roomId: string };
   const { data: room } = useGetRoomInfo(roomId);
   const { data: userInfo } = useGetUserInfo();
-  const { mutate: postNickname, isLoading: isLoadingPostNickname } =
+  const { mutate: postName, isLoading: isLoadingPostName } =
     usePostRoomParticipant();
 
   const [isEditing, setIsEditing] = useState(false);
-  const [nickname, setNickname] = useState(userInfo?.name ?? '');
+  const [name, setName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -40,26 +40,32 @@ export default function LoginNickname() {
   };
 
   const handleConfirmClick = () => {
-    if (nickname.length >= 1 && nickname.length <= 4) {
+    if (name.length >= 1 && name.length <= 4) {
       setIsEditing(false);
     }
   };
 
   const handleSubmit = () => {
-    if (isLoadingPostNickname) return;
+    if (isLoadingPostName) return;
 
-    postNickname(
-      { roomId, nickname: nickname.trim() },
+    postName(
+      { roomId, name: name.trim() },
       {
         onSuccess: () => {
           navigate(ROUTES.ADD_TIME(roomId));
         },
         onError: () => {
-          setErrorMessage('error');
+          setErrorMessage('참여 중 에러가 발생했어요.');
         },
       }
     );
   };
+
+  useEffect(() => {
+    if (userInfo) {
+      setName(userInfo.name);
+    }
+  }, [userInfo]);
 
   return (
     <Layout>
@@ -73,10 +79,10 @@ export default function LoginNickname() {
                 {isEditing ? (
                   <input
                     ref={inputRef}
-                    value={nickname}
+                    value={name}
                     onChange={(e) => {
                       if (e.target.value.length <= 4) {
-                        setNickname(e.target.value);
+                        setName(e.target.value);
                       }
                     }}
                     minLength={1}
@@ -84,7 +90,7 @@ export default function LoginNickname() {
                   />
                 ) : (
                   <span>
-                    <strong>{nickname}</strong>
+                    <strong>{name}</strong>
                   </span>
                 )}
                 {!isEditing && <span>님으로 시작</span>}
@@ -98,7 +104,7 @@ export default function LoginNickname() {
                 </button>
               )}
               {isEditing && (
-                <InputHelperText>{`${nickname.length}/4`}</InputHelperText>
+                <InputHelperText>{`${name.length}/4`}</InputHelperText>
               )}
             </InputWrapper>
             {!!errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}

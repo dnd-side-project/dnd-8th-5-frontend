@@ -19,3 +19,8 @@ export interface GetUserMeResponse {
   profileImage: string;
   thumbnailImage: string;
 }
+
+export interface PostRoomParticipantRequest {
+  roomId: string;
+  name: string;
+}

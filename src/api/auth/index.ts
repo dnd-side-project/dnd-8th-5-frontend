@@ -2,6 +2,7 @@ import {
   PostUserInfoResponse,
   PostAuthParamsType,
   GetUserMeResponse,
+  PostRoomParticipantRequest,
 } from '@/types/auth';
 import { authInstance, instance } from '../instance';
 import { GetRoomParticipantMeResponse } from '@/models/auth';
@@ -19,7 +20,10 @@ export const getUserMe = async () => {
     .then((res) => res.data);
 };
 
-export const postRoomParticipant = (roomId: string, name: string) => {
+export const postRoomParticipant = ({
+  roomId,
+  name,
+}: PostRoomParticipantRequest) => {
   return authInstance.post(`/api/room/${roomId}/participants`, { name });
 };
 
