@@ -108,7 +108,7 @@ const Login = () => {
               type="text"
               name="name"
               placeholder="이번 약속에서만 쓸 이름 입력"
-              maxLength={5}
+              maxLength={4}
               value={form.name}
               onChange={onChangeForm}
               isError={!!error}

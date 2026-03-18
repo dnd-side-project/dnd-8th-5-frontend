@@ -14,9 +14,10 @@ export const postUserInfo = ({ roomUUID, form }: PostAuthParamsType) => {
   );
 };
 
-export const getUserMe = async () => {
-  const res = await authInstance.get<GetUserMeResponse>('/api/v1/users/me');
-  return res.data;
+export const getUserMe = () => {
+  return authInstance
+    .get<GetUserMeResponse>('/api/v1/users/me')
+    .then((response) => response.data);
 };
 
 export const postRoomParticipant = ({
@@ -26,9 +27,10 @@ export const postRoomParticipant = ({
   return authInstance.post(`/api/room/${roomId}/participants`, { name });
 };
 
-export const getRoomParticipantMe = async (roomId: string) => {
-  const res = await authInstance.get<GetRoomParticipantMeResponse>(
-    `/api/v1/rooms/${roomId}/participants/me`
-  );
-  return res.data;
+export const getRoomParticipantMe = (roomId: string) => {
+  return authInstance
+    .get<GetRoomParticipantMeResponse>(
+      `/api/v1/rooms/${roomId}/participants/me`
+    )
+    .then((res) => res.data);
 };

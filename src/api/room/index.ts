@@ -2,23 +2,20 @@ import { CreateRoomResponse, GetRoomDetailResponse } from '@/models/room';
 import { instance } from '../instance';
 import { PostRoomTypes, DeleteParticipantTypes } from '@/types/roomInfo';
 
-export const getRoomInfoV2 = async (roomUUID: string) => {
-  const response = await instance.get<GetRoomDetailResponse>(
-    `/guest/api/v2/room/${roomUUID}`
-  );
-  return response;
+export const getRoomInfoV2 = (roomUUID: string) => {
+  return instance.get<GetRoomDetailResponse>(`/guest/api/v2/room/${roomUUID}`);
 };
 
-export const createRoom = async (payload: PostRoomTypes) => {
-  return await instance.post<CreateRoomResponse>(
+export const createRoom = (payload: PostRoomTypes) => {
+  return instance.post<CreateRoomResponse>(
     `/guest/api/room`,
     JSON.stringify(payload)
   );
 };
 
-export const deleteParticipants = async (
+export const deleteParticipants = (
   roomId: string,
   body: DeleteParticipantTypes
 ) => {
-  return await instance.delete(`/guest/api/room/${roomId}`, { data: body });
+  return instance.delete(`/guest/api/room/${roomId}`, { data: body });
 };

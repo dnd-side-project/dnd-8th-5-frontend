@@ -6,30 +6,32 @@ import {
   GetAvailableTimeOverviewResponse,
 } from '@/models/availableTimes';
 
-export const putAvailableTimes = async ({
+export const putAvailableTimes = ({
   roomId,
   payload,
 }: PutAvailableTimesParamsType) => {
-  return await authInstance.put(
+  return authInstance.put(
     `/api/v1/rooms/${roomId}/time-blocks/available-time`,
     JSON.stringify(payload)
   );
 };
 
-export const getAvailableTimesByOne = async (roomId: string) => {
-  return await authInstance.get<GetAvailableTimesByOneResponse>(
-    `/api/room/${roomId}/available-time`
-  );
+export const getAvailableTimesByOne = (roomId: string) => {
+  return authInstance
+    .get<GetAvailableTimesByOneResponse>(
+      `/api/v1/rooms/${roomId}/available-time`
+    )
+    .then((response) => response.data);
 };
 
-export const getAvailableTimeOverview = async ({
+export const getAvailableTimeOverview = ({
   roomId,
   participants,
 }: {
   roomId: string;
   participants: string[];
 }) => {
-  return await instance.get<GetAvailableTimeOverviewResponse>(
+  return instance.get<GetAvailableTimeOverviewResponse>(
     `/guest/api/room/${roomId}/available-time/overview`,
     {
       params: { participantNames: participants },
