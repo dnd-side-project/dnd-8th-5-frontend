@@ -23,12 +23,16 @@ import { Helmet } from 'react-helmet-async';
 import calendar from '@/assets/images/invite_calendar.webp';
 import { Layout } from '@/components/commons/layout';
 import { useGetRoomParticipantMe } from '@/queries/auth';
+import { AxiosError } from 'axios';
 
 export default function Invite() {
   const navigate = useNavigate();
   const { roomId } = useParams() as { roomId: string };
-  const { data: participantData, isLoading: isLoadingParticipantData } =
-    useGetRoomParticipantMe(roomId);
+  const {
+    data: participantData,
+    isLoading: isLoadingParticipantData,
+    error: participantError,
+  } = useGetRoomParticipantMe(roomId);
 
   const { data: roomData } = useGetRoomInfo(roomId);
 
@@ -41,6 +45,13 @@ export default function Invite() {
 
     if (participantData?.name) {
       navigate(ROUTES.ADD_TIME(roomId));
+      return;
+    }
+
+    const error = participantError as AxiosError;
+
+    if (error?.response?.status === 403) {
+      navigate(ROUTES.LOGIN_NICKNAME(roomId));
       return;
     }
 

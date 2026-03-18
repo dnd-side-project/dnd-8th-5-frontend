@@ -49,6 +49,7 @@ import { UpdateNote } from '@/components/commons/updateNote';
 import { getFormattedDateArray } from '@/utils/getFormattedDateArray';
 import { Loading } from '@/components/commons/loading';
 import { useGetRoomParticipantMe } from '@/queries/auth';
+import { AxiosError } from 'axios';
 
 const Current = () => {
   const queryClient = useQueryClient();
@@ -68,8 +69,11 @@ const Current = () => {
 
   const { data, isError } = useGetRoomInfo(roomId);
 
-  const { data: participantData, isLoading: isLoadingParticipantData } =
-    useGetRoomParticipantMe(roomId);
+  const {
+    data: participantData,
+    isLoading: isLoadingParticipantData,
+    error: participantError,
+  } = useGetRoomParticipantMe(roomId);
 
   const [selectedParticipants, setSelectedParticipants] = useState<
     Participant[]
@@ -108,6 +112,13 @@ const Current = () => {
     if (participantData?.name) {
       setSelectedMethod('possible');
       navigate(ROUTES.ADD_TIME(roomId));
+      return;
+    }
+
+    const error = participantError as AxiosError;
+
+    if (error?.response?.status === 403) {
+      navigate(ROUTES.LOGIN_NICKNAME(roomId));
       return;
     }
 
