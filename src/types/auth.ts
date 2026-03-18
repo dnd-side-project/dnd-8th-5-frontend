@@ -9,8 +9,8 @@ export interface PostAuthType {
 }
 
 export interface PostAuthParamsType {
-  roomUUID: string;
-  form: PostAuthType;
+  roomId: string;
+  body: PostAuthType;
 }
 
 export interface GetUserMeResponse {

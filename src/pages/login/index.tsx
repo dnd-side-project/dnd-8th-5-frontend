@@ -62,8 +62,8 @@ const Login = () => {
     if (canGoNext) {
       postLogin(
         {
-          roomUUID: roomId,
-          form: { ...form, name: form.name.trim() },
+          roomId,
+          body: { ...form, name: form.name.trim() },
         },
         {
           onSuccess: (response) => {

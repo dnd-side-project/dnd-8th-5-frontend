@@ -5,8 +5,7 @@ import {
   postUserInfo,
 } from '@/api/auth';
 import { queryKeys } from '@/queries/queryKey';
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { PostAuthParamsType } from '@/types/auth';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 export const useGetRoomParticipantMe = (roomId: string) => {
   return useQuery({
@@ -24,9 +23,7 @@ export const usePostRoomParticipant = () => {
 };
 
 export const usePostUserInfo = () => {
-  return useMutation(({ roomUUID, form }: PostAuthParamsType) =>
-    postUserInfo({ roomUUID, form })
-  );
+  return useMutation(postUserInfo);
 };
 
 export const useGetUserInfo = () => {

@@ -7,10 +7,10 @@ import {
 import { authInstance, instance } from '../instance';
 import { GetRoomParticipantMeResponse } from '@/models/auth';
 
-export const postUserInfo = ({ roomUUID, form }: PostAuthParamsType) => {
+export const postUserInfo = ({ roomId, body }: PostAuthParamsType) => {
   return instance.post<PostUserInfoResponse>(
-    `/guest/api/v1/room/${roomUUID}/login`,
-    JSON.stringify(form)
+    `/guest/api/v1/room/${roomId}/login`,
+    JSON.stringify(body)
   );
 };
 

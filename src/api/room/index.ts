@@ -2,8 +2,8 @@ import { CreateRoomResponse, GetRoomDetailResponse } from '@/models/room';
 import { instance } from '../instance';
 import { PostRoomTypes, DeleteParticipantTypes } from '@/types/roomInfo';
 
-export const getRoomInfoV2 = (roomUUID: string) => {
-  return instance.get<GetRoomDetailResponse>(`/guest/api/v2/room/${roomUUID}`);
+export const getRoomInfoV2 = (roomId: string) => {
+  return instance.get<GetRoomDetailResponse>(`/guest/api/v2/room/${roomId}`);
 };
 
 export const createRoom = (payload: PostRoomTypes) => {
