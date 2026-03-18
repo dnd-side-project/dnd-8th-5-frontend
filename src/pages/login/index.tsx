@@ -99,6 +99,7 @@ const Login = () => {
           <KakaoLoginButton
             onClick={() =>
               (window.location.href = `${
+                import.meta.env.VITE_OAUTH_BASE_URL ||
                 import.meta.env.VITE_API_PATH
               }/oauth2/authorization/kakao?roomUuid=${roomId}`)
             }
