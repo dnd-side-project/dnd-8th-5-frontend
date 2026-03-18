@@ -40,11 +40,7 @@ const KakaoAuth = wrap.Suspense({ fallback: null }).on(() => {
 
         const isParticipant = await getRoomParticipantMe(roomId)
           .then(() => true)
-          .catch((err: unknown) => {
-            if (err instanceof AxiosError && err.response?.status === 400)
-              return false;
-            throw err;
-          });
+          .catch(() => false);
 
         navigate(
           isParticipant
