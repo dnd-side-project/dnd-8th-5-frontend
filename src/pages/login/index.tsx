@@ -1,6 +1,5 @@
 import { useState, useRef, FormEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import * as Sentry from '@sentry/react';
 
 import {
   FormContainer,
@@ -31,7 +30,6 @@ import { useTokenStore } from '@/stores';
 const Login = () => {
   const { roomId } = useParams() as { roomId: string };
 
-  const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
 
   const inputNameRef = useRef<HTMLInputElement>(null);
@@ -61,12 +59,6 @@ const Login = () => {
       return;
     }
 
-    if (saveUserInfo) {
-      Sentry.captureMessage(`Save user info`);
-      alert('비밀번호는 숫자만 입력해 주세요');
-      return;
-    }
-
     if (canGoNext) {
       postLogin(
         {
@@ -75,12 +67,7 @@ const Login = () => {
         },
         {
           onSuccess: (response) => {
-            if (saveUserInfo) {
-              localStorage.setItem('name', form.name);
-              localStorage.setItem('uuid', String(roomId));
-            }
             setAccessToken(response.accessToken);
-            localStorage.setItem('userName', form.name);
             navigate(ROUTES.ADD_TIME(roomId), { replace: true });
           },
           onError: () => {
