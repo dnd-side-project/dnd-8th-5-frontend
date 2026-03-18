@@ -31,7 +31,6 @@ import {
 import plus from '@/assets/icons/current_plus.svg';
 import { initialRoomInfoData } from '@/assets/data/initialRoomInfoData';
 
-import { useAuth } from '@/hooks/useAuth';
 import { ROUTES } from '@/constants/routes';
 import { useGetRoomInfo } from '@/queries/room';
 
@@ -49,12 +48,13 @@ import { useGetAvailableTimeOverview } from '@/queries/availableTimes';
 import { UpdateNote } from '@/components/commons/updateNote';
 import { getFormattedDateArray } from '@/utils/getFormattedDateArray';
 import { Loading } from '@/components/commons/loading';
+import { useGetRoomParticipantMe } from '@/queries/auth';
 
 const Current = () => {
   const queryClient = useQueryClient();
 
   const navigate = useNavigate();
-  const { roomUUID } = useParams() as { roomUUID: string };
+  const { roomId } = useParams() as { roomId: string };
   const [, setSelectedMethod] = useRecoilState(selectedMethodState);
   const [isShareLinkBottomSheetOpened] = useRecoilState(
     LinkShareBottomSheetState
@@ -66,13 +66,16 @@ const Current = () => {
     setRoomInfo,
   ] = useState<RoomTypes>(initialRoomInfoData);
 
-  const { data, isError } = useGetRoomInfo(roomUUID);
+  const { data, isError } = useGetRoomInfo(roomId);
+
+  const { data: participantData, isLoading: isLoadingParticipantData } =
+    useGetRoomParticipantMe(roomId);
 
   const [selectedParticipants, setSelectedParticipants] = useState<
     Participant[]
   >([]);
   const { data: availableTimeOverview } = useGetAvailableTimeOverview({
-    roomId: roomUUID,
+    roomId: roomId,
     participants: selectedParticipants.map((p) => p.name),
   });
 
@@ -100,18 +103,19 @@ const Current = () => {
   const isTableView = startTime !== null && endTime !== null;
 
   const handleEditButtonClick = () => {
-    const isValidUser = useAuth(roomUUID as string);
+    if (isLoadingParticipantData) return;
 
-    if (isValidUser) {
+    if (participantData?.name) {
       setSelectedMethod('possible');
-      navigate(ROUTES.ADD_TIME(roomUUID));
-    } else {
-      navigate(ROUTES.LOGIN(roomUUID));
+      navigate(ROUTES.ADD_TIME(roomId));
+      return;
     }
+
+    navigate(ROUTES.LOGIN(roomId));
   };
 
   const goToResult = () => {
-    navigate(ROUTES.RESULT(roomUUID));
+    navigate(ROUTES.RESULT(roomId));
   };
 
   const handleModeButtonToggle = () => {
@@ -153,11 +157,11 @@ const Current = () => {
     };
 
     deleteParticipants(
-      { roomId: roomUUID, body },
+      { roomId: roomId, body },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: queryKeys.room.all(roomUUID),
+            queryKey: queryKeys.room.all(roomId),
           });
 
           const savedUser = localStorage.getItem('userName');
@@ -191,7 +195,7 @@ const Current = () => {
       </Helmet>
       <Layout>
         <Wrapper ref={scrollRef}>
-          <Header pageName="/current" roomId={roomUUID} title={title} />
+          <Header pageName="/current" roomId={roomId} title={title} />
 
           <Body>
             <UpdateNote />
@@ -343,7 +347,7 @@ const Current = () => {
           />
 
           {isShareLinkBottomSheetOpened && (
-            <LinkShareBottomSheet roomId={roomUUID} roomTitle={data.title} />
+            <LinkShareBottomSheet roomId={roomId} roomTitle={data.title} />
           )}
         </Wrapper>
       </Layout>
