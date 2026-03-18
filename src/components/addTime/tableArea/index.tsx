@@ -40,7 +40,7 @@ const TableArea = ({
   const validDateChunks = getAddTimeTableInfo(dates);
   const timeRange = getTimeRange(startTime, endTime);
 
-  const { data } = useGetAvailableTimesByOne(roomId, userName);
+  const { data } = useGetAvailableTimesByOne(roomId);
   const { mutate, isSuccess, isError, error, isLoading } =
     usePutAvailableTimes();
 

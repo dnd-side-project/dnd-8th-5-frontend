@@ -21,13 +21,10 @@ export const useGetAvailableTimeOverview = ({
   });
 };
 
-export const useGetAvailableTimesByOne = (
-  roomUUID: string,
-  userName: string
-) => {
+export const useGetAvailableTimesByOne = (roomId: string) => {
   return useQuery({
-    queryKey: queryKeys.room.availableTime.byOne(roomUUID, userName),
-    queryFn: () => getAvailableTimesByOne(roomUUID, userName),
+    queryKey: queryKeys.room.availableTime.byOne(roomId),
+    queryFn: () => getAvailableTimesByOne(roomId),
   });
 };
 

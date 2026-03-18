@@ -72,7 +72,7 @@ const Calendar = ({
     }
   }, [date]);
 
-  const { data } = useGetAvailableTimesByOne(roomId, userName);
+  const { data } = useGetAvailableTimesByOne(roomId);
   const { mutate, isSuccess } = usePutAvailableTimes();
 
   useEffect(() => {

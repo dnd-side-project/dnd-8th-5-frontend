@@ -12,6 +12,8 @@ export const useGetRoomParticipantMe = (roomId: string) => {
   return useQuery({
     queryKey: queryKeys.room.participant.me(roomId),
     queryFn: () => getRoomParticipantMe(roomId),
+    staleTime: 0,
+    cacheTime: 0,
   });
 };
 

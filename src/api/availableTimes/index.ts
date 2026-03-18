@@ -16,12 +16,9 @@ export const putAvailableTimes = async ({
   );
 };
 
-export const getAvailableTimesByOne = async (
-  roomId: string,
-  userName: string
-) => {
-  return await instance.get<GetAvailableTimesByOneResponse>(
-    `/guest/api/room/${roomId}/available-time?name=${userName}`
+export const getAvailableTimesByOne = async (roomId: string) => {
+  return await authInstance.get<GetAvailableTimesByOneResponse>(
+    `/api/room/${roomId}/available-time`
   );
 };
 

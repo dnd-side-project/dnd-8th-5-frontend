@@ -8,8 +8,8 @@ const participantKeys = {
 
 const availableTimeKeys = {
   all: (roomId: string) => ['room', roomId, 'available-time'] as const,
-  byOne: (roomId: string, userName: string) =>
-    [...availableTimeKeys.all(roomId), 'by-one', userName] as const,
+  byOne: (roomId: string) =>
+    [...availableTimeKeys.all(roomId), 'by-one'] as const,
   overview: (roomId: string, participants: string[]) =>
     [...availableTimeKeys.all(roomId), 'overview', participants] as const,
 };
