@@ -31,6 +31,11 @@ const Login = () => {
   const { roomId } = useParams() as { roomId: string };
 
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
+  const [logoClickCount, setLogoClickCount] = useState<number>(0);
+
+  const handleLogoClick = () => {
+    setLogoClickCount((prev) => prev + 1);
+  };
 
   const inputNameRef = useRef<HTMLInputElement>(null);
   const inputPasswordRef = useRef<HTMLInputElement>(null);
@@ -81,25 +86,29 @@ const Login = () => {
   return (
     <Layout>
       <MainContainer>
-        <Logo src={loginBg} />
+        <Logo src={loginBg} onClick={handleLogoClick} />
         <FormContainer>
-          <KakaoLoginButton
-            onClick={() =>
-              (window.location.href = `${
-                import.meta.env.VITE_OAUTH_BASE_URL ||
-                import.meta.env.VITE_API_PATH
-              }/oauth2/authorization/kakao?roomUuid=${roomId}`)
-            }
-          >
-            <img src={kakao} alt="카카오 로고" />
-            카카오 로그인
-          </KakaoLoginButton>
+          {logoClickCount >= 7 && (
+            <KakaoLoginButton
+              onClick={() =>
+                (window.location.href = `${
+                  import.meta.env.VITE_OAUTH_BASE_URL ||
+                  import.meta.env.VITE_API_PATH
+                }/oauth2/authorization/kakao?roomUuid=${roomId}`)
+              }
+            >
+              <img src={kakao} alt="카카오 로고" />
+              카카오 로그인
+            </KakaoLoginButton>
+          )}
 
-          <BorderWrapper>
-            <Border />
-            <span>또는</span>
-            <Border />
-          </BorderWrapper>
+          {logoClickCount >= 7 && (
+            <BorderWrapper>
+              <Border />
+              <span>또는</span>
+              <Border />
+            </BorderWrapper>
+          )}
 
           <FormWrapper onSubmit={handleFormSubmit}>
             <Input
@@ -107,7 +116,7 @@ const Login = () => {
               ref={inputNameRef}
               type="text"
               name="name"
-              placeholder="이번 약속에서만 쓸 이름 입력"
+              placeholder="이름"
               maxLength={4}
               value={form.name}
               onChange={onChangeForm}
@@ -121,7 +130,7 @@ const Login = () => {
                 pattern="[0-9]*"
                 inputMode="numeric"
                 name="password"
-                placeholder="4자리 비밀번호 입력"
+                placeholder="4자리 비밀번호"
                 value={form.password}
                 onChange={onChangeForm}
                 maxLength={4}
@@ -134,7 +143,9 @@ const Login = () => {
                 <ErrorMessage>비밀번호가 일치하지 않아요</ErrorMessage>
               )}
             </InputWrapper>
-            <LoginButton type="submit">비회원 로그인</LoginButton>
+            <LoginButton type="submit">
+              {logoClickCount >= 7 ? '비회원 로그인' : '로그인'}
+            </LoginButton>
           </FormWrapper>
         </FormContainer>
       </MainContainer>

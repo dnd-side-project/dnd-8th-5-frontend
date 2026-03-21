@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { wrap } from '@suspensive/react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getUserMe, getRoomParticipantMe } from '@/api/auth';
-import { AxiosError } from 'axios';
 import { useTokenStore, useUserStore } from '@/stores';
 import { ROUTES } from '@/constants/routes';
 
