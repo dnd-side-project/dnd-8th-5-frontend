@@ -1,13 +1,10 @@
-'use client';
-
 import { useEffect } from 'react';
-import { wrap } from '@suspensive/react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getUserMe, getRoomParticipantMe } from '@/api/auth';
 import { useTokenStore, useUserStore } from '@/stores';
 import { ROUTES } from '@/constants/routes';
 
-const KakaoAuth = wrap.Suspense({ fallback: null }).on(() => {
+export default function KakaoAuth() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -57,6 +54,4 @@ const KakaoAuth = wrap.Suspense({ fallback: null }).on(() => {
   }, [searchParams, setAccessToken, setUser]);
 
   return null;
-});
-
-export default KakaoAuth;
+}
