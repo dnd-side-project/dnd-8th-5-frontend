@@ -109,16 +109,16 @@ const Current = () => {
   const handleEditButtonClick = () => {
     if (isLoadingParticipantData) return;
 
-    if (participantData?.name) {
-      setSelectedMethod('possible');
-      navigate(ROUTES.ADD_TIME(roomId));
-      return;
-    }
-
     const error = participantError as AxiosError;
 
     if (error?.response?.status === 403) {
       navigate(ROUTES.LOGIN_NICKNAME(roomId));
+      return;
+    }
+
+    if (participantData?.name) {
+      setSelectedMethod('possible');
+      navigate(ROUTES.ADD_TIME(roomId));
       return;
     }
 
@@ -174,6 +174,7 @@ const Current = () => {
           queryClient.invalidateQueries({
             queryKey: queryKeys.room.all(roomId),
           });
+          queryClient.resetQueries({ queryKey: queryKeys.auth.me() });
 
           const savedUser = localStorage.getItem('userName');
           const isSavedUserDeleted =
