@@ -26,6 +26,7 @@ import { Layout } from '@/components/commons/layout';
 import loginBg from '@/assets/images/login_bg.webp';
 import kakao from '@/assets/icons/kakao.svg';
 import { useTokenStore } from '@/stores';
+import { AxiosError } from 'axios';
 
 const Login = () => {
   const { roomId } = useParams() as { roomId: string };
@@ -55,6 +56,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const { mutate: postLogin, error } = usePostUserInfo();
+  const err = error as AxiosError<{ message?: string }>;
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -137,10 +139,9 @@ const Login = () => {
                 isError={isPasswordError}
               />
               {!!error && (
-                <ErrorMessage>이름을 4자리 이내로 입력해 주세요</ErrorMessage>
-              )}
-              {isPasswordError && (
-                <ErrorMessage>비밀번호가 일치하지 않아요</ErrorMessage>
+                <ErrorMessage>
+                  {err.response?.data?.message || '입력값을 확인해 주세요.'}
+                </ErrorMessage>
               )}
             </InputWrapper>
             <LoginButton type="submit">
