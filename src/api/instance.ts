@@ -48,9 +48,9 @@ instance.interceptors.response.use(
 
 export const authInstance = axios.create({
   baseURL: import.meta.env.VITE_API_PATH,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
-    withCredentials: true,
   },
 });
 
@@ -70,8 +70,7 @@ authInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    const errorData = error.response.data;
-    if (errorData.status === 401) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
