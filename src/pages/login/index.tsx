@@ -32,6 +32,11 @@ const Login = () => {
   const { roomId } = useParams() as { roomId: string };
 
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
+  const [logoClickCount, setLogoClickCount] = useState<number>(0);
+
+  const handleLogoClick = () => {
+    setLogoClickCount((prev) => prev + 1);
+  };
 
   const inputNameRef = useRef<HTMLInputElement>(null);
   const inputPasswordRef = useRef<HTMLInputElement>(null);
@@ -83,25 +88,29 @@ const Login = () => {
   return (
     <Layout>
       <MainContainer>
-        <Logo src={loginBg} />
+        <Logo src={loginBg} onClick={handleLogoClick} />
         <FormContainer>
-          <KakaoLoginButton
-            onClick={() =>
-              (window.location.href = `${
-                import.meta.env.VITE_OAUTH_BASE_URL ||
-                import.meta.env.VITE_API_PATH
-              }/oauth2/authorization/kakao?roomUuid=${roomId}`)
-            }
-          >
-            <img src={kakao} alt="카카오 로고" />
-            카카오 로그인
-          </KakaoLoginButton>
+          {logoClickCount >= 7 && (
+            <KakaoLoginButton
+              onClick={() =>
+                (window.location.href = `${
+                  import.meta.env.VITE_OAUTH_BASE_URL ||
+                  import.meta.env.VITE_API_PATH
+                }/oauth2/authorization/kakao?roomUuid=${roomId}`)
+              }
+            >
+              <img src={kakao} alt="카카오 로고" />
+              카카오 로그인
+            </KakaoLoginButton>
+          )}
 
-          <BorderWrapper>
-            <Border />
-            <span>또는</span>
-            <Border />
-          </BorderWrapper>
+          {logoClickCount >= 7 && (
+            <BorderWrapper>
+              <Border />
+              <span>또는</span>
+              <Border />
+            </BorderWrapper>
+          )}
 
           <FormWrapper onSubmit={handleFormSubmit}>
             <Input
