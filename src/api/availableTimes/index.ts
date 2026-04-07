@@ -1,38 +1,37 @@
 import qs from 'qs';
-import { instance } from './instance';
+import { authInstance, instance } from '../instance';
 import { PutAvailableTimesParamsType } from '@/types/addTime';
 import {
   GetAvailableTimesByOneResponse,
   GetAvailableTimeOverviewResponse,
 } from '@/models/availableTimes';
 
-export const putAvailableTimes = async ({
+export const putAvailableTimes = ({
   roomId,
   payload,
 }: PutAvailableTimesParamsType) => {
-  return await instance.put(
-    `/api/room/${roomId}/available-time`,
-    JSON.stringify(payload)
+  return authInstance.put(
+    `/api/v1/rooms/${roomId}/time-blocks/available-time`,
+    payload
   );
 };
 
-export const getAvailableTimesByOne = async (
-  roomId: string,
-  userName: string
-) => {
-  return await instance.get<GetAvailableTimesByOneResponse>(
-    `/guest/api/room/${roomId}/available-time?name=${userName}`
-  );
+export const getAvailableTimesByOne = (roomId: string) => {
+  return authInstance
+    .get<GetAvailableTimesByOneResponse>(
+      `/api/v1/rooms/${roomId}/available-time`
+    )
+    .then((response) => response.data);
 };
 
-export const getAvailableTimeOverview = async ({
+export const getAvailableTimeOverview = ({
   roomId,
   participants,
 }: {
   roomId: string;
   participants: string[];
 }) => {
-  return await instance.get<GetAvailableTimeOverviewResponse>(
+  return instance.get<GetAvailableTimeOverviewResponse>(
     `/guest/api/room/${roomId}/available-time/overview`,
     {
       params: { participantNames: participants },
