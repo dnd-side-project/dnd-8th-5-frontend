@@ -1,18 +1,18 @@
-import { useState, useRef, FormEvent } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import {
-  FormContainer,
-  MainContainer,
-  Input,
-  Logo,
-  FormWrapper,
-  LoginButton,
-  BorderWrapper,
   Border,
-  KakaoLoginButton,
+  BorderWrapper,
   ErrorMessage,
+  FormContainer,
+  FormWrapper,
+  Input,
   InputWrapper,
+  KakaoLoginButton,
+  LoginButton,
+  Logo,
+  MainContainer,
 } from './index.styles';
 
 import useInputs from '@/hooks/useFormInput';
@@ -20,11 +20,11 @@ import useInputScroll from '@/hooks/useInputScroll';
 
 import { ROUTES } from '@/constants/routes';
 
-import { usePostUserInfo } from '@/queries/auth';
 import { Layout } from '@/components/commons/layout';
+import { usePostUserInfo } from '@/queries/auth';
 
-import loginBg from '@/assets/images/login_bg.webp';
 import kakao from '@/assets/icons/kakao.svg';
+import loginBg from '@/assets/images/login_bg.webp';
 import { useTokenStore } from '@/stores';
 import { AxiosError } from 'axios';
 
@@ -32,11 +32,6 @@ const Login = () => {
   const { roomId } = useParams() as { roomId: string };
 
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
-  const [logoClickCount, setLogoClickCount] = useState<number>(0);
-
-  const handleLogoClick = () => {
-    setLogoClickCount((prev) => prev + 1);
-  };
 
   const inputNameRef = useRef<HTMLInputElement>(null);
   const inputPasswordRef = useRef<HTMLInputElement>(null);
@@ -88,29 +83,25 @@ const Login = () => {
   return (
     <Layout>
       <MainContainer>
-        <Logo src={loginBg} onClick={handleLogoClick} />
+        <Logo src={loginBg} />
         <FormContainer>
-          {logoClickCount >= 7 && (
-            <KakaoLoginButton
-              onClick={() =>
-                (window.location.href = `${
-                  import.meta.env.VITE_OAUTH_BASE_URL ||
-                  import.meta.env.VITE_API_PATH
-                }/oauth2/authorization/kakao?roomUuid=${roomId}`)
-              }
-            >
-              <img src={kakao} alt="카카오 로고" />
-              카카오 로그인
-            </KakaoLoginButton>
-          )}
+          <KakaoLoginButton
+            onClick={() =>
+              (window.location.href = `${
+                import.meta.env.VITE_OAUTH_BASE_URL ||
+                import.meta.env.VITE_API_PATH
+              }/oauth2/authorization/kakao?roomUuid=${roomId}`)
+            }
+          >
+            <img src={kakao} alt="카카오 로고" />
+            카카오 로그인
+          </KakaoLoginButton>
 
-          {logoClickCount >= 7 && (
-            <BorderWrapper>
-              <Border />
-              <span>또는</span>
-              <Border />
-            </BorderWrapper>
-          )}
+          <BorderWrapper>
+            <Border />
+            <span>또는</span>
+            <Border />
+          </BorderWrapper>
 
           <FormWrapper onSubmit={handleFormSubmit}>
             <Input
@@ -144,9 +135,7 @@ const Login = () => {
                 </ErrorMessage>
               )}
             </InputWrapper>
-            <LoginButton type="submit">
-              {logoClickCount >= 7 ? '비회원 로그인' : '로그인'}
-            </LoginButton>
+            <LoginButton type="submit">비회원 로그인</LoginButton>
           </FormWrapper>
         </FormContainer>
       </MainContainer>
