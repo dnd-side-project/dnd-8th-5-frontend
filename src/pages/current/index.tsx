@@ -176,16 +176,6 @@ const Current = () => {
           });
           queryClient.resetQueries({ queryKey: queryKeys.auth.me() });
 
-          const savedUser = localStorage.getItem('userName');
-          const isSavedUserDeleted =
-            savedUser &&
-            selectedDeleteParticipants.filter((p) => p.name === savedUser)
-              .length > 0;
-
-          if (isSavedUserDeleted) {
-            localStorage.clear();
-          }
-
           setIsDeleteModalOpened(false);
           setIsDeleteMode(false);
           setSelectedDeleteParticipants([]);

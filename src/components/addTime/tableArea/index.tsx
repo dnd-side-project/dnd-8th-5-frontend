@@ -31,7 +31,6 @@ const TableArea = ({
 }: AddTimeTableTypes) => {
   const navigate = useNavigate();
   const { roomId } = useParams() as { roomId: string };
-  const userName = localStorage.getItem('userName') || '';
 
   const [tablePage, setTablePage] = useState(0);
   const [selectedMethod, setSelectedMethod] =
@@ -89,7 +88,6 @@ const TableArea = ({
   const handleApplyClick = () => {
     if (selectedMethod === 'possible') {
       const payload = {
-        name: userName,
         hasTime: true,
         availableDateTimes: Object.values(selected).flat(),
       };
@@ -104,7 +102,6 @@ const TableArea = ({
       );
 
       const payload = {
-        name: userName,
         hasTime: true,
         availableDateTimes: filteredTime,
       };
@@ -121,7 +118,6 @@ const TableArea = ({
 
     if (isError) {
       Sentry.captureException({
-        name: userName,
         hasTime: true,
         availableDateTimes: _.difference(
           allTimeRange,
