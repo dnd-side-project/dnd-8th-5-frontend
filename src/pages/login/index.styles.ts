@@ -33,9 +33,6 @@ export const FormWrapper = styled.form`
   width: 100%;
   gap: 8px;
   ${theme.typography.medium02}
-  &::placeholder {
-    color: ${theme.colors.gray04};
-  }
 `;
 
 export const InputWrapper = styled.div`

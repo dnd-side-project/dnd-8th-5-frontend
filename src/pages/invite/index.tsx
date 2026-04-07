@@ -81,7 +81,7 @@ export default function Invite() {
 
           <BoxWrapper>
             <UpperBoxWrapper>
-              <RoomTitle>{roomData?.title}</RoomTitle>
+              <RoomTitle>{roomData?.title || ''}</RoomTitle>
             </UpperBoxWrapper>
             <LowerBoxWrapper>
               <ParticipantsTitle>참여자</ParticipantsTitle>
