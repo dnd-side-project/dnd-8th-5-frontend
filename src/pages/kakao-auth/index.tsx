@@ -8,8 +8,8 @@ export default function KakaoAuth() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const { setUser } = useUserStore();
-  const { setAccessToken } = useTokenStore();
+  const { setUser, clearUser } = useUserStore();
+  const { setAccessToken, clearAccessToken } = useTokenStore();
 
   useEffect(() => {
     async function login() {
@@ -45,6 +45,8 @@ export default function KakaoAuth() {
           { replace: true }
         );
       } catch {
+        clearAccessToken();
+        clearUser();
         alert('로그인 중 오류가 발생했어요. 다시 시도해 주세요.');
         navigate(ROUTES.LOGIN(roomId), { replace: true });
       }

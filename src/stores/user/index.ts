@@ -10,11 +10,13 @@ interface User {
 interface UserInfo {
   user: User | null;
   setUser: (user: User) => void;
+  clearUser: () => void;
 }
 
 export const useUserStore = create<UserInfo>((set) => {
   return {
     user: null,
     setUser: (user) => set({ user }),
+    clearUser: () => set({ user: null }),
   };
 });
