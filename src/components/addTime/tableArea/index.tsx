@@ -11,10 +11,10 @@ import { AddTimeTableTypes, TableSelectedTypes } from './index.types';
 import { getTimeRange } from '@/utils/getTimeRange';
 import { getAllTimeRange } from '@/utils/getAllTimeRange';
 import { getAddTimeTableInfo } from '@/utils/getAddTimeTableInfo';
-import { usePutAvailableTimes } from '@/queries/availableTimes/usePutAvailableTimes';
-import { useGetAvailableTimesByOne } from '@/queries/availableTimes/useGetAvailableTimesByOne';
+import { usePutAvailableTimes } from '@/queries/availableTimes';
+import { useGetAvailableTimesByOne } from '@/queries/availableTimes';
 
-import { ROUTES } from '@/constants/ROUTES';
+import { ROUTES } from '@/constants/routes';
 import { selectedMethodState } from '@/atoms/selectedMethodAtom';
 import * as Sentry from '@sentry/react';
 
@@ -31,7 +31,6 @@ const TableArea = ({
 }: AddTimeTableTypes) => {
   const navigate = useNavigate();
   const { roomId } = useParams() as { roomId: string };
-  const userName = localStorage.getItem('userName') || '';
 
   const [tablePage, setTablePage] = useState(0);
   const [selectedMethod, setSelectedMethod] =
@@ -40,7 +39,7 @@ const TableArea = ({
   const validDateChunks = getAddTimeTableInfo(dates);
   const timeRange = getTimeRange(startTime, endTime);
 
-  const { data } = useGetAvailableTimesByOne(roomId, userName);
+  const { data } = useGetAvailableTimesByOne(roomId);
   const { mutate, isSuccess, isError, error, isLoading } =
     usePutAvailableTimes();
 
@@ -81,7 +80,7 @@ const TableArea = ({
   };
 
   const goToCurrent = () => {
-    navigate(`${ROUTES.CURRENT}/${roomId}`);
+    navigate(ROUTES.CURRENT(roomId));
   };
 
   const allTimeRange = getAllTimeRange(dates, timeRange);
@@ -89,7 +88,6 @@ const TableArea = ({
   const handleApplyClick = () => {
     if (selectedMethod === 'possible') {
       const payload = {
-        name: userName,
         hasTime: true,
         availableDateTimes: Object.values(selected).flat(),
       };
@@ -104,7 +102,6 @@ const TableArea = ({
       );
 
       const payload = {
-        name: userName,
         hasTime: true,
         availableDateTimes: filteredTime,
       };
@@ -121,7 +118,6 @@ const TableArea = ({
 
     if (isError) {
       Sentry.captureException({
-        name: userName,
         hasTime: true,
         availableDateTimes: _.difference(
           allTimeRange,

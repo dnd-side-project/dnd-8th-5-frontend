@@ -20,8 +20,8 @@ import Timer from '@/components/createRoom/timer';
 import Checkbox from '@/components/createRoom/checkbox';
 import BottomButton from '@/components/commons/bottomButton';
 
-import { ROUTES } from '@/constants/ROUTES';
-import { useCreateRoom } from '@/queries/room/useCreateRoom';
+import { ROUTES } from '@/constants/routes';
+import { useCreateRoom } from '@/queries/room';
 import { RoomLayout } from '@/components/commons/layout/RoomLayout';
 
 type TimerType = { day: number; hour: number; minute: number };
@@ -128,7 +128,7 @@ const RoomTimer = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate(`${ROUTES.CURRENT}/${data.roomUuid}`);
+      navigate(ROUTES.CURRENT(data.roomUuid));
       setIsLinkShareBottomSheetOpened(true);
       return;
     }

@@ -24,6 +24,26 @@ export default defineConfig(({ mode }) => {
     server: {
       open: true,
       port: 3000,
+      proxy: {
+        '/guest': {
+          target: env.API_TARGET,
+          changeOrigin: true,
+          secure: false,
+          headers: { Origin: env.API_ORIGIN },
+        },
+        '/api': {
+          target: env.API_TARGET,
+          changeOrigin: true,
+          secure: false,
+          headers: { Origin: env.API_ORIGIN },
+        },
+        '/oauth2': {
+          target: env.API_TARGET,
+          changeOrigin: true,
+          secure: false,
+          headers: { Origin: env.API_ORIGIN },
+        },
+      },
     },
 
     resolve: {
