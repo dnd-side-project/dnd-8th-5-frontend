@@ -5092,6 +5092,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@suspensive/react@npm:^2.18.12":
+  version: 2.18.14
+  resolution: "@suspensive/react@npm:2.18.14"
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 10c0/824f20cf7e4ee484b9a332356c055e6ddc0663c8c7a9d3ec2267d2c625ab53e4fc08c659789154ffe7815c5b713d580fbe7c258999bd3cf3bfe918211f6f4d72
+  languageName: node
+  linkType: hard
+
 "@svgr/babel-plugin-add-jsx-attribute@npm:^5.4.0":
   version: 5.4.0
   resolution: "@svgr/babel-plugin-add-jsx-attribute@npm:5.4.0"
@@ -9958,6 +9967,7 @@ __metadata:
     "@storybook/preset-create-react-app": "npm:^4.1.2"
     "@storybook/react": "npm:^6.5.16"
     "@storybook/storybook-deployer": "npm:^2.8.16"
+    "@suspensive/react": "npm:^2.18.12"
     "@tanstack/react-query": "npm:^4.24.4"
     "@tanstack/react-query-devtools": "npm:^4.24.4"
     "@testing-library/jest-dom": "npm:^5.16.5"
@@ -10006,6 +10016,7 @@ __metadata:
     vite: "npm:^4.4.9"
     vite-tsconfig-paths: "npm:^4.2.0"
     web-vitals: "npm:^2.1.4"
+    zustand: "npm:^5.0.3"
   languageName: unknown
   linkType: soft
 
@@ -23660,6 +23671,27 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: 10c0/dceb44c28578b31641e13695d200d34ec4ab3966a5729814d5445b194933c096b7ced71494ce53a0e8820685d1d010df8b2422e5bf2cdea7e469d97ffbea306f
+  languageName: node
+  linkType: hard
+
+"zustand@npm:^5.0.3":
+  version: 5.0.11
+  resolution: "zustand@npm:5.0.11"
+  peerDependencies:
+    "@types/react": ">=18.0.0"
+    immer: ">=9.0.6"
+    react: ">=18.0.0"
+    use-sync-external-store: ">=1.2.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    immer:
+      optional: true
+    react:
+      optional: true
+    use-sync-external-store:
+      optional: true
+  checksum: 10c0/61836b48dac5978c9d1b8289d5162a151bee77828371b9aba6431a079b77faca0635ba53da3f7b331295fbc4e78318a109a4527f7a051cb63abfe79b69ccbecf
   languageName: node
   linkType: hard
 
