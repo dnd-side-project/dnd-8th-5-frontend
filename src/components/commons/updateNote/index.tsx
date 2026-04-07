@@ -4,9 +4,8 @@ import theme from '@/styles/theme';
 import RocketIcon from './Rocket';
 import ChevronRightIcon from './ChevronRight';
 
-// const SHOW_UNTIL = 1755615599;
 const UPDATE_NOTE_URL =
-  'https://corinthionia.notion.site/25-10-19-5-2917f0f8f02480f28224fedc3b77f748';
+  'https://corinthionia.notion.site/26-04-08-33b7f0f8f02480108b2dd6c2f80d5cc0';
 
 export function UpdateNote({
   isRoomStart = false,
@@ -15,9 +14,6 @@ export function UpdateNote({
   isRoomStart?: boolean;
   style?: CSSProperties;
 }) {
-  // const now = Math.floor(Date.now() / 1000);
-  // if (now > SHOW_UNTIL) return null;
-
   return (
     <Wrapper
       id="update-note"
@@ -31,7 +27,7 @@ export function UpdateNote({
       <strong>업데이트 소식</strong>
       <span>|</span>
       <Content isRoomStart={isRoomStart}>
-        <span>5개 이상의 조율 결과를 확인할 수 있어요.</span>
+        <span>카카오 계정으로 로그인할 수 있어요.</span>
         <ChevronRightIcon size={16} />
       </Content>
     </Wrapper>
