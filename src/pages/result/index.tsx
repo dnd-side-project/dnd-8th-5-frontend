@@ -3,8 +3,8 @@ import theme from '@/styles/theme';
 import { Helmet } from 'react-helmet-async';
 import { Layout } from '@/components/commons/layout';
 import Header from '@/components/commons/header';
-import { ROUTES } from '@/constants/routes';
-import { useGetRoomInfo } from '@/queries/room';
+import { ROUTES } from '@/constants/ROUTES';
+import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
 import { useNavigate, useParams } from 'react-router-dom';
 import SelectBox from '@/components/result/selectBox';
 import ResultButton from '@/components/result/button';
@@ -16,7 +16,7 @@ import { Candidate } from '@/components/result/candidate';
 import { ParticipantOption } from '@/components/result/option/participantsOption';
 import { Loading } from '@/components/commons/loading';
 import { LoadMoreButton } from '@/components/result/loadMoreButton';
-import { useGetCandidateTimesInfiniteQuery } from '@/queries/result';
+import { useGetCandidateTimesInfiniteQuery } from '@/queries/result/useGetCandidateTimes';
 import { useLoadMore } from '@/hooks/useLoadMore';
 
 export interface FilterTypes {
@@ -129,7 +129,11 @@ export default function Result() {
       </Helmet>
       <Layout>
         <Wrapper>
-          <Header pageName="/result" roomId={roomId} title={roomInfo.title} />
+          <Header
+            pageName={ROUTES.RESULT}
+            roomId={roomId}
+            title={roomInfo.title}
+          />
           <Main>
             <Title>
               <h1>

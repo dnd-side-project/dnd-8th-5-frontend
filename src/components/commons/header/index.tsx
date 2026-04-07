@@ -1,13 +1,14 @@
-import { tooltipState } from '@/atoms/tooltipAtom';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
+import { tooltipState } from '@/atoms/tooltipAtom';
 
-import headerInfo from '@/assets/icons/headerInfo.svg';
-import headerMenu from '@/assets/icons/headerMenu.svg';
-import share from '@/assets/icons/share.svg';
 import Menu from '../menu';
+import share from '@/assets/icons/share.svg';
+import headerMenu from '@/assets/icons/headerMenu.svg';
+import headerInfo from '@/assets/icons/headerInfo.svg';
 import { Icon, IconWrapper, Title, Wrapper } from './index.styles';
 
+import { ROUTES } from '@/constants/ROUTES';
 import useShareLink from '@/hooks/useShareLink';
 
 const Header = ({
@@ -33,7 +34,7 @@ const Header = ({
       <Title>{title.slice(0, 16)}</Title>
 
       <IconWrapper pageName={pageName}>
-        {pageName === '/addTime' ? (
+        {pageName === ROUTES.ADD_TIME ? (
           <>
             <div />
             <Icon

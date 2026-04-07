@@ -7,7 +7,7 @@ import BottomButton from '@/components/commons/bottomButton';
 
 import plus from '@/assets/icons/plus.png';
 import minus from '@/assets/icons/minus.png';
-import roomStart from '@/assets/images/room_info_bg.png';
+import roomStart from '@/assets/images/roomStart.webp';
 import { createRoomTagsData } from '@/assets/data/createRoomTagsData';
 
 import {
@@ -29,7 +29,7 @@ import {
 
 import { createRoomAtom } from '@/atoms/createRoomAtom';
 import useInputScroll from '@/hooks/useInputScroll';
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/constants/ROUTES';
 import { Layout } from '@/components/commons/layout';
 import { UpdateNote } from '@/components/commons/updateNote';
 
@@ -94,7 +94,7 @@ const RoomStart = () => {
       };
     });
 
-    navigate(ROUTES.ROOM_CALENDAR);
+    navigate(`${ROUTES.ROOM_CALENDAR}`);
   };
 
   useInputScroll(inputRef);

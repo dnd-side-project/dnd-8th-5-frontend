@@ -1,24 +1,22 @@
-import dayjs from 'dayjs';
-import _ from 'lodash';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import _ from 'lodash';
+import dayjs from 'dayjs';
 
 import calendarNextMonth from '@/assets/icons/calendarNextMonth.svg';
 import calendarPrevMonth from '@/assets/icons/calendarPrevMonth.svg';
 
-import { ROUTES } from '@/constants/routes';
-import {
-  useGetAvailableTimesByOne,
-  usePutAvailableTimes,
-} from '@/queries/availableTimes';
+import { useGetAvailableTimesByOne } from '@/queries/availableTimes/useGetAvailableTimesByOne';
+import { usePutAvailableTimes } from '@/queries/availableTimes/usePutAvailableTimes';
+import { ROUTES } from '@/constants/ROUTES';
 
-import BottomButton from '@/components/commons/bottomButton';
 import {
+  Wrapper,
   NextMonthIcon,
   PrevMonthIcon,
   StyledCalendar,
-  Wrapper,
 } from './index.styles';
+import BottomButton from '@/components/commons/bottomButton';
 
 import { AddCalendarType } from './index.types';
 
@@ -31,6 +29,7 @@ const Calendar = ({
 }: AddCalendarType) => {
   const { roomId } = useParams() as { roomId: string };
   const navigate = useNavigate();
+  const userName = localStorage.getItem('userName') || '';
 
   const [date, setDate] = useState<Date>(new Date());
 
@@ -73,7 +72,7 @@ const Calendar = ({
     }
   }, [date]);
 
-  const { data } = useGetAvailableTimesByOne(roomId);
+  const { data } = useGetAvailableTimesByOne(roomId, userName);
   const { mutate, isSuccess } = usePutAvailableTimes();
 
   useEffect(() => {
@@ -87,12 +86,13 @@ const Calendar = ({
   }, [selectedMethod]);
 
   const goToCurrent = () => {
-    navigate(ROUTES.CURRENT(roomId));
+    navigate(`${ROUTES.CURRENT}/${roomId}`);
   };
 
   const handleApplyClick = () => {
     if (selectedMethod === 'possible') {
       const payload = {
+        name: userName,
         hasTime: false,
         availableDateTimes: [...selected],
       };
@@ -105,6 +105,7 @@ const Calendar = ({
       const filteredTime = selected && _.difference(newDates, selected);
 
       const payload = {
+        name: userName,
         hasTime: false,
         availableDateTimes: filteredTime,
       };

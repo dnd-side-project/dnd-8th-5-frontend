@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getCandidateTimesInfo } from '@/api/result';
-import { queryKeys } from '@/queries/queryKey';
+import { QUERY_KEYS } from '@/constants/QUERY_KEYS';
 
 const PAGE_SIZE = 5;
 
@@ -14,7 +14,7 @@ export const useGetCandidateTimesInfiniteQuery = ({
   names?: string[];
 }) => {
   return useInfiniteQuery({
-    queryKey: queryKeys.room.result.candidateTimes(roomId, sort, names),
+    queryKey: [QUERY_KEYS.RESULT.GET_CANDIDATE_TIMES, roomId, sort, names],
     queryFn: async ({ pageParam = 1 }) => {
       return await getCandidateTimesInfo({
         roomId,

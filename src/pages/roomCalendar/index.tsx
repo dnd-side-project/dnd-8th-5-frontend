@@ -17,7 +17,7 @@ import Checkbox from '@/components/createRoom/checkbox';
 import Calendar from '@/components/createRoom/calendar';
 import TimePicker from '@/components/createRoom/timePicker';
 import BottomButton from '@/components/commons/bottomButton';
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/constants/ROUTES';
 import { RoomLayout } from '@/components/commons/layout/RoomLayout';
 
 const RoomCalendar = () => {
@@ -45,7 +45,7 @@ const RoomCalendar = () => {
       endTime: isCheckedBox ? null : endTime,
     }));
 
-    navigate(ROUTES.ROOM_TIMER);
+    navigate(`${ROUTES.ROOM_TIMER}`);
   };
 
   useEffect(() => {

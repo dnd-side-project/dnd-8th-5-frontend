@@ -1,36 +1,39 @@
-import { FormEvent, useRef, useState } from 'react';
+import { useCallback, useEffect, useState, useRef, FormEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import loginBg from '@/assets/images/loginBack.webp';
 
 import {
-  Border,
-  BorderWrapper,
-  ErrorMessage,
   FormContainer,
-  FormWrapper,
-  Input,
-  InputWrapper,
-  KakaoLoginButton,
-  LoginButton,
-  Logo,
+  HeaderText,
+  LoginComponent,
   MainContainer,
+  NameInput,
+  PasswordInput,
+  CheckBoxContainer,
+  PasswordError,
+  RightWrapper,
+  ImgWrapper,
+  TextWrapper,
+  Logo,
 } from './index.styles';
+import BottomButton from '@/components/commons/bottomButton';
 
 import useInputs from '@/hooks/useFormInput';
 import useInputScroll from '@/hooks/useInputScroll';
 
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/constants/ROUTES';
+import checkedBox from '@/assets/icons/checkedBox.png';
+import uncheckedbox from '@/assets/icons/uncheckdBox.png';
 
+import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
+import { usePostUserInfo } from '@/queries/auth/usePostUserInfo';
 import { Layout } from '@/components/commons/layout';
-import { usePostUserInfo } from '@/queries/auth';
-
-import kakao from '@/assets/icons/kakao.svg';
-import loginBg from '@/assets/images/login_bg.webp';
-import { useTokenStore } from '@/stores';
-import { AxiosError } from 'axios';
 
 const Login = () => {
-  const { roomId } = useParams() as { roomId: string };
+  const { roomUUID } = useParams() as { roomUUID: string };
+  const { data: room } = useGetRoomInfo(roomUUID);
 
+  const [saveUserInfo, setSaveUserInfo] = useState<boolean>(false);
   const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
 
   const inputNameRef = useRef<HTMLInputElement>(null);
@@ -39,19 +42,20 @@ const Login = () => {
   useInputScroll(inputNameRef);
   useInputScroll(inputPasswordRef);
 
-  const { setAccessToken } = useTokenStore();
-
   const { form, onChangeForm } = useInputs({
     name: '',
     password: '',
   });
 
+  const onClickSaveUserInfo = useCallback(() => {
+    setSaveUserInfo((prev) => !prev);
+  }, [saveUserInfo]);
+
   const canGoNext = form.name && form.password.length === 4 ? true : false;
 
   const navigate = useNavigate();
 
-  const { mutate: postLogin, error } = usePostUserInfo();
-  const err = error as AxiosError<{ message?: string }>;
+  const { mutate, isSuccess, isError } = usePostUserInfo();
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,81 +66,80 @@ const Login = () => {
     }
 
     if (canGoNext) {
-      postLogin(
-        {
-          roomId,
-          body: { ...form, name: form.name.trim() },
-        },
-        {
-          onSuccess: (response) => {
-            setAccessToken(response.accessToken);
-            navigate(ROUTES.ADD_TIME(roomId), { replace: true });
-          },
-          onError: () => {
-            setIsPasswordError(true);
-          },
-        }
-      );
+      mutate({ roomUUID, form: { ...form, name: form.name.trim() } });
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      if (saveUserInfo) {
+        localStorage.setItem('name', form.name);
+        localStorage.setItem('uuid', String(roomUUID));
+      }
+
+      localStorage.setItem('userName', form.name);
+      navigate(`${ROUTES.ADD_TIME}/${roomUUID}`, { replace: true });
+    }
+
+    if (isError) {
+      setIsPasswordError(true);
+    }
+  }, [isSuccess, isError]);
 
   return (
     <Layout>
       <MainContainer>
         <Logo src={loginBg} />
-        <FormContainer>
-          <KakaoLoginButton
-            onClick={() =>
-              (window.location.href = `${
-                import.meta.env.VITE_OAUTH_BASE_URL ||
-                import.meta.env.VITE_API_PATH
-              }/oauth2/authorization/kakao?roomUuid=${roomId}`)
-            }
-          >
-            <img src={kakao} alt="카카오 로고" />
-            카카오 로그인
-          </KakaoLoginButton>
-
-          <BorderWrapper>
-            <Border />
-            <span>또는</span>
-            <Border />
-          </BorderWrapper>
-
-          <FormWrapper onSubmit={handleFormSubmit}>
-            <Input
+        <FormContainer onSubmit={handleFormSubmit}>
+          <HeaderText>{room?.title}</HeaderText>
+          <LoginComponent>
+            <NameInput
               autoComplete="off"
               ref={inputNameRef}
               type="text"
               name="name"
-              placeholder="이름"
+              placeholder="이름을 입력하세요"
               maxLength={4}
               value={form.name}
               onChange={onChangeForm}
-              isError={!!error}
+              isPasswordError={isPasswordError}
             />
-            <InputWrapper>
-              <Input
-                autoComplete="off"
-                ref={inputPasswordRef}
-                type="password"
-                pattern="[0-9]*"
-                inputMode="numeric"
-                name="password"
-                placeholder="4자리 비밀번호"
-                value={form.password}
-                onChange={onChangeForm}
-                maxLength={4}
-                isError={isPasswordError}
-              />
-              {!!error && (
-                <ErrorMessage>
-                  {err.response?.data?.message || '입력값을 확인해 주세요.'}
-                </ErrorMessage>
-              )}
-            </InputWrapper>
-            <LoginButton type="submit">비회원 로그인</LoginButton>
-          </FormWrapper>
+            <PasswordInput
+              autoComplete="off"
+              ref={inputPasswordRef}
+              type="password"
+              pattern="[0-9]*"
+              inputMode="numeric"
+              name="password"
+              placeholder="비밀번호 4자리를 설정하세요"
+              value={form.password}
+              onChange={onChangeForm}
+              maxLength={4}
+              isPasswordError={isPasswordError}
+            />
+          </LoginComponent>
+          <CheckBoxContainer>
+            {isPasswordError ? (
+              <PasswordError>비밀번호가 일치하지 않아요</PasswordError>
+            ) : (
+              <div />
+            )}
+            <RightWrapper
+              id="save-user-info-button"
+              onClick={onClickSaveUserInfo}
+            >
+              <ImgWrapper>
+                <img src={saveUserInfo ? checkedBox : uncheckedbox} />
+              </ImgWrapper>
+              <TextWrapper>정보 저장</TextWrapper>
+            </RightWrapper>
+          </CheckBoxContainer>
+          <BottomButton
+            id="login-button"
+            type="submit"
+            text={'로그인'}
+            isActivated={canGoNext}
+          />
         </FormContainer>
       </MainContainer>
     </Layout>

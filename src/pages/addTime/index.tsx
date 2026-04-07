@@ -14,14 +14,14 @@ import { Body, Main, Title, TitleWrapper, Wrapper } from './index.styles';
 
 import { TableSelectedTypes } from './index.types';
 
-import { useGetRoomInfo } from '@/queries/room';
+import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
+import { ROUTES } from '@/constants/ROUTES';
 import { Layout } from '@/components/commons/layout';
-import { useGetRoomParticipantMe } from '@/queries/auth';
 
 const AddTime = () => {
   const { roomId } = useParams() as { roomId: string };
+  const userName = localStorage.getItem('userName') || '';
   const { data: room } = useGetRoomInfo(roomId);
-  const { data: participantData } = useGetRoomParticipantMe(roomId);
 
   const [selectedMethod] = useRecoilState(selectedMethodState);
   const [isResetButtonClick, setIsResetButtonClick] = useState<boolean>(false);
@@ -47,10 +47,14 @@ const AddTime = () => {
   return (
     <Layout>
       <Wrapper ref={scrollRef}>
-        <Header pageName="/addTime" roomId={roomId} title={room?.title ?? ''} />
+        <Header
+          pageName={ROUTES.ADD_TIME}
+          roomId={roomId}
+          title={room?.title ?? ''}
+        />
         <Body>
           <TitleWrapper>
-            <Title>{`${participantData?.name ?? ''} 님의 일정을`}</Title>
+            <Title>{`${userName ?? ''} 님의 일정을`}</Title>
           </TitleWrapper>
 
           <TitleWrapper>

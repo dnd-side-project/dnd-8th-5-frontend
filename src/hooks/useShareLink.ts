@@ -1,9 +1,7 @@
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/constants/ROUTES';
 
 const useShareLink = (roomId: string, roomTitle: string) => {
-  const inviteURL = `${window.location.origin}${ROUTES.INVITE(
-    roomId
-  )}?utm_source=user`;
+  const inviteURL = `${window.location.origin}${ROUTES.INVITE}/${roomId}?utm_source=user`;
 
   const shareText = `💌 [${roomTitle}]
   약속 조율을 시작했어요!

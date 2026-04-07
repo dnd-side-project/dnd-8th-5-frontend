@@ -16,7 +16,7 @@ import {
   Top,
   Wrapper,
 } from './index.styles';
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/constants/ROUTES';
 
 interface MenuTypes {
   setIsMenuOpened: React.Dispatch<React.SetStateAction<boolean>>;
@@ -30,7 +30,7 @@ const Menu = ({ setIsMenuOpened }: MenuTypes) => {
   };
 
   const goToRoom = () => {
-    navigate(ROUTES.LANDING);
+    navigate(`${ROUTES.LANDING}`);
   };
 
   return (

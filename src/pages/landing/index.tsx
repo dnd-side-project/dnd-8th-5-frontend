@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import theme from '@/styles/theme';
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/constants/ROUTES';
 import { Layout } from '@/components/commons/layout';
 import { flotingAnimation } from '@/utils/flotingAnimation';
 

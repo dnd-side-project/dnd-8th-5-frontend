@@ -13,7 +13,7 @@ import home from '@/assets/icons/home.svg';
 import shareResult from '@/assets/icons/shareResult.svg';
 import resultBubble from '@/assets/images/resultBubble.png';
 
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/constants/ROUTES';
 import useShareLink from '@/hooks/useShareLink';
 
 const Button = ({
@@ -28,7 +28,7 @@ const Button = ({
   const { handleUseShareAPI } = useShareLink(roomId, roomTitle);
 
   const goToCurrent = () => {
-    navigate(ROUTES.CURRENT(roomId));
+    navigate(`${ROUTES.CURRENT}/${roomId}`);
   };
 
   return (

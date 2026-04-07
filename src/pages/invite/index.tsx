@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import {
   BottomButton,
   MainContainer,
@@ -16,53 +17,72 @@ import {
   Participant,
   BottomSubButton,
 } from './index.styles';
-import { useGetRoomInfo } from '@/queries/room';
-import { ROUTES } from '@/constants/routes';
+import { useEffect } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import { roomState } from '@/atoms/roomAtom';
+import { useGetRoomInfo } from '@/queries/room/useGetRoomInfo';
+import { ROUTES } from '@/constants/ROUTES';
 import { Helmet } from 'react-helmet-async';
 
 import calendar from '@/assets/images/invite_calendar.webp';
 import { Layout } from '@/components/commons/layout';
-import { useGetRoomParticipantMe } from '@/queries/auth';
-import { AxiosError } from 'axios';
 
-export default function Invite() {
+const Invite = () => {
+  const { roomUUID } = useParams() as { roomUUID: string };
+  const [room, setRoom] = useRecoilState(roomState);
+
   const navigate = useNavigate();
-  const { roomId } = useParams() as { roomId: string };
-  const {
-    data: participantData,
-    isLoading: isLoadingParticipantData,
-    error: participantError,
-  } = useGetRoomParticipantMe(roomId);
 
-  const { data: roomData } = useGetRoomInfo(roomId);
+  const { data } = useGetRoomInfo(roomUUID);
 
-  const participants = roomData?.participants ?? [];
-  const visibleParticipants = participants.slice(0, 7);
-  const overCount = participants.length - 7;
+  useEffect(() => {
+    if (data) {
+      setRoom(data);
+    }
+  }, [data]);
+
+  const getParticipant = () => {
+    const result: JSX.Element[] = [];
+    const overCount = Number(room.participants.length) - 7;
+
+    for (let i = 0; i < room.participants.length; i++) {
+      if (i > 6) {
+        result.push(
+          <Participant key={room.participants[i].id}>+{overCount}</Participant>
+        );
+        break;
+      } else {
+        result.push(
+          <Participant key={room.participants[i].id}>
+            {room.participants[i].name}
+          </Participant>
+        );
+      }
+    }
+
+    return result;
+  };
 
   const handleStartButtonClick = () => {
-    if (isLoadingParticipantData) return;
+    const isValidUser = useAuth(roomUUID as string);
 
-    if (participantData?.name) {
-      navigate(ROUTES.ADD_TIME(roomId));
-      return;
+    if (isValidUser) {
+      navigate(`${ROUTES.ADD_TIME}/${roomUUID}`);
+    } else {
+      localStorage.clear();
+      navigate(`${ROUTES.LOGIN}/${roomUUID}`);
     }
+  };
 
-    const error = participantError as AxiosError;
-
-    if (error?.response?.status === 403) {
-      navigate(ROUTES.LOGIN_NICKNAME(roomId));
-      return;
-    }
-
-    navigate(ROUTES.LOGIN(roomId));
+  const handleSubButtonClick = () => {
+    navigate(`${ROUTES.CURRENT}/${roomUUID}`);
   };
 
   return (
     <>
       <Helmet>
-        <title>{`${roomData?.title} | 모두의 시간`}</title>
-        <meta name="title" content={`${roomData?.title} | 모두의 시간`} />
+        <title>{`${room.title} | 모두의 시간`}</title>
+        <meta name="title" content={`${room.title} | 모두의 시간`} />
         <meta
           name="description"
           content="쉽고 빠른 약속시간 정하기, 모두의 시간"
@@ -81,29 +101,24 @@ export default function Invite() {
 
           <BoxWrapper>
             <UpperBoxWrapper>
-              <RoomTitle>{roomData?.title || ''}</RoomTitle>
+              <RoomTitle>{room.title}</RoomTitle>
             </UpperBoxWrapper>
             <LowerBoxWrapper>
               <ParticipantsTitle>참여자</ParticipantsTitle>
-              <ParticipantsWrapper>
-                {visibleParticipants.map((p) => (
-                  <Participant key={p.id}>{p.name}</Participant>
-                ))}
-                {overCount > 0 && (
-                  <Participant key="overflow">+{overCount}</Participant>
-                )}
-              </ParticipantsWrapper>
+              <ParticipantsWrapper>{getParticipant()}</ParticipantsWrapper>
             </LowerBoxWrapper>
           </BoxWrapper>
 
           <BottomButton onClick={handleStartButtonClick}>
             일정 등록하기
           </BottomButton>
-          <BottomSubButton onClick={() => navigate(ROUTES.CURRENT(roomId))}>
+          <BottomSubButton onClick={handleSubButtonClick}>
             등록 현황 보러 가기
           </BottomSubButton>
         </MainContainer>
       </Layout>
     </>
   );
-}
+};
+
+export default Invite;
