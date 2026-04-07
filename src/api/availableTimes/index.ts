@@ -12,7 +12,7 @@ export const putAvailableTimes = ({
 }: PutAvailableTimesParamsType) => {
   return authInstance.put(
     `/api/v1/rooms/${roomId}/time-blocks/available-time`,
-    JSON.stringify(payload)
+    payload
   );
 };
 

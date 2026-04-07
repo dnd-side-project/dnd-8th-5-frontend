@@ -7,10 +7,7 @@ export const getRoomInfoV2 = (roomId: string) => {
 };
 
 export const createRoom = (payload: PostRoomTypes) => {
-  return instance.post<CreateRoomResponse>(
-    `/guest/api/room`,
-    JSON.stringify(payload)
-  );
+  return instance.post<CreateRoomResponse>(`/guest/api/room`, payload);
 };
 
 export const deleteParticipants = (
