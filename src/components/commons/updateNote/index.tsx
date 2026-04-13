@@ -5,7 +5,7 @@ import RocketIcon from './Rocket';
 import ChevronRightIcon from './ChevronRight';
 
 const UPDATE_NOTE_URL =
-  'https://corinthionia.notion.site/26-04-08-33b7f0f8f02480108b2dd6c2f80d5cc0';
+  'https://corinthionia.notion.site/26-04-13-33b7f0f8f02480108b2dd6c2f80d5cc0';
 
 export function UpdateNote({
   isRoomStart = false,
