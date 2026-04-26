@@ -1,7 +1,14 @@
 # ⏰ 쉽고 빠른 약속 정하기, 모두의 시간
 
-> 🛠️ 모두의 시간은 [새로운 저장소](https://github.com/modutime)에서 리뉴얼 중입니다  
-> ⚠️ 리뉴얼 이후 본 저장소는 아카이브 될 예정입니다
+<br/>
+
+⚠️ 레거시 프로젝트 저장소입니다.  
+- [Modutime](https://github.com/modutime)에서 새롭게 개발하고 있어요.  
+- 개발자 문의 corinthionia@gmail.com 
+
+<br/>
+
+---
 
 <br/>
 <br/>
@@ -66,6 +73,6 @@
 | ------ | ------------------------------- | -------------- | ---------------------- |
 | 김주현 | https://github.com/corinthionia | 기획 / FE 개발 | corinthionia@gmail.com |
 
-- 모두의 시간은 [새로운 저장소](https://github.com/modutime)에서 마이그레이션 진행 중입니다.
-- 리뉴얼 이후 본 저장소는 아카이브 될 예정입니다.
+- 모두의 시간은 [새로운 저장소](https://github.com/modutime)에서 개발 중이에요.
+- 리뉴얼 이후 본 저장소는 아카이브 되었어요.
 - 사용 중 불편 사항이나 버그 제보는 [피드백 폼](https://tally.so/r/3EgaGr)을 이용해 주세요.
